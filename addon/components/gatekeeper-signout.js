@@ -9,10 +9,10 @@ export default Ember.Component.extend({
   label: 'Logout',
 
   click () {
-    let owner = Ember.getOwner (this);
-    let baseURL = owner.application.gatekeeper.baseURL || '';
-    let url = baseURL + '/v1/oauth2/logout';
-    let accessToken = this.get ('storage.accessToken');
+    const config = Ember.getOwner (this).resolveRegistration ('config:environment');
+    const baseURL = config.gatekeeper.baseURL || '';
+    const url = baseURL + '/v' + config.version + '/oauth2/logout';
+    const accessToken = this.get ('storage.accessToken');
     let self = this;
 
     return Ember.$.ajax ({
