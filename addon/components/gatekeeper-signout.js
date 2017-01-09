@@ -11,7 +11,7 @@ export default Ember.Component.extend({
   click () {
     const config = Ember.getOwner (this).resolveRegistration ('config:environment');
     const baseURL = config.gatekeeper.baseURL || '';
-    const url = baseURL + '/v' + config.version + '/oauth2/logout';
+    const url = baseURL + '/v' + config.gatekeeper.version + '/oauth2/logout';
     const accessToken = this.get ('storage.accessToken');
     let self = this;
 
