@@ -28,7 +28,7 @@ export default Ember.Component.extend({
           self.set ('storage.accessToken');
           self.set ('storage.refreshToken');
 
-          self.get ('onLogout') ();
+          self.get ('onSignOut') ();
         }
       },
       error (jqXHR, textStatus) {
