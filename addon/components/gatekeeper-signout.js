@@ -10,8 +10,8 @@ export default Ember.Component.extend({
 
   click () {
     let owner = Ember.getOwner (this);
-    let baseURL = owner.application.gatekeeper.baseURL || '/';
-    let url = baseURL + '/oauth2/logout';
+    let baseURL = owner.application.gatekeeper.baseURL || '';
+    let url = baseURL + '/v1/oauth2/logout';
     let accessToken = this.get ('storage.accessToken');
     let self = this;
 
@@ -24,8 +24,10 @@ export default Ember.Component.extend({
       },
       success (data) {
         if (data === true) {
-          // Delete the access token from local storage, and notifiy the parent.
+          // Delete the access and refresh token from local storage.
           self.set ('storage.accessToken');
+          self.set ('storage.refreshToken');
+
           self.get ('onLogout') ();
         }
       },
