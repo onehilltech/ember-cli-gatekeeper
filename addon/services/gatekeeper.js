@@ -1,12 +1,12 @@
 import Ember from 'ember';
 
-const STORAGE_USER_TOKEN = 'localStorage.user_token';
-const STORAGE_CURRENT_USER = 'localStorage.current_user';
-const STORAGE_CLIENT_TOKEN = 'localStorage.client_token';
+const STORAGE_USER_TOKEN = 'storage.user_token';
+const STORAGE_CURRENT_USER = 'storage.current_user';
+const STORAGE_CLIENT_TOKEN = 'storage.client_token';
 
 export default Ember.Service.extend({
   /// Reference to local storage.
-  localStorage: Ember.inject.service (),
+  storage: Ember.inject.service (),
 
   /// Reference ot the Ember Data store.
   store: Ember.inject.service (),
