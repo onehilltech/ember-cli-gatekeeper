@@ -11,6 +11,10 @@ export default Ember.Service.extend({
   /// Reference ot the Ember Data store.
   store: Ember.inject.service (),
 
+  clientToken: Ember.computed.alias (STORAGE_CLIENT_TOKEN),
+  userToken: Ember.computed.alias (STORAGE_USER_TOKEN),
+  currentUser: Ember.computed.alias (STORAGE_CURRENT_USER),
+
   init () {
     this._super (...arguments);
     this._initFromLocalStorage ();
@@ -376,32 +380,26 @@ export default Ember.Service.extend({
   },
 
   _setUserToken (token) {
-    this.set ('userToken', token);
     this.set (STORAGE_USER_TOKEN, token);
   },
 
   _clearUserToken () {
     this.set (STORAGE_USER_TOKEN);
-    this.set ('userToken')
   },
 
   _setClientToken (token) {
-    this.set ('clientToken', token);
     this.set (STORAGE_CLIENT_TOKEN, token);
   },
 
   _clearClientToken () {
     this.set (STORAGE_CLIENT_TOKEN);
-    this.set ('clientToken');
   },
 
   _setCurrentUser (userId) {
-    this.set ('currentUser', userId);
     this.set (STORAGE_CURRENT_USER, userId);
   },
 
   _clearCurrentUser () {
-    this.set ('currentUser');
     this.set (STORAGE_CURRENT_USER);
   },
 
