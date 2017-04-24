@@ -14,15 +14,28 @@ export default Ember.Service.extend({
   init () {
     this._super (...arguments);
 
-    // Load the settings from local storage.
-    this.set ('userToken', JSON.parse (this.get (STORAGE_USER_TOKEN)));
-    this.set ('clientToken', JSON.parse (this.get (STORAGE_CLIENT_TOKEN)));
-    this.set ('currentUser', this.get (STORAGE_CURRENT_USER));
+    this._initFromLocalStorage ();
 
     // Initialize the service from the APP configuration.
     const ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
     this.set ('clientId', ENV.APP.gatekeeper.clientId);
     this.set ('baseUrl', ENV.APP.gatekeeper.baseURL + '/v' + ENV.APP.gatekeeper.version);
+  },
+
+  _initFromLocalStorage () {
+    const userToken = this.get (STORAGE_USER_TOKEN);
+
+    if (!Ember.isNone (userToken)) {
+      this.set ('userToken', JSON.parse (userToken));
+    }
+
+    const clientToken = this.get (STORAGE_CLIENT_TOKEN);
+
+    if (!Ember.isNone (clientToken)) {
+      this.set ('clientToken', JSON.parse (clientToken));
+    }
+
+    this.set ('currentUser', this.get (STORAGE_CURRENT_USER));
   },
 
   /**
