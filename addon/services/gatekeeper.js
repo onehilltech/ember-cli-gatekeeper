@@ -387,7 +387,7 @@ export default Ember.Service.extend({
 
   _setClientToken (token) {
     this.set ('clientToken', token);
-    this.set (STORAGE_CLIENT_TOKEN, token);
+    this.set (STORAGE_CLIENT_TOKEN, token.access_token);
   },
 
   _clearClientToken () {
