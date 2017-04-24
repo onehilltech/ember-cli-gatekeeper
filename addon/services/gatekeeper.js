@@ -6,16 +6,13 @@ const STORAGE_CLIENT_TOKEN = 'storage.client_token';
 
 export default Ember.Service.extend({
   /// Reference to local storage.
-  storage: Ember.inject.service ('storage'),
+  storage: Ember.inject.service (),
 
   /// Reference ot the Ember Data store.
-  store: Ember.inject.service ('store'),
+  store: Ember.inject.service (),
 
   init () {
     this._super (...arguments);
-
-    this.set ('storage.prefix', 'gatekeeper');
-
     this._initFromLocalStorage ();
 
     // Initialize the service from the APP configuration.
