@@ -26,13 +26,13 @@ export default Ember.Service.extend({
     const userToken = this.get (STORAGE_USER_TOKEN);
 
     if (!Ember.isNone (userToken)) {
-      this.set ('userToken', JSON.parse (userToken));
+      this.set ('userToken', userToken);
     }
 
     const clientToken = this.get (STORAGE_CLIENT_TOKEN);
 
     if (!Ember.isNone (clientToken)) {
-      this.set ('clientToken', JSON.parse (clientToken));
+      this.set ('clientToken', clientToken);
     }
 
     this.set ('currentUser', this.get (STORAGE_CURRENT_USER));
@@ -378,7 +378,7 @@ export default Ember.Service.extend({
 
   _setUserToken (token) {
     this.set ('userToken', token);
-    this.set (STORAGE_USER_TOKEN, JSON.stringify (token));
+    this.set (STORAGE_USER_TOKEN, token);
   },
 
   _clearUserToken () {
@@ -388,7 +388,7 @@ export default Ember.Service.extend({
 
   _setClientToken (token) {
     this.set ('clientToken', token);
-    this.set (STORAGE_CLIENT_TOKEN, JSON.stringify (token));
+    this.set (STORAGE_CLIENT_TOKEN, token);
   },
 
   _clearClientToken () {
