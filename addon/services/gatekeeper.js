@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const STORAGE_USER_TOKEN = 'storage.gatekeeper_user_token';
-const STORAGE_CURRENT_USER = 'storage.gatekeeper_current_user';
-const STORAGE_CLIENT_TOKEN = 'storage.gatekeeper_client_token';
+const STORAGE_USER_TOKEN = 'storage.gatekeeper::userToken';
+const STORAGE_CURRENT_USER = 'storage.gatekeeper::currentUser';
+const STORAGE_CLIENT_TOKEN = 'storage.gatekeeper::clientToken';
 
 export default Ember.Service.extend({
   /// Reference to local storage.
@@ -11,17 +11,13 @@ export default Ember.Service.extend({
   /// Reference ot the Ember Data store.
   store: Ember.inject.service ('store'),
 
-  /// Id of the current user.
-  currentUser: Ember.computed.alias (STORAGE_CURRENT_USER),
-
-  /// Alias to the access token for the current user in local storage.
-  userToken: Ember.computed.alias (STORAGE_USER_TOKEN),
-
-  /// Alias for accessing the client token from local storage.
-  clientToken: Ember.computed.alias (STORAGE_CLIENT_TOKEN),
-
   init () {
     this._super (...arguments);
+
+    // Load the settings from local storage.
+    this.set ('userToken', JSON.parse (this.get (STORAGE_USER_TOKEN)));
+    this.set ('clientToken', JSON.parse (this.get (STORAGE_CLIENT_TOKEN)));
+    this.set ('currentUser', this.get (STORAGE_CURRENT_USER));
 
     // Initialize the service from the APP configuration.
     const ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
@@ -34,8 +30,8 @@ export default Ember.Service.extend({
    * request to the server.
    */
   forceSignOut () {
-    this.set (STORAGE_USER_TOKEN);
-    this.set (STORAGE_CURRENT_USER);
+    this._clearUserToken ();
+    this._clearCurrentUser ();
   },
 
   /**
@@ -62,14 +58,14 @@ export default Ember.Service.extend({
       this._getToken (tokenOptions)
         .then (function (token) {
           // Store the access token in local storage.
-          this.set (STORAGE_USER_TOKEN, token);
+          this._setUserToken (token);
 
           // Query the service for the current user. We are going to cache their id
           // just in case the application needs to use it.
           this.get ('store')
             .queryRecord ('account', {})
             .then (function (account) {
-              this.set (STORAGE_CURRENT_USER, account.id);
+              this._setCurrentUser (account._id);
               this._completeSignIn (resolve);
             }.bind (this))
             .catch (function () {
@@ -143,10 +139,8 @@ export default Ember.Service.extend({
 
       this._getToken (tokenOptions)
         .then (function (token) {
-          // Replace the current user token with this new token.
-          this.set (STORAGE_USER_TOKEN, token);
-
-          // Run the resolve method.
+          // Replace the current user token with this new token, and resolve.
+          this._setUserToken (token);
           Ember.run (null, resolve);
         }.bind (this))
         .catch (function (xhr) {
@@ -173,7 +167,7 @@ export default Ember.Service.extend({
 
       this._getToken (tokenOptions)
         .then (function (token) {
-          this.set (STORAGE_CLIENT_TOKEN, token);
+          this._setClientToken (token);
           Ember.run (null, resolve);
         })
         .catch (reject);
@@ -216,8 +210,8 @@ export default Ember.Service.extend({
                 // The client requested that we login the user for the account that
                 // we just created. The payload should have both the account and the
                 // user access token. Let's cache both.
-                this.set (STORAGE_USER_TOKEN, payload.token);
-                this.set (STORAGE_CURRENT_USER, payload.account._id);
+                this._setUserToken (payload.token);
+                this._setCurrentUser (payload.account._id);
 
                 Ember.sendEvent (this, 'signedIn');
               }
@@ -304,15 +298,18 @@ export default Ember.Service.extend({
    * @param newPassword
    */
   changePassword (currentPassword, newPassword) {
+    const url =  this.computeUrl ('/accounts/me/password');
+    const data = {
+      'change-password': {
+        current: currentPassword,
+        new: newPassword
+      }
+    };
+
     const ajaxOptions = {
       method: 'POST',
-      url: this.computeVersionUrl ('/accounts/me/password'),
-      data: JSON.stringify ({
-        'change-password': {
-          current: currentPassword,
-          new: newPassword
-        }
-      }),
+      url: url,
+      data: JSON.stringify (data),
       dataType: 'json',
       contentType: 'application/json',
     };
@@ -365,8 +362,34 @@ export default Ember.Service.extend({
     Ember.run (null, resolve);
   },
 
+  _setUserToken (token) {
+    this.set ('userToken', token);
+    this.set (STORAGE_USER_TOKEN, JSON.stringify (token));
+  },
+
+  _clearUserToken () {
+    this.set (STORAGE_USER_TOKEN);
+    this.set ('userToken')
+  },
+
+  _setClientToken (token) {
+    this.set ('clientToken', token);
+    this.set (STORAGE_CLIENT_TOKEN, JSON.stringify (token));
+  },
+
   _clearClientToken () {
     this.set (STORAGE_CLIENT_TOKEN);
+    this.set ('clientToken');
+  },
+
+  _setCurrentUser (userId) {
+    this.set ('currentUser', userId);
+    this.set (STORAGE_CURRENT_USER, userId);
+  },
+
+  _clearCurrentUser () {
+    this.set ('currentUser');
+    this.set (STORAGE_CURRENT_USER);
   },
 
   /**
