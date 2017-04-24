@@ -180,9 +180,10 @@ export default Ember.Service.extend({
 
       this._getToken (tokenOptions)
         .then (function (token) {
+          // Replace the current client token, and resolve.
           this._setClientToken (token);
           Ember.run (null, resolve);
-        })
+        }.bind (this))
         .catch (reject);
     }.bind (this));
   },
