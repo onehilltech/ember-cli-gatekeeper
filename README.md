@@ -1,4 +1,4 @@
-# Ember-cli-gatekeeper
+# ember-cli-gatekeeper
 
 This README outlines the details of collaborating on this Ember addon.
 
