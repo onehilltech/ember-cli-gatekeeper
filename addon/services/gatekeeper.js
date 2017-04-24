@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const STORAGE_USER_TOKEN = 'storage.gatekeeper_userToken';
-const STORAGE_CURRENT_USER = 'storage.gatekeeper_currentUser';
-const STORAGE_CLIENT_TOKEN = 'storage.gatekeeper_clientToken';
+const STORAGE_USER_TOKEN = 'storage.user_token';
+const STORAGE_CURRENT_USER = 'storage.current_user';
+const STORAGE_CLIENT_TOKEN = 'storage.client_token';
 
 export default Ember.Service.extend({
   /// Reference to local storage.
@@ -13,6 +13,8 @@ export default Ember.Service.extend({
 
   init () {
     this._super (...arguments);
+
+    this.set ('storage.prefix', 'gatekeeper');
 
     this._initFromLocalStorage ();
 
