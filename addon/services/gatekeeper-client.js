@@ -68,19 +68,6 @@ export default Ember.Service.extend({
       dupOptions.error = (xhr, textStatus, errorThrown) => {
         switch (xhr.status) {
           case 401:
-            // Use the Gatekeeper service to refresh the token. If the token is refreshed,
-            // then retry the original request. Otherwise, pass the original error to the
-            // back to the client.
-            this.refreshToken ()
-              .then (() => {
-                this._ajax (dupOptions);
-              })
-              .catch ((xhr, textStatus, error) => {
-                this.reset ();
-                Ember.run (null, reject, {xhr: xhr, status: textStatus, error: error});
-              });
-            break;
-
           case 403:
             this.reset ();
             Ember.run (null, reject, {xhr: xhr, status: textStatus, error: errorThrown});
