@@ -31,6 +31,7 @@ export default Ember.Service.extend({
         .then ((token) => {
           // Store the client token internally, and in local storage.
           this.set (STORAGE_CLIENT_TOKEN, token);
+          this.set ('_clientToken', token);
 
           // Run the resolve method.
           Ember.run (null, resolve);
