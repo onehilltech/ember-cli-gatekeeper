@@ -3,6 +3,9 @@ import Ember from 'ember';
 const STORAGE_CLIENT_TOKEN = 'storage.gatekeeper::clientToken';
 
 export default Ember.Service.extend({
+  /// Reference to local storage.
+  storage: Ember.inject.service (),
+
   init () {
     this._super (...arguments);
     this.set ('_clientToken', this.get (STORAGE_CLIENT_TOKEN));
