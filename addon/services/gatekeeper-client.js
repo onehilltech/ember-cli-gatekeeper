@@ -26,7 +26,7 @@ export default Ember.Service.extend({
    * @param opts
    */
   authenticate (opts) {
-    return Ember.RSVP.Promise ((resolve, reject) => {
+    return new Ember.RSVP.Promise ((resolve, reject) => {
       this._getToken (opts)
         .then ((token) => {
           // Store the client token internally, and in local storage.
