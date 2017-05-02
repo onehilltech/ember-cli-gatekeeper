@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const STORAGE_USER_TOKEN = 'storage.gatekeeper::userToken';
+const STORAGE_USER_TOKEN = 'storage.gatekeeper::_userToken';
 const STORAGE_CURRENT_USER = 'storage.gatekeeper::currentUser';
 
 export default Ember.Service.extend({
@@ -14,7 +14,7 @@ export default Ember.Service.extend({
     this._super (...arguments);
 
     // Load the user token and the current user from local storage.
-    this.set ('userToken', this.get (STORAGE_USER_TOKEN));
+    this.set ('_userToken', this.get (STORAGE_USER_TOKEN));
     this.set ('currentUser', this.get (STORAGE_CURRENT_USER));
 
     // Initialize the service from the APP configuration.
@@ -40,16 +40,16 @@ export default Ember.Service.extend({
   /**
    * Sign in state for the current user.
    */
-  isSignedIn: Ember.computed ('userToken', function () {
-    const accessToken = this.get ('userToken');
+  isSignedIn: Ember.computed ('_userToken', function () {
+    const accessToken = this.get ('_userToken');
     return !Ember.isNone (accessToken);
   }),
 
   /**
    * Sign out state for the current user.
    */
-  isSignedOut: Ember.computed ('userToken', function () {
-    const accessToken = this.get ('userToken');
+  isSignedOut: Ember.computed ('_userToken', function () {
+    const accessToken = this.get ('_userToken');
     return Ember.isNone (accessToken);
   }),
 
@@ -75,12 +75,15 @@ export default Ember.Service.extend({
             .queryRecord ('account', {})
             .then ((account) => {
               this._setCurrentUser (account._id);
-              this._completeSignIn (resolve);
+              this._completeSignIn ();
+
+              Ember.run (null, resolve);
             })
             .catch (() => {
               // Even if we fail to get the current user, we still consider the login
               // to be a success.
-              this._completeSignIn (resolve);
+              this._completeSignIn ();
+              Ember.run (null, resolve);
             });
         })
         .catch (reject);
@@ -95,7 +98,7 @@ export default Ember.Service.extend({
   signOut () {
     return new Ember.RSVP.Promise ((resolve, reject) => {
       const url = this.computeUrl ('/oauth2/logout');
-      const accessToken = this.get ('userToken.access_token');
+      const accessToken = this.get ('_userToken.access_token');
 
       const ajaxOptions = {
         type: 'POST',
@@ -142,7 +145,7 @@ export default Ember.Service.extend({
     return new Ember.RSVP.Promise ((resolve, reject) => {
       const tokenOptions = {
         grant_type: 'refresh_token',
-        refresh_token: this.get ('userToken.refresh_token')
+        refresh_token: this.get ('_userToken.refresh_token')
       };
 
       this._getToken (tokenOptions)
@@ -277,7 +280,7 @@ export default Ember.Service.extend({
   },
 
   _ajax (ajaxOptions) {
-    const accessToken = this.get ('userToken.access_token');
+    const accessToken = this.get ('_userToken.access_token');
 
     ajaxOptions.headers = ajaxOptions.headers || {};
     ajaxOptions.headers.Authorization = 'Bearer ' + accessToken;
@@ -351,9 +354,8 @@ export default Ember.Service.extend({
    * @param resolve
    * @private
    */
-  _completeSignIn (resolve) {
+  _completeSignIn () {
     Ember.sendEvent (this, 'signedIn');
-    Ember.run (null, resolve);
   },
 
   /**
@@ -367,18 +369,22 @@ export default Ember.Service.extend({
   },
 
   _setUserToken (token) {
+    this.set ('_userToken', token);
     this.set (STORAGE_USER_TOKEN, token);
   },
 
   _clearUserToken () {
+    this.set ('_userToken');
     this.set (STORAGE_USER_TOKEN);
   },
 
   _setCurrentUser (userId) {
+    this.set ('currentUser', userId);
     this.set (STORAGE_CURRENT_USER, userId);
   },
 
   _clearCurrentUser () {
+    this.set ('currentUser');
     this.set (STORAGE_CURRENT_USER);
   }
 });
