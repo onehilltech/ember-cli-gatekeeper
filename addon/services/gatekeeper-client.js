@@ -79,7 +79,7 @@ export default Ember.Service.extend({
       };
 
       // Do the ajax operation.
-      this._ajax (ajaxOptions);
+      this._ajax (dupOptions);
     });
   },
 
