@@ -92,6 +92,11 @@ export default Ember.Service.extend({
     });
   },
 
+  computeUrl (relativeUrl) {
+    return this.get ('baseUrl') + relativeUrl;
+  },
+
+
   /**
    * Private method for requesting an access token from the server.
    *
