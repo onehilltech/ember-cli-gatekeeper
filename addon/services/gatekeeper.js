@@ -96,6 +96,8 @@ export default Ember.Service.extend({
    * @returns {RSVP.Promise|*}
    */
   signOut () {
+    let self = this;
+
     return new Ember.RSVP.Promise ((resolve, reject) => {
       const url = this.computeUrl ('/oauth2/logout');
       const accessToken = this.get ('_userToken.access_token');
@@ -110,7 +112,7 @@ export default Ember.Service.extend({
 
         success () {
           // Reset the state of the service, and send an event.
-          this._completeSignOut ();
+          self._completeSignOut ();
           Ember.run (null, resolve);
         },
 
@@ -118,14 +120,14 @@ export default Ember.Service.extend({
           if (xhr.status === 401) {
             // The token is bad. Try to refresh the token, then attempt to sign out the
             // user again in a graceful manner.
-            this.refreshToken ()
-              .then (() => { return this.signOut (); })
+            self.refreshToken ()
+              .then (() => { return self.signOut (); })
               .then (resolve)
               .catch (reject);
           }
           else {
             // Force a reset, then mark the promise as resolved.
-            this._completeSignOut ();
+            self._completeSignOut ();
 
             Ember.run (null, resolve);
           }
