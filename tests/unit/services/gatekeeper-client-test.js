@@ -1,8 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('service:gatekeeper-client', 'Unit | Service | gatekeeper client', {
-  // Specify the other units that are required for this test.
-  // needs: ['service:foo']
+  needs: ['service:local-storage', 'config:environment']
 });
 
 // Replace this with your real tests.

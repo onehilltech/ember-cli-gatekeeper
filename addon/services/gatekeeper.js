@@ -1,57 +1,32 @@
 import Ember from 'ember';
-
-const STORAGE_USER_TOKEN = 'storage.gatekeeper::_userToken';
-const STORAGE_CURRENT_USER = 'storage.gatekeeper::currentUser';
+import RSVP from 'rsvp';
 
 export default Ember.Service.extend({
-  /// Reference to local storage.
-  storage: Ember.inject.service (),
+  client : Ember.inject.service ('gatekeeper-client'),
+  storage: Ember.inject.service ('local-storage'),
+  store  : Ember.inject.service (),
 
-  /// Reference ot the Ember Data store.
-  store: Ember.inject.service (),
+  /// [private] The current authenticated user.
+  _currentUser: Ember.computed.alias ('storage.gatekeeper_user'),
 
-  init () {
-    this._super (...arguments);
+  /// [private] Token for the current user.
+  _userToken  : Ember.computed.alias ('storage.gatekeeper_user_token'),
 
-    // Load the user token and the current user from local storage.
-    this.set ('_userToken', this.get (STORAGE_USER_TOKEN));
-    this.set ('currentUser', this.get (STORAGE_CURRENT_USER));
+  /// The current authenticated user.
+  currentUser: Ember.computed.readOnly ('storage.gatekeeper_user'),
+  accessToken: Ember.computed.readOnly ('_userToken.access_token'),
 
-    // Initialize the service from the APP configuration.
-    const ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-    this.set ('clientId', ENV.APP.gatekeeper.clientId);
-    this.set ('baseUrl', ENV.APP.gatekeeper.baseURL + '/v' + ENV.APP.gatekeeper.version);
-  },
+  isSignedOut: Ember.computed.none ('_userToken'),
 
-  /**
-   * Get the id of the current user.
-   */
-  currentUser: Ember.computed.alias (STORAGE_CURRENT_USER),
+  isSignedIn: Ember.computed.not ('isSignedOut'),
 
   /**
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
    */
   forceSignOut () {
-    this._clearUserToken ();
-    this._clearCurrentUser ();
+    this.setProperties ({_userToken: null, _currentUser: null});
   },
-
-  /**
-   * Sign in state for the current user.
-   */
-  isSignedIn: Ember.computed ('_userToken', function () {
-    const accessToken = this.get ('_userToken');
-    return !Ember.isNone (accessToken);
-  }),
-
-  /**
-   * Sign out state for the current user.
-   */
-  isSignedOut: Ember.computed ('_userToken', function () {
-    const accessToken = this.get ('_userToken');
-    return Ember.isNone (accessToken);
-  }),
 
   /**
    * Sign in the user.
@@ -59,34 +34,24 @@ export default Ember.Service.extend({
    * @returns {*}
    */
   signIn (opts) {
-    return new Ember.RSVP.Promise ((resolve, reject) => {
-      const tokenOptions = Ember.merge ({
-        grant_type: 'password',
-      }, opts);
+    return new RSVP.Promise ((resolve, reject) => {
+      const tokenOptions = Ember.merge ({grant_type: 'password'}, opts);
 
-      this._getToken (tokenOptions)
-        .then ((token) => {
-          // Store the access token in local storage.
-          this._setUserToken (token);
+      this._getToken (tokenOptions).then ((token) => {
+        this.set ('_userToken', token);
 
-          // Query the service for the current user. We are going to cache their id
-          // just in case the application needs to use it.
-          this.get ('store')
-            .queryRecord ('account', {})
-            .then ((account) => {
-              this._setCurrentUser (account._id);
-              this._completeSignIn ();
+        // Query the service for the current user. We are going to cache their id
+        // just in case the application needs to use it.
+        this.get ('store').queryRecord ('account', {}).then ((account) => {
+          this.set ('_currentUser', account.toJSON ({includeId: true}));
+          this._completeSignIn ();
 
-              Ember.run (null, resolve);
-            })
-            .catch (() => {
-              // Even if we fail to get the current user, we still consider the login
-              // to be a success.
-              this._completeSignIn ();
-              Ember.run (null, resolve);
-            });
-        })
-        .catch (reject);
+          Ember.run (null, resolve);
+        }).catch ((reason) => {
+          this.set ('_userToken');
+          Ember.run (null, reject, reason);
+        });
+      }).catch (reject);
     });
   },
 
@@ -98,22 +63,23 @@ export default Ember.Service.extend({
   signOut () {
     let self = this;
 
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+    return new RSVP.Promise ((resolve, reject) => {
       const url = this.computeUrl ('/oauth2/logout');
-      const accessToken = this.get ('_userToken.access_token');
 
       const ajaxOptions = {
         type: 'POST',
         url: url,
         cache: false,
-        headers: {
-          'Authorization': 'Bearer ' + accessToken,
-        },
+        headers: this.get ('_httpHeaders'),
 
-        success () {
-          // Reset the state of the service, and send an event.
-          self._completeSignOut ();
-          Ember.run (null, resolve);
+        success (result) {
+          if (result) {
+            self._completeSignOut ();
+            Ember.run (null, resolve);
+          }
+          else {
+            Ember.run (null, reject);
+          }
         },
 
         error (xhr) {
@@ -126,10 +92,7 @@ export default Ember.Service.extend({
               .catch (reject);
           }
           else {
-            // Force a reset, then mark the promise as resolved.
-            self._completeSignOut ();
-
-            Ember.run (null, resolve);
+            Ember.run (null, reject);
           }
         }
       };
@@ -144,84 +107,33 @@ export default Ember.Service.extend({
    * @returns {*|RSVP.Promise}
    */
   refreshToken () {
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+    return new RSVP.Promise ((resolve, reject) => {
       const tokenOptions = {
         grant_type: 'refresh_token',
         refresh_token: this.get ('_userToken.refresh_token')
       };
 
-      this._getToken (tokenOptions)
-        .then ((token) => {
-          // Replace the current user token with this new token, and resolve.
-          this._setUserToken (token);
-          Ember.run (null, resolve);
-        })
-        .catch ((xhr) => {
-          // Reset the state of the service. The client, if observing the sign in
-          // state of the user, should show the authentication form.
-          this.forceSignOut ();
+      this._getToken (tokenOptions).then ((token) => {
+        // Replace the current user token with this new token, and resolve.
+        this.set ('_userToken', token);
 
-          // Run the reject method.
-          Ember.run (null, reject, xhr);
-        });
+        Ember.run (null, resolve);
+      }).catch ((xhr) => {
+        // Reset the state of the service. The client, if observing the sign in
+        // state of the user, should show the authentication form.
+        this.forceSignOut ();
+
+        // Run the reject method.
+        Ember.run (null, reject, xhr);
+      });
     });
   },
 
-  /**
-   * Create a new account.
-   *
-   * @param account             Account details
-   * @param opts                Creation options
-   * @returns {*|RSVP.Promise}
-   */
-  createAccount (account, opts) {
-    opts = opts || {};
-
-    return new Ember.RSVP.Promise ((resolve, reject) => {
-      const tokenOptions = {recaptcha: opts.recaptcha};
-
-      this._getClientToken (tokenOptions)
-        .then ((token) => {
-          let url = this.computeUrl ('/accounts');
-
-          if (opts.login) {
-            url += '?login=true';
-          }
-
-          const ajaxOptions = {
-            method: 'POST',
-            url: url,
-            cache: false,
-            dataType: 'json',
-            contentType: 'application/json',
-            data: JSON.stringify ({account: account}),
-            headers: {
-              'Authorization': 'Bearer ' + token.access_token
-            },
-
-            success (payload) {
-              if (opts.login) {
-                // The client requested that we login the user for the account that
-                // we just created. The payload should have both the account and the
-                // user access token. Let's cache both.
-                this._setUserToken (payload.token);
-                this._setCurrentUser (payload.account._id);
-
-                Ember.sendEvent (this, 'signedIn');
-              }
-
-              // Send the sign in event to all interested parties.
-              Ember.run (null, resolve, payload);
-            },
-
-            error: reject
-          };
-
-          Ember.$.ajax (ajaxOptions);
-        })
-        .catch (reject);
-    });
-  },
+  _httpHeaders: Ember.computed ('_userToken', function () {
+    return {
+      'Authorization': `Bearer ${this.get ('_userToken.access_token')}`
+    }
+  }),
 
   /**
    * Send an authorized AJAX request for the current user. The authorization
@@ -230,7 +142,7 @@ export default Ember.Service.extend({
    * @param ajaxOptions
    */
   ajax (ajaxOptions) {
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+    return new RSVP.Promise ((resolve, reject) => {
       let dupOptions = Ember.copy (ajaxOptions, false);
 
       dupOptions.success = function (payload, textStatus, jqXHR) {
@@ -268,24 +180,9 @@ export default Ember.Service.extend({
     });
   },
 
-  /**
-   * Get a client token.
-   *
-   * @returns {RSVP.Promise|*}
-   */
-  _getClientToken (opts) {
-    const tokenOptions = Ember.merge ({
-      grant_type: 'client_credentials',
-    }, opts);
-
-    return this._getToken (tokenOptions);
-  },
-
   _ajax (ajaxOptions) {
-    const accessToken = this.get ('_userToken.access_token');
-
     ajaxOptions.headers = ajaxOptions.headers || {};
-    ajaxOptions.headers.Authorization = 'Bearer ' + accessToken;
+    ajaxOptions.headers.Authorization = `Bearer ${this.get ('_userToken.access_token')}`;
 
     Ember.$.ajax (ajaxOptions);
   },
@@ -317,7 +214,7 @@ export default Ember.Service.extend({
   },
 
   computeUrl (relativeUrl) {
-    return this.get ('baseUrl') + relativeUrl;
+    return this.get ('client').computeUrl (relativeUrl);
   },
 
   /**
@@ -328,11 +225,11 @@ export default Ember.Service.extend({
    * @private
    */
   _getToken (opts) {
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+    return new RSVP.Promise ((resolve, reject) => {
       const url = this.computeUrl ('/oauth2/token');
 
       const data = Ember.merge ({
-        client_id: this.get ('clientId'),
+        client_id: this.get ('client.clientId'),
       }, opts);
 
       const ajaxOptions = {
@@ -368,25 +265,5 @@ export default Ember.Service.extend({
   _completeSignOut () {
     this.forceSignOut ();
     Ember.sendEvent (this, 'signedOut');
-  },
-
-  _setUserToken (token) {
-    this.set ('_userToken', token);
-    this.set (STORAGE_USER_TOKEN, token);
-  },
-
-  _clearUserToken () {
-    this.set ('_userToken');
-    this.set (STORAGE_USER_TOKEN);
-  },
-
-  _setCurrentUser (userId) {
-    this.set ('currentUser', userId);
-    this.set (STORAGE_CURRENT_USER, userId);
-  },
-
-  _clearCurrentUser () {
-    this.set ('currentUser');
-    this.set (STORAGE_CURRENT_USER);
   }
 });

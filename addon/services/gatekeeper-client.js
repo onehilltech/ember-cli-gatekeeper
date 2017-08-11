@@ -1,27 +1,36 @@
 import Ember from 'ember';
-
-const STORAGE_CLIENT_TOKEN = 'storage.gatekeeper::clientToken';
+import RSVP from 'rsvp';
 
 export default Ember.Service.extend({
   /// Reference to local storage.
-  storage: Ember.inject.service (),
+  storage: Ember.inject.service ('local-storage'),
+
+  _clientToken: Ember.computed.alias ('storage.gatekeeper_client_token'),
+
+  accessToken: Ember.computed.readOnly ('_clientToken.access_token'),
 
   init () {
     this._super (...arguments);
-    this.set ('_clientToken', this.get (STORAGE_CLIENT_TOKEN));
 
-    // Initialize the service from the APP configuration.
-    const ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-    this.set ('clientId', ENV.APP.gatekeeper.clientId);
-    this.set ('baseUrl', ENV.APP.gatekeeper.baseURL + '/v' + ENV.APP.gatekeeper.version);
+    let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
+
+    this.setProperties ({
+      clientId: Ember.get (ENV, 'gatekeeper.clientId'),
+      version: Ember.getWithDefault (ENV, 'gatekeeper.version', 1),
+      baseUrl: Ember.get (ENV, 'gatekeeper.baseUrl')
+    });
   },
 
-  /**
-   * Test if the client has been authenticated.
-   */
-  isAuthenticated: Ember.computed ('_clientToken', function () {
-    return !Ember.isNone (this.get ('_clientToken'));
+  isUnauthenticated: Ember.computed.none ('_clientToken'),
+  isAuthenticated: Ember.computed.not ('isUnauthenticated'),
+
+  versionUrl: Ember.computed ('baseUrl', function () {
+    return `${this.get ('baseUrl')}/v${this.get ('version')}`
   }),
+
+  computeUrl (relativeUrl) {
+    return `${this.get ('versionUrl')}${relativeUrl}`;
+  },
 
   /**
    * Authenticate the client.
@@ -29,17 +38,8 @@ export default Ember.Service.extend({
    * @param opts
    */
   authenticate (opts) {
-    return new Ember.RSVP.Promise ((resolve, reject) => {
-      this._getToken (opts)
-        .then ((token) => {
-          // Store the client token internally, and in local storage.
-          this.set (STORAGE_CLIENT_TOKEN, token);
-          this.set ('_clientToken', token);
-
-          // Run the resolve method.
-          Ember.run (null, resolve);
-        })
-        .catch (reject);
+    return this._requestToken (opts).then ((token) => {
+      this.set ('_clientToken', token);
     });
   },
 
@@ -48,7 +48,6 @@ export default Ember.Service.extend({
    */
   reset () {
     this.set ('_clientToken');
-    this.set (STORAGE_CLIENT_TOKEN);
   },
 
   /**
@@ -58,7 +57,7 @@ export default Ember.Service.extend({
    * @param ajaxOptions
    */
   ajax (ajaxOptions) {
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+    return new RSVP.Promise ((resolve, reject) => {
       let dupOptions = Ember.copy (ajaxOptions, false);
 
       dupOptions.success = function (payload, textStatus, jqXHR) {
@@ -82,11 +81,7 @@ export default Ember.Service.extend({
       this._ajax (dupOptions);
     });
   },
-
-  computeUrl (relativeUrl) {
-    return this.get ('baseUrl') + relativeUrl;
-  },
-
+  
 
   /**
    * Private method for requesting an access token from the server.
@@ -95,8 +90,8 @@ export default Ember.Service.extend({
    * @returns {RSVP.Promise}
    * @private
    */
-  _getToken (opts) {
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+  _requestToken (opts) {
+    return new RSVP.Promise ((resolve, reject) => {
       const url = this.computeUrl ('/oauth2/token');
 
       const data = Ember.merge ({
