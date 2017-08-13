@@ -38,11 +38,14 @@ export default Ember.Controller.extend (SignInMixin, {
       // There is no redirect transition. So, we either transition to the default
       // transition route, or we transition to the index.
       let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-      let target = Ember.getWithDefault (ENV, 'gatekeeper.defaultRedirectTo', 'index');
+      let target = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
 
       this.transitionToRoute (target);
     }
     else {
+      // Reset the redirect property.
+      this.set ('redirectTo');
+
       // Retry the transition.
       redirectTo.retry ();
     }
