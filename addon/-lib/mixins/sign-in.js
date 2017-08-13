@@ -13,19 +13,22 @@ export default Ember.Mixin.create ({
 
   actions: {
     signIn () {
+      // Reset the current error message.
+      this.set ('errorMessage');
+
+      // Login the user.
       let username = this.get ('username');
       let password = this.get ('password');
       let signInOptions = this.get ('signInOptions');
       let opts = Ember.merge ({username: username, password: password}, signInOptions);
 
-      // Let them know we have started the sign in process.
       this.set ('isSigningIn', true);
 
       this.get ('gatekeeper').signIn (opts).then (() => {
         // Notify all that we are finish with the sign in process.
         this.set ('isSigningIn', false);
         this.didSignIn ();
-      }, (xhr) => {
+      }).catch ((xhr) => {
         if (xhr.status === 400) {
           let errors = xhr.responseJSON.errors;
 
@@ -39,7 +42,7 @@ export default Ember.Mixin.create ({
               break;
 
             default:
-              this.set ({isSigningIn: false, errorMessage: errorMessage});
+              this.setProperties ({isSigningIn: false, errorMessage: errors.message});
           }
         }
         else {

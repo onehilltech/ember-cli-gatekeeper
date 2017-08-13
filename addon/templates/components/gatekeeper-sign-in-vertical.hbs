@@ -1,52 +1,62 @@
-<div class="row">
-  {{#materialize-form class="col s12" submit=(action "signIn")}}
-    <div class="row username">
-      <div class="input-field col s12">
-        {{materialize-textfield type=usernameType
-                                value=username
-                                class="username validate"
-                                placeholder=usernamePlaceholder
-                                required="required"
-                                autocapitalize="none"
-                                autocomplete=usernameAutoComplete
-                                label=usernameLabelText
-                                errorMessage=usernameErrorMessage}}
-      </div>
+{{#if errorMessage}}
+  <div class="section">
+    <div class="container center">
+      <span class="error-message">{{errorMessage}}</span>
     </div>
+  </div>
+{{/if}}
 
-    <div class="row password">
-      <div class="input-field col s12">
-        {{materialize-textfield type=(if showPassword "text" "password")
-                                autocomplete="off"
-                                value=password
-                                class="password validate"
-                                placeholder=passwordPlaceholder
-                                required="required"
-                                label=passwordLabelText
-                                errorMessage=passwordErrorMessage}}
+<div class="section">
+  <div class="row">
+    {{#materialize-form class="col s12" submit=(action "signIn")}}
+      <div class="row username">
+        <div class="input-field col s12">
+          {{materialize-textfield type=usernameType
+                                  value=username
+                                  class="username validate"
+                                  placeholder=usernamePlaceholder
+                                  required="required"
+                                  autocapitalize="none"
+                                  autocomplete=usernameAutoComplete
+                                  label=usernameLabelText
+                                  errorMessage=usernameErrorMessage}}
+        </div>
       </div>
-    </div>
 
-    {{#if enableShowPassword}}
-    <div class="row">
-      <div class="col s12">
-        {{materialize-checkbox class="filled-in" label="Show password" checked=showPassword}}
+      <div class="row password">
+        <div class="input-field col s12">
+          {{materialize-textfield type=(if showPassword "text" "password")
+                                  autocomplete="off"
+                                  value=password
+                                  class="password validate"
+                                  placeholder=passwordPlaceholder
+                                  required="required"
+                                  label=passwordLabelText
+                                  errorMessage=passwordErrorMessage}}
+        </div>
       </div>
-    </div>
-    {{/if}}
 
-    <div class="row">
-      <div class="col s12 center">
-        {{materialize-submit class="btn waves-effect waves-light" disabled=isSigningIn value=(if isSigningIn signingInText signInText)}}
-      </div>
-    </div>
+      {{#if enableShowPassword}}
+        <div class="row">
+          <div class="col s12">
+            {{materialize-checkbox class="filled-in" label="Show password" checked=showPassword}}
+          </div>
+        </div>
+      {{/if}}
 
-    {{#if routeForNewAccount}}
-    <div class="row create-account">
-      <div class="col s12 center">
-        {{#link-to routeForNewAccount class="create-account"}}Do not have an account? Create one.{{/link-to}}
+      <div class="row">
+        <div class="col s12 center">
+          {{materialize-submit class="btn waves-effect waves-light" disabled=isSigningIn value=(if isSigningIn signingInText signInText)}}
+        </div>
       </div>
-    </div>
-    {{/if}}
-  {{/materialize-form}}
+
+      {{#if routeForNewAccount}}
+        <div class="row create-account">
+          <div class="col s12 center">
+            {{#link-to routeForNewAccount class="create-account"}}Do not have an account? Create one.{{/link-to}}
+          </div>
+        </div>
+      {{/if}}
+    {{/materialize-form}}
+  </div>
 </div>
