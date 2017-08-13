@@ -1,0 +1,54 @@
+<div class="row">
+  <form id="sign-in" class="col s12">
+    <div class="row username">
+      <div class="input-field col s12">
+        {{materialize-textfield type=usernameType
+                                value=username
+                                class="username validate"
+                                placeholder=usernamePlaceholder
+                                required="required"
+                                autocapitalize="none"
+                                autocomplete=usernameAutoComplete
+                                label=usernameLabelText
+                                errorMessage=usernameErrorMessage}}
+      </div>
+    </div>
+
+    <div class="row password">
+      <div class="input-field col s12">
+        {{materialize-textfield type=(if showPassword "text" "password")
+                                autocomplete="off"
+                                value=password
+                                class="password validate"
+                                placeholder=passwordPlaceholder
+                                required="required"
+                                label=passwordLabelText
+                                errorMessage=passwordErrorMessage}}
+      </div>
+    </div>
+
+    {{#if enableShowPassword}}
+    <div class="row">
+      <div class="col s12">
+        {{materialize-checkbox class="filled-in" label="Show password" checked=showPassword}}
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="row">
+      <div class="col s12 center">
+        {{#materialize-button class="waves-effect waves-light sign-in" click=(action "signIn") disabled=isSigningIn}}
+          {{if isSigningIn signingInText signInText}}
+        {{/materialize-button}}
+      </div>
+    </div>
+
+    {{#if routeForNewAccount}}
+    <div class="row create-account">
+      <div class="col s12 center">
+        {{#link-to routeForNewAccount class="create-account"}}Do not have an account? Create one.{{/link-to}}
+      </div>
+    </div>
+    {{/if}}
+  </form>
+</div>
