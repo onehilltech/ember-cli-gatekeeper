@@ -58,7 +58,7 @@ export default function() {
 
     if (body.client_id !== 'dummy') {
       return new Response (400, {'Content-Type': 'application/json'}, {
-        errors: {status: 400, message: 'Missing/invalid client id'}
+        errors: {code: 'invalid_client', message: 'Your client id is not valid.'}
       });
     }
 
@@ -67,12 +67,12 @@ export default function() {
 
       if (body.username !== 'username') {
         return new Response (400, {'Content-Type': 'application/json'}, {
-          errors: {status: 400, message: 'Missing/invalid username'}
+          errors: {code: 'invalid_username', message: 'Your username is incorrect.'}
         });
       }
       else if (body.password !== 'password') {
         return new Response (400, {'Content-Type': 'application/json'}, {
-          errors: {status: 400, message: 'Missing/invalid password'}
+          errors: {code: 'invalid_password', message: 'Your password is incorrect.'}
         });
       }
       else {

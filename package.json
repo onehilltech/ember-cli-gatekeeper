@@ -22,6 +22,7 @@
     "ember-cli-htmlbars": "^2.0.1"
   },
   "devDependencies": {
+    "@onehilltech/ember-cli-materializecss": "^0.4.3",
     "@onehilltech/ember-cli-storage": "^0.2.0",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
@@ -32,6 +33,7 @@
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-mirage": "^0.3.4",
     "ember-cli-qunit": "^4.0.0",
+    "ember-cli-sass": "^7.0.0",
     "ember-cli-shims": "^1.1.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
