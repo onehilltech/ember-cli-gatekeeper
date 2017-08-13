@@ -22,7 +22,7 @@
     "ember-cli-htmlbars": "^2.0.1"
   },
   "devDependencies": {
-    "@onehilltech/ember-cli-materializecss": "^0.4.3",
+    "@onehilltech/ember-cli-materializecss": "^0.6.5",
     "@onehilltech/ember-cli-storage": "^0.2.0",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",

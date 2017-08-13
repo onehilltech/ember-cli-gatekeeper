@@ -13,8 +13,6 @@ export default Ember.Mixin.create ({
 
   actions: {
     signIn () {
-      if (!this._validateForm ()) { return; }
-
       let username = this.get ('username');
       let password = this.get ('password');
       let signInOptions = this.get ('signInOptions');
@@ -49,29 +47,5 @@ export default Ember.Mixin.create ({
         }
       });
     }
-  },
-
-  _validateForm () {
-    let username = this.getTextField ('input.username');
-    let password = this.getTextField ('input.password');
-
-    if (username.element.validity.customError) {
-      username.element.setCustomValidity ("");
-    }
-
-    if (password.element.validity.customError) {
-      password.element.setCustomValidity ("");
-    }
-
-    username.doValidate ();
-    password.doValidate ();
-
-    return username.element.validity.valid & password.element.validity.valid;
-  },
-
-  getTextField (selector) {
-    let input = this.$ (selector)[0];
-    let views = Ember.getOwner (this).lookup ('-view-registry:main');
-    return views[input.id];
   }
 });

@@ -1,5 +1,5 @@
 <div class="row">
-  <form id="sign-in" class="col s12">
+  {{#materialize-form class="col s12" submit=(action "signIn")}}
     <div class="row username">
       <div class="input-field col s12">
         {{materialize-textfield type=usernameType
@@ -37,9 +37,7 @@
 
     <div class="row">
       <div class="col s12 center">
-        {{#materialize-button class="waves-effect waves-light sign-in" click=(action "signIn") disabled=isSigningIn}}
-          {{if isSigningIn signingInText signInText}}
-        {{/materialize-button}}
+        {{materialize-submit class="btn waves-effect waves-light" disabled=isSigningIn value=(if isSigningIn signingInText signInText)}}
       </div>
     </div>
 
@@ -50,5 +48,5 @@
       </div>
     </div>
     {{/if}}
-  </form>
+  {{/materialize-form}}
 </div>
