@@ -46,7 +46,7 @@ export default Ember.Mixin.create ({
           }
         }
         else {
-          this.setProperties ({isSigningIn: false, errorMessage: xhr.message});
+          this.setProperties ({isSigningIn: false, errorMessage: xhr.statusText});
         }
       });
     }
