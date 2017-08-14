@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Route.extend ({
   gatekeeper: Ember.inject.service (),
 
+  currentUser: Ember.computed.readOnly ('gatekeeper.currentUser'),
+
   beforeModel (transition) {
     this._super (...arguments);
 
