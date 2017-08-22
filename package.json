@@ -23,7 +23,7 @@
     "ember-cli-sass": "^7.0.0"
   },
   "devDependencies": {
-    "@onehilltech/ember-cli-materializecss": "^0.6.8",
+    "@onehilltech/ember-cli-materializecss": "^0.6.9",
     "@onehilltech/ember-cli-storage": "^0.2.0",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
