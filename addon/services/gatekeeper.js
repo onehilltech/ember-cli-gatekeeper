@@ -20,6 +20,8 @@ export default Ember.Service.extend({
 
   isSignedIn: Ember.computed.not ('isSignedOut'),
 
+  session: 0,
+
   /**
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
@@ -39,6 +41,7 @@ export default Ember.Service.extend({
 
       this._getToken (tokenOptions).then ((token) => {
         this.set ('_userToken', token);
+        this.incrementProperty ('session');
 
         // Query the service for the current user. We are going to cache their id
         // just in case the application needs to use it.
@@ -116,6 +119,7 @@ export default Ember.Service.extend({
       this._getToken (tokenOptions).then ((token) => {
         // Replace the current user token with this new token, and resolve.
         this.set ('_userToken', token);
+        this.incrementProperty ('session');
 
         Ember.run (null, resolve);
       }).catch ((xhr) => {
@@ -129,10 +133,8 @@ export default Ember.Service.extend({
     });
   },
 
-  _httpHeaders: Ember.computed ('_userToken', function () {
-    return {
-      'Authorization': `Bearer ${this.get ('_userToken.access_token')}`
-    }
+  _httpHeaders: Ember.computed ('session', function () {
+    return {Authorization: `Bearer ${this.get ('accessToken')}`}
   }),
 
   /**
@@ -182,7 +184,7 @@ export default Ember.Service.extend({
 
   _ajax (ajaxOptions) {
     ajaxOptions.headers = ajaxOptions.headers || {};
-    ajaxOptions.headers.Authorization = `Bearer ${this.get ('_userToken.access_token')}`;
+    ajaxOptions.headers.Authorization = `Bearer ${this.get ('accessToken')}`;
 
     Ember.$.ajax (ajaxOptions);
   },

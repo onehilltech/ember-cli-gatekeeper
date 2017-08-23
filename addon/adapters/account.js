@@ -45,19 +45,6 @@ export default RESTAdapter.extend({
   },
 
   /**
-   * Get the headers for the request.
-   *
-   * @param params
-   */
-  headersForRequest (params) {
-    let headers = this._super (...arguments) || {};
-    let token = params.requestType !== 'createRecord' ? this.get ('userToken') : this.get ('clientToken');
-    headers['Authorization'] = `Bearer ${token}`;
-
-    return headers;
-  },
-
-  /**
    * Compute the AJAX options for the request.
    *
    * @param url
