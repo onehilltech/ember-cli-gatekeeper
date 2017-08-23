@@ -24,10 +24,20 @@ export default RESTAdapter.extend({
     });
   },
 
+  /**
+   * Query a single record.
+   *
+   * @param store
+   * @param type
+   * @param query
+   * @returns {*|Promise}
+   */
   queryRecord (store, type, query) {
     if (Ember.isPresent (query)) {
       let url = this.buildURL (type.modelName, 'me', null, 'findRecord', null);
-      return this.ajax (url, 'GET', null);
+      let options = {cache: false};
+
+      return this.ajax (url, 'GET', options);
     }
     else {
       return this._super (...arguments);
