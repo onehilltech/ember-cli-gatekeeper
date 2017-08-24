@@ -41,6 +41,9 @@ test ('it signs out', function (assert) {
   let service = this.subject();
 
   return service.signIn ({username: 'username', password: 'password'}).then (() => {
+    assert.ok (service.get ('isSignedIn'));
+    assert.ok (service.get ('accessToken'));
+
     return service.signOut ();
   }).then (() => {
     assert.ok (service.get ('isSignedOut'));
