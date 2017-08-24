@@ -24,7 +24,7 @@ module.exports = function(environment) {
     },
 
     gatekeeper: {
-      clientId: 'dummies',
+      clientId: 'dummy',
       baseUrl: 'http://gatekeeper'
     }
   };
