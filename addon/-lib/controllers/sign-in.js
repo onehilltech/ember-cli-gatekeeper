@@ -4,15 +4,6 @@ import SignInMixin from '../mixins/sign-in';
 export default Ember.Controller.extend (SignInMixin, {
   mergedProperties: ['signInOptions'],
 
-  /**
-   * @override
-   *
-   * The sign in process is complete.
-   */
-  didSignIn () {
-    this._finishSignIn ();
-  },
-
   actions: {
     /**
      * Action called by the sign in component after the sign in process is completed
