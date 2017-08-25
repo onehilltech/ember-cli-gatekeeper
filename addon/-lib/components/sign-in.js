@@ -27,8 +27,6 @@ export default Ember.Component.extend (SignInMixin, {
 
   //== account creation properties
 
-  routeForNewAccount: null,
-
   didSignIn () {
     this.get ('signInComplete') ();
   },

@@ -49,14 +49,6 @@
           {{materialize-submit class="btn waves-effect waves-light" disabled=isSigningIn value=(if isSigningIn signingInText signInText)}}
         </div>
       </div>
-
-      {{#if routeForNewAccount}}
-        <div class="row create-account">
-          <div class="col s12 center">
-            {{#link-to routeForNewAccount class="create-account"}}Do not have an account? Create one.{{/link-to}}
-          </div>
-        </div>
-      {{/if}}
     {{/materialize-form}}
   </div>
 </div>
