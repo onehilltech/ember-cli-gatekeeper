@@ -9,6 +9,8 @@ import Ember from 'ember';
  * Use \a signInOptions property to pass options to the sign in process.
  */
 export default Ember.Mixin.create ({
+  mergedProperties: ['signInOptions'],
+
   gatekeeper: Ember.inject.service (),
 
   actions: {

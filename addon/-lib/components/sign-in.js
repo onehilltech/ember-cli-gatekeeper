@@ -2,10 +2,6 @@ import Ember from 'ember';
 import SignInMixin from '../mixins/sign-in';
 
 export default Ember.Component.extend (SignInMixin, {
-  signInOptions: {},
-
-  mergedProperties: ['signInOptions'],
-
   //== username properties
 
   usernameLabelText: 'Username',

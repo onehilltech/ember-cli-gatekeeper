@@ -2,8 +2,6 @@ import Ember from 'ember';
 import SignInMixin from '../mixins/sign-in';
 
 export default Ember.Controller.extend (SignInMixin, {
-  mergedProperties: ['signInOptions'],
-
   actions: {
     /**
      * Action called by the sign in component after the sign in process is completed
@@ -11,34 +9,24 @@ export default Ember.Controller.extend (SignInMixin, {
      * for the application to transition away from the sign in page.
      */
     signInComplete () {
-      this._finishSignIn ();
-    }
-  },
+      // Perform the redirect from the sign in page.
+      let redirectTo = this.get ('redirectTo');
 
-  /**
-   * Finish the sign in process by automatically redirecting the user to its
-   * previous page, or to the index.
-   *
-   * @private
-   */
-  _finishSignIn () {
-    // Perform the redirect from the sign in page.
-    let redirectTo = this.get ('redirectTo');
+      if (Ember.isNone (redirectTo)) {
+        // There is no redirect transition. So, we either transition to the default
+        // transition route, or we transition to the index.
+        let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
+        let target = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
 
-    if (Ember.isNone (redirectTo)) {
-      // There is no redirect transition. So, we either transition to the default
-      // transition route, or we transition to the index.
-      let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-      let target = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
+        this.transitionToRoute (target);
+      }
+      else {
+        // Reset the redirect property.
+        this.set ('redirectTo');
 
-      this.transitionToRoute (target);
-    }
-    else {
-      // Reset the redirect property.
-      this.set ('redirectTo');
-
-      // Retry the transition.
-      redirectTo.retry ();
+        // Retry the transition.
+        redirectTo.retry ();
+      }
     }
   }
 });
