@@ -19,7 +19,7 @@ export default Ember.Route.extend ({
       // user has signed in.
       signInController.set ('redirectTo', transition);
 
-      this.transitionTo (signInRoute);
+      this.replaceWith (signInRoute);
     }
   }
 });
