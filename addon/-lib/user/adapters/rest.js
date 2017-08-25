@@ -10,7 +10,7 @@ export default DS.RESTAdapter.extend({
     return `v${this.get ('gatekeeper.client.version')}`;
   }),
 
-  headers: Ember.computed ('gatekeeper.session', function () {
+  headers: Ember.computed ('gatekeeper.userToken', function () {
     return { Authorization: `Bearer ${this.get ('gatekeeper.accessToken')}` };
   })
 });
