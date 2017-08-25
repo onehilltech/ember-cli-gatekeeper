@@ -2,19 +2,17 @@ import Ember from 'ember';
 import RSVP from 'rsvp';
 
 export default Ember.Service.extend({
-  client : Ember.inject.service ('gatekeeper-client'),
+  client: Ember.inject.service ('gatekeeper-client'),
   storage: Ember.inject.service ('local-storage'),
-  store  : Ember.inject.service (),
+  store: Ember.inject.service (),
 
   /// [private] The current authenticated user.
   _currentUser: Ember.computed.alias ('storage.gatekeeper_user'),
+  currentUser: Ember.computed.readOnly ('_currentUser'),
 
   /// [private] Token for the current user.
-  _userToken  : Ember.computed.alias ('storage.gatekeeper_user_token'),
-
-  /// The current authenticated user.
-  currentUser: Ember.computed.readOnly ('storage.gatekeeper_user'),
-  accessToken: Ember.computed.readOnly ('_userToken.access_token'),
+  _userToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
+  userToken: Ember.computed.readOnly ('_userToken'),
 
   isSignedOut: Ember.computed.none ('_userToken'),
   isSignedIn: Ember.computed.not ('isSignedOut'),
