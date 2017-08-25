@@ -44,23 +44,6 @@ export default RESTAdapter.extend({
     }
   },
 
-  /**
-   * Compute the AJAX options for the request.
-   *
-   * @param url
-   * @param type
-   * @param options
-   */
-  ajaxOptions (url, type, options) {
-    options = options || {};
-    options.headers = options.headers || {};
-
-    let token = type !== 'POST' ? this.get ('userToken'): this.get ('clientToken');
-    options.headers['Authorization'] = `Bearer ${token}`;
-
-    return this._super (url, type, options);
-  },
-
   _requestClientToken (snapshot) {
     let clientOptions = Ember.getWithDefault (snapshot, 'adapterOptions.clientOptions', {});
     return this.get ('gatekeeper.client').authenticate (clientOptions);
