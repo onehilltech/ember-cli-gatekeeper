@@ -9,7 +9,7 @@ export default Ember.Route.extend ({
       let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
       let startRoute = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
 
-      this.transitionTo (startRoute);
+      this.replaceWith (startRoute);
     }
     else {
       return this._super (...arguments);
