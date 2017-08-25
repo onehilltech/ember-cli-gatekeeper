@@ -4,10 +4,6 @@ import RESTAdapter from '../-lib/user/adapters/rest';
 export default RESTAdapter.extend({
   gatekeeper: Ember.inject.service (),
 
-  userToken: Ember.computed.readOnly ('gatekeeper.accessToken'),
-
-  clientToken: Ember.computed.readOnly ('gatekeeper.client.accessToken'),
-
   /**
    * Create a new account record.
    *

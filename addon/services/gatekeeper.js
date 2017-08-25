@@ -127,7 +127,7 @@ export default Ember.Service.extend({
   },
 
   _httpHeaders: Ember.computed ('_userToken', function () {
-    return {Authorization: `Bearer ${this.get ('accessToken')}`}
+    return {Authorization: `Bearer ${this.get ('userToken.access_token')}`}
   }),
 
   /**
@@ -177,7 +177,7 @@ export default Ember.Service.extend({
 
   _ajax (ajaxOptions) {
     ajaxOptions.headers = ajaxOptions.headers || {};
-    ajaxOptions.headers.Authorization = `Bearer ${this.get ('accessToken')}`;
+    ajaxOptions.headers.Authorization = `Bearer ${this.get ('userToken.access_token')}`;
 
     Ember.$.ajax (ajaxOptions);
   },
