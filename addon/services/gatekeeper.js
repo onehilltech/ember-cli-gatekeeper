@@ -14,8 +14,8 @@ export default Ember.Service.extend({
   _userToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
   userToken: Ember.computed.readOnly ('_userToken'),
 
-  isSignedOut: Ember.computed.none ('_userToken'),
-  isSignedIn: Ember.computed.not ('isSignedOut'),
+  isSignedIn: Ember.computed.bool ('_userToken'),
+  isSignedOut: Ember.computed.not ('isSignedIn'),
 
   /**
    * Force the current user to sign out. This does not communicate the sign out

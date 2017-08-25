@@ -27,9 +27,12 @@ test ('it exists', function(assert) {
 test ('it signs in', function (assert) {
   let service = this.subject ();
 
+  assert.ok (service.get ('isSignedOut'));
+  assert.notOk (service.get ('isSignedIn'));
+
   return service.signIn ({username: 'username', password: 'password'}).then (() => {
     assert.ok (service.get ('isSignedIn'));
-    assert.ok (service.get ('accessToken'));
+    assert.notOk (service.get ('isSignedOut'));
 
     assert.deepEqual (service.get ('currentUser'), {id: '1', email: 'tester@no-reply.com', username: 'tester', password: null});
   }).catch ((err) => {
