@@ -1,9 +1,11 @@
 import Ember from 'ember';
 import RSVP from 'rsvp';
 
-export default Ember.Service.extend({
+export default Ember.Service.extend (Ember.Evented, {
   client: Ember.inject.service ('gatekeeper-client'),
+
   storage: Ember.inject.service ('local-storage'),
+
   store: Ember.inject.service (),
 
   /// [private] The current authenticated user.
@@ -21,8 +23,8 @@ export default Ember.Service.extend({
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
    */
-  forceSignOut () {
-    this.setProperties ({_userToken: null, _currentUser: null});
+  forceSignOut (reason) {
+    this.setProperties ({_userToken: null, _currentUser: null, errorMessage: reason});
   },
 
   /**
@@ -249,7 +251,7 @@ export default Ember.Service.extend({
    * @private
    */
   _completeSignIn () {
-    Ember.sendEvent (this, 'signedIn');
+    this.trigger ('signedIn');
   },
 
   /**
@@ -259,6 +261,6 @@ export default Ember.Service.extend({
    */
   _completeSignOut () {
     this.forceSignOut ();
-    Ember.sendEvent (this, 'signedOut');
+    this.trigger ('signedOut');
   }
 });
