@@ -251,6 +251,7 @@ export default Ember.Service.extend (Ember.Evented, {
    * @private
    */
   _completeSignIn () {
+    this.set ('errorMessage');
     this.trigger ('signedIn');
   },
 
