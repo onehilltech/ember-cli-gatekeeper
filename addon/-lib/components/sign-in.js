@@ -21,7 +21,11 @@ export default Ember.Component.extend (SignInMixin, {
 
   enableShowPassword: true,
 
-  //== account creation properties
+  init () {
+    this._super (...arguments);
+
+    this.set ('errorMessage', this.get ('gatekeeper.errorMessage'));
+  },
 
   didSignIn () {
     this.get ('signInComplete') ();

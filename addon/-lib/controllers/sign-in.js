@@ -2,6 +2,12 @@ import Ember from 'ember';
 import SignInMixin from '../mixins/sign-in';
 
 export default Ember.Controller.extend (SignInMixin, {
+  init () {
+    this._super (...arguments);
+
+    this.set ('errorMessage', this.get ('gatekeeper.errorMessage'));
+  },
+
   actions: {
     /**
      * Action called by the sign in component after the sign in process is completed
