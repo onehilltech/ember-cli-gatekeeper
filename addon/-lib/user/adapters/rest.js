@@ -17,13 +17,9 @@ export default DS.RESTAdapter.extend({
   handleResponse (status, headers, payload, requestData) {
     switch (status) {
       case 403:
-        switch (payload.errors.code) {
-          case 'unknown_token':
-            // The token we are using is invalid. We need to force the service to
-            // sign out the current user.
-            this.get ('gatekeeper').forceSignOut ();
-            break;
-        }
+        // There is a problem with our token. Force the user to authenticate
+        // again with hopes of resolving the problem.
+        this.get ('gatekeeper').forceSignOut (payload.errors.message);
         break;
     }
 
