@@ -8,11 +8,13 @@ export default Ember.Component.extend (SignInMixin, {
   usernameType: 'text',
   usernamePlaceholder: 'Username',
   usernameAutoComplete: 'off',
+  usernameFloatingLabel: true,
 
   //== password properties
 
   passwordLabelText: 'Password',
   passwordPlaceholder: 'Password',
+  passwordFloatingLabel: true,
 
   //== button
 

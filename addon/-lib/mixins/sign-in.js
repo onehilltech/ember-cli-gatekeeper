@@ -27,29 +27,33 @@ export default Ember.Mixin.create ({
       this.set ('isSigningIn', true);
 
       this.get ('gatekeeper').signIn (opts).then (() => {
-        // Notify all that we are finish with the sign in process.
-        this.set ('isSigningIn', false);
-        this.didSignIn ();
+        Ember.run.schedule ('actions', () => {
+          // Notify all that we are finish with the sign in process.
+          this.set ('isSigningIn', false);
+          this.didSignIn ();
+        });
       }).catch ((xhr) => {
-        if (xhr.status === 400) {
-          let errors = xhr.responseJSON.errors;
+        Ember.run.schedule ('actions', () => {
+          if (xhr.status === 400) {
+            let errors = xhr.responseJSON.errors;
 
-          switch (errors.code) {
-            case 'invalid_username':
-              this.setProperties ({isSigningIn: false, usernameErrorMessage: errors.message});
-              break;
+            switch (errors.code) {
+              case 'invalid_username':
+                this.setProperties ({isSigningIn: false, usernameErrorMessage: errors.message});
+                break;
 
-            case 'invalid_password':
-              this.setProperties ({isSigningIn: false, passwordErrorMessage: errors.message});
-              break;
+              case 'invalid_password':
+                this.setProperties ({isSigningIn: false, passwordErrorMessage: errors.message});
+                break;
 
-            default:
-              this.setProperties ({isSigningIn: false, errorMessage: errors.message});
+              default:
+                this.setProperties ({isSigningIn: false, errorMessage: errors.message});
+            }
           }
-        }
-        else {
-          this.setProperties ({isSigningIn: false, errorMessage: xhr.statusText});
-        }
+          else {
+            this.setProperties ({isSigningIn: false, errorMessage: xhr.statusText});
+          }
+        });
       });
     }
   }

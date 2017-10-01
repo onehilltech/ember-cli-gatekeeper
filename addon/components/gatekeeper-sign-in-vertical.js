@@ -3,5 +3,5 @@ import layout from '../templates/components/gatekeeper-sign-in-vertical';
 
 export default SignInComponent.extend ({
   layout,
-  classNames: ['sign-in-form']
+  classNames: ['sign-in-form-vertical']
 });
