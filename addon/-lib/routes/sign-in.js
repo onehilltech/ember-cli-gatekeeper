@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import Material from 'ember-cli-mdl';
 
-export default Ember.Route.extend ({
+export default Material.Route.extend ({
   gatekeeper: Ember.inject.service (),
 
   beforeModel () {
@@ -14,15 +15,5 @@ export default Ember.Route.extend ({
     else {
       return this._super (...arguments);
     }
-  },
-
-  activate () {
-    this._super (...arguments);
-    Ember.$ ('body').addClass ('sign-in');
-  },
-
-  deactivate () {
-    this._super (...arguments);
-    Ember.$ ('body').removeClass ('sign-in');
   }
 });

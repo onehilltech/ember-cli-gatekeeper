@@ -1,7 +1,9 @@
 import Ember from 'ember';
+import Material from 'ember-cli-mdl';
 
-export default Ember.Route.extend ({
+export default Material.Route.extend ({
   gatekeeper: Ember.inject.service (),
+
   currentUser: Ember.computed.readOnly ('gatekeeper.currentUser'),
 
   init () {
