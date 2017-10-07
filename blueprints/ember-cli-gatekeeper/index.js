@@ -7,7 +7,7 @@ module.exports = {
     return this.addAddonsToProject ({
       packages: [
         {name: '@onehilltech/ember-cli-storage', target: '^0.2.1'},
-        {name: 'ember-cli-mdl', target: '^0.11.1'}
+        {name: 'ember-cli-mdl', target: '^0.11.2'}
       ]
     });
   }
