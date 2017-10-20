@@ -23,11 +23,6 @@ export default Material.Route.extend ({
     this._checkSignedIn (transition);
   },
 
-  afterModel (model, transition) {
-    this._super (...arguments);
-    this._checkSignedIn (transition);
-  },
-
   didSignOut () {
 
   },
