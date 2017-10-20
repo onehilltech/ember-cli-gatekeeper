@@ -30,8 +30,16 @@ export default Ember.Controller.extend (SignInMixin, {
         // Reset the redirect property.
         this.set ('redirectTo');
 
-        // Retry the transition.
-        redirectTo.retry ();
+        if (Ember.typeOf (redirectTo) === 'string') {
+          // We either have a url or a route name.
+          this.replaceRoute (redirectTo);
+        }
+        else {
+          // The redirect is a Transition object. We are just going to retry the
+          // transition object.
+          redirectTo.retry ();
+        }
+
       }
     }
   }
