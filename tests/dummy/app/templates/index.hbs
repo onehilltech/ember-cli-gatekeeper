@@ -1,1 +1,11 @@
-{{outlet}}
+{{#mdl-layout fixedHeader=true}}
+  {{#mdl-layout-header}}
+    {{mdl-toolbar title="Gatekeeper"}}
+  {{/mdl-layout-header}}
+
+  {{#mdl-layout-content}}
+    <div style="padding: 16px">
+      {{#link-to "unauthorized"}}Unauthorized Test{{/link-to}}
+    </div>
+  {{/mdl-layout-content}}
+{{/mdl-layout}}
