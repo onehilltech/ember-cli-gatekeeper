@@ -2,35 +2,39 @@
   <div class="error-message">{{errorMessage}}</div>
 {{/if}}
 
-{{#mdl-form action="#" class="sign-in" submit=(action "signIn")}}
+{{#mdl-form submit=(action "signIn")}}
   <div>
     {{mdl-textfield type=usernameType
                     value=username
-                    class="validate"
                     placeholder=usernamePlaceholder
                     required="required"
                     autocapitalize="none"
                     autocomplete=usernameAutoComplete
                     label=usernameLabelText
+                    fullWidth=true
                     floatingLabel=usernameFloatingLabel
                     errorMessage=usernameErrorMessage}}
   </div>
 
   <div>
     {{mdl-textfield type=(if showPassword "text" "password")
-                    autocomplete="off"
+                    fullWidth=true
                     value=password
-                    class="validate"
                     placeholder=passwordPlaceholder
                     required="required"
                     label=passwordLabelText
+                    autocomplete="off"
+                    autocapitalize="none"
                     floatingLabel=passwordFloatingLabel
                     errorMessage=passwordErrorMessage}}
   </div>
 
   <div>
-    {{mdl-submit class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                 disabled=isSigningIn
-                 value=(if isSigningIn signingInText signInText)}}
+    {{mdl-submit colored=submitButtonColored
+                 type=submitButtonType
+                 accent=submitButtonAccent
+                 rippleEffect=submitButtonRippleEffect
+                 value=(if isSigningIn signingInText signInText)
+                 disabled=isSigningIn}}
   </div>
 {{/mdl-form}}
