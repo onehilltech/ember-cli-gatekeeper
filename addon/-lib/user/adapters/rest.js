@@ -25,18 +25,36 @@ export default DS.RESTAdapter.extend ({
         // There is a problem with our token. Force the user to authenticate
         // again with hopes of resolving the problem.
         this.get ('gatekeeper').forceSignOut (payload.errors.message);
-
-        // Force the application to transition to the sign-in page.
-        let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-        let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
-        let router = this.get ('router');
-
-        router.replaceWith (signInRoute);
+        this._forceUserToSignIn ();
 
         break;
       }
     }
 
     return this._super (...arguments);
+  },
+
+  _forceUserToSignIn () {
+    let owner = Ember.getOwner (this);
+
+    // Get the router so we can transition to te sign-in page. We are going to
+    // allow the user to redirect back to the original page after they complete
+    // the sign in process.
+    let ENV = owner.resolveRegistration ('config:environment');
+    let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+
+    let router = this.get ('router');
+    let route = owner.lookup(`route:${signInRoute}`);
+    let controllerName = signInRoute;
+
+    if (route && route.controllerName) {
+      controllerName = route.controllerName;
+    }
+
+    let controller = owner.lookup (`controller:${controllerName}`);
+    let currentRouteName = router.get ('currentRouteName');
+
+    controller.set ('redirectTo', currentRouteName);
+    router.replaceWith (signInRoute);
   }
 });
