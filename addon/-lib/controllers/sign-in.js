@@ -27,9 +27,6 @@ export default Ember.Controller.extend (SignInMixin, {
         this.transitionToRoute (target);
       }
       else {
-        // Reset the redirect property.
-        this.set ('redirectTo');
-
         if (Ember.typeOf (redirectTo) === 'string') {
           // We either have a url or a route name.
           this.replaceRoute (redirectTo);
@@ -40,6 +37,8 @@ export default Ember.Controller.extend (SignInMixin, {
           redirectTo.retry ();
         }
 
+        // Reset the redirect property.
+        this.set ('redirectTo');
       }
     }
   }
