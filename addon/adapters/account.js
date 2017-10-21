@@ -24,6 +24,17 @@ export default RESTAdapter.extend({
     type = type || (snapshot && snapshot.type);
 
     switch (requestType) {
+      case 'createRecord': {
+        let url = this._super (...arguments);
+        let signIn = Ember.getWithDefault (snapshot, 'adapterOptions.signIn', false);
+
+        if (signIn) {
+          url += '?login=true';
+        }
+
+        return url;
+      }
+
       case 'queryRecord':
         if (Ember.isEmpty (Object.keys (query))) {
           return this.buildURL (type.modelName, 'me', null, 'findRecord', null);
@@ -61,5 +72,22 @@ export default RESTAdapter.extend({
     }
 
     return headers;
+  },
+
+  handleResponse (status, headers, payload, requestData) {
+    let token = payload.token;
+    if (token) delete payload.token;
+
+    if (status === 200 && requestData.method === 'POST' && token) {
+      // The account was created and logged in at the same time. We need to
+      // extract the token, and register it with the gatekeeper service.
+
+      let gatekeeper = this.get ('gatekeeper');
+      let currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
+
+      gatekeeper.setProperties ({_currentUser: currentUser, _accessToken: token});
+    }
+
+    return this._super (status, headers, payload, requestData);
   }
 });
