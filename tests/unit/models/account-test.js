@@ -36,14 +36,8 @@ test ('it saves the model', function (assert) {
     email: 'email'
   });
 
-  let adapterOptions = {
-    clientOptions: {
-      client_secret: 'ssshhh'
-    }
-  };
-
   return Ember.run (function () {
-    return model.save ({adapterOptions: adapterOptions}).then ((account) => {
+    return model.save ().then ((account) => {
       assert.equal (account.get ('id'), 1);
       assert.equal (account.get ('username'), 'username');
       assert.equal (account.get ('password'), 'password');

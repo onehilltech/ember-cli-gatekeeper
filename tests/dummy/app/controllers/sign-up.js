@@ -6,7 +6,7 @@ export default Controller.extend({
       let {username, password, email} = this.getProperties (['username', 'password', 'email']);
       let account = this.get ('store').createRecord ('account', {username, password, email});
 
-      account.save ().then (account => {
+      account.save ().then (() => {
 
       });
     }

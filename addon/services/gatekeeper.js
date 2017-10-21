@@ -44,7 +44,7 @@ export default Ember.Service.extend (Ember.Evented, {
 
         // Query the service for the current user. We are going to cache their id
         // just in case the application needs to use it.
-        this.get ('store').findRecord ('account', 'me').then (account => {
+        this.get ('store').queryRecord ('account', {}).then (account => {
           this.set ('_currentUser', account.toJSON ({includeId: true}));
           this._completeSignIn ();
 

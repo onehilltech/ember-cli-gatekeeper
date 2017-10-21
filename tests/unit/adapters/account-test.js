@@ -45,21 +45,15 @@ test ('it creates a record', function (assert) {
     let Model = store.modelFor ('account');
     let snapshot = account._createSnapshot ();
 
-    snapshot.adapterOptions = {
-      clientOptions: {
-        client_secret: 'ssshhh'
-      }
-    };
-
     return adapter.createRecord (account.store, Model, snapshot);
-  }).then ((result) => {
+  }).then (result => {
     let account = result.account;
 
     assert.equal (account._id, 1);
     assert.equal (account.username, 'username');
     assert.equal (account.password, 'password');
     assert.equal (account.email, 'email');
-  }).catch ((err) => {
+  }).catch (err => {
     assert.ok (false, JSON.stringify (err));
   });
 });

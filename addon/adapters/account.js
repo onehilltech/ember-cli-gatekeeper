@@ -1,5 +1,5 @@
-import Ember from 'ember';
 import RESTAdapter from '../-lib/user/adapters/rest';
+import Ember from 'ember';
 
 /**
  * @class AccountRESTAdapter
@@ -14,6 +14,25 @@ export default RESTAdapter.extend({
     return this.get ('gatekeeper.client').authenticate ().then (() => {
       return _super.call (adapter, store, type, snapshot);
     });
+  },
+
+  urlForRequest(params) {
+    let { type, snapshot, requestType, query } = params;
+
+    // type and id are not passed from updateRecord and deleteRecord, hence they
+    // are defined if not set
+    type = type || (snapshot && snapshot.type);
+
+    switch (requestType) {
+      case 'queryRecord':
+        if (Ember.isEmpty (Object.keys (query))) {
+          return this.buildURL (type.modelName, 'me', null, 'findRecord', null);
+        }
+
+        break;
+    }
+
+    return this._super (...arguments);
   },
 
   headersForRequest (params) {
