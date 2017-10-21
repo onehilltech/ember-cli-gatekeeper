@@ -1,16 +1,12 @@
 import Ember from 'ember';
 import RESTAdapter from '../-lib/user/adapters/rest';
 
+/**
+ * @class AccountRESTAdapter
+ *
+ * The RESTAdapter for the account model.
+ */
 export default RESTAdapter.extend({
-  gatekeeper: Ember.inject.service (),
-
-  /**
-   * Create a new account record.
-   *
-   * @param store
-   * @param type
-   * @param snapshot
-   */
   createRecord (store, type, snapshot) {
     let _super = this._super;
     let adapter = this;
@@ -36,6 +32,9 @@ export default RESTAdapter.extend({
 
       case 'findRecord': {
         if (id === 'me') {
+          // 'me' is shorthand for the current user without knowing the current user's
+          // id. We cannot cache this request, and must always go back to the server for
+          // the response to this request since the user could change.
           headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
         }
         break;
@@ -43,9 +42,5 @@ export default RESTAdapter.extend({
     }
 
     return headers;
-  },
-
-  _requestClientToken (opts) {
-    return this.get ('gatekeeper.client').authenticate (opts);
   }
 });
