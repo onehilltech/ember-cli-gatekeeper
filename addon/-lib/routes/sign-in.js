@@ -2,8 +2,6 @@ import Ember from 'ember';
 import Material from 'ember-cli-mdl';
 
 export default Material.Route.extend ({
-  gatekeeper: Ember.inject.service (),
-
   beforeModel () {
     if (this.get ('gatekeeper.isSignedIn')) {
       // Transition to the start route.
