@@ -11,6 +11,8 @@ import Ember from 'ember';
 export default Ember.Mixin.create ({
   mergedProperties: ['signInOptions'],
 
+  gatekeeper: Ember.inject.service (),
+
   actions: {
     signIn () {
       // Reset the current error message.
