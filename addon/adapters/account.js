@@ -36,7 +36,7 @@ export default RESTAdapter.extend({
   },
 
   headersForRequest (params) {
-    let {id, requestType} = params;
+    let {id, requestType, query} = params;
     let headers = this._super (...arguments);
 
     switch (requestType) {
@@ -49,11 +49,11 @@ export default RESTAdapter.extend({
         break;
       }
 
-      case 'findRecord': {
-        if (id === 'me') {
-          // 'me' is shorthand for the current user without knowing the current user's
-          // id. We cannot cache this request, and must always go back to the server for
-          // the response to this request since the user could change.
+      case 'queryRecord': {
+        if (Ember.isEmpty (Object.keys (query))) {
+          // The empty query object is shorthand for the current user without knowing the
+          // current user's id. We cannot cache this request, and must always go back to
+          // the server for the response to this request since the user could change.
           headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
         }
         break;
