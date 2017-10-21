@@ -11,6 +11,7 @@ module.exports = function(environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+        'ds-improved-ajax': true
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
@@ -24,8 +25,12 @@ module.exports = function(environment) {
     },
 
     gatekeeper: {
-      clientId: 'dummy',
-      baseUrl: 'http://gatekeeper'
+      baseUrl: 'http://gatekeeper',
+
+      tokenOptions: {
+        client_id: 'dummy',
+        client_secret: 'ssshhh'
+      }
     }
   };
 
@@ -49,7 +54,15 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.gatekeeper.baseUrl = 'http://localhost:8080';
+    ENV.gatekeeper.tokenOptions = {
+      client_id: '58ed90e1105aee00001e429f',
+      client_secret: 'gatekeeper-android'
+    };
 
+    ENV['ember-cli-mirage'] = {
+      excludeFilesFromBuild: true
+    };
   }
 
   return ENV;

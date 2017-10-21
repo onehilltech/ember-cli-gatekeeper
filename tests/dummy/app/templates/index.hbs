@@ -5,7 +5,8 @@
 
   {{#mdl-layout-content}}
     <div style="padding: 16px">
-      {{#link-to "unauthorized"}}Unauthorized Test{{/link-to}}
+      <div>{{#link-to "unauthorized"}}Unauthorized Test{{/link-to}}</div>
+      <div><a href="#" {{action "signOut" target=gatekeeper}}>Sign Out</a></div>
     </div>
   {{/mdl-layout-content}}
 {{/mdl-layout}}

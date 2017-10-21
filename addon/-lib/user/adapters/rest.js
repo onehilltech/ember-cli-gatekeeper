@@ -12,11 +12,12 @@ export default DS.RESTAdapter.extend ({
   host: Ember.computed.readOnly ('gatekeeper.client.baseUrl'),
 
   namespace: Ember.computed ('gatekeeper.client.version', function () {
-    return `v${this.get ('gatekeeper.client.version')}`;
+    return `v${this.getWithDefault ('gatekeeper.client.version', 1)}`;
   }),
 
-  headers: Ember.computed ('gatekeeper.userToken', function () {
-    return { Authorization: `Bearer ${this.get ('gatekeeper.userToken.access_token')}` };
+  headers: Ember.computed ('gatekeeper.accessToken', function () {
+    let accessToken = this.get ('gatekeeper.accessToken');
+    return { Authorization: `Bearer ${accessToken.access_token}` };
   }),
 
   handleResponse (status, headers, payload) {

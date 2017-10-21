@@ -13,10 +13,10 @@ export default Ember.Service.extend (Ember.Evented, {
   currentUser: Ember.computed.readOnly ('_currentUser'),
 
   /// [private] Token for the current user.
-  _userToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
-  userToken: Ember.computed.readOnly ('_userToken'),
+  _accessToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
+  accessToken: Ember.computed.readOnly ('_accessToken'),
 
-  isSignedIn: Ember.computed.bool ('_userToken'),
+  isSignedIn: Ember.computed.bool ('_accessToken'),
   isSignedOut: Ember.computed.not ('isSignedIn'),
 
   /**
@@ -24,11 +24,14 @@ export default Ember.Service.extend (Ember.Evented, {
    * request to the server.
    */
   forceSignOut (reason) {
-    this.setProperties ({_userToken: null, _currentUser: null, errorMessage: reason});
+    this.setProperties ({_accessToken: null, _currentUser: null, errorMessage: reason});
   },
 
   /**
    * Sign in the user.
+   *
+   * The options provides by the client will be merged with the standard tokenOptions
+   * from the gatekeeper configuration.
    *
    * @returns {*}
    */
@@ -36,18 +39,19 @@ export default Ember.Service.extend (Ember.Evented, {
     return new RSVP.Promise ((resolve, reject) => {
       const tokenOptions = Ember.merge ({grant_type: 'password'}, opts);
 
-      this._getToken (tokenOptions).then ((token) => {
-        this.set ('_userToken', token);
+      this._getToken (tokenOptions).then (token => {
+        this.set ('_accessToken', token);
 
         // Query the service for the current user. We are going to cache their id
         // just in case the application needs to use it.
-        this.get ('store').queryRecord ('account', {}).then ((account) => {
+        this.get ('store').findRecord ('account', 'me').then (account => {
           this.set ('_currentUser', account.toJSON ({includeId: true}));
           this._completeSignIn ();
 
           Ember.run (null, resolve);
-        }).catch ((reason) => {
-          this.set ('_userToken');
+        }).catch (reason => {
+          this.set ('_accessToken');
+
           Ember.run (null, reject, reason);
         });
       }).catch (reject);
@@ -109,12 +113,12 @@ export default Ember.Service.extend (Ember.Evented, {
     return new RSVP.Promise ((resolve, reject) => {
       const tokenOptions = {
         grant_type: 'refresh_token',
-        refresh_token: this.get ('_userToken.refresh_token')
+        refresh_token: this.get ('_accessToken.refresh_token')
       };
 
       this._getToken (tokenOptions).then ((token) => {
         // Replace the current user token with this new token, and resolve.
-        this.set ('_userToken', token);
+        this.set ('_accessToken', token);
 
         Ember.run (null, resolve);
       }).catch ((xhr) => {
@@ -128,8 +132,8 @@ export default Ember.Service.extend (Ember.Evented, {
     });
   },
 
-  _httpHeaders: Ember.computed ('_userToken', function () {
-    return {Authorization: `Bearer ${this.get ('userToken.access_token')}`}
+  _httpHeaders: Ember.computed ('_accessToken', function () {
+    return {Authorization: `Bearer ${this.get ('accessToken.access_token')}`}
   }),
 
   /**
@@ -179,7 +183,7 @@ export default Ember.Service.extend (Ember.Evented, {
 
   _ajax (ajaxOptions) {
     ajaxOptions.headers = ajaxOptions.headers || {};
-    ajaxOptions.headers.Authorization = `Bearer ${this.get ('userToken.access_token')}`;
+    ajaxOptions.headers.Authorization = `Bearer ${this.get ('accessToken.access_token')}`;
 
     Ember.$.ajax (ajaxOptions);
   },
@@ -224,10 +228,8 @@ export default Ember.Service.extend (Ember.Evented, {
   _getToken (opts) {
     return new RSVP.Promise ((resolve, reject) => {
       const url = this.computeUrl ('/oauth2/token');
-
-      const data = Ember.merge ({
-        client_id: this.get ('client.clientId'),
-      }, opts);
+      const tokenOptions = this.get ('client.tokenOptions');
+      const data = Ember.assign (tokenOptions, opts);
 
       const ajaxOptions = {
         method: 'POST',

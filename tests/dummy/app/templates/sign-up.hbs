@@ -1,0 +1,39 @@
+{{#mdl-layout}}
+  {{#mdl-layout-content}}
+    <div style="padding: 16px">
+      {{#mdl-form submit=(action "createAccount")}}
+        {{mdl-textfield value=username
+                        label="Username"
+                        floatingLabel=true
+                        fullWidth=true
+                        required=true
+                        autocomplete="off"
+                        autocapitalize="none"}}
+
+        {{mdl-textfield value=password
+                        label="Password"
+                        type="password"
+                        floatingLabel=true
+                        fullWidth=true
+                        required=true
+                        autocomplete="off"
+                        autocapitalize="none"}}
+
+        {{mdl-textfield value=email
+                        label="Email address"
+                        floatingLabel=true
+                        fullWidth=true
+                        required=true}}
+
+        {{mdl-checkbox checked=acceptTerms value=acceptTerms label="By creating an account you agree to our Terms of Service and Privacy Policy."}}
+
+        {{mdl-submit colored=true type="raised" rippleEffect=true fullWidth=true value="Create my account"}}
+      {{/mdl-form}}
+    </div>
+
+    <div class="mdl-typography--text-center">
+      {{#link-to "sign-in" class="text-primary-light" replace=true}}Already have an account? Sign in.{{/link-to}}
+    </div>
+
+  {{/mdl-layout-content}}
+{{/mdl-layout}}

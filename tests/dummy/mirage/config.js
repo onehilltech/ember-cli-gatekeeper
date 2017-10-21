@@ -155,5 +155,5 @@ export default function() {
     return new Response (403, {'Content-Type': 'application/json'}, {
       errors: {status: 403, message: `Your token is invalid.`}
     });
-  });
+   });
 }
