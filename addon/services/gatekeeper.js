@@ -229,7 +229,7 @@ export default Ember.Service.extend (Ember.Evented, {
     return new RSVP.Promise ((resolve, reject) => {
       const url = this.computeUrl ('/oauth2/token');
       const tokenOptions = this.get ('client.tokenOptions');
-      const data = Ember.assign (tokenOptions, opts);
+      const data = Ember.assign ({}, tokenOptions, opts);
 
       const ajaxOptions = {
         method: 'POST',
