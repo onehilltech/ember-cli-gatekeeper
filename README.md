@@ -59,12 +59,15 @@ Then, import `ember-cli-gatekeeper` into the generated route file, and extend fr
 `Gatekeeper.User.AuthenticatedRoute` instead of the default `Ember.Route`.
 
 ```javascript 1.6
-// app/routes/foo.js
+// app/routes/comments.js
 
 import Gatekeeper from 'ember-cli-gatekeeper';
 
 export default Gatekeeper.User.AuthenticatedRoute.extend ({
-
+  model () {
+    let currentUser = this.get ('currentUser');
+    return this.get ('store').query ('comments', {user: currentUser.id});
+  }
 });
 ```
 
