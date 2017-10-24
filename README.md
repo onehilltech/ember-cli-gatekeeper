@@ -108,6 +108,23 @@ as normal.
 
 ### Signing out a user
 
+A signed in user can be signed out from any where in the application as long as you
+have access to the `gatekeeper` service.
+
+```javascript 1.6
+import Controller from '@ember/controller';
+
+export default Controller.extend({
+  actions: {
+    signOut () {
+      this.get ('gatekeeper').signOut ().then (() => {
+        this.replaceRoute ('sign-in');
+      });
+    }
+  }
+});
+```
+
 ### Allowing users to create accounts
 
 We use the `account` model to create user accounts. We assume that you have
