@@ -56,6 +56,8 @@ Then, import `ember-cli-gatekeeper` into the generated route file, and extend fr
 `Gatekeeper.User.AuthenticatedRoute`.
 
 ```javascript 1.6
+// app/routes/foo.js
+
 import Gatekeeper from 'ember-cli-gatekeeper';
 
 export default Gatekeeper.User.AuthenticatedRoute.extend ({
@@ -79,6 +81,8 @@ protected via an authorization token. To get this authorization token into each
 (or model-specific adapter) from the `RESTAdapter` in Gatekeeper.
 
 ```javascript 1.6
+// app/adapters/application.js
+
 import Gatekeeper from 'ember-cli-gatekeeper';
 
 export default Gatekeeper.User.RESTAdapter.extend({
