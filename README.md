@@ -70,6 +70,24 @@ class provides the `currentUser` property, which gives you access to the
 [account model](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/models/account.js)
 (less the password) for the signed in user.
 
+### Accessing protected data
+
+ember-data uses data model to access resources on a remote service. When using Gatekeeper,
+the routes for accessing these resources is protected via an authorization token. To get
+this authorization token into each ember-data request, you must extend your application (or
+model-specific adapter) from the `RESTAdapter` in Gatekeeper.
+
+```javascript 1.6
+import Gatekeeper from 'ember-cli-gatekeeper';
+
+export default Gatekeeper.User.RESTAdapter.extend({
+  
+});
+```
+
+You can then continue [configuring the adapter](https://emberjs.com/api/ember-data/2.16/classes/DS.RESTAdapter) 
+as normal.
+
 ### Signing in a user
 
 ### Signing out a user
