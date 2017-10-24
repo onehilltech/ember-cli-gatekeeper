@@ -135,8 +135,9 @@ export default Controller.extend({
 ```
 
 The `save()` method takes an optional `adapterOptions` property that allows you to 
-sign in the user upon account creation time. The advantage of doing this it that 
-it allows you to transition to a protected application route after account creation.
+sign in the user when the account is created. The advantage of doing this it that 
+it allows you to transition to a protected application route after account creation,
+or access [protected data](#accessing-protected-data) as part of the creation process.
 Otherwise, the user will have to sign in after creating the account to access a
 protected application route.
 
