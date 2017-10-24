@@ -22,7 +22,8 @@ configuration values:
 | Name  | Description | Required | Default Value |
 |-------|-------------|----------|---------------|
 | gatekeeper.baseUrl | Location of blueprint-gatekeeper | Yes | |
-| gatekeeper.startRoute | Default route name, or url, to transition to after login | | sign-in |      
+| gatekeeper.startRoute | Default route name, or url, to transition to after login | | index |
+| gatekeeper.signInRoute | Name of the sign in route | | sign-in |      
 | gatekeeper.tokenOptions.client_id | Client id | Yes | |
 | gatekeeper.tokenOptions.client_secret | Client secret | | |
 
@@ -77,6 +78,10 @@ service is injected into all routes. The
 class provides the `currentUser` property, which gives you access to the 
 [account model](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/models/account.js)
 (less the password) for the signed in user.
+
+When this route is accessed and the user is not signed in, the user will
+be transitioned to the `sign-in` route (see [Configuration](#defining-the-configuration)). After
+the user signs in, the user will be transitioned back to the original route.
 
 ### Accessing protected data
 
