@@ -46,14 +46,16 @@ let ENV = {
 }
 ```
 
-### Protecting routes
+### Protecting application routes
 
-Protecting routes is very simple. First, create the route using [ember-cli](https://ember-cli.com/).
+Protected application routes are routes that require the user to be signed in
+to access. Creating protected application routes is very simple. First, create 
+the route using [ember-cli](https://ember-cli.com/).
 
     ember g route [name]
     
 Then, import `ember-cli-gatekeeper` into the generated route file, and extend from
-`Gatekeeper.User.AuthenticatedRoute`.
+`Gatekeeper.User.AuthenticatedRoute` instead of the default `Ember.Route`.
 
 ```javascript 1.6
 // app/routes/foo.js
