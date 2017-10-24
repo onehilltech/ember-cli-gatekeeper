@@ -19,12 +19,12 @@ Getting Started
 Update the `ENV` variable in `config/environment.js` with the required
 configuration values:
 
-| Name                                   | Description                      |
-|----------------------------------------|----------------------------------|
-| gatekeeper.baseUrl                     | Location of blueprint-gatekeeper |
-| gatekeeper.tokenOptions.client_id      | Client id                        |
-| gatekeeper.tokenOptions.client_secret  | Optional client secret           |               
-
+| Name  | Description | Required | Default Value |
+|-------|-------------|----------|---------------|
+| gatekeeper.baseUrl | Location of blueprint-gatekeeper | Yes | |
+| gatekeeper.startRoute | Default route name, or url, to transition to after login | sign-in |      
+| gatekeeper.tokenOptions.client_id | Client id | Yes | |
+| gatekeeper.tokenOptions.client_secret | Client secret | | |
 
 The client secret should only be used if the web application is installed in
 a trusted environment, such as a mobile application via [ember-cordova](http://embercordova.com/).
