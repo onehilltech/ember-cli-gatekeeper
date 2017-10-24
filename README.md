@@ -110,11 +110,34 @@ as normal.
 
 ### Allowing users to create accounts
 
+We use the `account` model to create user accounts. We assume that you have
+created a template to gather the `username`, `password`, and `email address`
+from the user and have a controller action to that creates the account:
+
+```javascript 1.6
+import Controller from '@ember/controller';
+
+export default Controller.extend({
+  actions: {
+    createAccount () {
+      let {email, username, password} = this.getProperties (['email', 'username', 'password']);
+      let account = this.get ('store').createRecord ('account', {username, password, email});
+
+      account.save ({adapterOptions: {signIn: true}}).then (account => {
+        // You can transition to a protected application route
+      }).catch (reason => {
+        // Display error message to user
+      });
+    }
+  }
+});
+```
+
+The `save()` method takes an optional `adapterOptions` property that allows you to 
+sign in the user upon account creation time. The advantage of doing this it that 
+it allows you to transition to a protected application route after account creation.
+Otherwise, the user will have to sign in after creating the account to access a
+protected application route.
+
 
 Happy Coding!
-
-Next Steps
------------
-
-See the [Wiki](https://github.com/onehilltech/ember-cli-gatekeeper/wiki) for 
-more information.
