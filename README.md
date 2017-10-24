@@ -48,6 +48,28 @@ let ENV = {
 
 ### Protecting routes
 
+Protecting routes is very simple. First, create the route using ember-cli 
+
+    ember g route [name]
+    
+Then, import `ember-cli-gatekeeper` into the generated route file, and extend from
+`Gatekeeper.User.AuthenticatedRoute`.
+
+```javascript 1.6
+import Gatekeeper from 'ember-cli-gatekeeper';
+
+export default Gatekeeper.User.AuthenticatedRoute.extend ({
+
+});
+```
+
+The [gatekeeper](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/services/gatekeeper.js) 
+service is injected into all routes. The 
+[AuthenticatedRoute](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/-lib/user/authenticated-route.js) 
+class provides the `currentUser` property, which gives you access to the 
+[account model](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/models/account.js)
+(less the password) for the signed in user.
+
 ### Signing in a user
 
 ### Signing out a user
