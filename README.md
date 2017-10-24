@@ -46,6 +46,15 @@ let ENV = {
 }
 ```
 
+### Protecting routes
+
+### Signing in a user
+
+### Signing out a user
+
+### Allowing users to create accounts
+
+
 Happy Coding!
 
 Next Steps
