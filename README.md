@@ -111,6 +111,8 @@ as normal.
 A signed in user can be signed out from any where in the application as long as you
 have access to the `gatekeeper` service.
 
+> The `gatekeeper` service is injected into all routes and controllers.
+
 ```javascript 1.6
 import Controller from '@ember/controller';
 
