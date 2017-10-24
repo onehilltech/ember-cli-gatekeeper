@@ -49,8 +49,9 @@ let ENV = {
 ### Protecting application routes
 
 Protected application routes are routes that require the user to be signed in
-to access. Creating protected application routes is very simple. First, create 
-the route using [ember-cli](https://ember-cli.com/).
+to access. Creating protected application route is very simple.
+ 
+First, create the route using [ember-cli](https://ember-cli.com/).
 
     ember g route [name]
     
