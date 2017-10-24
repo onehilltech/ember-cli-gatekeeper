@@ -22,7 +22,7 @@ configuration values:
 | Name  | Description | Required | Default Value |
 |-------|-------------|----------|---------------|
 | gatekeeper.baseUrl | Location of blueprint-gatekeeper | Yes | |
-| gatekeeper.startRoute | Default route name, or url, to transition to after login | sign-in |      
+| gatekeeper.startRoute | Default route name, or url, to transition to after login | | sign-in |      
 | gatekeeper.tokenOptions.client_id | Client id | Yes | |
 | gatekeeper.tokenOptions.client_secret | Client secret | | |
 
