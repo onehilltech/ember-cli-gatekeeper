@@ -114,6 +114,8 @@ have access to the `gatekeeper` service.
 > The `gatekeeper` service is injected into all routes and controllers.
 
 ```javascript 1.6
+// app/controllers/index.js
+
 import Controller from '@ember/controller';
 
 export default Controller.extend({
