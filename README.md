@@ -48,7 +48,7 @@ let ENV = {
 
 ### Protecting routes
 
-Protecting routes is very simple. First, create the route using ember-cli 
+Protecting routes is very simple. First, create the route using [ember-cli](https://ember-cli.com/).
 
     ember g route [name]
     
