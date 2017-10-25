@@ -2,7 +2,15 @@ import Ember from 'ember';
 import Material from 'ember-cli-mdl';
 
 export default Material.Route.extend ({
-  currentUser: Ember.computed.readOnly ('gatekeeper.currentUser'),
+  currentUser: Ember.computed ('gatekeeper.currentUser', function () {
+    let currentUser = this.get ('gatekeeper.currentUser');
+    let store = this.get ('store');
+
+    let data = store.normalize ('account', currentUser);
+    data.data.id = currentUser.id;
+
+    return store.push (data);
+  }),
 
   init () {
     this._super (...arguments);
