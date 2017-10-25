@@ -2,12 +2,7 @@ import Ember from 'ember';
 import Material from 'ember-cli-mdl';
 
 export default Material.Route.extend ({
-  currentUser: Ember.computed ('gatekeeper.currentUser', {
-    get () {
-      let currentUser = this.get ('gatekeeper.currentUser');
-      return this.get ('store').createRecord ('account', currentUser);
-    }
-  }),
+  currentUser: Ember.computed.readOnly ('gatekeeper.currentUser'),
 
   init () {
     this._super (...arguments);
