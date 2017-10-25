@@ -106,6 +106,47 @@ as normal.
 
 ### Signing in a user
 
+To sign in a user, you need a route with a form that collects the user's username
+and password. To simplify this process, `ember-cli-gatekeeper` provides a sign in
+component. Add the `gatekeeper-sign-in-vertical` component to your sign in template.
+Make sure you bind the `signInComplete` property to an action. This action will be
+called after the user signs in successfully.
+
+```handlebars
+{{gatekeeper-sign-in-vertical signInComplete=(action "signInComplete")}}
+```
+
+> See the gatekeeper-sign-in-vertical definition for the different properties available
+> to customize the look and feel of the component.
+
+Next, the sign in route need to extend the `Gatekeeper.SignInRoute`. It is important
+to extend the `Gatekeeper.SignInRoute` class because it will redirect from the sign in
+route if the user it already signed in.
+
+```javascript 1.6
+// app/routes/sign-in.js
+
+import Gatekeeper from 'ember-cli-gatekeeper';
+
+export default Gatekeeper.SignInRoute.extend ({
+
+});
+```
+
+Last, the sign route controller should extend the `Gatekeeper.SignInController` class.
+The `Gatekeeper.SignInController` implements the `signInComplete` action is called 
+after the sign in process is complete.
+ 
+```javascript 1.6
+// app/controllers/sign-in.js
+
+import Gatekeeper from 'ember-cli-gatekeeper';
+
+export default Gatekeeper.SignInController.extend({
+
+});
+```
+
 ### Signing out a user
 
 A signed in user can be signed out from any where in the application as long as you
