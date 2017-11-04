@@ -31,6 +31,12 @@ module.exports = function(environment) {
         client_id: 'dummy',
         client_secret: 'ssshhh'
       }
+    },
+
+    'ember-cli-google': {
+      recaptcha: {
+        siteKey: '6LdcLDcUAAAAANCqibBJg2RZDRSUjqjoD8JvXVIx'
+      }
     }
   };
 

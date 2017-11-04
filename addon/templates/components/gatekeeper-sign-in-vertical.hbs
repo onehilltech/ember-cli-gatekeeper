@@ -25,6 +25,11 @@
                   floatingLabel=passwordFloatingLabel
                   errorMessage=passwordErrorMessage}}
 
+  {{#if usesRecaptcha}}
+    {{g-recaptcha-invisible verified=(action (mut recaptcha)) expired=(action (mut expired) true) reset=resetRecaptcha}}
+  {{/if}}
+
+
   {{#mdl-button type="submit"
                 colored=signInButtonColored
                 flat=signInButtonFlat
