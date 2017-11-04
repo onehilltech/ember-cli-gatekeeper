@@ -1,8 +1,9 @@
-<div style="padding: 16px">
-  {{gatekeeper-sign-in-vertical usernameLabelText="Login"
-                                errorMessage="This is an error message"
-                                signInComplete=(action "signInComplete")
-
-
-  }}
-</div>
+{{#mdl-layout}}
+  {{#mdl-layout-content}}
+    {{#mdl-card}}
+      {{gatekeeper-sign-in-vertical usernameLabelText="Login"
+                                    errorMessage="This is an error message"
+                                    signInComplete=(action "signInComplete")}}
+    {{/mdl-card}}
+  {{/mdl-layout-content}}
+{{/mdl-layout}}

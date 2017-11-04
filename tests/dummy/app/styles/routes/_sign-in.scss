@@ -1,0 +1,13 @@
+.mdl-route__sign-in {
+  .mdl-layout__content {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    .mdl-card {
+      padding: 16px;
+    }
+  }
+}

@@ -3,38 +3,34 @@
 {{/if}}
 
 {{#mdl-form submit=(action "signIn")}}
-  <div>
-    {{mdl-textfield type=usernameType
-                    value=username
-                    placeholder=usernamePlaceholder
-                    required="required"
-                    autocapitalize="none"
-                    autocomplete=usernameAutoComplete
-                    label=usernameLabelText
-                    fullWidth=true
-                    floatingLabel=usernameFloatingLabel
-                    errorMessage=usernameErrorMessage}}
-  </div>
+  {{mdl-textfield type=usernameType
+                  value=username
+                  placeholder=usernamePlaceholder
+                  required=true
+                  autocapitalize="none"
+                  autocomplete=usernameAutoComplete
+                  label=usernameLabelText
+                  fullWidth=true
+                  floatingLabel=usernameFloatingLabel
+                  errorMessage=usernameErrorMessage}}
 
-  <div>
-    {{mdl-textfield type=(if showPassword "text" "password")
-                    fullWidth=true
-                    value=password
-                    placeholder=passwordPlaceholder
-                    required="required"
-                    label=passwordLabelText
-                    autocomplete="off"
-                    autocapitalize="none"
-                    floatingLabel=passwordFloatingLabel
-                    errorMessage=passwordErrorMessage}}
-  </div>
+  {{mdl-textfield type=(if showPassword "text" "password")
+                  fullWidth=true
+                  value=password
+                  placeholder=passwordPlaceholder
+                  required=true
+                  label=passwordLabelText
+                  autocomplete="off"
+                  autocapitalize="none"
+                  floatingLabel=passwordFloatingLabel
+                  errorMessage=passwordErrorMessage}}
 
-  <div>
-    {{mdl-submit colored=signInButtonColored
-                 type=signInButtonType
-                 accent=signInButtonAccent
-                 rippleEffect=signInButtonRippleEffect
-                 value=(if isSigningIn signingInText signInText)
-                 disabled=isSigningIn}}
-  </div>
+  {{#mdl-button type="submit"
+                colored=signInButtonColored
+                flat=signInButtonFlat
+                color=signInButtonColor
+                rippleEffect=signInButtonRippleEffect
+                disabled=isSigningIn}}
+    {{if isSigningIn signingInText signInText}}
+  {{/mdl-button}}
 {{/mdl-form}}

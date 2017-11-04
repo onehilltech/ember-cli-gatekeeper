@@ -18,6 +18,7 @@ export default Ember.Component.extend (SignInMixin, {
 
   //== button
 
+  signInButtonColored: true,
   signInText: 'Sign In',
   signingInText: 'Signing in...',
 
