@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const ReCaptcha = Ember.Object.create ({
+const ReCaptcha = Ember.Object.extend ({
   /// Reset the ReCaptcha component
   reset: false,
 

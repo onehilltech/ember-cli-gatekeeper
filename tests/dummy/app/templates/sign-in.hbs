@@ -1,8 +1,7 @@
 {{#mdl-layout}}
   {{#mdl-layout-content}}
     {{#mdl-card}}
-      {{gatekeeper-sign-in-vertical usesRecaptcha=true
-                                    usernameLabelText="Login"
+      {{gatekeeper-sign-in-vertical usernameLabelText="Login"
                                     errorMessage="This is an error message"
                                     signInComplete=(action "signInComplete")}}
     {{/mdl-card}}
