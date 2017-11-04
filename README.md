@@ -34,7 +34,16 @@ Here is an example `config/environment.js` with the Gatekeeper configuration:
 
 ```javascript 1.6
 let ENV = {
-  /// ...
+  // ...
+  
+  EmberENV: {
+    FEATURES: {
+    // This must be enabled for account adapter to work.
+    'ds-improved-ajax': true
+    }
+    
+    // ...
+  },
   
   gatekeeper: {
     baseUrl: 'https://mydomain.com/gatekeeper',
