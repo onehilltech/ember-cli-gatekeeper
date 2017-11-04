@@ -25,8 +25,8 @@
                   floatingLabel=passwordFloatingLabel
                   errorMessage=passwordErrorMessage}}
 
-  {{#if usesRecaptcha}}
-    {{g-recaptcha-invisible verified=(action (mut recaptcha)) expired=(action (mut expired) true) reset=resetRecaptcha}}
+  {{#if recaptcha}}
+    {{g-recaptcha-invisible verified=(action (mut recaptcha.value)) expired=(action (mut recaptcha.expired) true) reset=recaptcha.reset}}
   {{/if}}
 
 

@@ -1,5 +1,16 @@
 import Ember from 'ember';
 
+const ReCaptcha = Ember.Object.create ({
+  /// Reset the ReCaptcha component
+  reset: false,
+
+  /// The verified value of the ReCaptcha.
+  value: null,
+
+  /// The ReCaptcha has expired.
+  expired: false
+});
+
 /**
  * SignInMixin allows you to add sign in support to any object in EmberJS. It
  * is primarily used both Ember.Controller and Ember.Component objects. The
@@ -15,16 +26,27 @@ export default Ember.Mixin.create ({
 
   signInOptions: {},
 
+  init () {
+    this._super (...arguments);
+
+    let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
+    let recaptcha = Ember.get (ENV, 'ember-cli-google.recaptcha');
+
+    if (Ember.isPresent (recaptcha)) {
+      this.set ('recaptcha', ReCaptcha.create ({}));
+    }
+  },
+
   actions: {
     signIn () {
       // Reset the current error message.
       this.set ('errorMessage');
 
-      let usesRecaptcha = this.get ('usesRecaptcha');
+      let recaptcha = this.get ('recaptcha');
 
-      if (usesRecaptcha) {
+      if (recaptcha) {
         // We are using recaptcha to determine if current user is not a robot.
-        this.set ('resetRecaptcha', true);
+        this.set ('recaptcha.reset', true);
       }
       else {
         this._doSignIn ();
@@ -32,28 +54,27 @@ export default Ember.Mixin.create ({
     }
   },
 
-  _isHuman: Ember.observer ('recaptcha', function () {
-    let recaptcha = this.get ('recaptcha');
+  _isHuman: Ember.observer ('recaptcha.value', function () {
+    let value = this.get ('recaptcha.value');
 
-    if (Ember.isPresent (recaptcha)) {
+    if (Ember.isPresent (value)) {
       this._doSignIn ();
     }
   }),
 
   _doSignIn () {
     // Login the user.
-    let {username, password, signInOptions, usesRecaptcha} = this.getProperties (['username', 'password', 'signInOptions', 'usesRecaptcha']);
+    let {username, password, signInOptions, recaptcha} = this.getProperties (['username', 'password', 'signInOptions', 'recaptcha']);
     let opts = Ember.merge ({username, password}, signInOptions);
 
-    if (usesRecaptcha) {
-      opts.recaptcha = this.get ('recaptcha');
+    if (Ember.isPresent (recaptcha)) {
+      opts.recaptcha = this.get ('recaptcha.value');
     }
 
     this.set ('isSigningIn', true);
 
     this.get ('gatekeeper').signIn (opts).then (() => {
       Ember.run.schedule ('actions', () => {
-        this.set ('isSigningIn', false);
         this.didSignIn ();
       });
     }).catch ((xhr) => {
@@ -63,19 +84,19 @@ export default Ember.Mixin.create ({
 
           switch (errors.code) {
             case 'invalid_username':
-              this.setProperties ({recaptcha: null, isSigningIn: false, usernameErrorMessage: errors.message});
+              this.setProperties ({'recaptcha.value': null, isSigningIn: false, usernameErrorMessage: errors.message});
               break;
 
             case 'invalid_password':
-              this.setProperties ({recaptcha: null, isSigningIn: false, passwordErrorMessage: errors.message});
+              this.setProperties ({'recaptcha.value': null, isSigningIn: false, passwordErrorMessage: errors.message});
               break;
 
             default:
-              this.setProperties ({recaptcha: null, isSigningIn: false, errorMessage: errors.message});
+              this.setProperties ({'recaptcha.value': null, isSigningIn: false, errorMessage: errors.message});
           }
         }
         else {
-          this.setProperties ({recaptcha: null, isSigningIn: false, errorMessage: xhr.statusText});
+          this.setProperties ({'recaptcha.value': null, isSigningIn: false, errorMessage: xhr.statusText});
         }
       });
     });
