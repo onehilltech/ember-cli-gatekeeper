@@ -119,7 +119,7 @@ To sign in a user, you need a route with a form that collects the user's usernam
 and password. To simplify this process, `ember-cli-gatekeeper` provides a blueprint
 for seeding the application with a sign in route:
 
-    ember g gatekeeper-sign-in sign-in
+    ember g gatekeeper-sign-in-route sign-in
     
 The blueprint about will generate a sign in route, template, and controller, and add
 the route to the router.
