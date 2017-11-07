@@ -24,6 +24,9 @@ module.exports = {
         if (options.pod) {
           return 'template';
         }
+
+        console.log (options);
+
         return options.dasherizedModuleName;
       },
       __root__: function(options) {
