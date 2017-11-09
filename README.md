@@ -124,29 +124,6 @@ for seeding the application with a sign in route:
 The blueprint about will generate a sign in route, template, and controller, and add
 the route to the router.
 
-## Signing out a user
-
-A signed in user can be signed out from any where in the application as long as you
-have access to the `gatekeeper` service.
-
-> The `gatekeeper` service is injected into all routes and controllers.
-
-```javascript 1.6
-// app/controllers/index.js
-
-import Controller from '@ember/controller';
-
-export default Controller.extend({
-  actions: {
-    signOut () {
-      this.get ('gatekeeper').signOut ().then (() => {
-        this.replaceRoute ('sign-in');
-      });
-    }
-  }
-});
-```
-
 ### Using reCAPTCHA
 
 Gatekeeper uses different public/private key verification schemes to ensure that robots are 
@@ -173,6 +150,29 @@ let ENV = {
 
 The add-on will automatically detect the presence of the `siteKey`, and enable Google reCAPTCHA
 in the default login form.
+
+## Signing out a user
+
+A signed in user can be signed out from any where in the application as long as you
+have access to the `gatekeeper` service.
+
+> The `gatekeeper` service is injected into all routes and controllers.
+
+```javascript 1.6
+// app/controllers/index.js
+
+import Controller from '@ember/controller';
+
+export default Controller.extend({
+  actions: {
+    signOut () {
+      this.get ('gatekeeper').signOut ().then (() => {
+        this.replaceRoute ('sign-in');
+      });
+    }
+  }
+});
+```
 
 ## Allowing users to create accounts
 
