@@ -14,7 +14,7 @@ Installation
 Getting Started
 ----------------
 
-### Defining the configuration
+## Defining the configuration
 
 Update the `ENV` variable in `config/environment.js` with the required
 configuration values:
@@ -56,7 +56,7 @@ let ENV = {
 }
 ```
 
-### Protecting application routes
+## Protecting application routes
 
 Protected application routes are routes that require the user to be signed in
 to access. Creating protected application route is very simple.
@@ -92,7 +92,7 @@ class provides the `currentUser` property, which gives you access to the
 > be transitioned to the `sign-in` route (see [Configuration](#defining-the-configuration)). After
 > the user signs in, the user will be transitioned back to the original route.
 
-### Accessing protected data
+## Accessing protected data
 
 [ember-data](https://github.com/emberjs/data) uses data models to access resources on 
 a remote server. When using Gatekeeper, the routes for accessing these resources is
@@ -113,7 +113,7 @@ export default Gatekeeper.User.RESTAdapter.extend({
 You can then continue [configuring the adapter](https://emberjs.com/api/ember-data/2.16/classes/DS.RESTAdapter) 
 as normal.
 
-### Signing in a user
+## Signing in a user
 
 To sign in a user, you need a route with a form that collects the user's username
 and password. To simplify this process, `ember-cli-gatekeeper` provides a blueprint
@@ -124,7 +124,7 @@ for seeding the application with a sign in route:
 The blueprint about will generate a sign in route, template, and controller, and add
 the route to the router.
 
-### Signing out a user
+## Signing out a user
 
 A signed in user can be signed out from any where in the application as long as you
 have access to the `gatekeeper` service.
@@ -147,7 +147,34 @@ export default Controller.extend({
 });
 ```
 
-### Allowing users to create accounts
+### Using reCAPTCHA
+
+Gatekeeper uses different public/private key verification schemes to ensure that robots are 
+not accessing the system. When developing a web application, it is not save 
+to place a secret in an EmberJS application because it will be accessible to site visitors.
+We therefore recommend you use a reCAPTCHA service, such as Google reCAPTCHA, to verify users
+are not robots.
+
+Gatekeeper provides out-of-the-box support for Google reCAPTCHA via the 
+[ember-cli-google-recaptcha](https://github.com/onehilltech/ember-cli-google-recaptcha) add-on.
+All you have to do is add your `siteKey` to `config/environment.js`:
+
+```javascript 1.6
+let ENV = {
+  // ...
+  
+  'ember-cli-google': {
+    recaptcha: {
+      siteKey: 'This is where my siteKey goes'
+    }
+  }
+};
+```
+
+The add-on will automatically detect the presence of the `siteKey`, and enable Google reCAPTCHA
+in the default login form.
+
+## Allowing users to create accounts
 
 We use the `account` model to create user accounts. We assume that you have
 created a template to gather the `username`, `password`, and `email address`
