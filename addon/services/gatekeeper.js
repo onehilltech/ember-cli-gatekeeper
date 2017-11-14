@@ -25,6 +25,7 @@ export default Ember.Service.extend (Ember.Evented, {
    */
   forceSignOut (reason) {
     this.setProperties ({_accessToken: null, _currentUser: null, errorMessage: reason});
+    this.trigger ('signedOut');
   },
 
   /**
@@ -157,18 +158,8 @@ export default Ember.Service.extend (Ember.Evented, {
             // then retry the original request. Otherwise, pass the original error to the
             // back to the client.
             this.refreshToken ()
-              .then (() => {
-                this._ajax (dupOptions);
-              })
-              .catch ((xhr, textStatus, error) => {
-                this.forceSignOut ();
-                Ember.run (null, reject, {xhr: xhr, status: textStatus, error: error});
-              });
-            break;
-
-          case 403:
-            this.forceSignOut ();
-            Ember.run (null, reject, {xhr: xhr, status: textStatus, error: errorThrown});
+              .then (() => this._ajax (dupOptions))
+              .catch ((xhr, textStatus, error) => Ember.run (null, reject, {xhr: xhr, status: textStatus, error: error}));
             break;
 
           default:
