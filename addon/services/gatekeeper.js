@@ -188,32 +188,6 @@ export default Ember.Service.extend (Ember.Evented, {
     Ember.$.ajax (ajaxOptions);
   },
 
-  /**
-   * Change the current password for the user.
-   *
-   * @param currentPassword
-   * @param newPassword
-   */
-  changePassword (currentPassword, newPassword) {
-    const url =  this.computeUrl ('/accounts/me/password');
-    const data = {
-      'change-password': {
-        current: currentPassword,
-        new: newPassword
-      }
-    };
-
-    const ajaxOptions = {
-      method: 'POST',
-      url: url,
-      data: JSON.stringify (data),
-      dataType: 'json',
-      contentType: 'application/json',
-    };
-
-    return this.ajax (ajaxOptions);
-  },
-
   computeUrl (relativeUrl) {
     return this.get ('client').computeUrl (relativeUrl);
   },
