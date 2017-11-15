@@ -1,5 +1,10 @@
 import Ember from 'ember';
 
+/**
+ * @class ReCaptcha
+ *
+ * Utility class that bags properties related to reCAPTCHA support.
+ */
 const ReCaptcha = Ember.Object.extend ({
   /// Reset the ReCaptcha component
   reset: false,
