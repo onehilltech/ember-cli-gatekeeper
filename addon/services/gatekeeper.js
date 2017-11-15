@@ -23,8 +23,8 @@ export default Ember.Service.extend (Ember.Evented, {
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
    */
-  forceSignOut (reason) {
-    this.setProperties ({_accessToken: null, _currentUser: null, errorMessage: reason});
+  forceSignOut () {
+    this.setProperties ({_accessToken: null, _currentUser: null});
     this.trigger ('signedOut');
   },
 
@@ -218,7 +218,6 @@ export default Ember.Service.extend (Ember.Evented, {
    * @private
    */
   _completeSignIn () {
-    this.set ('errorMessage');
     this.trigger ('signedIn');
   },
 
