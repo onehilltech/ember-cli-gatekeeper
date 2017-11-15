@@ -24,6 +24,10 @@ export default Ember.Component.extend (SignInMixin, {
 
   enableShowPassword: true,
 
+  doSigningIn () {
+    this.set ('isSigningIn', true);
+  },
+
   didSignIn () {
     this.get ('signInComplete') ();
   },
