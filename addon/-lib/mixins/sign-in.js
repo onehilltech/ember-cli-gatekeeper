@@ -13,7 +13,12 @@ const ReCaptcha = Ember.Object.extend ({
   value: null,
 
   /// The ReCaptcha has expired.
-  expired: false
+  expired: false,
+
+  componentName: Ember.computed ('type', function () {
+    let type = this.getWithDefault ('type', 'invisible');
+    return `g-recaptcha-${type}`;
+  })
 });
 
 /**
@@ -38,7 +43,8 @@ export default Ember.Mixin.create ({
     let recaptcha = Ember.get (ENV, 'ember-cli-google.recaptcha');
 
     if (Ember.isPresent (recaptcha)) {
-      this.set ('recaptcha', ReCaptcha.create ({}));
+      let type = Ember.get (recaptcha, 'type');
+      this.set ('recaptcha', ReCaptcha.create ({type}));
     }
   },
 
