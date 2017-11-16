@@ -57,9 +57,9 @@ export default Ember.Mixin.create ({
 
       let recaptcha = this.get ('recaptcha');
 
-      if (Ember.isPresent (recaptcha) && Ember.isEmpty ('recaptcha.value')) {
+      if (Ember.isPresent (recaptcha) && Ember.isEmpty (recaptcha.get ('value'))) {
         // We are using recaptcha to determine if current user is not a robot.
-        this.set ('recaptcha.reset', true);
+        recaptcha.set ('reset', true);
       }
       else {
         this._doSignIn ();
