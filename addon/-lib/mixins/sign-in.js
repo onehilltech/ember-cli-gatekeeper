@@ -116,24 +116,28 @@ export default Ember.Mixin.create ({
       this.didSignIn ();
     }).catch ((xhr) => {
       if (xhr.status === 400) {
-        let errors = xhr.responseJSON.errors;
+        let errors = Ember.A (xhr.responseJSON.errors);
+        let firstError = errors.get ('firstObject');
+
         let recaptcha = this.get ('recaptcha');
 
         if (Ember.isPresent (recaptcha)) {
           recaptcha.set ('value');
         }
 
-        switch (errors.code) {
-          case 'invalid_username':
-            this.setProperties ({usernameErrorMessage: errors.message});
-            break;
+        if (Ember.isPresent (firstError)) {
+          switch (firstError.code) {
+            case 'invalid_username':
+              this.setProperties ({usernameErrorMessage: firstError.message});
+              break;
 
-          case 'invalid_password':
-            this.setProperties ({passwordErrorMessage: errors.message});
-            break;
+            case 'invalid_password':
+              this.setProperties ({passwordErrorMessage: firstError.message});
+              break;
 
-          default:
-            this.setProperties ({errorMessage: errors.message});
+            default:
+              this.setProperties ({errorMessage: firstError.message});
+          }
         }
       }
       else {
