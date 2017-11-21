@@ -128,15 +128,15 @@ export default Ember.Mixin.create ({
         if (Ember.isPresent (firstError)) {
           switch (firstError.code) {
             case 'invalid_username':
-              this.setProperties ({usernameErrorMessage: firstError.message});
+              this.setProperties ({usernameErrorMessage: firstError.detail});
               break;
 
             case 'invalid_password':
-              this.setProperties ({passwordErrorMessage: firstError.message});
+              this.setProperties ({passwordErrorMessage: firstError.detail});
               break;
 
             default:
-              this.setProperties ({errorMessage: firstError.message});
+              this.setProperties ({errorMessage: firstError.detail});
           }
         }
       }
