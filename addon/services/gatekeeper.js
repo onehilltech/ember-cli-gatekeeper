@@ -144,39 +144,28 @@ export default Ember.Service.extend (Ember.Evented, {
    * @param ajaxOptions
    */
   ajax (ajaxOptions) {
-    return new RSVP.Promise ((resolve, reject) => {
-      let dupOptions = Ember.copy (ajaxOptions, false);
+    let dupOptions = Ember.copy (ajaxOptions, false);
 
-      dupOptions.success = function (payload, textStatus, jqXHR) {
-        Ember.run (null, resolve, {payload: payload, status: textStatus, xhr: jqXHR});
-      };
+    dupOptions.headers = dupOptions.headers || {};
+    dupOptions.headers.Authorization = `Bearer ${this.get ('accessToken.access_token')}`;
 
-      dupOptions.error = (xhr, textStatus, errorThrown) => {
+    return new Ember.RSVP.Promise ((resolve, reject) => {
+      Ember.$.ajax (dupOptions).then (resolve).catch (xhr => {
         switch (xhr.status) {
           case 401:
             // Use the Gatekeeper service to refresh the token. If the token is refreshed,
             // then retry the original request. Otherwise, pass the original error to the
             // back to the client.
             this.refreshToken ()
-              .then (() => this._ajax (dupOptions))
-              .catch ((xhr, textStatus, error) => Ember.run (null, reject, {xhr: xhr, status: textStatus, error: error}));
+              .then (() => this.ajax (dupOptions))
+              .catch ((xhr, textStatus, error) => Ember.run (null, reject, xhr));
             break;
 
           default:
-            Ember.run (null, reject, {xhr: xhr, status: textStatus, error: errorThrown});
+            Ember.run (null, reject, xhr);
         }
-      };
-
-      // Do the ajax operation.
-      this._ajax (ajaxOptions);
+      });
     });
-  },
-
-  _ajax (ajaxOptions) {
-    ajaxOptions.headers = ajaxOptions.headers || {};
-    ajaxOptions.headers.Authorization = `Bearer ${this.get ('accessToken.access_token')}`;
-
-    Ember.$.ajax (ajaxOptions);
   },
 
   computeUrl (relativeUrl) {

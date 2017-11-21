@@ -107,40 +107,41 @@ export default Ember.Mixin.create ({
     let opts = Ember.merge ({username, password}, signInOptions);
 
     if (Ember.isPresent (recaptcha)) {
-      opts.recaptcha = this.get ('recaptcha.value');
+      opts.recaptcha = recaptcha.get ('value');
     }
 
     this.doSigningIn ();
 
     this.get ('gatekeeper').signIn (opts).then (() => {
-      Ember.run.schedule ('actions', () => {
-        this.didSignIn ();
-      });
+      this.didSignIn ();
     }).catch ((xhr) => {
-      Ember.run.schedule ('actions', () => {
-        if (xhr.status === 400) {
-          let errors = xhr.responseJSON.errors;
+      if (xhr.status === 400) {
+        let errors = xhr.responseJSON.errors;
+        let recaptcha = this.get ('recaptcha');
 
-          switch (errors.code) {
-            case 'invalid_username':
-              this.setProperties ({'recaptcha.value': null, usernameErrorMessage: errors.message});
-              break;
-
-            case 'invalid_password':
-              this.setProperties ({'recaptcha.value': null, passwordErrorMessage: errors.message});
-              break;
-
-            default:
-              this.setProperties ({'recaptcha.value': null, errorMessage: errors.message});
-          }
-        }
-        else {
-          this.setProperties ({'recaptcha.value': null, errorMessage: xhr.statusText});
+        if (Ember.isPresent (recaptcha)) {
+          recaptcha.set ('value');
         }
 
-        // Notify the component the sign in has failed.
-        this.doSignInFailed ();
-      });
+        switch (errors.code) {
+          case 'invalid_username':
+            this.setProperties ({usernameErrorMessage: errors.message});
+            break;
+
+          case 'invalid_password':
+            this.setProperties ({passwordErrorMessage: errors.message});
+            break;
+
+          default:
+            this.setProperties ({errorMessage: errors.message});
+        }
+      }
+      else {
+        this.setProperties ({errorMessage: xhr.statusText});
+      }
+
+      // Notify the component the sign in has failed.
+      this.doSignInFailed ();
     });
   }
 });
