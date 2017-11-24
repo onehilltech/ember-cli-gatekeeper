@@ -33,28 +33,32 @@ export default Material.Route.extend ({
     error (reason, transition) {
       let errors = Ember.get (reason, 'errors');
 
-      if (!Ember.isEmpty (errors)) {
-        for (let i = 0, len = errors.length; i < len; ++ i) {
-          let error = errors[i];
+      if (Ember.isEmpty (errors))
+        return true;
 
-          if (error.status === '403') {
-            // Redirect to sign in page, allowing the user to redirect back to the
-            // original page. But, do not support the back button.
-            let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-            let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
-            let signInController = this.controllerFor (signInRoute);
+      for (let i = 0, len = errors.length; i < len; ++ i) {
+        let error = errors[i];
 
-            signInController.setProperties ({
-              redirectTo: transition,
-              errorMessage: error.detail
-            });
+        if (error.status === '403') {
+          // Redirect to sign in page, allowing the user to redirect back to the
+          // original page. But, do not support the back button.
+          let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
+          let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+          let signInController = this.controllerFor (signInRoute);
 
-            // Force the user to sign out.
-            this.get ('gatekeeper').forceSignOut ();
-            this.replaceWith (signInRoute);
-          }
+          signInController.setProperties ({
+            redirectTo: transition,
+            errorMessage: error.detail
+          });
+
+          // Force the user to sign out.
+          this.get ('gatekeeper').forceSignOut ();
+          this.replaceWith (signInRoute);
+          return;
         }
       }
+
+      return true;
     }
   },
 
