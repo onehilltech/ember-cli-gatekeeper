@@ -1,6 +1,16 @@
 import Ember from 'ember';
 import Material from 'ember-cli-mdl';
 
+const bearerErrorCodes = [
+  'invalid_token',
+  'unknown_token',
+  'token_disabled',
+  'unknown_client',
+  'client_disabled',
+  'unknown_account',
+  'account_disabled'
+];
+
 export default Material.Route.extend ({
   currentUser: Ember.computed ('gatekeeper.currentUser', function () {
     let currentUser = this.get ('gatekeeper.currentUser');
@@ -39,7 +49,7 @@ export default Material.Route.extend ({
       for (let i = 0, len = errors.length; i < len; ++ i) {
         let error = errors[i];
 
-        if (error.status === '403') {
+        if (error.status === '403' && bearerErrorCodes.indexOf (error.code) !== -1) {
           // Redirect to sign in page, allowing the user to redirect back to the
           // original page. But, do not support the back button.
           let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
