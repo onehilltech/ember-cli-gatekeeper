@@ -115,10 +115,10 @@ export default Ember.Mixin.create ({
     this.get ('gatekeeper').signIn (opts).then (() => {
       this.didSignIn ();
     }).catch ((xhr) => {
-      if (xhr.status === 400) {
-        let errors = Ember.A (xhr.responseJSON.errors);
-        let firstError = errors.get ('firstObject');
+      let errors = Ember.A (xhr.responseJSON.errors);
 
+      if (Ember.isPresent (errors)) {
+        let firstError = errors.get ('firstObject');
         let recaptcha = this.get ('recaptcha');
 
         if (Ember.isPresent (recaptcha)) {
