@@ -58,7 +58,7 @@ export default function() {
 
     if (body.client_id !== 'dummy') {
       return new Response (400, {'Content-Type': 'application/json'}, {
-        errors: {code: 'invalid_client', message: 'Your client id is not valid.'}
+        errors: [{status: '400', code: 'invalid_client', detail: 'Your client id is not valid.'}]
       });
     }
 
@@ -67,12 +67,12 @@ export default function() {
 
       if (body.username !== 'username') {
         return new Response (400, {'Content-Type': 'application/json'}, {
-          errors: {code: 'invalid_username', message: 'Your username is incorrect.'}
+          errors: [{status: '400', code: 'invalid_username', detail: 'Your username is incorrect.'}]
         });
       }
       else if (body.password !== 'password') {
         return new Response (400, {'Content-Type': 'application/json'}, {
-          errors: {code: 'invalid_password', message: 'Your password is incorrect.'}
+          errors: [{status: '400', code: 'invalid_password', detail: 'Your password is incorrect.'}]
         });
       }
       else {
@@ -84,7 +84,7 @@ export default function() {
 
       if (body.refresh_token !== TOKENS[0].refresh_token) {
         return new Response (400, {'Content-Type': 'application/json'}, {
-          errors: {status: 400, message: 'Missing/invalid refresh token'}
+          errors: [{status: '400', code: 'missing_token', detail: 'Missing/invalid refresh token'}]
         });
       }
       else {
@@ -94,7 +94,7 @@ export default function() {
     else if (body.grant_type === 'client_credentials') {
       if (body.client_secret !== 'ssshhh') {
         return new Response (400, {'Content-Type': 'application/json'}, {
-          errors: {status: 400, message: 'Missing/invalid client secret'}
+          errors: [{status: '400', code: 'invalid_secret', detail: 'Missing/invalid client secret'}]
         });
       }
       else {
@@ -103,7 +103,7 @@ export default function() {
     }
     else {
       return new Response (400, {'Content-Type': 'application/json'}, {
-        errors: {status: 400, message: `Unsupported grant type: ${body.grant_type}`}
+        errors: [{status: '400', code: 'unsupported_grant', detail: `Unsupported grant type: ${body.grant_type}`}]
       });
     }
   });

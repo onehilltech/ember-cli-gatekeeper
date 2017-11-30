@@ -1,1 +1,7 @@
-{{gatekeeper-sign-in-vertical signInComplete=(action "signInComplete")}}
+{{#mdl-layout}}
+  {{#mdl-layout-content}}
+    {{gatekeeper-sign-in-vertical signInComplete=(action "signInComplete")}}
+
+    {{#link-to "sign-up" class="create-account" replace=true}}I need to create an account.{{/link-to}}
+  {{/mdl-layout-content}}
+{{/mdl-layout}}

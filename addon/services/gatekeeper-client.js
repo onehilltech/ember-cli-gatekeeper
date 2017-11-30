@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import RSVP from 'rsvp';
 
 export default Ember.Service.extend({
   /// Reference to local storage.
@@ -54,23 +53,19 @@ export default Ember.Service.extend({
    * @private
    */
   _requestToken (opts) {
-    return new RSVP.Promise ((resolve, reject) => {
-      const url = this.computeUrl ('/oauth2/token');
-      const tokenOptions = this.get ('tokenOptions');
-      const data = Ember.assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
+    const url = this.computeUrl ('/oauth2/token');
+    const tokenOptions = this.get ('tokenOptions');
+    const data = Ember.assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
 
-      const ajaxOptions = {
-        method: 'POST',
-        url: url,
-        cache: false,
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify (data),
-        success: resolve,
-        error: reject
-      };
+    const ajaxOptions = {
+      method: 'POST',
+      url: url,
+      cache: false,
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify (data)
+    };
 
-      Ember.$.ajax (ajaxOptions);
-    });
+    return Ember.$.ajax (ajaxOptions);
   }
 });

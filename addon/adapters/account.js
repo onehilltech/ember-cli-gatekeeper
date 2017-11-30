@@ -10,10 +10,20 @@ export default RESTAdapter.extend({
   createRecord (store, type, snapshot) {
     let _super = this._super;
     let adapter = this;
+    let adapterOptions = snapshot.adapterOptions;
+    let opts = {};
 
-    return this.get ('gatekeeper.client').authenticate ().then (() => {
+    if (Ember.isPresent (adapterOptions)) {
+      let recaptcha = adapterOptions.recaptcha;
+
+      if (Ember.isPresent (recaptcha)) {
+        opts.recaptcha = recaptcha;
+      }
+    }
+
+    return this.get ('gatekeeper.client').authenticate (opts).then (() => {
       return _super.call (adapter, store, type, snapshot);
-    });
+    })
   },
 
   urlForRequest(params) {
@@ -47,7 +57,7 @@ export default RESTAdapter.extend({
   },
 
   headersForRequest (params) {
-    let {id, requestType, query} = params;
+    let {requestType, query} = params;
     let headers = this._super (...arguments);
 
     switch (requestType) {

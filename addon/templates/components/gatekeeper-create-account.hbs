@@ -1,0 +1,36 @@
+{{#mdl-form submit=(action "createAccount")}}
+  {{#unless emailIsUsername}}
+    {{mdl-textfield value=username
+                    label="Username"
+                    fullWidth=true
+                    required=true}}
+  {{/unless}}
+
+  {{mdl-textfield type="email"
+                  value=email
+                  label="Email address"
+                  fullWidth=true
+                  required=true}}
+
+  {{mdl-textfield type="password"
+                  value=password
+                  label="Password"
+                  fullWidth=true
+                  required=true}}
+
+  {{#if confirmPassword}}
+    {{mdl-textfield type="password"
+                    value=confirmedPassword
+                    label="Confirm password"
+                    fullWidth=true
+                    required=true}}
+  {{/if}}
+
+  {{#if recaptcha}}
+    {{component recaptcha.componentName verified=(action (mut recaptcha.value)) expired=(action (mut recaptcha.expired) true) reset=recaptcha.reset}}
+  {{/if}}
+
+  {{#mdl-button type="submit" color="primary"}}Create My Account{{/mdl-button}}
+{{/mdl-form}}
+
+{{mdl-snackbar message=messageToUser}}

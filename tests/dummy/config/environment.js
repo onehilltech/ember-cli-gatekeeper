@@ -25,8 +25,6 @@ module.exports = function(environment) {
     },
 
     gatekeeper: {
-      baseUrl: 'http://gatekeeper',
-
       tokenOptions: {
         client_id: 'dummy',
         client_secret: 'ssshhh'
@@ -41,6 +39,16 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
+
+    ENV.gatekeeper = {
+      baseUrl: 'http://localhost:8080',
+      tokenOptions: {
+        client_id: '5a206991201dc8357e45d174',
+      }
+    }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -49,7 +57,9 @@ module.exports = function(environment) {
   }
 
   if (environment === 'test') {
-    // Testem prefers this...
+    ENV.gatekeeper.baseUrl = 'http://gatekeeper';
+
+      // Testem prefers this...
     ENV.locationType = 'none';
 
     // keep test console output quieter

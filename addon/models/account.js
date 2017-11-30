@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import { memberAction, collectionAction } from 'ember-api-actions';
+import { memberAction } from 'ember-api-actions';
 
 export default DS.Model.extend({
   /// Email address for the account.
