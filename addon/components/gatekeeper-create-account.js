@@ -7,6 +7,8 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
 
   classNames: ['gk-form--create-account'],
 
+  store: Ember.inject.service (),
+
   confirmPassword: true,
 
   submitButtonColor: 'primary',
@@ -23,6 +25,12 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
 
   confirmPasswordLabel: 'Confirm password',
   confirmPasswordPlaceholder: null,
+
+  /// Control if the newly created account is enabled.
+  accountEnabled: true,
+
+  /// [private] Used internally by ReCaptcha.
+  canSubmit: true,
 
   confirmErrorMessage: Ember.computed ('confirmedPassword', function () {
     let {confirmedPassword,passwordMatches} = this.getProperties (['confirmedPassword','passwordMatches']);
@@ -63,14 +71,12 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
   }),
 
   handleError: Ember.on ('error', function (xhr) {
-    this.set ('messageToUser', xhr.statusText);
+    let errors = Ember.get (xhr, 'errors');
+    let messageToUser =  Ember.isPresent (errors) ? errors[0].detail : xhr.statusText;
+
+    this.set ('messageToUser', messageToUser);
+    this.sendAction ('error', xhr);
   }),
-
-  store: Ember.inject.service (),
-
-  canSubmit: true,
-
-  accountEnabled: true,
 
   actions: {
     createAccount () {
@@ -123,13 +129,14 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
     this.trigger ('willCreateAccount');
 
     account.save ({adapterOptions}).then ((account) => {
-      // Reset the form, including the ReCaptcha, if present.
-      this.setProperties ({
-        username: null,
-        email: null,
-        password: null,
-        confirmedPassword: null,
-      });
+      if (!this.get ('isDestroyed')) {
+        this.setProperties ({
+          username: null,
+          email: null,
+          password: null,
+          confirmedPassword: null,
+        });
+      }
 
       if (Ember.isPresent (recaptcha)) {
         recaptcha.set ('value');
