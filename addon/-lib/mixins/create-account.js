@@ -6,6 +6,8 @@ export default Ember.Mixin.create (Ember.Evented, ReCaptcha, {
 
   canSubmit: true,
 
+  accountEnabled: true,
+
   actions: {
     createAccount () {
       // Reset the current error message.
@@ -29,8 +31,9 @@ export default Ember.Mixin.create (Ember.Evented, ReCaptcha, {
       email,
       recaptcha,
       autoSignIn,
-      useEmailForUsername
-    } = this.getProperties (['username','password','email','recaptcha', 'autoSignIn', 'useEmailForUsername']);
+      useEmailForUsername,
+      accountEnabled
+    } = this.getProperties (['username','password','email','recaptcha', 'autoSignIn', 'useEmailForUsername', 'accountEnabled']);
 
     let adapterOptions = {};
 
@@ -46,7 +49,7 @@ export default Ember.Mixin.create (Ember.Evented, ReCaptcha, {
       username = email;
     }
 
-    let account = this.get ('store').createRecord ('account', {username, password, email});
+    let account = this.get ('store').createRecord ('account', {username, password, email, enabled: accountEnabled});
 
     this.trigger ('willCreateAccount');
 

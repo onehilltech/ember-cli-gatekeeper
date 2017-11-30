@@ -1,6 +1,26 @@
-{{#mdl-layout}}
+{{#mdl-layout fixedHeader=true fixedTabs=true}}
+  {{#mdl-layout-header}}
+    {{mdl-toolbar title="Sign Up Component"}}
+
+    {{#mdl-layout-tab-bar rippleEffect=true}}
+      {{#mdl-layout-tab}}Default{{/mdl-layout-tab}}
+      {{#mdl-layout-tab}}No Confirm{{/mdl-layout-tab}}
+      {{#mdl-layout-tab}}Email / Password{{/mdl-layout-tab}}
+    {{/mdl-layout-tab-bar}}
+  {{/mdl-layout-header}}
+
   {{#mdl-layout-content}}
-    {{gatekeeper-create-account}}
+    {{#mdl-layout-tab-panel}}
+      {{gatekeeper-create-account}}
+    {{/mdl-layout-tab-panel}}
+
+    {{#mdl-layout-tab-panel}}
+      {{gatekeeper-create-account confirmPassword=false}}
+    {{/mdl-layout-tab-panel}}
+
+    {{#mdl-layout-tab-panel}}
+      {{gatekeeper-create-account confirmPassword=false useEmailForUsername=true}}
+    {{/mdl-layout-tab-panel}}
 
     <div class="sign-in">
       {{#link-to "sign-in" class="text-primary-light" replace=true}}Already have an account? Sign in.{{/link-to}}

@@ -47,6 +47,10 @@ export default Ember.Component.extend (CreateAccountMixin, {
       !passwordMatches;
   }),
 
+  didCreateAccount: Ember.on ('didCreateAccount', function (account) {
+    this.sendAction ('accountCreated', account);
+  }),
+
   handleError: Ember.on ('error', function (xhr) {
     this.set ('messageToUser', xhr.statusText);
   })
