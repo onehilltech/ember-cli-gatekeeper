@@ -11,20 +11,22 @@
 
   {{#mdl-layout-content}}
     {{#mdl-layout-tab-panel}}
-      {{gatekeeper-create-account}}
+      {{gatekeeper-create-account accountCreated=(action "accountCreated")}}
     {{/mdl-layout-tab-panel}}
 
     {{#mdl-layout-tab-panel}}
-      {{gatekeeper-create-account confirmPassword=false}}
+      {{gatekeeper-create-account confirmPassword=false accountCreated=(action "accountCreated")}}
     {{/mdl-layout-tab-panel}}
 
     {{#mdl-layout-tab-panel}}
-      {{gatekeeper-create-account confirmPassword=false useEmailForUsername=true}}
+      {{gatekeeper-create-account confirmPassword=false useEmailForUsername=true accountCreated=(action "accountCreated")}}
     {{/mdl-layout-tab-panel}}
 
     <div class="sign-in">
       {{#link-to "sign-in" class="text-primary-light" replace=true}}Already have an account? Sign in.{{/link-to}}
     </div>
+
+    {{mdl-snackbar message=messageToUser}}
 
   {{/mdl-layout-content}}
 {{/mdl-layout}}
