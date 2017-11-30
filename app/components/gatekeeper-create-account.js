@@ -1,0 +1,1 @@
+export { default } from 'ember-cli-gatekeeper/components/gatekeeper-create-account';

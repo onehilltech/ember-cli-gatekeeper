@@ -1,6 +1,7 @@
 {{#mdl-form submit=(action "createAccount")}}
-  {{#unless emailIsUsername}}
-    {{mdl-textfield value=username
+  {{#unless useEmailForUsername}}
+    {{mdl-textfield type="text"
+                    value=username
                     label="Username"
                     fullWidth=true
                     required=true}}
@@ -21,6 +22,7 @@
   {{#if confirmPassword}}
     {{mdl-textfield type="password"
                     value=confirmedPassword
+                    errorMessage=confirmErrorMessage
                     label="Confirm password"
                     fullWidth=true
                     required=true}}
@@ -30,7 +32,7 @@
     {{component recaptcha.componentName verified=(action (mut recaptcha.value)) expired=(action (mut recaptcha.expired) true) reset=recaptcha.reset}}
   {{/if}}
 
-  {{#mdl-button type="submit" color="primary"}}Create My Account{{/mdl-button}}
+  {{#mdl-button type="submit" color=submitButtonColor disabled=disableSubmit}}{{submitButtonText}}{{/mdl-button}}
 {{/mdl-form}}
 
 {{mdl-snackbar message=messageToUser}}

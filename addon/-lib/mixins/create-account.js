@@ -28,8 +28,9 @@ export default Ember.Mixin.create (Ember.Evented, ReCaptcha, {
       password,
       email,
       recaptcha,
-      autoSignIn
-    } = this.getProperties (['username','password','email','recaptcha', 'autoSignIn']);
+      autoSignIn,
+      useEmailForUsername
+    } = this.getProperties (['username','password','email','recaptcha', 'autoSignIn', 'useEmailForUsername']);
 
     let adapterOptions = {};
 
@@ -39,6 +40,10 @@ export default Ember.Mixin.create (Ember.Evented, ReCaptcha, {
 
     if (Ember.isPresent (recaptcha)) {
       adapterOptions.recaptcha = recaptcha.get ('value');
+    }
+
+    if (useEmailForUsername) {
+      username = email;
     }
 
     let account = this.get ('store').createRecord ('account', {username, password, email});
