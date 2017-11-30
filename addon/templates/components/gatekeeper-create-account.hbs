@@ -2,20 +2,26 @@
   {{#unless useEmailForUsername}}
     {{mdl-textfield type="text"
                     value=username
-                    label="Username"
+                    label=usernameLabel
+                    placeholder=usernamePlaceholder
+                    errorMessage=usernameErrorMessage
                     fullWidth=true
                     required=true}}
   {{/unless}}
 
   {{mdl-textfield type="email"
                   value=email
-                  label="Email address"
+                  label=emailLabel
+                  placeholder=emailPlaceholder
+                  errorMessage=emailErrorMessage
                   fullWidth=true
                   required=true}}
 
   {{mdl-textfield type="password"
                   value=password
-                  label="Password"
+                  label=passwordLabel
+                  placeholder=passwordPlaceholder
+                  errorMessage=passwordErrorMessage
                   fullWidth=true
                   required=true}}
 
@@ -23,7 +29,8 @@
     {{mdl-textfield type="password"
                     value=confirmedPassword
                     errorMessage=confirmErrorMessage
-                    label="Confirm password"
+                    label=confirmPasswordLabel
+                    placeholder=confirmPasswordPlaceholder
                     fullWidth=true
                     required=true}}
   {{/if}}

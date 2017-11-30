@@ -10,8 +10,19 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
   confirmPassword: true,
 
   submitButtonColor: 'primary',
+  submitButtonText: 'Submit',
 
-  submitButtonText: 'Create My Account',
+  usernameLabel: 'Username',
+  usernamePlaceholder: null,
+
+  emailLabel: 'Email address',
+  emailPlaceholder: null,
+
+  passwordLabel: 'Password',
+  passwordPlaceholder: null,
+
+  confirmPasswordLabel: 'Confirm password',
+  confirmPasswordPlaceholder: null,
 
   confirmErrorMessage: Ember.computed ('confirmedPassword', function () {
     let {confirmedPassword,passwordMatches} = this.getProperties (['confirmedPassword','passwordMatches']);
