@@ -36,7 +36,10 @@
   {{/if}}
 
   {{#if recaptcha}}
-    {{component recaptcha.componentName verified=(action (mut recaptcha.value)) expired=(action (mut recaptcha.expired) true) reset=recaptcha.reset}}
+    {{component recaptcha.componentName
+                verified=(action (mut recaptcha.value))
+                expired=(action (mut recaptcha.expired) true)
+                reset=recaptcha.reset}}
   {{/if}}
 
   {{#mdl-button type="submit"

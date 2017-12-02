@@ -108,7 +108,6 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
       let recaptcha = this.get ('recaptcha');
 
       if (Ember.isPresent (recaptcha) && Ember.isEmpty (recaptcha.get ('value'))) {
-        this.set ('state', 'verifying');
         recaptcha.set ('reset', true);
       }
       else {
