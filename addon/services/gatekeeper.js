@@ -19,6 +19,12 @@ export default Ember.Service.extend (Ember.Evented, {
   isSignedIn: Ember.computed.bool ('_accessToken'),
   isSignedOut: Ember.computed.not ('isSignedIn'),
 
+  actions: {
+    signOut () {
+      this.signOut ();
+    }
+  },
+
   /**
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
