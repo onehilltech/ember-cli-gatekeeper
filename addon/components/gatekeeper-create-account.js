@@ -71,10 +71,19 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
   }),
 
   handleError: Ember.on ('error', function (xhr) {
-    let errors = Ember.get (xhr, 'errors');
-    let messageToUser =  Ember.isPresent (errors) ? errors[0].detail : xhr.statusText;
+    let error = Ember.get (xhr, 'errors.0');
 
-    this.set ('messageToUser', messageToUser);
+    if (Ember.isPresent (error)) {
+      switch (error.code) {
+        case 'create_failed':
+          this.set ('emailErrorMessage', 'This email address already has an account.');
+          break;
+
+        default:
+          this.set ('messageToUser', error.detail);
+      }
+    }
+
     this.sendAction ('error', xhr);
   }),
 
