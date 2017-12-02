@@ -144,6 +144,10 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
 
       this.trigger ('didCreateAccount', account);
     }).catch (xhr => {
+      if (Ember.isPresent (recaptcha)) {
+        recaptcha.set ('value');
+      }
+
       this.trigger ('error', xhr);
     });
   }
