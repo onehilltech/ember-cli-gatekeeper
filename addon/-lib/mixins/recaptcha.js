@@ -29,7 +29,7 @@ export default Ember.Mixin.create ({
     }
   },
 
-  _resetReCaptcha: Ember.on ('signInFailed', function () {
+  _resetReCaptcha: Ember.on ('error', function () {
     let recaptcha = this.get ('recaptcha');
 
     if (Ember.isPresent (recaptcha)) {
@@ -38,13 +38,11 @@ export default Ember.Mixin.create ({
   }),
 
   _isHuman: Ember.observer ('recaptcha.value', function () {
-    let {recaptcha, canSubmit} = this.getProperties (['recaptcha', 'canSubmit']);
+    let {recaptcha} = this.getProperties (['recaptcha']);
     let {type, value} = recaptcha.getProperties (['type', 'value']);
 
-    if (canSubmit) {
-      if (Ember.isPresent (value) && type === 'invisible') {
-        this._doSubmit ();
-      }
+    if (Ember.isPresent (value) && type === 'invisible') {
+      this._doSubmit ();
     }
   }),
 });

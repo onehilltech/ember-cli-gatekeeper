@@ -15,41 +15,49 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
   passwordLabelText: 'Password',
   passwordPlaceholder: 'Password',
   passwordFloatingLabel: true,
+  enableShowPassword: true,
 
   //== button
 
-  signInButtonColored: true,
-  signInText: 'Sign In',
-  signingInText: 'Signing in...',
+  signInButtonColor: 'primary',
 
-  enableShowPassword: true,
-
-  mergedProperties: ['signInOptions'],
+  mergedProperties: ['signInOptions','submitButtonStateText'],
 
   gatekeeper: Ember.inject.service (),
 
   signInOptions: {},
 
-  isSigningIn: false,
+  submitButtonStateText: {
+    signedOut: 'Sign In',
+    signingIn: 'Signing In...',
+    verifying: 'Verifying...'
+  },
 
-  disabled: Ember.computed ('isSigningIn', 'username', 'password', 'recaptcha.value', function () {
-    let {username, password, isSigningIn} = this.getProperties (['username', 'password', 'isSigningIn']);
-
-    return isSigningIn ||
-      Ember.isEmpty (username) ||
-      Ember.isEmpty (password) ||
-      (Ember.get (this, 'recaptcha.type') === 'v2' && Ember.isEmpty (Ember.get (this, 'recaptcha.value')));
+  submitButtonText: Ember.computed ('state', function () {
+    let state = this.get ('state');
+    return this.get (`submitButtonStateText.${state}`);
   }),
 
-  canSubmit: Ember.computed.not ('disabled'),
+  state: 'signedOut',
+  isSignedOut: Ember.computed.equal ('state', 'signedOut'),
+  isSigningIn: Ember.computed.equal ('state', 'signingIn'),
+
+  disabled: Ember.computed ('{state,username,password}', 'recaptcha.value', function () {
+    let {username, password,state} = this.getProperties (['username', 'password', 'state']);
+
+    return Ember.isEmpty (username) ||
+      Ember.isEmpty (password) ||
+      (Ember.get (this, 'recaptcha.type') === 'v2' && Ember.isEmpty (Ember.get (this, 'recaptcha.value'))) ||
+      state !== 'signedOut';
+  }),
 
   willSignIn () {
-    this.set ('isSigningIn', true);
+    this.set ('state', 'signingIn');
   },
 
   didSignIn () {
+    this.set ('state', 'signedIn');
     this.sendAction ('signInComplete');
-    this.set ('isSigningIn', false);
   },
 
   handleError: Ember.on ('error', function (xhr) {
@@ -72,7 +80,7 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
       }
     }
     else {
-      this.setProperties ('errorMessage', reason.statusText);
+      this.setProperties ('errorMessage', xhr.statusText);
     }
   }),
 
@@ -84,6 +92,7 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
       let recaptcha = this.get ('recaptcha');
 
       if (Ember.isPresent (recaptcha) && Ember.isEmpty (recaptcha.get ('value'))) {
+        this.set ('state', 'verifying');
         recaptcha.set ('reset', true);
       }
       else {
@@ -106,10 +115,6 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
     this.get ('gatekeeper').signIn (opts).then (() => {
       this.didSignIn ();
     }).catch (xhr => {
-      if (Ember.isPresent (recaptcha)) {
-        recaptcha.set ('value');
-      }
-
       this.trigger ('error', xhr);
     });
   }

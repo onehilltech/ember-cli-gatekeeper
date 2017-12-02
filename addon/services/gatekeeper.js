@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import RSVP from 'rsvp';
 
 export default Ember.Service.extend (Ember.Evented, {
   client: Ember.inject.service ('gatekeeper-client'),

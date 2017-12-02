@@ -6,9 +6,5 @@ export default SignInComponent.extend ({
 
   classNames: ['sign-in-form-vertical'],
 
-  signInButtonType: 'raised',
-
   signInButtonRippleEffect: true,
-
-  signInButtonAccent: true
 });

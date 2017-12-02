@@ -26,12 +26,11 @@
   {{/if}}
 
   {{#mdl-button type="submit"
-                colored=signInButtonColored
                 flat=signInButtonFlat
                 color=signInButtonColor
                 rippleEffect=signInButtonRippleEffect
                 disabled=disabled}}
-    {{if isSigningIn signingInText signInText}}
+    {{submitButtonText}}
   {{/mdl-button}}
 {{/mdl-form}}
 
