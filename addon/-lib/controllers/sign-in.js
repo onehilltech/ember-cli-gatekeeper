@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import SignInMixin from '../mixins/sign-in';
 
-export default Ember.Controller.extend (SignInMixin, {
+export default Ember.Controller.extend ({
   actions: {
     /**
      * Action called by the sign in component after the sign in process is completed

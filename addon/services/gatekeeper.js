@@ -37,25 +37,20 @@ export default Ember.Service.extend (Ember.Evented, {
    * @returns {*}
    */
   signIn (opts) {
-    return new RSVP.Promise ((resolve, reject) => {
-      const tokenOptions = Ember.merge ({grant_type: 'password'}, opts);
+    const tokenOptions = Ember.merge ({grant_type: 'password'}, opts);
 
-      this._getToken (tokenOptions).then (token => {
-        this.set ('_accessToken', token);
+    return this._requestToken (tokenOptions).then (token => {
+      this.set ('_accessToken', token);
 
-        // Query the service for the current user. We are going to cache their id
-        // just in case the application needs to use it.
-        this.get ('store').queryRecord ('account', {}).then (account => {
-          this.set ('_currentUser', account.toJSON ({includeId: true}));
-          this._completeSignIn ();
-
-          Ember.run (null, resolve);
-        }).catch (reason => {
-          this.set ('_accessToken');
-
-          Ember.run (null, reject, reason);
-        });
-      }).catch (reject);
+      // Query the service for the current user. We are going to cache their id
+      // just in case the application needs to use it.
+      return this.get ('store').queryRecord ('account', {}).then (account => {
+        this.set ('_currentUser', account.toJSON ({includeId: true}));
+        this._completeSignIn ();
+      }).catch (reason => {
+        this.set ('_accessToken');
+        return Ember.RSVP.reject (reason);
+      });
     });
   },
 
@@ -65,43 +60,30 @@ export default Ember.Service.extend (Ember.Evented, {
    * @returns {RSVP.Promise|*}
    */
   signOut () {
-    let self = this;
+    const url = this.computeUrl ('/oauth2/logout');
+    const ajaxOptions = {
+      type: 'POST',
+      url,
+      headers: this.get ('_httpHeaders')
+    };
 
-    return new RSVP.Promise ((resolve, reject) => {
-      const url = this.computeUrl ('/oauth2/logout');
+    return Ember.$.ajax (ajaxOptions).then (result => {
+      if (result) {
+        this._completeSignOut ();
+      }
 
-      const ajaxOptions = {
-        type: 'POST',
-        url: url,
-        cache: false,
-        headers: this.get ('_httpHeaders'),
-
-        success (result) {
-          if (result) {
-            self._completeSignOut ();
-            Ember.run (null, resolve);
-          }
-          else {
-            Ember.run (null, reject);
-          }
-        },
-
-        error (xhr) {
-          if (xhr.status === 401) {
-            // The token is bad. Try to refresh the token, then attempt to sign out the
-            // user again in a graceful manner.
-            self.refreshToken ()
-              .then (() => { return self.signOut (); })
-              .then (resolve)
-              .catch (reject);
-          }
-          else {
-            Ember.run (null, reject);
-          }
-        }
-      };
-
-      Ember.$.ajax (ajaxOptions);
+      return Ember.RSVP.resolve (result);
+    }).catch (xhr => {
+      if (xhr.status === 401) {
+        // The token is bad. Try to refresh the token, then attempt to sign out the
+        // user again in a graceful manner.
+        return this.refreshToken ().then (() => {
+          return this.signOut ();
+        });
+      }
+      else {
+        return Ember.RSVP.reject (xhr);
+      }
     });
   },
 
@@ -111,25 +93,19 @@ export default Ember.Service.extend (Ember.Evented, {
    * @returns {*|RSVP.Promise}
    */
   refreshToken () {
-    return new RSVP.Promise ((resolve, reject) => {
-      const tokenOptions = {
-        grant_type: 'refresh_token',
-        refresh_token: this.get ('_accessToken.refresh_token')
-      };
+    const tokenOptions = {
+      grant_type: 'refresh_token',
+      refresh_token: this.get ('_accessToken.refresh_token')
+    };
 
-      this._getToken (tokenOptions).then ((token) => {
-        // Replace the current user token with this new token, and resolve.
-        this.set ('_accessToken', token);
-
-        Ember.run (null, resolve);
-      }).catch ((xhr) => {
-        // Reset the state of the service. The client, if observing the sign in
-        // state of the user, should show the authentication form.
-        this.forceSignOut ();
-
-        // Run the reject method.
-        Ember.run (null, reject, xhr);
-      });
+    return this._requestToken (tokenOptions).then ((token) => {
+      // Replace the current user token with this new token, and resolve.
+      this.set ('_accessToken', token);
+    }).catch ((xhr) => {
+      // Reset the state of the service. The client, if observing the sign in
+      // state of the user, should show the authentication form.
+      this.forceSignOut ();
+      return Ember.RSVP.reject (xhr);
     });
   },
 
@@ -158,7 +134,7 @@ export default Ember.Service.extend (Ember.Evented, {
             // back to the client.
             this.refreshToken ()
               .then (() => this.ajax (dupOptions))
-              .catch ((xhr, textStatus, error) => Ember.run (null, reject, xhr));
+              .catch ((xhr) => Ember.run (null, reject, xhr));
             break;
 
           default:
@@ -179,31 +155,26 @@ export default Ember.Service.extend (Ember.Evented, {
    * @returns {RSVP.Promise}
    * @private
    */
-  _getToken (opts) {
-    return new RSVP.Promise ((resolve, reject) => {
-      const url = this.computeUrl ('/oauth2/token');
-      const tokenOptions = this.get ('client.tokenOptions');
-      const data = Ember.assign ({}, tokenOptions, opts);
+  _requestToken (opts) {
+    const url = this.computeUrl ('/oauth2/token');
+    const tokenOptions = this.get ('client.tokenOptions');
+    const data = Ember.assign ({}, tokenOptions, opts);
 
-      const ajaxOptions = {
-        method: 'POST',
-        url: url,
-        cache: false,
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify (data),
-        success: resolve,
-        error: reject
-      };
+    const ajaxOptions = {
+      method: 'POST',
+      url: url,
+      cache: false,
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify (data)
+    };
 
-      Ember.$.ajax (ajaxOptions);
-    });
+    return Ember.$.ajax (ajaxOptions);
   },
 
   /**
    * Complete the sign in process.
    *
-   * @param resolve
    * @private
    */
   _completeSignIn () {
@@ -217,6 +188,5 @@ export default Ember.Service.extend (Ember.Evented, {
    */
   _completeSignOut () {
     this.forceSignOut ();
-    this.trigger ('signedOut');
   }
 });
