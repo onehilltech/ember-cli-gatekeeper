@@ -6,13 +6,13 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
   layout,
 
   classNames: ['gk-form--create-account'],
+  mergedProperties: ['submitButtonStateText'],
 
   store: Ember.inject.service (),
 
   confirmPassword: true,
 
   submitButtonColor: 'primary',
-  submitButtonText: 'Submit',
 
   usernameLabel: 'Username',
   usernamePlaceholder: null,
@@ -29,8 +29,20 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
   /// Control if the newly created account is enabled.
   accountEnabled: true,
 
-  /// [private] Used internally by ReCaptcha.
-  canSubmit: true,
+  state: 'waiting',
+  isVerifying: Ember.computed.equal ('state', 'waiting'),
+  isSubmitting: Ember.computed.equal ('state', 'submitting'),
+
+  submitButtonStateText: {
+    waiting: 'Sign Up',
+    verifying: 'Verifying...',
+    submitting: 'Signing Up...'
+  },
+
+  submitButtonText: Ember.computed ('state', function () {
+    let state = this.get ('state');
+    return this.get (`submitButtonStateText.${state}`);
+  }),
 
   confirmErrorMessage: Ember.computed ('confirmedPassword', function () {
     let {confirmedPassword,passwordMatches} = this.getProperties (['confirmedPassword','passwordMatches']);
@@ -42,17 +54,17 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
     return !confirmPassword || (!Ember.isEmpty (password) && password === confirmedPassword);
   }),
 
-  disableSubmit: Ember.computed ('{submitting,useEmailForUsername,username,email,password,confirmPassword,confirmedPassword}', function () {
+  disabled: Ember.computed ('{state,useEmailForUsername,username,email,password,confirmPassword,confirmedPassword}', function () {
     let {
-      submitting,
+      state,
       useEmailForUsername,
       username,
       email,
       password,
       passwordMatches
-    } = this.getProperties (['submitting', 'useEmailForUsername','username','email','password','passwordMatches']);
+    } = this.getProperties (['state', 'useEmailForUsername','username','email','password','passwordMatches']);
 
-    if (submitting) {
+    if (state !== 'waiting') {
       return true;
     }
 
@@ -71,6 +83,7 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
   }),
 
   handleError: Ember.on ('error', function (xhr) {
+    this.set ('state', 'waiting');
     let error = Ember.get (xhr, 'errors.0');
 
     if (Ember.isPresent (error)) {
@@ -95,6 +108,7 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
       let recaptcha = this.get ('recaptcha');
 
       if (Ember.isPresent (recaptcha) && Ember.isEmpty (recaptcha.get ('value'))) {
+        this.set ('state', 'verifying');
         recaptcha.set ('reset', true);
       }
       else {
@@ -135,11 +149,13 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
 
     let account = this.get ('store').createRecord ('account', {username, password, email, enabled: accountEnabled});
 
+    this.set ('state', 'submitting');
     this.trigger ('willCreateAccount');
 
     account.save ({adapterOptions}).then ((account) => {
       if (!this.get ('isDestroyed')) {
         this.setProperties ({
+          state: 'waiting',
           username: null,
           email: null,
           password: null,
@@ -153,10 +169,6 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
 
       this.trigger ('didCreateAccount', account);
     }).catch (xhr => {
-      if (Ember.isPresent (recaptcha)) {
-        recaptcha.set ('value');
-      }
-
       this.trigger ('error', xhr);
     });
   }
