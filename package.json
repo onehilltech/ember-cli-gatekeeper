@@ -16,7 +16,8 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:each",
-    "postversion": "git push origin master & git push origin --tags"
+    "postversion": "npm publish",
+    "postpublish": "git push origin master & git push origin --tags"
   },
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
