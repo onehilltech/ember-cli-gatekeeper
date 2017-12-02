@@ -61,7 +61,7 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
   },
 
   handleError: Ember.on ('error', function (xhr) {
-    this.set ('state', 'waiting');
+    this.set ('state', 'signedOut');
 
     let error = Ember.get (xhr, 'responseJSON.errors.0');
 
