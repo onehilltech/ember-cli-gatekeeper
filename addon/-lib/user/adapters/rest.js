@@ -18,5 +18,12 @@ export default DS.RESTAdapter.extend ({
   headers: Ember.computed ('gatekeeper.accessToken', function () {
     let accessToken = this.get ('gatekeeper.accessToken.access_token');
     return { Authorization: `Bearer ${accessToken}` };
-  })
+  }),
+
+  headersForRequest (params) {
+    let headers = this._super (...arguments);
+    headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+
+    return headers;
+  }
 });
