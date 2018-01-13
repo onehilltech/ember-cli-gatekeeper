@@ -86,7 +86,9 @@ export default Material.Route.extend ({
 
       // Set the redirect to route so we can come back to this route when the
       // user has signed in.
-      signInController.set ('redirectTo', transition);
+      if (Ember.isPresent (signInController)) {
+        signInController.set ('redirectTo', transition);
+      }
 
       this.replaceWith (signInRoute);
     }
