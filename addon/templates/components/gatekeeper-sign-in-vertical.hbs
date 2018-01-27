@@ -1,37 +1,40 @@
 {{#mdl-form submit=(action "signIn")}}
-  {{mdl-textfield type=usernameType
-                  value=username
-                  placeholder=usernamePlaceholder
-                  required=true
-                  autocapitalize="none"
-                  autocomplete=usernameAutoComplete
-                  label=usernameLabelText
-                  fullWidth=true
-                  floatingLabel=usernameFloatingLabel
-                  errorMessage=usernameErrorMessage}}
+  <div class="input-container">
+    {{mdl-textfield type=usernameType
+                    value=username
+                    placeholder=usernamePlaceholder
+                    required=true
+                    autocapitalize="none"
+                    autocomplete=usernameAutoComplete
+                    label=usernameLabelText
+                    fullWidth=true
+                    floatingLabel=usernameFloatingLabel
+                    errorMessage=usernameErrorMessage}}
 
-  {{mdl-textfield type=(if showPassword "text" "password")
-                  fullWidth=true
-                  value=password
-                  placeholder=passwordPlaceholder
-                  required=true
-                  label=passwordLabelText
-                  autocomplete="off"
-                  autocapitalize="none"
-                  floatingLabel=passwordFloatingLabel
-                  errorMessage=passwordErrorMessage}}
+    {{mdl-textfield type=(if showPassword "text" "password")
+                    fullWidth=true
+                    value=password
+                    placeholder=passwordPlaceholder
+                    required=true
+                    label=passwordLabelText
+                    autocomplete="off"
+                    autocapitalize="none"
+                    floatingLabel=passwordFloatingLabel
+                    errorMessage=passwordErrorMessage}}
+
+    {{#mdl-button type="submit"
+                  flat=signInButtonFlat
+                  color=signInButtonColor
+                  rippleEffect=signInButtonRippleEffect
+                  disabled=disabled}}
+      {{submitButtonText}}
+    {{/mdl-button}}
+  </div>
 
   {{#if recaptcha}}
     {{component recaptcha.componentName verified=(action (mut recaptcha.value)) expired=(action (mut recaptcha.expired) true) reset=recaptcha.reset}}
   {{/if}}
 
-  {{#mdl-button type="submit"
-                flat=signInButtonFlat
-                color=signInButtonColor
-                rippleEffect=signInButtonRippleEffect
-                disabled=disabled}}
-    {{submitButtonText}}
-  {{/mdl-button}}
 {{/mdl-form}}
 
 {{mdl-snackbar message=errorMessage timeout=5000}}
