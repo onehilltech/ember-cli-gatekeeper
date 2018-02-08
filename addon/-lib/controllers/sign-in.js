@@ -17,7 +17,7 @@ export default Ember.Controller.extend ({
         let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
         let target = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
 
-        this.transitionToRoute (target);
+        this.replaceRoute (target);
       }
       else {
         if (Ember.typeOf (redirectTo) === 'string') {
