@@ -8,8 +8,6 @@ export default Ember.Service.extend({
 
   accessToken: Ember.computed.readOnly ('_accessToken'),
 
-  sandbox: false,
-
   init () {
     this._super (...arguments);
 
@@ -20,14 +18,9 @@ export default Ember.Service.extend({
   isUnauthenticated: Ember.computed.none ('_accessToken'),
   isAuthenticated: Ember.computed.not ('isUnauthenticated'),
 
-  versionUrl: Ember.computed ('{baseUrl,sandbox}', function () {
-    let {baseUrl,sandbox} = this.getProperties (['baseUrl','sandbox']);
-
-    if (sandbox) {
-      baseUrl = this.get ('sandboxBaseUrl');
-    }
-
-    let version = this.getWithDefault ('version', 1);
+  versionUrl: Ember.computed ('{baseUrl,version}', function () {
+    const baseUrl = this.get ('baseUrl');
+    const version = this.getWithDefault ('version', 1);
 
     return `${baseUrl}/v${version}`
   }),
