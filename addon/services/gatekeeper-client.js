@@ -12,9 +12,7 @@ export default Ember.Service.extend({
     this._super (...arguments);
 
     let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-    let options = Ember.assign ({}, Ember.get (ENV, 'gatekeeper'));
-
-    this.setProperties (options);
+    this.setProperties (Ember.copy (Ember.get (ENV, 'gatekeeper')));
   },
 
   isUnauthenticated: Ember.computed.none ('_accessToken'),
