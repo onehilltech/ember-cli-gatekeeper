@@ -14,8 +14,12 @@ const bearerErrorCodes = [
 export default Material.Route.extend ({
   currentUser: Ember.computed ('gatekeeper.currentUser', function () {
     let currentUser = this.get ('gatekeeper.currentUser');
-    let store = this.get ('store');
 
+    if (Ember.isNone (currentUser)) {
+      return null;
+    }
+
+    let store = this.get ('store');
     let data = store.normalize ('account', currentUser);
     data.data.id = currentUser.id;
 
