@@ -207,33 +207,4 @@ or access [protected data](#accessing-protected-data) as part of the creation pr
 Otherwise, the user will have to sign in after creating the account to access a
 protected application route.
 
-## Using a Custom Sign In Form
-
-It is possible to provide your own sign-in form instead of using the out-of-the-box 
-sign-in form as a component provided by Gatekeeper. First, create a new component 
-in our application. Then, extend the `SignInComponent` from the `ember-cli-gatekeeper`
-addon.
-
-```javascript
-// app/components/sign-in.js
-
-import Gatekeeper from  'ember-cli-gatekeeper';
-
-export default Gatekeeper.SignInComponent.extend ({
-
-});
-```
-
-The template for the `sign-in` component **must include**:
-
-* a form with the `submit` attribute bound to the action `signIn`
-* a textfield that sets the value `username`
-* a textfield that sets the value `password`
-* a button with type `submit`
-* [optional] a [ember-cli-google-recaptcha](https://github.com/onehilltech/ember-cli-google-recaptcha) component
-
-The Google ReCAPTCHA component must have the following definition:
-
-    {{g-recaptcha-invisible verified=(action (mut recaptcha.value)) expired=(action (mut recaptcha.expired) true) reset=recaptcha.reset}}
-
 Happy Coding!
