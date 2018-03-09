@@ -207,5 +207,4 @@ or access [protected data](#accessing-protected-data) as part of the creation pr
 Otherwise, the user will have to sign in after creating the account to access a
 protected application route.
 
-
 Happy Coding!
