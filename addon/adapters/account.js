@@ -14,6 +14,13 @@ export default RESTAdapter.extend({
     let opts = {};
 
     if (Ember.isPresent (adapterOptions)) {
+      const {useUserToken} = adapterOptions;
+
+      // If we are to use the user token, then ter
+      if (useUserToken) {
+        return this._super (...arguments);
+      }
+
       let recaptcha = adapterOptions.recaptcha;
 
       if (Ember.isPresent (recaptcha)) {
@@ -26,7 +33,7 @@ export default RESTAdapter.extend({
     })
   },
 
-  urlForRequest(params) {
+  urlForRequest (params) {
     let { type, snapshot, requestType, query } = params;
 
     // type and id are not passed from updateRecord and deleteRecord, hence they
@@ -57,15 +64,18 @@ export default RESTAdapter.extend({
   },
 
   headersForRequest (params) {
-    let {requestType, query} = params;
+    let {requestType, query, snapshot} = params;
     let headers = this._super (...arguments);
 
     switch (requestType) {
       case 'createRecord': {
+        const useUserToken = Ember.get (snapshot, 'adapterOptions.useUserToken');
+        const accessTokenKey = useUserToken ? 'gatekeeper.accessToken' : 'gatekeeper.client.accessToken';
+
         // When creating an account record, we need to submit the client token, and not
         // the user token. This is because we assume accounts are being created when the
         // user is not signed in (i.e., by the client device).
-        let accessToken = this.get ('gatekeeper.client.accessToken');
+        const accessToken = this.get (accessTokenKey);
         headers.Authorization = `Bearer ${accessToken.access_token}`;
         break;
       }
