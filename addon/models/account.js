@@ -15,6 +15,9 @@ export default DS.Model.extend({
   /// The enabled state of the account.
   enabled: DS.attr ('boolean'),
 
+  /// The scope for the account. It will be an array of strings.
+  scope: DS.attr (),
+
   /// Change the password for the account.
   changePassword: memberAction ({ path: 'password', type: 'post', urlType: 'findRecord'})
 });
