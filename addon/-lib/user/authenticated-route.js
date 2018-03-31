@@ -12,6 +12,10 @@ const bearerErrorCodes = [
 ];
 
 export default Material.Route.extend ({
+  capabilities: [],
+
+  concatenatedProperties: ['capabilities'],
+
   currentUser: Ember.computed ('gatekeeper.currentUser', function () {
     let currentUser = this.get ('gatekeeper.currentUser');
 
@@ -41,6 +45,11 @@ export default Material.Route.extend ({
   beforeModel (transition) {
     this._super (...arguments);
     this._checkSignedIn (transition);
+
+    if (!this._checkCapabilities ()) {
+      alert ('Sorry! You do not have access to this page.');
+      transition.abort ();
+    }
   },
 
   actions: {
@@ -96,5 +105,10 @@ export default Material.Route.extend ({
 
       this.replaceWith (signInRoute);
     }
+  },
+
+  _checkCapabilities () {
+    let capabilities = this.get ('capabilities');
+    return Ember.isEmpty (capabilities) ? true : this.get ('gatekeeper.metadata').hasCapability (capabilities);
   }
 });
