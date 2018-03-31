@@ -1,3 +1,4 @@
+/* global */
 import Ember from 'ember';
 
 export default Ember.Service.extend (Ember.Evented, {
@@ -13,9 +14,25 @@ export default Ember.Service.extend (Ember.Evented, {
 
   /// [private] Token for the current user.
   _accessToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
+
   accessToken: Ember.computed.readOnly ('_accessToken'),
 
+  /// Payload information contained in the access token.
+  metadata: Ember.computed ('_accessToken', function () {
+    const accessToken = this.get ('_accessToken.access_token');
+
+    if (Ember.isNone (accessToken)) {
+      return null;
+    }
+
+    let parsed = KJUR.jws.JWS.parse (accessToken);
+    return parsed.payloadObj;
+  }),
+
+  /// Test if the current user is signed in.
   isSignedIn: Ember.computed.bool ('_accessToken'),
+
+  /// Test if the there is no user signed in.
   isSignedOut: Ember.computed.not ('isSignedIn'),
 
   actions: {
@@ -174,8 +191,18 @@ export default Ember.Service.extend (Ember.Evented, {
       data: JSON.stringify (data)
     };
 
-    return Ember.$.ajax (ajaxOptions);
+    return Ember.$.ajax (ajaxOptions)
+      .then (token => {
+        // Verify the access token and refresh token, if applicable.
+        let client = this.get ('client');
+
+        return Ember.RSVP.all ([
+          client.verifyToken (token.access_token),
+          client.verifyToken (token.refresh_token)
+        ]).then (() => token);
+      });
   },
+
 
   /**
    * Complete the sign in process.

@@ -7,6 +7,14 @@
     <div style="padding: 16px">
       <div>{{#link-to "unauthorized"}}Unauthorized Test{{/link-to}}</div>
       <div><a href="#" {{action "signOut" target=gatekeeper}}>Sign Out</a></div>
+
+      <h5>Session Metadata</h5>
+
+      {{#each-in metadata as |key value|}}
+        <div>{{key}}: {{value}}</div>
+      {{/each-in}}
     </div>
+
+
   {{/mdl-layout-content}}
 {{/mdl-layout}}

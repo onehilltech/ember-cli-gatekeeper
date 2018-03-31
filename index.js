@@ -6,5 +6,12 @@ module.exports = {
 
   isDevelopingAddon () {
     return true;
+  },
+
+  included: function (app) {
+    this._super.included.apply (this, arguments);
+
+    // material-design-icons
+    app.import (app.bowerDirectory + '/kjur-jsrsasign/jsrsasign-all-min.js');
   }
 };

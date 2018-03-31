@@ -1,3 +1,4 @@
+/* global KJUR,KEYUTIL */
 import Ember from 'ember';
 
 export default Ember.Service.extend({
@@ -69,5 +70,41 @@ export default Ember.Service.extend({
     };
 
     return Ember.$.ajax (ajaxOptions);
-  }
+  },
+
+  publicKey: Ember.computed ('publicCert', function () {
+    const publicCert = this.get ('publicCert');
+    return Ember.isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
+  }),
+
+  secretOrPublicKey: Ember.computed ('{secret,publicKey}', function () {
+    let secret = this.get ('secret');
+    return Ember.isPresent (secret) ? secret : this.get ('publicKey');
+  }),
+
+  /**
+   * Verify a token. If there is no secret or public key, then the token is assumed
+   * to be valid.
+   *
+   * @param token
+   */
+  verifyToken (token) {
+    if (Ember.isNone (token)) {
+      return Ember.RSVP.resolve ({});
+    }
+
+    return new Ember.RSVP.Promise ((resolve, reject) => {
+      const {
+        secretOrPublicKey,
+        verifyOptions
+      } = this.getProperties (['secretOrPublicKey','verifyOptions']);
+
+      if (Ember.isNone (secretOrPublicKey)) {
+        return resolve (true);
+      }
+
+      const isValid = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
+      return isValid ? resolve (true) : reject (new Error ('Failed to verify token.'));
+    });
+  },
 });
