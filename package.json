@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-gatekeeper",
-  "version": "0.30.0",
+  "version": "0.30.1",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
