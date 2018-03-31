@@ -47,9 +47,13 @@ export default Material.Route.extend ({
     this._checkSignedIn (transition);
 
     if (!this._checkCapabilities ()) {
-      alert ('Sorry! You do not have access to this page.');
-      transition.abort ();
+      this.missingCapability (transition);
     }
+  },
+
+  missingCapability (transition) {
+    alert ('Sorry! You do not have access to this page.');
+    transition.abort ();
   },
 
   actions: {
