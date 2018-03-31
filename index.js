@@ -11,6 +11,6 @@ module.exports = {
   included: function (app) {
     this._super.included.apply (this, arguments);
 
-    app.import (app.bowerDirectory + '/kjur-jsrsasign/jsrsasign-all-min.js');
+    app.import (app.bowerDirectory + '/jsrsasign/jsrsasign-all-min.js');
   }
 };
