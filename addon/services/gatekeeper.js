@@ -1,5 +1,6 @@
-/* global */
+/* global KJUR */
 import Ember from 'ember';
+import Metadata from '../-lib/metadata';
 
 export default Ember.Service.extend (Ember.Evented, {
   client: Ember.inject.service ('gatekeeper-client'),
@@ -22,11 +23,11 @@ export default Ember.Service.extend (Ember.Evented, {
     const accessToken = this.get ('_accessToken.access_token');
 
     if (Ember.isNone (accessToken)) {
-      return null;
+      return Metadata.create ();
     }
 
     let parsed = KJUR.jws.JWS.parse (accessToken);
-    return parsed.payloadObj;
+    return Metadata.create (parsed.payloadObj);
   }),
 
   /// Test if the current user is signed in.

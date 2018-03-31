@@ -10,6 +10,10 @@
 
       <h5>Session Metadata</h5>
 
+      {{#if canCreateAccount}}
+        <p><strong>We can create an account!!</strong></p>
+      {{/if}}
+
       {{#each-in metadata as |key value|}}
         <div>{{key}}: {{value}}</div>
       {{/each-in}}
