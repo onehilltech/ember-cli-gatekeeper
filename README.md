@@ -1,6 +1,8 @@
 ember-cli-gatekeeper
 ====================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/onehilltech/ember-cli-gatekeeper.svg)](https://greenkeeper.io/)
+
 EmberJS add-on for [blueprint-gatekeeper](https://github.com/onehilltech/blueprint-gatekeeper)
 
 [![npm version](https://img.shields.io/npm/v/ember-cli-gatekeeper.svg?maxAge=2592000)](https://www.npmjs.com/package/ember-cli-gatekeeper)
