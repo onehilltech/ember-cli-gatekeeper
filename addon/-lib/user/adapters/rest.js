@@ -20,7 +20,7 @@ export default DS.RESTAdapter.extend ({
     return { Authorization: `Bearer ${accessToken}` };
   }),
 
-  headersForRequest (params) {
+  headersForRequest () {
     let headers = this._super (...arguments);
     headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
 
