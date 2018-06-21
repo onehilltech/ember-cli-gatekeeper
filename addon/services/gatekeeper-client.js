@@ -4,10 +4,7 @@ import Ember from 'ember';
 export default Ember.Service.extend({
   /// Reference to local storage.
   storage: Ember.inject.service ('local-storage'),
-
-  _accessToken: Ember.computed.alias ('storage.gatekeeper_client_token'),
-
-  accessToken: Ember.computed.readOnly ('_accessToken'),
+  accessToken: Ember.computed.alias ('storage.gatekeeper_client_token'),
 
   init () {
     this._super (...arguments);
@@ -16,18 +13,11 @@ export default Ember.Service.extend({
     this.setProperties (Ember.copy (Ember.get (ENV, 'gatekeeper')));
   },
 
-  isUnauthenticated: Ember.computed.none ('_accessToken'),
-  isAuthenticated: Ember.computed.not ('isUnauthenticated'),
-
-  versionUrl: Ember.computed ('{baseUrl,version}', function () {
-    const baseUrl = this.get ('baseUrl');
-    const version = this.getWithDefault ('version', 1);
-
-    return `${baseUrl}/v${version}`
-  }),
+  isAuthenticated: Ember.computed.bool ('accessToken'),
+  isUnauthenticated: Ember.computed.not ('isAuthenticated'),
 
   computeUrl (relativeUrl) {
-    return `${this.get ('versionUrl')}${relativeUrl}`;
+    return `${this.get ('baseUrl')}${relativeUrl}`;
   },
 
   /**
@@ -37,7 +27,7 @@ export default Ember.Service.extend({
    */
   authenticate (opts) {
     return this._requestToken (opts).then ((token) => {
-      this.set ('_accessToken', token);
+      this.set ('accessToken', token);
     });
   },
 
@@ -45,7 +35,7 @@ export default Ember.Service.extend({
    * Reset the state of the service.
    */
   reset () {
-    this.set ('_accessToken');
+    this.set ('accessToken');
   },
 
   /**
