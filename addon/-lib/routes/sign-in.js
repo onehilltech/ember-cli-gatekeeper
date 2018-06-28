@@ -3,7 +3,7 @@ import Material from 'ember-cli-mdl';
 
 export default Material.Route.extend ({
   beforeModel () {
-    if (this.get ('gatekeeper.isSignedIn')) {
+    if (this.get ('session.isSignedIn')) {
       // Transition to the start route.
       let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
       let startRoute = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
