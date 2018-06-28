@@ -95,17 +95,17 @@ export default RESTAdapter.extend({
   },
 
   handleResponse (status, headers, payload, requestData) {
-    let token = payload.token;
+    let accessToken = payload.token;
     if (token) delete payload.token;
 
-    if (status === 200 && requestData.method === 'POST' && token) {
+    if (status === 200 && requestData.method === 'POST' && accessToken) {
       // The account was created and logged in at the same time. We need to
       // extract the token, and register it with the gatekeeper service.
 
       let gatekeeper = this.get ('gatekeeper');
       let currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
 
-      gatekeeper.setProperties ({_currentUser: currentUser, _accessToken: token});
+      gatekeeper.setProperties ({currentUser, accessToken});
     }
 
     return this._super (status, headers, payload, requestData);

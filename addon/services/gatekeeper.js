@@ -10,10 +10,7 @@ export default Ember.Service.extend (Ember.Evented, {
   store: Ember.inject.service (),
 
   /// [private] The current authenticated user.
-  _currentUser: Ember.computed.alias ('storage.gatekeeper_user'),
-  currentUser: Ember.computed.readOnly ('_currentUser'),
-
-  /// [private] Token for the current user.
+  currentUser: Ember.computed.alias ('storage.gatekeeper_user'),
   accessToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
   
   /// Payload information contained in the access token.
@@ -45,7 +42,7 @@ export default Ember.Service.extend (Ember.Evented, {
    * request to the server.
    */
   forceSignOut () {
-    this.setProperties ({accessToken: null, _currentUser: null});
+    this.setProperties ({accessToken: null, currentUser: null});
     this.trigger ('signedOut');
   },
 
@@ -66,7 +63,7 @@ export default Ember.Service.extend (Ember.Evented, {
       // Query the service for the current user. We are going to cache their id
       // just in case the application needs to use it.
       return this.get ('store').queryRecord ('account', {}).then (account => {
-        this.set ('_currentUser', account.toJSON ({includeId: true}));
+        this.set ('currentUser', account.toJSON ({includeId: true}));
         this._completeSignIn ();
       }).catch (reason => {
         this.set ('accessToken');
