@@ -96,7 +96,10 @@ export default RESTAdapter.extend({
 
   handleResponse (status, headers, payload, requestData) {
     let accessToken = payload.token;
-    if (token) delete payload.token;
+
+    if (accessToken) {
+      delete payload.token;
+    }
 
     if (status === 200 && requestData.method === 'POST' && accessToken) {
       // The account was created and logged in at the same time. We need to
