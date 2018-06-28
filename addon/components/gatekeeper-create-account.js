@@ -88,7 +88,7 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
 
     if (Ember.isPresent (error)) {
       switch (error.code) {
-        case 'create_failed':
+        case 'already_exists':
           this.set ('emailErrorMessage', 'This email address already has an account.');
           break;
 
