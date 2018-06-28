@@ -98,7 +98,7 @@ export default Material.Route.extend ({
 
     if (!isSignedIn) {
       let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-      let signInRoute = Ember.getWithDefault (ENV, 'session.signInRoute', 'sign-in');
+      let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
       let signInController = this.controllerFor (signInRoute);
 
       // Set the redirect to route so we can come back to this route when the
