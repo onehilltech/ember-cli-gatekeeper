@@ -7,9 +7,11 @@ export default DS.RESTAdapter.extend ({
   /// access.
   router: Ember.inject.service (),
 
+  /// The session service for Gatekeeper.
   session: Ember.inject.service (),
 
-  host: Ember.computed.readOnly ('session.client.baseUrl'),
+  /// Get the host from the base url for the client.
+  host: Ember.computed.readOnly ('session.gatekeeper.baseUrl'),
 
   headers: Ember.computed ('session.accessToken', function () {
     let accessToken = this.get ('session.accessToken.access_token');

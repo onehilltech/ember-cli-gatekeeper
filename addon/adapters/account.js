@@ -28,7 +28,7 @@ export default RESTAdapter.extend({
       }
     }
 
-    return this.get ('gatekeeper.client').authenticate (opts).then (() => {
+    return this.get ('session.gatekeeper').authenticate (opts).then (() => {
       return _super.call (adapter, store, type, snapshot);
     })
   },
@@ -70,7 +70,7 @@ export default RESTAdapter.extend({
     switch (requestType) {
       case 'createRecord': {
         const useUserToken = Ember.get (snapshot, 'adapterOptions.useUserToken');
-        const accessTokenKey = useUserToken ? 'gatekeeper.accessToken' : 'gatekeeper.client.accessToken';
+        const accessTokenKey = useUserToken ? 'session.accessToken' : 'session.gatekeeper.accessToken';
 
         // When creating an account record, we need to submit the client token, and not
         // the user token. This is because we assume accounts are being created when the
@@ -105,10 +105,10 @@ export default RESTAdapter.extend({
       // The account was created and logged in at the same time. We need to
       // extract the token, and register it with the gatekeeper service.
 
-      let gatekeeper = this.get ('gatekeeper');
+      let session = this.get ('session');
       let currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
 
-      gatekeeper.setProperties ({currentUser, accessToken});
+      session.setProperties ({currentUser, accessToken});
     }
 
     return this._super (status, headers, payload, requestData);
