@@ -16,8 +16,8 @@ export default Material.Route.extend ({
 
   concatenatedProperties: ['capabilities'],
 
-  currentUser: Ember.computed ('gatekeeper.currentUser', function () {
-    let currentUser = this.get ('gatekeeper.currentUser');
+  currentUser: Ember.computed ('session.currentUser', function () {
+    let currentUser = this.get ('session.currentUser');
 
     if (Ember.isNone (currentUser)) {
       return null;
@@ -33,13 +33,13 @@ export default Material.Route.extend ({
   init () {
     this._super (...arguments);
 
-    this.get ('gatekeeper').on ('signedOut', this, 'didSignOut');
+    this.get ('session').on ('signedOut', this, 'didSignOut');
   },
 
   destroy () {
     this._super (...arguments);
 
-    this.get ('gatekeeper').off ('signedOut', this, 'didSignOut');
+    this.get ('session').off ('signedOut', this, 'didSignOut');
   },
 
   beforeModel (transition) {
@@ -79,7 +79,7 @@ export default Material.Route.extend ({
           });
 
           // Force the user to sign out.
-          this.get ('gatekeeper').forceSignOut ();
+          this.get ('session').forceSignOut ();
           this.replaceWith (signInRoute);
           return;
         }
@@ -94,11 +94,11 @@ export default Material.Route.extend ({
   },
 
   _checkSignedIn (transition) {
-    let isSignedIn = this.get ('gatekeeper.isSignedIn');
+    let isSignedIn = this.get ('session.isSignedIn');
 
     if (!isSignedIn) {
       let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-      let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+      let signInRoute = Ember.getWithDefault (ENV, 'session.signInRoute', 'sign-in');
       let signInController = this.controllerFor (signInRoute);
 
       // Set the redirect to route so we can come back to this route when the
@@ -113,6 +113,6 @@ export default Material.Route.extend ({
 
   _checkCapabilities () {
     let capabilities = this.get ('capabilities');
-    return Ember.isEmpty (capabilities) ? true : this.get ('gatekeeper.metadata').hasCapability (capabilities);
+    return Ember.isEmpty (capabilities) ? true : this.get ('session.metadata').hasCapability (capabilities);
   }
 });

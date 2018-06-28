@@ -7,12 +7,12 @@ export default DS.RESTAdapter.extend ({
   /// access.
   router: Ember.inject.service (),
 
-  gatekeeper: Ember.inject.service (),
+  session: Ember.inject.service (),
 
-  host: Ember.computed.readOnly ('gatekeeper.client.baseUrl'),
+  host: Ember.computed.readOnly ('session.client.baseUrl'),
 
-  headers: Ember.computed ('gatekeeper.accessToken', function () {
-    let accessToken = this.get ('gatekeeper.accessToken.access_token');
+  headers: Ember.computed ('session.accessToken', function () {
+    let accessToken = this.get ('session.accessToken.access_token');
     return { Authorization: `Bearer ${accessToken}` };
   }),
 

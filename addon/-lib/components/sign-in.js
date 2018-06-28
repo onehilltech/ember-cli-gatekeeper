@@ -23,7 +23,7 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
 
   mergedProperties: ['signInOptions','submitButtonStateText'],
 
-  gatekeeper: Ember.inject.service (),
+  session: Ember.inject.service (),
 
   signInOptions: {},
 
@@ -111,7 +111,7 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
 
     this.willSignIn ();
 
-    this.get ('gatekeeper').signIn (opts).then (() => {
+    this.get ('session').signIn (opts).then (() => {
       this.didSignIn ();
     }).catch (xhr => {
       this.trigger ('error', xhr);
