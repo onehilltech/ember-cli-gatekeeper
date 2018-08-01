@@ -23,5 +23,9 @@ export default DS.RESTAdapter.extend ({
     headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
 
     return headers;
+  },
+
+  handleResponse () {
+    return this._super (...arguments);
   }
 });
