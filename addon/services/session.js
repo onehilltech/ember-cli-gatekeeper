@@ -1,7 +1,8 @@
 /* global KJUR */
 
 import Ember from 'ember';
-import Metadata from '../-lib/metadata';
+import TokenMetadata from '../-lib/token-metadata';
+import { Promise } from 'rsvp';
 
 export default Ember.Service.extend (Ember.Evented, {
   gatekeeper: Ember.inject.service (),
@@ -17,11 +18,11 @@ export default Ember.Service.extend (Ember.Evented, {
     const accessToken = this.get ('accessToken.access_token');
 
     if (Ember.isNone (accessToken)) {
-      return Metadata.create ();
+      return TokenMetadata.create ();
     }
 
     let parsed = KJUR.jws.JWS.parse (accessToken);
-    return Metadata.create (parsed.payloadObj);
+    return TokenMetadata.create (parsed.payloadObj);
   }),
 
   /// Test if the current user is signed in.
@@ -113,7 +114,7 @@ export default Ember.Service.extend (Ember.Evented, {
    * @returns {*|RSVP.Promise}
    */
   refreshToken () {
-    if (!!this._refreshToken) {
+    if (this._refreshToken) {
       return this._refreshToken;
     }
 
@@ -143,20 +144,6 @@ export default Ember.Service.extend (Ember.Evented, {
 
     return this._refreshToken;
 
-    const tokenOptions = {
-      grant_type: 'refresh_token',
-      refresh_token: this.get ('accessToken.refresh_token')
-    };
-
-    return this._requestToken (tokenOptions).then ((token) => {
-      // Replace the current user token with this new token, and resolve.
-      this.set ('accessToken', token);
-    }).catch ((xhr) => {
-      // Reset the state of the service. The client, if observing the sign in
-      // state of the user, should show the authentication form.
-      this.forceSignOut ();
-      return Ember.RSVP.reject (xhr);
-    });
   },
 
   _httpHeaders: Ember.computed ('accessToken', function () {
