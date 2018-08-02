@@ -8,7 +8,6 @@ const TOKENS = [
 
 export default function() {
   this.urlPrefix = 'http://gatekeeper';
-  this.namespace = '/v1';
 
   function doAuthenticatedRequest (req, accessToken, f) {
     let authorization = req.requestHeaders['Authorization'];

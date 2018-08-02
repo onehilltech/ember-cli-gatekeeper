@@ -1,4 +1,5 @@
 /* global KJUR */
+
 import Ember from 'ember';
 import Metadata from '../-lib/metadata';
 
@@ -10,7 +11,7 @@ export default Ember.Service.extend (Ember.Evented, {
   /// [private] The current authenticated user.
   currentUser: Ember.computed.alias ('storage.gatekeeper_user'),
   accessToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
-  
+
   /// Payload information contained in the access token.
   metadata: Ember.computed ('accessToken', function () {
     const accessToken = this.get ('accessToken.access_token');
@@ -28,6 +29,9 @@ export default Ember.Service.extend (Ember.Evented, {
 
   /// Test if the there is no user signed in.
   isSignedOut: Ember.computed.not ('isSignedIn'),
+
+  /// The current promise refreshing the access token.
+  _refreshToken: null,
 
   actions: {
     signOut () {
@@ -109,6 +113,36 @@ export default Ember.Service.extend (Ember.Evented, {
    * @returns {*|RSVP.Promise}
    */
   refreshToken () {
+    if (!!this._refreshToken) {
+      return this._refreshToken;
+    }
+
+    this._refreshToken = new Promise ((resolve, reject) => {
+      const tokenOptions = {
+        grant_type: 'refresh_token',
+        refresh_token: this.get ('accessToken.refresh_token')
+      };
+
+      this._requestToken (tokenOptions).then ((token) => {
+        // Replace the current user token with this new token, reset the promise
+        // variable for next time, and resolve the promise.
+        this.set ('accessToken', token);
+        this._refreshToken = null;
+        resolve ();
+      }).catch ((xhr) => {
+        // Reset the state of the service. The client, if observing the sign in
+        // state of the user, should show the authentication form.
+        this.forceSignOut ();
+
+        // Reset the promise variable since we are done refreshing the token, and
+        // reject the promise.
+        this._refreshToken = null;
+        reject (xhr);
+      });
+    });
+
+    return this._refreshToken;
+
     const tokenOptions = {
       grant_type: 'refresh_token',
       refresh_token: this.get ('accessToken.refresh_token')

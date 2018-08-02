@@ -8,8 +8,8 @@ moduleFor ('adapter:account', 'Unit | Adapter | account', {
     'config:environment',
     'model:account',
     'serializer:account',
-    'service:gatekeeper',
-    'service:gatekeeper-client',
+    'service:session',
+     'service:gatekeeper',
     'service:local-storage'
   ],
 
