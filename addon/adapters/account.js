@@ -35,34 +35,19 @@ export default RESTAdapter.extend({
     })
   },
 
-  urlForRequest (params) {
-    let { type, snapshot, requestType, query } = params;
+  urlForCreateRecord (modelName, snapshot) {
+    let url = this._super (...arguments);
+    let signIn = getWithDefault (snapshot, 'adapterOptions.signIn', false);
 
-    // type and id are not passed from updateRecord and deleteRecord, hence they
-    // are defined if not set
-    type = type || (snapshot && snapshot.type);
-
-    switch (requestType) {
-      case 'createRecord': {
-        let url = this._super (...arguments);
-        let signIn = getWithDefault (snapshot, 'adapterOptions.signIn', false);
-
-        if (signIn) {
-          url += '?login=true';
-        }
-
-        return url;
-      }
-
-      case 'queryRecord':
-        if (isEmpty (Object.keys (query))) {
-          return this.buildURL (type.modelName, 'me', null, 'findRecord', null);
-        }
-
-        break;
+    if (signIn) {
+      url += '?login=true';
     }
 
-    return this._super (...arguments);
+    return url;
+  },
+
+  urlForQueryRecord (query, modelName) {
+    return isEmpty (Object.keys (query)) ? this.buildURL (modelName, 'me', null, 'findRecord', null) : this._super (...arguments);
   },
 
   headersForRequest (params) {
