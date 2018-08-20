@@ -1,5 +1,7 @@
 import RESTAdapter from '../-lib/user/adapters/rest';
-import Ember from 'ember';
+
+import { isPresent, isEmpty } from '@ember/utils';
+import { get, getWithDefault } from '@ember/object';
 
 /**
  * @class AccountRESTAdapter
@@ -13,7 +15,7 @@ export default RESTAdapter.extend({
     let adapterOptions = snapshot.adapterOptions;
     let opts = {};
 
-    if (Ember.isPresent (adapterOptions)) {
+    if (isPresent (adapterOptions)) {
       const {useUserToken} = adapterOptions;
 
       // If we are to use the user token, then ter
@@ -23,7 +25,7 @@ export default RESTAdapter.extend({
 
       let recaptcha = adapterOptions.recaptcha;
 
-      if (Ember.isPresent (recaptcha)) {
+      if (isPresent (recaptcha)) {
         opts.recaptcha = recaptcha;
       }
     }
@@ -43,7 +45,7 @@ export default RESTAdapter.extend({
     switch (requestType) {
       case 'createRecord': {
         let url = this._super (...arguments);
-        let signIn = Ember.getWithDefault (snapshot, 'adapterOptions.signIn', false);
+        let signIn = getWithDefault (snapshot, 'adapterOptions.signIn', false);
 
         if (signIn) {
           url += '?login=true';
@@ -53,7 +55,7 @@ export default RESTAdapter.extend({
       }
 
       case 'queryRecord':
-        if (Ember.isEmpty (Object.keys (query))) {
+        if (isEmpty (Object.keys (query))) {
           return this.buildURL (type.modelName, 'me', null, 'findRecord', null);
         }
 
@@ -69,7 +71,7 @@ export default RESTAdapter.extend({
 
     switch (requestType) {
       case 'createRecord': {
-        const useUserToken = Ember.get (snapshot, 'adapterOptions.useUserToken');
+        const useUserToken = get (snapshot, 'adapterOptions.useUserToken');
         const accessTokenKey = useUserToken ? 'session.accessToken' : 'session.gatekeeper.accessToken';
 
         // When creating an account record, we need to submit the client token, and not
@@ -81,7 +83,7 @@ export default RESTAdapter.extend({
       }
 
       case 'queryRecord': {
-        if (Ember.isEmpty (Object.keys (query))) {
+        if (isEmpty (Object.keys (query))) {
           // The empty query object is shorthand for the current user without knowing the
           // current user's id. We cannot cache this request, and must always go back to
           // the server for the response to this request since the user could change.

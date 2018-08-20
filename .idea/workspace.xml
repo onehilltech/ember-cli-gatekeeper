@@ -2,14 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/tests/unit/-lib/token-metadata-test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/-lib/controllers/sign-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/controllers/sign-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/-lib/mixins/recaptcha.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/mixins/recaptcha.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/-lib/token-metadata.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/token-metadata.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/-lib/user/authenticated-route.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/user/authenticated-route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/-lib/user/capability.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/user/capability.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/adapters/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/adapters/account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-create-account.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-create-account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/addon/services/gatekeeper.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/services/gatekeeper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/services/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/services/session.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/node_modules/minimatch.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower.json" beforeDir="false" afterPath="$PROJECT_DIR$/bower.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/config/environment.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/config/environment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/dummy/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/initializers/gatekeeper-test.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/initializers/gatekeeper-test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
@@ -41,31 +53,31 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="hbs" value="596" />
-          <entry key="js" value="1682" />
-          <entry key="json" value="101" />
+          <entry key="js" value="3653" />
+          <entry key="json" value="103" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Handlebars/Mustache" value="596" />
-          <entry key="JSON" value="101" />
-          <entry key="JavaScript" value="1682" />
+          <entry key="JSON" value="103" />
+          <entry key="JavaScript" value="3653" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Makefile" value="1" />
           <entry key="hbs" value="12" />
-          <entry key="js" value="52" />
-          <entry key="json" value="10" />
+          <entry key="js" value="75" />
+          <entry key="json" value="11" />
           <entry key="scss" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Handlebars/Mustache" value="12" />
-          <entry key="JSON" value="10" />
-          <entry key="JavaScript" value="52" />
+          <entry key="JSON" value="11" />
+          <entry key="JavaScript" value="75" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SCSS" value="3" />
         </counts>
@@ -78,11 +90,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tests/dummy/config/environment.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addon/-lib/controllers/sign-in.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="52" column="6" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="6" />
+            <state relative-caret-position="26">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -90,8 +102,56 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addon/services/gatekeeper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="691">
-              <caret line="75" column="7" lean-forward="true" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
+            <state relative-caret-position="208">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addon/-lib/mixins/recaptcha.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addon/-lib/user/authenticated-route.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="27">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addon/services/session.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/addon/components/gatekeeper-create-account.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -100,11 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_completeSignOut</find>
-      <find>forceSignOut</find>
-      <find>currentUser</find>
-      <find>var</find>
-      <find>path.</find>
       <find>path</find>
       <find>'me'</find>
       <find>gatekeeper.client.version</find>
@@ -117,7 +172,6 @@
       <find>'sign-in'</find>
       <find>baseUrl</find>
       <find>gatekeeper.</find>
-      <find>gatekeeper</find>
       <find>setResolver</find>
       <find>-lib/metadata</find>
       <find>Metadata</find>
@@ -130,6 +184,12 @@
       <find>on</find>
       <find>passwordType</find>
       <find>Ember.isNone</find>
+      <find>micromatch</find>
+      <find>gatekeeper</find>
+      <find>Ember.isPresent</find>
+      <find>Ember.run</find>
+      <find>Ember.</find>
+      <find>didCreateAccount</find>
     </findStrings>
     <replaceStrings>
       <replace>label</replace>
@@ -154,7 +214,11 @@
       <replace>TokenMetadata</replace>
       <replace>isEmpty</replace>
       <replace>on</replace>
+      <replace>session</replace>
+      <replace>isPresent</replace>
+      <replace>run</replace>
       <replace>isNone</replace>
+      <replace>get</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/addon</dir>
@@ -166,42 +230,28 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/addon/-lib/controllers/sign-in.js" />
-        <option value="$PROJECT_DIR$/addon/models/account.js" />
-        <option value="$PROJECT_DIR$/addon/-lib/minimatch.js" />
-        <option value="$PROJECT_DIR$/app/minimatch.js" />
         <option value="$PROJECT_DIR$/addon/-lib/metadata.js" />
         <option value="$PROJECT_DIR$/addon/capability.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/index.hbs" />
         <option value="$PROJECT_DIR$/addon/-lib/user/index.js" />
-        <option value="$PROJECT_DIR$/tests/dummy/app/routes/index.js" />
         <option value="$PROJECT_DIR$/addon/services/gatekeeper-client.js" />
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-vertical.hbs" />
-        <option value="$PROJECT_DIR$/addon/components/gatekeeper-create-account.js" />
         <option value="$PROJECT_DIR$/tests/unit/services/gatekeeper-test.js" />
         <option value="$PROJECT_DIR$/tests/unit/services/session-test.js" />
         <option value="$PROJECT_DIR$/addon/initializers/gatekeeper.js" />
         <option value="$PROJECT_DIR$/addon/initializers/session.js" />
-        <option value="$PROJECT_DIR$/addon/-lib/user/capability.js" />
         <option value="$PROJECT_DIR$/app/initializers/session.js" />
         <option value="$PROJECT_DIR$/app/services/gatekeeper.js" />
         <option value="$PROJECT_DIR$/app/services/session.js" />
-        <option value="$PROJECT_DIR$/addon/adapters/account.js" />
         <option value="$PROJECT_DIR$/tests/test-helper.js" />
         <option value="$PROJECT_DIR$/tests/dummy/mirage/config.js" />
         <option value="$PROJECT_DIR$/tests/unit/adapters/account-test.js" />
-        <option value="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" />
-        <option value="$PROJECT_DIR$/addon/-lib/token-metadata.js" />
-        <option value="$PROJECT_DIR$/addon/services/session.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/controllers/application.js" />
         <option value="$PROJECT_DIR$/ember-cli-build.js" />
         <option value="$PROJECT_DIR$/addon/-lib/components/sign-in.js" />
         <option value="$PROJECT_DIR$/app/components/gatekeeper-sign-in.js" />
-        <option value="$PROJECT_DIR$/addon/index.js" />
-        <option value="$PROJECT_DIR$/addon/-lib/user/authenticated-route.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/routes/sign-up.js" />
         <option value="$PROJECT_DIR$/node_modules/ember-cli-blueprint-helpers/lib/installer/addon-installer.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/addon/serializers/account.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/router.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/controllers/index.js" />
@@ -211,12 +261,26 @@
         <option value="$PROJECT_DIR$/node_modules/ember-cli-mdc-textfield/addon/templates/components/mdc-textfield.hbs" />
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/.eslintrc.js" />
-        <option value="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" />
         <option value="$PROJECT_DIR$/bower.json" />
-        <option value="$PROJECT_DIR$/addon/services/gatekeeper.js" />
         <option value="$PROJECT_DIR$/tests/dummy/config/environment.js" />
+        <option value="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/addon/-lib/token-metadata.js" />
+        <option value="$PROJECT_DIR$/addon/index.js" />
+        <option value="$PROJECT_DIR$/tests/unit/-lib/token-metadata-test.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/addon/adapters/account.js" />
+        <option value="$PROJECT_DIR$/tests/dummy/app/routes/index.js" />
+        <option value="$PROJECT_DIR$/tests/unit/initializers/gatekeeper-test.js" />
+        <option value="$PROJECT_DIR$/addon/-lib/user/capability.js" />
+        <option value="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" />
+        <option value="$PROJECT_DIR$/addon/-lib/controllers/sign-in.js" />
+        <option value="$PROJECT_DIR$/addon/services/gatekeeper.js" />
+        <option value="$PROJECT_DIR$/addon/-lib/mixins/recaptcha.js" />
+        <option value="$PROJECT_DIR$/addon/-lib/user/authenticated-route.js" />
+        <option value="$PROJECT_DIR$/addon/services/session.js" />
+        <option value="$PROJECT_DIR$/addon/components/gatekeeper-create-account.js" />
       </list>
     </option>
   </component>
@@ -236,7 +300,6 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/app/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="NodePackageJsonFileManager">
@@ -296,37 +359,24 @@
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
               <item name="addon" type="462c0819:PsiDirectoryNode" />
+              <item name="-lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
+              <item name="addon" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
+              <item name="addon" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="dummy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="dummy" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="dummy" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="bower_components" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -378,7 +428,43 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RunManager" selected="Ember Test.Run all tests">
+    <configuration name="Run all tests" type="EMBER_TEST_CONFIGURATION" factoryName="Ember test configuration factory">
+      <option name="ENVIRONMENT" value="test" />
+      <option name="CONFIG_FILE" value="" />
+      <option name="HOST" value="" />
+      <option name="TEST_PORT" value="" />
+      <option name="FILTER" value="" />
+      <option name="FILTER_OPTION" value="ALL" />
+      <option name="MODULE" value="" />
+      <option name="WATCHER" value="" />
+      <option name="TESTEM_DEBUG" value="" />
+      <option name="TEST_PAGE" value="" />
+      <option name="PATH" value="" />
+      <option name="QUERY" value="" />
+      <option name="REPORTER" value="teamcity" />
+      <option name="LAUNCH" value="" />
+      <option name="LAUNCH_OPTION" value="DEFAULT" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="EMBER_TEST_CONFIGURATION" factoryName="Ember test configuration factory">
+      <option name="ENVIRONMENT" value="test" />
+      <option name="CONFIG_FILE" value="" />
+      <option name="HOST" value="" />
+      <option name="TEST_PORT" value="" />
+      <option name="FILTER" value="" />
+      <option name="FILTER_OPTION" value="ALL" />
+      <option name="MODULE" value="" />
+      <option name="WATCHER" value="" />
+      <option name="TESTEM_DEBUG" value="" />
+      <option name="TEST_PAGE" value="" />
+      <option name="PATH" value="" />
+      <option name="QUERY" value="" />
+      <option name="REPORTER" value="teamcity" />
+      <option name="LAUNCH" value="" />
+      <option name="LAUNCH_OPTION" value="DEFAULT" />
+      <method v="2" />
+    </configuration>
     <configuration name="Run tests" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="test" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/ember" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
@@ -405,6 +491,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Ember Test.Run all tests" />
       <item itemvalue="Node.js.ember g ember-cli-gatekeeper" />
       <item itemvalue="Node.js.Run tests" />
       <item itemvalue="npm.start" />
@@ -553,12 +640,38 @@
       <workItem from="1534134212020" duration="7517000" />
       <workItem from="1534199563299" duration="574000" />
       <workItem from="1534211264572" duration="598000" />
-      <workItem from="1534732871214" duration="8606000" />
+      <workItem from="1534732871214" duration="15562000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 11m 45s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 36m 11s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 38m 19s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 40m 23s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 50m 00s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 54m 15s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 56m 52s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+    <history-entry file="Run_all_tests - 2018.08.20 at 16h 58m 41s.xml">
+      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="601113000" />
+    <option name="totallyTimeSpent" value="608069000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -573,13 +686,13 @@
     <frame x="0" y="23" width="1440" height="796" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23396759" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23396759" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.5103093" side_tool="true" weight="0.23960535" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.40675476" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.40675476" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3979442" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -618,12 +731,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/addon/adapters/account.js</url>
-          <line>62</line>
+          <line>61</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/addon/adapters/account.js</url>
-          <line>44</line>
+          <line>46</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -633,7 +746,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/index.js</url>
-          <line>7</line>
+          <line>9</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -675,85 +788,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/services/gatekeeper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="65" selection-start-column="65" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/session.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test-helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/mirage/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/initializers/gatekeeper-test.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/adapters/account-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/-lib/user/adapters/rest.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/-lib/token-metadata.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/services/session.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="137" column="13" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#19#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/adapters/account.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="1" column="26" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/index.hbs">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/controllers/application.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
@@ -767,9 +801,6 @@
           <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/unauthorized.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/styles/_app-theme.scss">
       <provider selected="true" editor-type-id="text-editor" />
@@ -792,38 +823,10 @@
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/controllers/sign-in.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/addon/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/-lib/user/authenticated-route.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/addon/styles/addon.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
           <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/sign-in.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/sign-up.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
@@ -838,13 +841,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="28" selection-start-column="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -934,9 +930,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/node_modules/minimatch.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/bower_components/jsrsasign/src/jwsjs-2.0.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3098">
@@ -975,27 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.eslintrc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -1013,17 +985,179 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/addon/services/gatekeeper.js">
+    <entry file="file://$PROJECT_DIR$/tests/dummy/config/environment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="75" column="7" lean-forward="true" selection-start-line="75" selection-start-column="7" selection-end-line="75" selection-end-column="7" />
+        <state relative-caret-position="655">
+          <caret line="63" column="3" selection-start-line="63" selection-start-column="3" selection-end-line="63" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/config/environment.js">
+    <entry file="file://$PROJECT_DIR$/app/node_modules/minimatch.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="52" column="6" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="6" />
+        <state relative-caret-position="299">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="14" column="78" selection-start-line="14" selection-start-column="78" selection-end-line="14" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/assets/vendor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3653">
+          <caret line="80329" column="7" selection-start-line="80329" selection-start-column="7" selection-end-line="80329" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/-lib/token-metadata-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#1#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/-lib/token-metadata.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/adapters/account.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/sign-in.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/sign-up.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/unauthorized.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/initializers/gatekeeper-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="9" column="15" lean-forward="true" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/-lib/user/capability.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/-lib/user/adapters/rest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-286">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/-lib/controllers/sign-in.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/services/gatekeeper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/-lib/mixins/recaptcha.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/-lib/user/authenticated-route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/services/session.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/components/gatekeeper-create-account.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

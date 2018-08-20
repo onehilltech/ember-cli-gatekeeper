@@ -1,20 +1,23 @@
-import Ember from 'ember';
 import DS from 'ember-data';
-import Promise from 'rsvp';
+
+import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { Promise } from 'rsvp';
 
 export default DS.RESTAdapter.extend ({
   /// The router service, which is used by the adapter to force the
   /// application to transition to the sign in page after unauthorized
   /// access.
-  router: Ember.inject.service (),
+  router: service (),
 
   /// The session service for Gatekeeper.
-  session: Ember.inject.service (),
+  session: service (),
 
   /// Get the host from the base url for the client.
-  host: Ember.computed.readOnly ('session.gatekeeper.baseUrl'),
+  host: readOnly ('session.gatekeeper.baseUrl'),
 
-  headers: Ember.computed ('session.accessToken', function () {
+  headers: computed ('session.accessToken', function () {
     let accessToken = this.get ('session.accessToken.access_token');
     return { Authorization: `Bearer ${accessToken}` };
   }),

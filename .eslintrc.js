@@ -1,4 +1,7 @@
 module.exports = {
+  globals: {
+    server: true,
+  },
   root: true,
   parserOptions: {
     ecmaVersion: 2017,
@@ -17,6 +20,7 @@ module.exports = {
   rules: {
   },
   globals: {
+    server: true,
     KJUR: true,
     KEYUTIL: true
   },

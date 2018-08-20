@@ -1,22 +1,27 @@
-import Ember from 'ember';
+import Service from '@ember/service';
 
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 import { alias, bool, not } from '@ember/object/computed';
-import { isPresent, isNone } from '@ember/utils';
+import { isPresent, isNone, isEmpty } from '@ember/utils';
+import { getOwner } from '@ember/application';
+import { copy } from '@ember/object/internals';
+import { resolve, Promise } from 'rsvp'
+import { assign } from '@ember/polyfills'
 
 import $ from 'jquery';
 
-export default Ember.Service.extend({
+export default Service.extend({
   /// Reference to local storage.
   storage: service ('local-storage'),
+
   accessToken: alias ('storage.gatekeeper_client_token'),
 
   init () {
     this._super (...arguments);
 
-    let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-    this.setProperties (Ember.copy (Ember.get (ENV, 'gatekeeper')));
+    let ENV = getOwner (this).resolveRegistration ('config:environment');
+    this.setProperties (copy (get (ENV, 'gatekeeper')));
   },
 
   isAuthenticated: bool ('accessToken'),
@@ -62,16 +67,16 @@ export default Ember.Service.extend({
    */
   verifyToken (token) {
     if (isNone (token)) {
-      return Ember.RSVP.resolve ({});
+      return resolve ({});
     }
 
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+    return new Promise ((resolve, reject) => {
       const {
         secretOrPublicKey,
         verifyOptions
       } = this.getProperties (['secretOrPublicKey','verifyOptions']);
 
-      if (isNone (secretOrPublicKey)) {
+      if (isEmpty (secretOrPublicKey)) {
         return resolve (true);
       }
 
@@ -90,7 +95,7 @@ export default Ember.Service.extend({
   _requestToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
     const tokenOptions = this.get ('tokenOptions');
-    const data = Ember.assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
+    const data = assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
 
     const ajaxOptions = {
       method: 'POST',

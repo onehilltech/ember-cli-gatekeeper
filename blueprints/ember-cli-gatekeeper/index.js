@@ -1,14 +1,15 @@
 const { installer: { installAddons, installPackages } } = require ('ember-cli-blueprint-helpers');
 
 module.exports = {
+  description: '',
+
   normalizeEntityName () {
     // no-op since we're just adding dependencies
   },
 
   afterInstall () {
     return installPackages (this, [
-      {name: 'ember-browserify'},
-      {name: 'micromatch'},
+      {name: 'micromatch', target: '^3.1.10'},
       {name: 'jsrsasign', target: '^8.0.7'}
     ]).then (() => {
       return installAddons (this, {

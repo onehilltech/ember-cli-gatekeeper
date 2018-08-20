@@ -1,11 +1,11 @@
 import Application from '@ember/application';
 import { run } from '@ember/runloop';
 
-import { initialize } from 'dummy/initializers/gatekeeper';
+import { initialize } from 'dummy/initializers/session';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 
-module('Unit | Initializer | gatekeeper', {
+module('Unit | Initializer | session', {
   beforeEach() {
     run(() => {
       this.application = Application.create();

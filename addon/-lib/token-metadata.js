@@ -1,29 +1,33 @@
-import Ember from 'ember';
-import micromatch from "npm:micromatch";
-import { computed } from '@ember/object';
+import EmberObject from '@ember/object';
 
-export default Ember.Object.extend ({
-  audience: computed.alias ('aud'),
-  subject: computed.alias ('sub'),
-  issuer: computed.alias ('iss'),
+import { computed } from '@ember/object';
+import { alias, bool } from '@ember/object/computed';
+import { isPresent } from '@ember/utils';
+
+import micromatch from "micromatch";
+
+export default EmberObject.extend ({
+  audience: alias ('aud'),
+  subject: alias ('sub'),
+  issuer: alias ('iss'),
 
   issuedAt: computed ('iat', function () {
     const iat = this.get ('iat');
-    return Ember.isPresent (iat) ? new Date (iat) : null;
+    return isPresent (iat) ? new Date (iat) : null;
   }),
 
   expiresAt: computed ('exp', function () {
     const exp = this.get ('exp');
-    return Ember.isPresent (exp) ? new Date (exp) : null;
+    return isPresent (exp) ? new Date (exp) : null;
   }),
 
   isExpired: computed ('exp', function () {
     const exp = this.get ('exp');
-    return Ember.isPresent (exp) ? (exp <= Date.now ()) : false;
+    return isPresent (exp) ? (exp <= Date.now ()) : false;
   }),
 
   /// Test if the token has an expiration date.
-  hasExpiration: computed.bool ('exp'),
+  hasExpiration: bool ('exp'),
 
   /**
    * Test if the token supports the specified scope.
@@ -41,6 +45,6 @@ export default Ember.Object.extend ({
    * @param capability
    */
   hasCapability (capability) {
-    return micromatch.some (capability, this.get ('scope'));
+    return this.supports (capability);
   }
 });
