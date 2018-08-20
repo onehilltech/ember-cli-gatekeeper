@@ -2,35 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/hilljh.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/dummy/app/styles/_app-theme.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/.npmignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/-lib/components/sign-in.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/-lib/routes/sign-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/routes/sign-in.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/-lib/user/authenticated-route.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/user/authenticated-route.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in-vertical.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/serializers/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/serializers/account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-vertical.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/gatekeeper-sign-in-vertical.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/gatekeeper-sign-in.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/styles/_app-materialize.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bower.json" beforeDir="false" afterPath="$PROJECT_DIR$/bower.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ember-try.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/ember-try.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ember-cli-build.js" beforeDir="false" afterPath="$PROJECT_DIR$/ember-cli-build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testem.js" beforeDir="false" afterPath="$PROJECT_DIR$/testem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/controllers/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/controllers/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/controllers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/controllers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/routes/sign-up.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/routes/sign-up.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test-helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test-helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/dummy/config/environment.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/config/environment.js" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,31 +34,31 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="hbs" value="592" />
-          <entry key="js" value="1348" />
+          <entry key="hbs" value="596" />
+          <entry key="js" value="1354" />
           <entry key="json" value="101" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Handlebars/Mustache" value="592" />
+          <entry key="Handlebars/Mustache" value="596" />
           <entry key="JSON" value="101" />
-          <entry key="JavaScript" value="1348" />
+          <entry key="JavaScript" value="1354" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="hbs" value="10" />
-          <entry key="js" value="35" />
+          <entry key="hbs" value="12" />
+          <entry key="js" value="36" />
           <entry key="json" value="7" />
           <entry key="scss" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Handlebars/Mustache" value="10" />
+          <entry key="Handlebars/Mustache" value="12" />
           <entry key="JSON" value="7" />
-          <entry key="JavaScript" value="35" />
+          <entry key="JavaScript" value="36" />
           <entry key="SCSS" value="3" />
         </counts>
       </usages-collector>
@@ -108,13 +82,36 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="26" column="40" lean-forward="true" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+            <state relative-caret-position="26">
+              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/dummy/config/environment.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="48" column="44" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/application.hbs">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -210,7 +207,6 @@
         <option value="$PROJECT_DIR$/app/services/session.js" />
         <option value="$PROJECT_DIR$/addon/adapters/account.js" />
         <option value="$PROJECT_DIR$/tests/test-helper.js" />
-        <option value="$PROJECT_DIR$/tests/dummy/config/environment.js" />
         <option value="$PROJECT_DIR$/tests/dummy/mirage/config.js" />
         <option value="$PROJECT_DIR$/tests/unit/adapters/account-test.js" />
         <option value="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" />
@@ -225,7 +221,6 @@
         <option value="$PROJECT_DIR$/addon/index.js" />
         <option value="$PROJECT_DIR$/addon/-lib/user/authenticated-route.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/routes/sign-up.js" />
-        <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs" />
         <option value="$PROJECT_DIR$/node_modules/ember-cli-blueprint-helpers/lib/installer/addon-installer.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" />
@@ -237,6 +232,8 @@
         <option value="$PROJECT_DIR$/node_modules/ember-cli-mdc-textfield/addon/components/mdc-textfield.js" />
         <option value="$PROJECT_DIR$/node_modules/ember-cli-mdc-textfield/addon/templates/components/mdc-textfield.hbs" />
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" />
+        <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs" />
+        <option value="$PROJECT_DIR$/tests/dummy/config/environment.js" />
       </list>
     </option>
   </component>
@@ -319,78 +316,6 @@
             <path>
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="ember-cli-mdc-textfield" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="ember-cli-mdc-textfield" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="ember-cli-mdc-textfield" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="ember-cli-mdc-textfield" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="mixins" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="ember-cli-mdc-textfield" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="styles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="ember-cli-mdc-textfield" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="ember-cli-mdc-textfield" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -411,8 +336,7 @@
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
               <item name="dummy" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -639,12 +563,12 @@
       <workItem from="1534134212020" duration="7517000" />
       <workItem from="1534199563299" duration="574000" />
       <workItem from="1534211264572" duration="598000" />
-      <workItem from="1534732871214" duration="4921000" />
+      <workItem from="1534732871214" duration="6359000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="597428000" />
+    <option name="totallyTimeSpent" value="598866000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -665,7 +589,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.40675476" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.40675476" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3979442" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -845,13 +769,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/config/environment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="88" column="47" selection-start-line="88" selection-start-column="47" selection-end-line="88" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/initializers/gatekeeper-test.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -983,20 +900,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/application.hbs">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/sign-in.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13">
           <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1106,8 +1013,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="26" column="40" lean-forward="true" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+        <state relative-caret-position="195">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/application.hbs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/config/environment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="48" column="44" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="44" />
         </state>
       </provider>
     </entry>

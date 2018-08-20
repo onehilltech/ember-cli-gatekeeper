@@ -44,7 +44,7 @@ module.exports = function(environment) {
     };
 
     ENV.gatekeeper = {
-      baseUrl: 'http://localhost:8080',
+      baseUrl: 'http://localhost:8080/v1',
       tokenOptions: {
         client_id: '5a206991201dc8357e45d174',
       },
