@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Material from 'ember-cli-mdl';
+import Route from '@ember/routing/route';
 
 const bearerErrorCodes = [
   'invalid_token',
@@ -11,7 +11,7 @@ const bearerErrorCodes = [
   'account_disabled'
 ];
 
-export default Material.Route.extend ({
+export default Route.extend ({
   capabilities: [],
 
   concatenatedProperties: ['capabilities'],

@@ -4,8 +4,8 @@ export default Controller.extend({
   init () {
     this._super (...arguments);
 
-    let gatekeeper = this.get ('gatekeeper');
-    gatekeeper.on ('signedOut', this.didSignOut.bind (this));
+    const session = this.get ('session');
+    session.on ('signedOut', this.didSignOut.bind (this));
   },
 
   didSignOut () {

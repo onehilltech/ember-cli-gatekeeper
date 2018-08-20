@@ -1,17 +1,17 @@
-import Ember from 'ember';
-import Material from 'ember-cli-mdl';
+import Route from '@ember/routing/route';
+import { getOwner } from '@ember/application';
+import { getWithDefault } from '@ember/object';
 
-export default Material.Route.extend ({
+export default Route.extend ({
   beforeModel () {
-    if (this.get ('session.isSignedIn')) {
-      // Transition to the start route.
-      let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-      let startRoute = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
-
-      this.replaceWith (startRoute);
-    }
-    else {
+    if (!this.get ('session.isSignedIn')) {
       return this._super (...arguments);
     }
+
+    // Transition to the start route.
+    let ENV = getOwner (this).resolveRegistration ('config:environment');
+    let startRoute = getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
+
+    this.replaceWith (startRoute);
   }
 });

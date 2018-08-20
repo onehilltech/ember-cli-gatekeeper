@@ -1,5 +1,5 @@
-import Material from 'ember-cli-mdl';
+import Route from '@ember/routing/route';
 
-export default Material.Route.extend ({
+export default Route.extend ({
 
 });

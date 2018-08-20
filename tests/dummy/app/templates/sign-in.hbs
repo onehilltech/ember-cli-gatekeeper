@@ -1,7 +1,10 @@
-{{#mdl-layout}}
-  {{#mdl-layout-content}}
-    {{gatekeeper-sign-in-vertical signInComplete=(action "signInComplete")}}
+{{gatekeeper-sign-in
+    style="outlined"
+    usernameType="email"
+    usernameLabel="Email address"
+    usernameIcon="person"
+    submitButtonStyle="raised"
+    enableShowPassword=true
+    complete=(action "signInComplete")}}
 
-    {{#link-to "sign-up" class="create-account" replace=true}}I need to create an account.{{/link-to}}
-  {{/mdl-layout-content}}
-{{/mdl-layout}}
+{{#link-to "sign-up" class="create-account" replace=true}}I need to create an account.{{/link-to}}
