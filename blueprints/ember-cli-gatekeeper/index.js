@@ -6,14 +6,11 @@ module.exports = {
   },
 
   afterInstall () {
-    return this.addBowerPackagesToProject ([
+    return installPackages (this, [
+      {name: 'ember-browserify'},
+      {name: 'micromatch'},
       {name: 'jsrsasign', target: '^8.0.7'}
     ]).then (() => {
-      return installPackages (this, [
-        {name: 'ember-browserify'},
-        {name: 'micromatch'}
-      ])
-    }).then (() => {
       return installAddons (this, {
         packages: [
           {name: '@onehilltech/ember-cli-storage', target: '^0.2.1'},

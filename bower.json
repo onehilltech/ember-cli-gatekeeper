@@ -1,9 +1,6 @@
 {
   "name": "ember-cli-gatekeeper",
   "dependencies": {
-    "initial.js": "https://github.com/onehilltech/initial.js.git#0.3.0",
-    "dialog-polyfill": "~0.4.9",
-    "jsrsasign": "^8.0.7",
     "material-design-icons": "^3.0.1"
   }
 }

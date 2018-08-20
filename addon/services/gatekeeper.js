@@ -1,10 +1,16 @@
-/* global KJUR,KEYUTIL */
 import Ember from 'ember';
+
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
+import { alias, bool, not } from '@ember/object/computed';
+import { isPresent, isNone } from '@ember/utils';
+
+import $ from 'jquery';
 
 export default Ember.Service.extend({
   /// Reference to local storage.
-  storage: Ember.inject.service ('local-storage'),
-  accessToken: Ember.computed.alias ('storage.gatekeeper_client_token'),
+  storage: service ('local-storage'),
+  accessToken: alias ('storage.gatekeeper_client_token'),
 
   init () {
     this._super (...arguments);
@@ -13,8 +19,8 @@ export default Ember.Service.extend({
     this.setProperties (Ember.copy (Ember.get (ENV, 'gatekeeper')));
   },
 
-  isAuthenticated: Ember.computed.bool ('accessToken'),
-  isUnauthenticated: Ember.computed.not ('isAuthenticated'),
+  isAuthenticated: bool ('accessToken'),
+  isUnauthenticated: not ('isAuthenticated'),
 
   computeUrl (relativeUrl) {
     return `${this.get ('baseUrl')}${relativeUrl}`;
@@ -38,8 +44,44 @@ export default Ember.Service.extend({
     this.set ('accessToken');
   },
 
+  publicKey: computed ('publicCert', function () {
+    const publicCert = this.get ('publicCert');
+    return isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
+  }),
+
+  secretOrPublicKey: computed ('{secret,publicKey}', function () {
+    let secret = this.get ('secret');
+    return isPresent (secret) ? secret : this.get ('publicKey');
+  }),
+
   /**
-   * Private method for requesting an access token from the server.
+   * Verify a token. If there is no secret or public key, then the token is assumed
+   * to be valid.
+   *
+   * @param token
+   */
+  verifyToken (token) {
+    if (isNone (token)) {
+      return Ember.RSVP.resolve ({});
+    }
+
+    return new Ember.RSVP.Promise ((resolve, reject) => {
+      const {
+        secretOrPublicKey,
+        verifyOptions
+      } = this.getProperties (['secretOrPublicKey','verifyOptions']);
+
+      if (isNone (secretOrPublicKey)) {
+        return resolve (true);
+      }
+
+      const isValid = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
+      return isValid ? resolve (true) : reject (new Error ('Failed to verify token.'));
+    });
+  },
+
+  /**
+   * Requesting an access token from the server.
    *
    * @param opts
    * @returns {RSVP.Promise}
@@ -59,42 +101,6 @@ export default Ember.Service.extend({
       data: JSON.stringify (data)
     };
 
-    return Ember.$.ajax (ajaxOptions);
-  },
-
-  publicKey: Ember.computed ('publicCert', function () {
-    const publicCert = this.get ('publicCert');
-    return Ember.isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
-  }),
-
-  secretOrPublicKey: Ember.computed ('{secret,publicKey}', function () {
-    let secret = this.get ('secret');
-    return Ember.isPresent (secret) ? secret : this.get ('publicKey');
-  }),
-
-  /**
-   * Verify a token. If there is no secret or public key, then the token is assumed
-   * to be valid.
-   *
-   * @param token
-   */
-  verifyToken (token) {
-    if (Ember.isNone (token)) {
-      return Ember.RSVP.resolve ({});
-    }
-
-    return new Ember.RSVP.Promise ((resolve, reject) => {
-      const {
-        secretOrPublicKey,
-        verifyOptions
-      } = this.getProperties (['secretOrPublicKey','verifyOptions']);
-
-      if (Ember.isNone (secretOrPublicKey)) {
-        return resolve (true);
-      }
-
-      const isValid = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
-      return isValid ? resolve (true) : reject (new Error ('Failed to verify token.'));
-    });
+    return $.ajax (ajaxOptions);
   },
 });

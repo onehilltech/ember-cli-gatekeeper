@@ -4,12 +4,9 @@
 module.exports = {
   name: 'ember-cli-gatekeeper',
 
-  isDevelopingAddon () {
-    return true;
-  },
+  included (app) {
+    this._super (...arguments);
 
-  included: function (app) {
-    this._super.included.apply (this, arguments);
-    app.import (app.bowerDirectory + '/jsrsasign/jsrsasign-all-min.js');
+    app.import ('node_modules/jsrsasign/lib/jsrsasign-all-min.js');
   }
 };

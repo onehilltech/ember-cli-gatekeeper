@@ -16,6 +16,10 @@ module.exports = {
   },
   rules: {
   },
+  globals: {
+    KJUR: true,
+    KEYUTIL: true
+  },
   overrides: [
     // node files
     {
