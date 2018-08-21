@@ -1,7 +1,8 @@
 import RESTAdapter from '../-lib/user/adapters/rest';
 
 import { isPresent, isEmpty } from '@ember/utils';
-import { get, getWithDefault } from '@ember/object';
+import { get, getWithDefault, computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 
 /**
  * @class AccountRESTAdapter
@@ -9,6 +10,9 @@ import { get, getWithDefault } from '@ember/object';
  * The RESTAdapter for the account model.
  */
 export default RESTAdapter.extend({
+  /// Get the host from the base url for the client.
+  host: readOnly ('session.gatekeeper.baseUrl'),
+
   createRecord (store, type, snapshot) {
     let _super = this._super;
     let adapter = this;
@@ -37,6 +41,7 @@ export default RESTAdapter.extend({
 
   urlForCreateRecord (modelName, snapshot) {
     let url = this._super (...arguments);
+
     let signIn = getWithDefault (snapshot, 'adapterOptions.signIn', false);
 
     if (signIn) {
@@ -50,54 +55,50 @@ export default RESTAdapter.extend({
     return isEmpty (Object.keys (query)) ? this.buildURL (modelName, 'me', null, 'findRecord', null) : this._super (...arguments);
   },
 
-  headersForRequest (params) {
-    let {requestType, query, snapshot} = params;
-    let headers = this._super (...arguments);
+  ajaxOptions (url, type, options) {
+    let hash = this._super (...arguments);
+    let beforeSend = hash.beforeSend || function (xhr) { };
 
-    switch (requestType) {
-      case 'createRecord': {
-        const useUserToken = get (snapshot, 'adapterOptions.useUserToken');
-        const accessTokenKey = useUserToken ? 'session.accessToken' : 'session.gatekeeper.accessToken';
+    hash.beforeSend = function (xhr) {
+      // Call the original beforeSend() function.
+      beforeSend (xhr);
 
-        // When creating an account record, we need to submit the client token, and not
-        // the user token. This is because we assume accounts are being created when the
-        // user is not signed in (i.e., by the client device).
-        const accessToken = this.get (accessTokenKey);
-        headers.Authorization = `Bearer ${accessToken.access_token}`;
-        break;
+      if (endsWith (url, '/me')) {
+        // For request about the current account, we do not want to cache the response.
+        // Otherwise, we run the risk of caching data related to a different user.
+        xhr.setRequestHeader ('Cache-Control', 'no-cache, no-store, must-revalidate');
       }
+    };
 
-      case 'queryRecord': {
-        if (isEmpty (Object.keys (query))) {
-          // The empty query object is shorthand for the current user without knowing the
-          // current user's id. We cannot cache this request, and must always go back to
-          // the server for the response to this request since the user could change.
-          headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
-        }
-        break;
-      }
-    }
-
-    return headers;
+    return hash;
   },
 
   handleResponse (status, headers, payload, requestData) {
-    let accessToken = payload.token;
+    if (status === 200 && requestData.method === 'POST') {
+      let accessToken = payload.token;
 
-    if (accessToken) {
-      delete payload.token;
-    }
+      if (isPresent (accessToken)) {
+        // Delete the access token from the payload.
+        delete payload.token;
 
-    if (status === 200 && requestData.method === 'POST' && accessToken) {
-      // The account was created and logged in at the same time. We need to
-      // extract the token, and register it with the gatekeeper service.
+        // The account was created and logged in at the same time. We need to
+        // extract the token, and register it with the gatekeeper service.
+        let session = this.get ('session');
+        let currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
 
-      let session = this.get ('session');
-      let currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
-
-      session.setProperties ({currentUser, accessToken});
+        session.setProperties ({currentUser, accessToken});
+      }
     }
 
     return this._super (status, headers, payload, requestData);
   }
 });
+
+//From http://stackoverflow.com/questions/280634/endswith-in-javascript
+function endsWith (string, suffix) {
+  if (typeof String.prototype.endsWith !== 'function') {
+    return string.indexOf(suffix, string.length - suffix.length) !== -1;
+  } else {
+    return string.endsWith(suffix);
+  }
+}

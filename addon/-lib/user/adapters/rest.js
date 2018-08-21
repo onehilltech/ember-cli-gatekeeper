@@ -1,33 +1,26 @@
 import DS from 'ember-data';
 
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import { readOnly, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { Promise } from 'rsvp';
 
 export default DS.RESTAdapter.extend ({
-  /// The router service, which is used by the adapter to force the
-  /// application to transition to the sign in page after unauthorized
-  /// access.
-  router: service (),
-
   /// The session service for Gatekeeper.
   session: service (),
 
-  /// Get the host from the base url for the client.
-  host: readOnly ('session.gatekeeper.baseUrl'),
+  /// We are either going to use the session access token, or the client access token. We
+  /// prefer the session access token to the client access token.
+  accessToken: or ('session.accessToken','session.gatekeeper.accessToken'),
 
-  headers: computed ('session.accessToken', function () {
-    let accessToken = this.get ('session.accessToken.access_token');
-    return { Authorization: `Bearer ${accessToken}` };
+  /**
+   * Get the default headers for the REST adapter.
+   */
+  headers: computed ('accessToken', function () {
+    return {
+      Authorization: `Bearer ${this.get ('accessToken.access_token')}`
+    };
   }),
-
-  headersForRequest () {
-    let headers = this._super (...arguments);
-    headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
-
-    return headers;
-  },
 
   /**
    * Handle the AJAX request.

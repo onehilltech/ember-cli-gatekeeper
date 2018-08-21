@@ -6,7 +6,7 @@ import {default as CreateAccountComponent} from './components/gatekeeper-create-
 
 import {default as SignInComponent} from './components/gatekeeper-sign-in';
 
-export default {
+export {
   CreateAccountComponent,
   User,
   SignInComponent,
