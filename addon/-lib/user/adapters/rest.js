@@ -3,7 +3,8 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 import { readOnly, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { Promise } from 'rsvp';
+import { isNone } from '@ember/utils';
+import { reject } from 'rsvp';
 
 export default DS.RESTAdapter.extend ({
   /// The session service for Gatekeeper.
@@ -23,39 +24,32 @@ export default DS.RESTAdapter.extend ({
   }),
 
   /**
-   * Handle the AJAX request.
+   * Execute an AJAX request.
    *
-   * @param hash
    * @private
    */
-  _makeRequest (request) {
+  ajax (url, type, options) {
     // We are going to intercept the original request before it goes out and
     // replace the error handler with our error handler.
     const adapter = this;
     const _super = this._super;
 
-    return this._super (request).catch (err => {
+    return this._super (...arguments).catch (err => {
+      if (isNone (err.errors)) {
+        return reject (err);
+      }
+
       const { errors: [{ code, status }]} = err;
 
       if (status !== '403' || code !== 'token_expired') {
-        return Promise.reject (err);
+        return reject (err);
       }
 
-      // The token has expired. Try to refresh the token, and then retry the original
-      // request again.
+      // Refresh the access token, and try the request again. If the request fails
+      // a second time, then return the original error.
       return this.get ('session').refreshToken ()
-        .then (() => {
-          // Replace the current authorization header with the new access token.
-          const {access_token:accessToken} = this.get ('session.accessToken');
-          request.headers['Authorization'] = `Bearer ${accessToken}`;
-
-          // Retry the same request again. This time we are not concerned if the
-          // request fails, and will let it bubble to the caller.
-          return _super.call (adapter, request);
-        }).catch (() => {
-          // We failed to refresh our token. Send the original error message.
-          return Promise.reject (err);
-        })
+        .then (() => _super.call (adapter, url, type, options))
+        .catch (() => reject (err));
     });
   }
 });
