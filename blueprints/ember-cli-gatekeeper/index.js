@@ -18,8 +18,7 @@ module.exports = {
           {name: 'ember-cli-mdc-form'},
           {name: 'ember-cli-mdc-snackbar'},
           {name: 'ember-cli-google-recaptcha', target: '^1.0.0'},
-          {name: 'ember-api-actions', target: '^0.1.7'},
-          {name: 'ember-browserify', target: '^1.2.2'}
+          {name: 'ember-api-actions', target: '^0.1.7'}
         ]
       })
     });
