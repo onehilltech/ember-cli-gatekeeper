@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="" />
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -34,7 +31,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="hbs" value="857" />
-          <entry key="js" value="6952" />
+          <entry key="js" value="7079" />
           <entry key="json" value="103" />
         </counts>
       </usages-collector>
@@ -42,14 +39,14 @@
         <counts>
           <entry key="Handlebars/Mustache" value="857" />
           <entry key="JSON" value="103" />
-          <entry key="JavaScript" value="6952" />
+          <entry key="JavaScript" value="7079" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Makefile" value="1" />
           <entry key="hbs" value="15" />
-          <entry key="js" value="113" />
+          <entry key="js" value="114" />
           <entry key="json" value="13" />
           <entry key="scss" value="3" />
         </counts>
@@ -58,7 +55,7 @@
         <counts>
           <entry key="Handlebars/Mustache" value="15" />
           <entry key="JSON" value="13" />
-          <entry key="JavaScript" value="113" />
+          <entry key="JavaScript" value="114" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SCSS" value="3" />
         </counts>
@@ -85,6 +82,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
               <caret line="20" column="71" selection-start-line="20" selection-start-column="71" selection-end-line="20" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/common-tags/lib/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="132" column="28" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -343,7 +349,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Ember Serve.Run application">
+  <component name="RunManager" selected="Node.js.Run application">
     <configuration name="Run application" type="EMBER_SERVE_CONFIGURATION" factoryName="Ember serve configuration factory">
       <option name="PORT" value="" />
       <option name="HOST" value="" />
@@ -416,6 +422,9 @@
       <option name="LAUNCH_OPTION" value="DEFAULT" />
       <method v="2" />
     </configuration>
+    <configuration name="Run application" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="s" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/ember" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
     <configuration name="Run tests" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="test" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/ember" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
@@ -436,6 +445,7 @@
       <item itemvalue="Ember Test.Run all tests" />
       <item itemvalue="Node.js.ember g ember-cli-gatekeeper" />
       <item itemvalue="Node.js.Run tests" />
+      <item itemvalue="Node.js.Run application" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -576,7 +586,7 @@
       <workItem from="1534134212020" duration="7517000" />
       <workItem from="1534199563299" duration="574000" />
       <workItem from="1534211264572" duration="598000" />
-      <workItem from="1534732871214" duration="35117000" />
+      <workItem from="1534732871214" duration="35926000" />
     </task>
     <servers />
   </component>
@@ -613,7 +623,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="627624000" />
+    <option name="totallyTimeSpent" value="628433000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -628,19 +638,19 @@
     <frame x="0" y="23" width="1440" height="796" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23396759" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23396759" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.5103093" side_tool="true" weight="0.23960535" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.40675476" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3979442" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3979442" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3274596" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5109232" side_tool="true" weight="0.4159159" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48907682" visible="true" weight="0.4126285" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48907682" weight="0.4126285" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32798833" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
@@ -685,12 +695,17 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
-        <watch expression="semver.coerce (pkg.target).version" language="JavaScript" />
+        <watch expression="require('ember-cli-cjs-transform').importTransforms" language="JavaScript" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>require('ember-cli-cjs-transform').importTransforms</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>semver.coerce (pkg.target).version</expression-string>
         <language-id>JavaScript</language-id>
@@ -714,13 +729,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/components/gatekeeper-sign-in.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="75" selection-start-column="75" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/controllers/sign-in.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1108,6 +1116,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="301">
           <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/common-tags/lib/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="132" column="28" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
         </state>
       </provider>
     </entry>
