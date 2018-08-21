@@ -1,11 +1,8 @@
 import { AuthenticatedRoute } from 'ember-cli-gatekeeper';
+import { Promise } from 'rsvp';
 
 export default AuthenticatedRoute.extend({
-  capabilities: null,
-
-  init () {
-    this._super (...arguments);
-
-    //this.set ('capabilities', ['gatekeeper.account'])
+  model () {
+    return this.get ('store').findRecord ('account', this.get ('currentUser.id'), { reload: true });
   }
 });
