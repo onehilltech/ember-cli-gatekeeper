@@ -22,7 +22,5 @@ module.exports = {
         ]
       })
     });
-  },
-
-  importTransforms: require('ember-cli-cjs-transform').importTransforms
+  }
 };

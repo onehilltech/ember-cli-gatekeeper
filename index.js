@@ -16,5 +16,7 @@ module.exports = {
         { transformation: 'cjs', as: 'micromatch', plugins: [NodeBuiltins (), NodeGlobals ()] }
       ]
     })
-  }
+  },
+
+  importTransforms: require('ember-cli-cjs-transform').importTransforms
 };

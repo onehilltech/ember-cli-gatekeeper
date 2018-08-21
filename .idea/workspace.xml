@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,7 +34,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="hbs" value="857" />
-          <entry key="js" value="6948" />
+          <entry key="js" value="6952" />
           <entry key="json" value="103" />
         </counts>
       </usages-collector>
@@ -41,14 +42,14 @@
         <counts>
           <entry key="Handlebars/Mustache" value="857" />
           <entry key="JSON" value="103" />
-          <entry key="JavaScript" value="6948" />
+          <entry key="JavaScript" value="6952" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Makefile" value="1" />
           <entry key="hbs" value="15" />
-          <entry key="js" value="112" />
+          <entry key="js" value="113" />
           <entry key="json" value="13" />
           <entry key="scss" value="3" />
         </counts>
@@ -57,7 +58,7 @@
         <counts>
           <entry key="Handlebars/Mustache" value="15" />
           <entry key="JSON" value="13" />
-          <entry key="JavaScript" value="112" />
+          <entry key="JavaScript" value="113" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SCSS" value="3" />
         </counts>
@@ -70,11 +71,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="26" column="71" selection-start-line="26" selection-start-column="71" selection-end-line="26" selection-end-column="71" />
+            <state relative-caret-position="301">
+              <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="20" column="71" selection-start-line="20" selection-start-column="71" selection-end-line="20" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -195,7 +205,6 @@
         <option value="$PROJECT_DIR$/addon/-lib/mixins/recaptcha.js" />
         <option value="$PROJECT_DIR$/addon/services/session.js" />
         <option value="$PROJECT_DIR$/addon/components/gatekeeper-create-account.js" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/addon/-lib/token-metadata.js" />
         <option value="$PROJECT_DIR$/tests/unit/lib/token-metadata-test.js" />
         <option value="$PROJECT_DIR$/tests/dummy/config/environment.js" />
@@ -214,6 +223,7 @@
         <option value="$PROJECT_DIR$/addon/-lib/mixins/authenticated-route.js" />
         <option value="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" />
         <option value="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" />
+        <option value="$PROJECT_DIR$/index.js" />
       </list>
     </option>
   </component>
@@ -281,17 +291,6 @@
           <expand>
             <path>
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="blueprints" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="blueprints" type="462c0819:PsiDirectoryNode" />
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -577,7 +576,7 @@
       <workItem from="1534134212020" duration="7517000" />
       <workItem from="1534199563299" duration="574000" />
       <workItem from="1534211264572" duration="598000" />
-      <workItem from="1534732871214" duration="34804000" />
+      <workItem from="1534732871214" duration="35117000" />
     </task>
     <servers />
   </component>
@@ -614,7 +613,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="627311000" />
+    <option name="totallyTimeSpent" value="627624000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -900,13 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="92" selection-start-line="15" selection-start-column="92" selection-end-line="15" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/lib/token-metadata-test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1114,8 +1106,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="26" column="71" selection-start-line="26" selection-start-column="71" selection-end-line="26" selection-end-column="71" />
+        <state relative-caret-position="301">
+          <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="20" column="71" selection-start-line="20" selection-start-column="71" selection-end-line="20" selection-end-column="71" />
         </state>
       </provider>
     </entry>
