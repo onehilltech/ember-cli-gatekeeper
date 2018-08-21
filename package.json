@@ -28,7 +28,8 @@
     "ember-cli-htmlbars": "^3.0.0",
     "ember-cli-sass": "^7.1.7",
     "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.2.1"
+    "rollup-plugin-node-globals": "^1.2.1",
+    "semver": "^5.5.1"
   },
   "devDependencies": {
     "@material/animation": "0.34.0",

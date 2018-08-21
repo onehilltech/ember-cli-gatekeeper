@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="" />
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -74,7 +72,7 @@
         <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
-              <caret line="20" column="55" lean-forward="true" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+              <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -568,7 +566,7 @@
       <workItem from="1534134212020" duration="7517000" />
       <workItem from="1534199563299" duration="574000" />
       <workItem from="1534211264572" duration="598000" />
-      <workItem from="1534732871214" duration="32763000" />
+      <workItem from="1534732871214" duration="33838000" />
     </task>
     <servers />
   </component>
@@ -605,7 +603,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="625270000" />
+    <option name="totallyTimeSpent" value="626345000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -618,21 +616,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="796" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23396759" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23396759" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.5103093" side_tool="true" weight="0.23960535" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.40675476" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3979442" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3979442" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3274596" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5109232" side_tool="true" weight="0.4159159" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48907682" visible="true" weight="0.4126285" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48907682" weight="0.4126285" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32798833" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
@@ -1106,7 +1103,7 @@
     <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
-          <caret line="20" column="55" lean-forward="true" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+          <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
         </state>
       </provider>
     </entry>
