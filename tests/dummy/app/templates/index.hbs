@@ -1,24 +1,16 @@
-{{#mdl-layout fixedHeader=true}}
-  {{#mdl-layout-header}}
-    {{mdl-toolbar title="Gatekeeper"}}
-  {{/mdl-layout-header}}
+<div style="padding: 16px">
+  <h3 class="mdc-typography--headline4">Gatekeeper Demo</h3>
 
-  {{#mdl-layout-content}}
-    <div style="padding: 16px">
-      <div>{{#link-to "unauthorized"}}Unauthorized Test{{/link-to}}</div>
-      <div><a href="#" {{action "signOut" target=gatekeeper}}>Sign Out</a></div>
+  <div>{{#link-to "unauthorized"}}Unauthorized Test{{/link-to}}</div>
+  <div><a href="#" {{action "signOut" target=session}}>Sign Out</a></div>
 
-      <h5>Session Metadata</h5>
+  <h5 class="mdc-typography--headline6">Session Metadata</h5>
 
-      {{#if canCreateAccount}}
-        <p><strong>We can create an account!!</strong></p>
-      {{/if}}
+  {{#if supportsCreateAccount}}
+    <p><strong>We can create an account!!</strong></p>
+  {{/if}}
 
-      {{#each-in metadata as |key value|}}
-        <div>{{key}}: {{value}}</div>
-      {{/each-in}}
-    </div>
-
-
-  {{/mdl-layout-content}}
-{{/mdl-layout}}
+  {{#each-in metadata as |key value|}}
+    <div>{{key}}: {{value}}</div>
+  {{/each-in}}
+</div>

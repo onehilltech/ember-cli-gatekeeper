@@ -31,7 +31,8 @@ export default DS.RESTAdapter.extend ({
   _makeRequest (request) {
     // We are going to intercept the original request before it goes out and
     // replace the error handler with our error handler.
-    const base = this._super.bind (this);
+    const adapter = this;
+    const _super = this._super;
 
     return this._super (request).catch (err => {
       const { errors: [{ code, status }]} = err;
@@ -50,7 +51,7 @@ export default DS.RESTAdapter.extend ({
 
           // Retry the same request again. This time we are not concerned if the
           // request fails, and will let it bubble to the caller.
-          return base (request);
+          return _super.call (adapter, request);
         }).catch (() => {
           // We failed to refresh our token. Send the original error message.
           return Promise.reject (err);

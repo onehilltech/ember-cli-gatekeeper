@@ -1,6 +1,6 @@
-import Gatekeeper from 'ember-cli-gatekeeper';
+import { AuthenticatedRoute } from 'ember-cli-gatekeeper';
 
-export default Gatekeeper.User.AuthenticatedRoute.extend({
+export default AuthenticatedRoute.extend({
   model () {
     return this.get ('store').findAll ('dummy');
   }

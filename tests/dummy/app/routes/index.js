@@ -1,11 +1,11 @@
-import Gatekeeper from 'ember-cli-gatekeeper';
+import { AuthenticatedRoute } from 'ember-cli-gatekeeper';
 
-export default Gatekeeper.User.AuthenticatedRoute.extend({
+export default AuthenticatedRoute.extend({
   capabilities: null,
 
   init () {
     this._super (...arguments);
 
-    this.set ('capabilities', ['gatekeeper.account'])
+    //this.set ('capabilities', ['gatekeeper.account'])
   }
 });

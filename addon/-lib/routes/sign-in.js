@@ -4,7 +4,7 @@ import { getWithDefault } from '@ember/object';
 
 export default Route.extend ({
   beforeModel () {
-    if (!this.get ('session.isSignedIn')) {
+    if (this.get ('session.isSignedOut')) {
       return this._super (...arguments);
     }
 
