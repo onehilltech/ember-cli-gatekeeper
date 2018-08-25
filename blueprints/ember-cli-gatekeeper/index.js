@@ -16,6 +16,8 @@ module.exports = {
         packages: [
           {name: '@onehilltech/ember-cli-storage', target: '^0.2.1'},
           {name: 'ember-cli-mdc-form'},
+          {name: 'ember-cli-mdc-textfield'},
+          {name: 'ember-cli-mdc-button'},
           {name: 'ember-cli-mdc-snackbar'},
           {name: 'ember-cli-google-recaptcha', target: '^1.0.0'},
           {name: 'ember-api-actions', target: '^0.1.7'}
