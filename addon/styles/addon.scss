@@ -4,10 +4,6 @@
 
     display: flex;
 
-    .g-recaptcha {
-      margin-bottom: 16px;
-    }
-
     .mdc-text-field__icon:focus {
       outline: none;
     }
@@ -33,6 +29,12 @@
   &.gatekeeper-sign-in--horizontal {
     .gatekeeper-sign-in--input-controls {
       flex-direction: row;
+    }
+  }
+
+  &.gatekeeper-sign-in--recaptcha-v2 {
+    .g-recaptcha {
+      margin-bottom: 16px;
     }
   }
 }

@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('sign-in', function() {
     this.route('standard');
     this.route('recaptcha-v2');
+    this.route('recaptcha-invisible');
   });
 });
 

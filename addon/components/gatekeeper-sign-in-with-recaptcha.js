@@ -73,11 +73,18 @@ const InvisibleRecaptchaSignIn = RecaptchaSignIn.extend ({
 export default SignInComponent.extend({
   layout,
 
+  classNameBindings: ['recaptchaClassName'],
+
+  recaptchaClassName: computed ('recaptcha', function () {
+    return `gatekeeper-sign-in--recaptcha-${this.get ('recaptcha')}`;
+  }),
+
   recaptcha: 'invisible',
   v2: equal ('recaptcha', 'v2'),
   invisible: equal ('recaptcha', 'invisible'),
 
   reset: false,
+
 
 
   execute: false,
