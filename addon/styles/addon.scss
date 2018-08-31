@@ -7,6 +7,8 @@
     .mdc-text-field__icon:focus {
       outline: none;
     }
+
+
   }
 
   /**
@@ -17,7 +19,9 @@
       flex-direction: column;
 
       .gatekeeper--input {
-        margin-bottom: 16px;
+        .mdc-text-field-helper-text--persistent {
+          margin-bottom: 16px;
+        }
       }
     }
   }
