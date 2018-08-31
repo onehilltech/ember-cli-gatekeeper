@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/addon/-lib/mixins/sign-up-controller-mixin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/addon/-lib/standard-submit-strategy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/adapters/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/adapters/account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-create-account.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-sign-up.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-create-account.hbs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/gatekeeper-create-account.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/gatekeeper-sign-up.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-up.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-up.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/standard.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/standard.hbs" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,7 +32,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="hbs" value="1529" />
+          <entry key="hbs" value="1603" />
           <entry key="js" value="17268" />
           <entry key="json" value="103" />
           <entry key="scss" value="328" />
@@ -51,7 +40,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Handlebars/Mustache" value="1529" />
+          <entry key="Handlebars/Mustache" value="1603" />
           <entry key="JSON" value="103" />
           <entry key="JavaScript" value="17268" />
           <entry key="SCSS" value="328" />
@@ -86,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            <state relative-caret-position="262">
+              <caret line="31" column="27" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -95,7 +84,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addon/components/gatekeeper-sign-up.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
+            <state relative-caret-position="338">
               <caret line="111" column="141" selection-start-line="111" selection-start-column="141" selection-end-line="111" selection-end-column="141" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -104,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-up/standard.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="6" column="51" lean-forward="true" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+            <state relative-caret-position="26">
+              <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -125,7 +114,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addon/adapters/account.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="173">
@@ -259,12 +248,12 @@
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs" />
         <option value="$PROJECT_DIR$/addon/-lib/standard-submit-strategy.js" />
         <option value="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" />
-        <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/standard.hbs" />
         <option value="$PROJECT_DIR$/addon/index.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/controllers/sign-up/standard.js" />
         <option value="$PROJECT_DIR$/addon/-lib/mixins/sign-up-controller-mixin.js" />
         <option value="$PROJECT_DIR$/addon/components/gatekeeper-sign-up.js" />
         <option value="$PROJECT_DIR$/addon/adapters/account.js" />
+        <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/standard.hbs" />
       </list>
     </option>
   </component>
@@ -669,7 +658,7 @@
       <workItem from="1535602293253" duration="596000" />
       <workItem from="1535603840060" duration="14000" />
       <workItem from="1535605278924" duration="44000" />
-      <workItem from="1535641701394" duration="39025000" />
+      <workItem from="1535641701394" duration="39386000" />
     </task>
     <servers />
   </component>
@@ -706,7 +695,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="671508000" />
+    <option name="totallyTimeSpent" value="671869000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -721,7 +710,7 @@
     <frame x="0" y="23" width="1432" height="796" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23387669" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23387669" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.5103093" side_tool="true" weight="0.23960535" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -733,7 +722,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32599118" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5060241" side_tool="true" weight="0.3979442" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48907682" weight="0.4126285" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.48907682" visible="true" weight="0.4126285" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32798833" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
@@ -1135,13 +1124,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-up/standard.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="6" column="51" lean-forward="true" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/controllers/sign-up/standard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
@@ -1159,23 +1141,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/components/gatekeeper-sign-up.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="111" column="141" selection-start-line="111" selection-start-column="141" selection-end-line="111" selection-end-column="141" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/addon/adapters/account.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
@@ -1183,6 +1148,30 @@
           <folding>
             <element signature="e#0#53#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/components/gatekeeper-sign-up.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="111" column="141" selection-start-line="111" selection-start-column="141" selection-end-line="111" selection-end-column="141" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="31" column="27" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-up/standard.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
         </state>
       </provider>
     </entry>
