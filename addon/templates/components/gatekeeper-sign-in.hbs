@@ -1,32 +1,32 @@
 {{#mdc-form submit=(action "signIn") valid=(action (mut valid))}}
   <div class="gatekeeper--input-controls">
     <div class="gatekeeper--input gatekeeper--username">
-      {{mdc-textfield value=username
-                      style=style
-                      type=usernameType
-                      label=usernameLabel
-                      icon=usernameIcon
-                      iconPosition="trailing"
-                      iconClickable=false
-                      autocapitalize="none"
-                      autocomplete=usernameAutoComplete
-                      required=true
-                      errorMessage=usernameErrorMessage}}
+      {{mdc-textfield-with-helper-text value=username
+                                       style=style
+                                       type=usernameType
+                                       label=usernameLabel
+                                       icon=usernameIcon
+                                       iconPosition="trailing"
+                                       iconClickable=false
+                                       autocapitalize="none"
+                                       autocomplete=usernameAutoComplete
+                                       required=true
+                                       errorMessage=usernameErrorMessage}}
     </div>
 
     <div class="gatekeeper--input gatekeeper--password">
-      {{mdc-textfield value=password
-                      style=style
-                      required=true
-                      type=passwordType
-                      label=passwordLabel
-                      icon=passwordIcon
-                      iconPosition="trailing"
-                      iconClickable=enableShowPassword
-                      iconClick=(action "toggleShowPassword")
-                      autocomplete="off"
-                      autocapitalize="none"
-                      errorMessage=passwordErrorMessage}}
+      {{mdc-textfield-with-helper-text value=password
+                                       style=style
+                                       required=true
+                                       type=passwordType
+                                       label=passwordLabel
+                                       icon=passwordIcon
+                                       iconPosition="trailing"
+                                       iconClickable=enableShowPassword
+                                       iconClick=(action "toggleShowPassword")
+                                       autocomplete="off"
+                                       autocapitalize="none"
+                                       errorMessage=passwordErrorMessage}}
     </div>
 
     <div class="gatekeeper--submit">
