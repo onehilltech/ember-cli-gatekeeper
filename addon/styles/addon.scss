@@ -1,16 +1,38 @@
-.sign-in-form-vertical {
-  .error-message {
-    margin-bottom: 32px;
-    text-align: center;
-    color: red;
+.gatekeeper-sign-in {
+  .gatekeeper-sign-in--input-controls {
+    padding: 16px;
+
+    display: flex;
+
+    .g-recaptcha {
+      margin-bottom: 16px;
+    }
+
+    .mdc-text-field__icon:focus {
+      outline: none;
+    }
   }
 
-  .mdl-textfield {
-    width: 100%;
+  /**
+   * Styles specific to the vertical display.
+   */
+  &:not(.gatekeeper-sign-in--horizontal) {
+    .gatekeeper-sign-in--input-controls {
+      flex-direction: column;
+
+      .gatekeeper-sign-in--input {
+        margin-bottom: 16px;
+      }
+    }
+
   }
 
-  input[type=submit] {
-    margin-top: 32px;
-    width: 100%;
+  /**
+   * Styles specific to a horizontal display.
+   */
+  &.gatekeeper-sign-in--horizontal {
+    .gatekeeper-sign-in--input-controls {
+      flex-direction: row;
+    }
   }
 }

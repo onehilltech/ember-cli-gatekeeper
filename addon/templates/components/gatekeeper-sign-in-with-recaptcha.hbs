@@ -29,12 +29,21 @@
                       errorMessage=passwordErrorMessage}}
     </div>
 
+    <div>
+      {{component componentName
+                  siteKey=siteKey
+                  verified=(action "verified")
+                  reset=reset
+                  execute=execute}}
+    </div>
+
     <div class="gatekeeper-sign-in--submit">
       {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
         {{submitButtonText}}
       {{/mdc-button}}
     </div>
   </div>
+
 {{/mdc-form}}
 
 {{mdc-snackbar message=errorMessage show=showSnackbar}}

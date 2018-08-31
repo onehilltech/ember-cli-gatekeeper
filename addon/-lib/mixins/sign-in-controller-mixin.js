@@ -1,17 +1,17 @@
-import Controller from '@ember/controller';
+import Mixin from '@ember/object/mixin';
 
 import { getOwner } from '@ember/application';
 import { getWithDefault } from '@ember/object';
 import { isNone, typeOf } from '@ember/utils';
 
-export default Controller.extend ({
+export default Mixin.create ({
   actions: {
     /**
      * Action called by the sign in component after the sign in process is completed
      * successfully. This action must be bound to a Gatekeeper.SignInComponent in order
      * for the application to transition away from the sign in page.
      */
-    signInComplete () {
+    complete () {
       // Perform the redirect from the sign in page.
       let redirectTo = this.get ('redirectTo');
 

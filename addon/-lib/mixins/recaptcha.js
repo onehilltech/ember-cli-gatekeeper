@@ -2,20 +2,25 @@ import EmberObject from '@ember/object';
 import Mixin from '@ember/object/mixin';
 
 import { getOwner } from '@ember/application';
-import { computed, get, getWithDefault } from '@ember/object';
+import { computed, get, observer } from '@ember/object';
+import { bool, not, or, equal } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 import { on } from '@ember/object/evented';
-import { observer } from '@ember/object';
 
 const ReCaptcha = EmberObject.extend ({
-  /// Reset the ReCaptcha component
   reset: false,
 
-  /// The verified value of the ReCaptcha.
-  value: null,
+  response: null,
 
-  /// The ReCaptcha has expired.
   expired: false,
+
+  execute: false,
+
+  verified: bool ('response'),
+  unverified: not ('verified'),
+
+  v2: equal ('type', 'v2'),
+  invisible: equal ('type', 'invisible'),
 
   componentName: computed ('type', function () {
     let type = this.get ('type');
@@ -24,32 +29,31 @@ const ReCaptcha = EmberObject.extend ({
 });
 
 export default Mixin.create ({
-  init () {
+  recaptcha: null,
+  recaptchaNotPresent: not ('recaptcha'),
+
+  didInsertElement () {
     this._super (...arguments);
 
     let ENV = getOwner (this).resolveRegistration ('config:environment');
-    let recaptcha = get (ENV, 'ember-cli-google.recaptcha');
+    let config = get (ENV, 'ember-cli-google.recaptcha');
 
-    if (isPresent (recaptcha)) {
-      let type = getWithDefault (recaptcha, 'type', 'invisible');
-      this.set ('recaptcha', ReCaptcha.create ({type}));
+    if (isPresent (config)) {
+      // The object is using recaptcha. Let's instantiate a data class that will
+      // manage the properties of a recaptcha.
+
+      let type = config.type || 'invisible';
+      let recaptcha = ReCaptcha.create ({type});
+
+      this.set ('recaptcha', recaptcha);
     }
   },
 
-  _resetReCaptcha: on ('error', function () {
-    let recaptcha = this.get ('recaptcha');
+  /// The verified state of the recaptcha. The recaptcha is verified if it is
+  /// not present, or it is present and not verified.
 
-    if (isPresent (recaptcha)) {
-      recaptcha.set ('value');
-    }
-  }),
+  verified: or ('recaptchaNotPresent', 'recaptcha.verified'),
 
-  _isHuman: observer ('recaptcha.value', function () {
-    let {recaptcha} = this.getProperties (['recaptcha']);
-    let {type, value} = recaptcha.getProperties (['type', 'value']);
-
-    if (isPresent (value) && type === 'invisible') {
-      this._doSubmit ();
-    }
-  }),
+  /// The unverified state of the recaptcha.
+  unverified: not ('verified')
 });

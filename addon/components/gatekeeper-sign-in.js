@@ -1,33 +1,53 @@
 import Component from '@ember/component';
+
 import layout from '../templates/components/gatekeeper-sign-in';
-
-import ReCaptcha from '../-lib/mixins/recaptcha';
-
-import Evented from '@ember/object/evented';
 
 import { inject } from '@ember/service';
 import { computed } from '@ember/object'
-import { equal } from '@ember/object/computed';
+import { not, or, readOnly, alias } from '@ember/object/computed';
 
-import { isEmpty, isPresent } from '@ember/utils';
+import { isEmpty, isPresent, isNone } from '@ember/utils';
 
 import { get } from '@ember/object'
 import { merge } from '@ember/polyfills';
 
-function noOp () {
+import { default as SignIn } from '../-lib/sign-in-strategy';
 
-}
+function noOp () {}
 
-export default Component.extend (ReCaptcha, Evented, {
+/**
+ * The standard sign in process.
+ */
+const StandardSignIn = SignIn.extend ({
+  /// The standard sign is never has any additional reasons for
+  /// being marked as disabled.
+  disabled: false,
+
+  /**
+   * Initiate the sign in process.
+   */
+  signIn () {
+    this.get ('component').doSignIn ();
+  }
+});
+
+/**
+ * @class SignInComponent
+ */
+export default Component.extend ({
   layout,
 
   classNames: ['gatekeeper-sign-in'],
+  classNameBindings: ['horizontal:gatekeeper-sign-in--horizontal'],
+
+  horizontal: false,
 
   /// The default style for the text field.
   style: 'box',
 
   /// The valid state for the sign in component.
   valid: true,
+  invalid: not ('valid'),
 
   //== username properties
 
@@ -63,45 +83,57 @@ export default Component.extend (ReCaptcha, Evented, {
   session: inject (),
 
   signInOptions: null,
-  submitButtonStateText: null,
+  submitButtonText: 'Sign In',
 
-  submitButtonText: computed ('state', function () {
-    let state = this.get ('state');
-    return this.get (`submitButtonStateText.${state}`);
-  }),
+  submitting: false,
 
-  state: 'signedOut',
-  isSignedOut: equal ('state', 'signedOut'),
-  isSigningIn: equal ('state', 'signingIn'),
+  /// The disabled state for the button. The button is disabled if we are signing
+  /// in, the form has invalid inputs, or the recaptcha is unverified.
+  disabled: or ('submitting', 'invalid', 'signIn.disabled'),
 
-  disabled: computed ('isSigningIn', 'valid', 'recaptcha.value', function () {
-    let {valid, isSigningIn} = this.getProperties (['valid', 'isSigningIn']);
-    return !valid || isSigningIn || (get (this, 'recaptcha.type') === 'v2' && isEmpty (get (this, 'recaptcha.value')));
-  }),
+  /// The sign in strategy for the component.
+  signIn: null,
 
   init () {
     this._super (...arguments);
 
-    this.set ('signInOptions', {});
-    
-    this.set ('submitButtonStateText', {
-      signedOut: 'Sign In',
-      signingIn: 'Signing In...',
-      verifying: 'Verifying...'
-    })
+    this.set ('signIn', StandardSignIn.create ({component: this}));
+  },
+
+  /**
+   * Do the sign in process.
+   *
+   * @param options
+   */
+  doSignIn (options = {}) {
+    let {username, password, signInOptions} = this.getProperties (['username', 'password', 'signInOptions']);
+    let opts = Object.assign ({}, signInOptions, options, {username, password});
+
+    this.willSignIn ();
+    this.set ('submitting', true);
+
+    this.get ('session').signIn (opts)
+      .then (() => {
+        this.didSignIn ();
+        this.getWithDefault ('complete', noOp) ();
+      })
+      .catch (this.handleError.bind (this))
+      .then (() => {
+        this.set ('submitting', false);
+      });
   },
 
   willSignIn () {
-    this.set ('state', 'signingIn');
+
   },
 
   didSignIn () {
-    this.set ('state', 'signedIn');
-    this.getWithDefault ('complete', noOp) ();
+
   },
 
   handleError (xhr) {
-    this.set ('state', 'signedOut');
+    /// Handle an error.
+    this.get ('signIn').handleError ();
 
     let error = get (xhr, 'responseJSON.errors.0');
 
@@ -129,36 +161,15 @@ export default Component.extend (ReCaptcha, Evented, {
       this.toggleProperty ('showPassword');
     },
 
-    signIn () {
+    signIn (ev) {
+      // Prevent the default event from occurring.
+      ev.preventDefault ();
+
       // Reset the current error message.
       this.set ('errorMessage');
+      this.get ('signIn').signIn ();
 
-      let recaptcha = this.get ('recaptcha');
-
-      if (isPresent (recaptcha) && isEmpty (recaptcha.get ('value'))) {
-        recaptcha.set ('reset', true);
-      }
-      else {
-        this._doSubmit ();
-      }
+      return false;
     }
-  },
-
-  _doSubmit () {
-    // Login the user.
-    let {username, password, signInOptions, recaptcha} = this.getProperties (['username', 'password', 'signInOptions', 'recaptcha']);
-    let opts = merge ({username, password}, signInOptions);
-
-    if (isPresent (recaptcha)) {
-      opts.recaptcha = recaptcha.get ('value');
-    }
-
-    this.willSignIn ();
-
-    this.get ('session').signIn (opts).then (() => {
-      this.didSignIn ();
-    }).catch (xhr => {
-      this.handleError (xhr);
-    });
   }
 });

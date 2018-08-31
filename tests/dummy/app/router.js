@@ -10,7 +10,10 @@ Router.map(function() {
   this.route('index', {path: '/'});
   this.route('unauthorized');
   this.route('sign-up');
-  this.route('sign-in');
+  this.route('sign-in', function() {
+    this.route('standard');
+    this.route('recaptcha-v2');
+  });
 });
 
 export default Router;
