@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/-lib/mixins/recaptcha.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/-lib/mixins/supports-recaptcha.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/mixins/supports-recaptcha.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in-with-recaptcha.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in-with-recaptcha.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/index.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/index.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/index.js" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +33,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="hbs" value="1709" />
-          <entry key="js" value="17311" />
+          <entry key="js" value="17434" />
           <entry key="json" value="103" />
           <entry key="scss" value="355" />
         </counts>
@@ -48,7 +42,7 @@
         <counts>
           <entry key="Handlebars/Mustache" value="1709" />
           <entry key="JSON" value="103" />
-          <entry key="JavaScript" value="17311" />
+          <entry key="JavaScript" value="17434" />
           <entry key="SCSS" value="355" />
         </counts>
       </usages-collector>
@@ -56,7 +50,7 @@
         <counts>
           <entry key="Makefile" value="1" />
           <entry key="hbs" value="58" />
-          <entry key="js" value="178" />
+          <entry key="js" value="179" />
           <entry key="json" value="14" />
           <entry key="scss" value="9" />
         </counts>
@@ -65,7 +59,7 @@
         <counts>
           <entry key="Handlebars/Mustache" value="58" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="178" />
+          <entry key="JavaScript" value="179" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SCSS" value="9" />
         </counts>
@@ -136,15 +130,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up-with-recaptcha.hbs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="55" column="10" lean-forward="true" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/dummy/app/controllers/sign-up/recaptcha-v2.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="156">
@@ -168,11 +153,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-up/index.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
-              <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+            <state relative-caret-position="65">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/addon/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="455">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+              <folding>
+                <element signature="e#0#63#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -285,7 +282,6 @@
         <option value="$PROJECT_DIR$/app/components/gatekeeper-sign-up.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-up.hbs" />
         <option value="$PROJECT_DIR$/addon/-lib/standard-submit-strategy.js" />
-        <option value="$PROJECT_DIR$/addon/index.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/controllers/sign-up/standard.js" />
         <option value="$PROJECT_DIR$/addon/-lib/mixins/sign-up-controller-mixin.js" />
         <option value="$PROJECT_DIR$/addon/adapters/account.js" />
@@ -305,6 +301,7 @@
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/recaptcha-invisible.hbs" />
         <option value="$PROJECT_DIR$/tests/dummy/app/controllers/sign-up/recaptcha-invisible.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-up/index.hbs" />
+        <option value="$PROJECT_DIR$/addon/index.js" />
       </list>
     </option>
   </component>
@@ -367,8 +364,7 @@
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
               <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="-lib" type="462c0819:PsiDirectoryNode" />
-              <item name="mixins" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
@@ -750,7 +746,7 @@
       <workItem from="1535602293253" duration="596000" />
       <workItem from="1535603840060" duration="14000" />
       <workItem from="1535605278924" duration="44000" />
-      <workItem from="1535641701394" duration="43835000" />
+      <workItem from="1535641701394" duration="44458000" />
     </task>
     <servers />
   </component>
@@ -787,7 +783,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="676318000" />
+    <option name="totallyTimeSpent" value="676941000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1078,16 +1074,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/addon/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="25" column="18" lean-forward="true" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/controllers/sign-up.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1275,8 +1261,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-up/index.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+        <state relative-caret-position="65">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="e#0#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

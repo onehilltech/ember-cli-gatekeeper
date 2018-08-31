@@ -2,9 +2,13 @@ import {default as TokenMetadata} from './-lib/token-metadata';
 
 import SignInControllerMixin from './-lib/mixins/sign-in-controller-mixin';
 import SignInComponent from './components/gatekeeper-sign-in';
+import SignInWithRecaptchaComponent from './components/gatekeeper-sign-in-with-recaptcha';
 
 import SignUpControllerMixin from './-lib/mixins/sign-up-controller-mixin';
 import SignUpComponent from './components/gatekeeper-sign-up';
+import SignUpWithRecaptchaComponent from './components/gatekeeper-sign-in-with-recaptcha';
+
+import SupportsRecaptcha from './-lib/mixins/supports-recaptcha';
 
 import {default as SignInRoute} from './-lib/routes/sign-in';
 
@@ -23,10 +27,14 @@ export {
   User,
 
   SignInComponent,
-  SignUpComponent,
-
+  SignInWithRecaptchaComponent,
   SignInControllerMixin,
+
+  SignUpComponent,
+  SignUpWithRecaptchaComponent,
   SignUpControllerMixin,
+
+  SupportsRecaptcha,
 
   SignInRoute,
   TokenMetadata
