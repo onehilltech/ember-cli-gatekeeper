@@ -6,7 +6,7 @@ import EmberObject from '@ember/object';
 export default EmberObject.extend ({
   component: null,
 
-  signIn () {
+  submit () {
 
   },
 

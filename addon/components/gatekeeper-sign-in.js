@@ -11,14 +11,14 @@ import { isEmpty, isPresent, isNone } from '@ember/utils';
 import { get } from '@ember/object'
 import { merge } from '@ember/polyfills';
 
-import { default as SignIn } from '../-lib/sign-in-strategy';
+import { default as Submit } from '../-lib/submit-strategy';
 
 function noOp () {}
 
 /**
  * The standard sign in process.
  */
-const StandardSignIn = SignIn.extend ({
+const StandardSubmit = Submit.extend ({
   /// The standard sign is never has any additional reasons for
   /// being marked as disabled.
   disabled: false,
@@ -26,8 +26,8 @@ const StandardSignIn = SignIn.extend ({
   /**
    * Initiate the sign in process.
    */
-  signIn () {
-    this.get ('component').doSignIn ();
+  submit () {
+    this.get ('component').doSubmit ();
   }
 });
 
@@ -89,15 +89,15 @@ export default Component.extend ({
 
   /// The disabled state for the button. The button is disabled if we are signing
   /// in, the form has invalid inputs, or the recaptcha is unverified.
-  disabled: or ('submitting', 'invalid', 'signIn.disabled'),
+  disabled: or ('submitting', 'invalid', 'submit.disabled'),
 
-  /// The sign in strategy for the component.
-  signIn: null,
+  /// The submit strategy for the component.
+  submit: null,
 
   init () {
     this._super (...arguments);
 
-    this.set ('signIn', StandardSignIn.create ({component: this}));
+    this.set ('submit', StandardSubmit.create ({component: this}));
   },
 
   /**
@@ -105,7 +105,7 @@ export default Component.extend ({
    *
    * @param options
    */
-  doSignIn (options = {}) {
+  doSubmit (options = {}) {
     let {username, password, signInOptions} = this.getProperties (['username', 'password', 'signInOptions']);
     let opts = Object.assign ({}, signInOptions, options, {username, password});
 
@@ -133,7 +133,7 @@ export default Component.extend ({
 
   handleError (xhr) {
     /// Handle an error.
-    this.get ('signIn').handleError ();
+    this.get ('submit').handleError ();
 
     let error = get (xhr, 'responseJSON.errors.0');
 
@@ -167,7 +167,7 @@ export default Component.extend ({
 
       // Reset the current error message.
       this.set ('errorMessage');
-      this.get ('signIn').signIn ();
+      this.get ('submit').submit ();
 
       return false;
     }
