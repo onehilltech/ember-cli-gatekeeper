@@ -72,9 +72,9 @@ const InvisibleRecaptchaSignIn = RecaptchaSignIn.extend ({
 export default Mixin.create ({
   classNameBindings: ['recaptchaClassName'],
 
-  recaptchaClassName: computed ('{recaptcha}', function () {
-    const { recaptcha, recaptchaClassBaseName } = this.getProperties (['recaptcha', 'recaptchaClassBaseName']);
-    return `${recaptchaClassBaseName}--recaptcha-${recaptcha}`;
+  recaptchaClassName: computed ('recaptcha', function () {
+    const recaptcha = this.getProperties ('recaptcha');
+    return `gatekeeper--recaptcha-${recaptcha}`;
   }),
 
   recaptcha: 'invisible',

@@ -1,6 +1,6 @@
 {{#mdc-form submit=(action "signIn") valid=(action (mut valid))}}
-  <div class="gatekeeper-sign-in--input-controls">
-    <div class="gatekeeper-sign-in--input gatekeeper-sign-in--username">
+  <div class="gatekeeper--input-controls">
+    <div class="gatekeeper--input gatekeeper--username">
       {{mdc-textfield value=username
                       style=style
                       type=usernameType
@@ -14,7 +14,7 @@
                       errorMessage=usernameErrorMessage}}
     </div>
 
-    <div class="gatekeeper-sign-in--input gatekeeper-sign-in--password">
+    <div class="gatekeeper--input gatekeeper--password">
       {{mdc-textfield value=password
                       style=style
                       required=true
@@ -29,7 +29,7 @@
                       errorMessage=passwordErrorMessage}}
     </div>
 
-    <div class="gatekeeper-sign-in--submit">
+    <div class="gatekeeper--submit">
       {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
         {{submitButtonText}}
       {{/mdc-button}}

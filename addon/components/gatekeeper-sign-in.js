@@ -24,7 +24,7 @@ export default Component.extend ({
   layout,
 
   classNames: ['gatekeeper-sign-in'],
-  classNameBindings: ['horizontal:gatekeeper-sign-in--horizontal'],
+  classNameBindings: ['horizontal:gatekeeper--horizontal'],
 
   horizontal: false,
 

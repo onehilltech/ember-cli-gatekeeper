@@ -1,5 +1,5 @@
-.gatekeeper-sign-in {
-  .gatekeeper-sign-in--input-controls {
+.gatekeeper-sign-in, .gatekeeper-sign-up {
+  .gatekeeper--input-controls {
     padding: 16px;
 
     display: flex;
@@ -12,11 +12,11 @@
   /**
    * Styles specific to the vertical display.
    */
-  &:not(.gatekeeper-sign-in--horizontal) {
-    .gatekeeper-sign-in--input-controls {
+  &:not(.gatekeeper--horizontal) {
+    .gatekeeper--input-controls {
       flex-direction: column;
 
-      .gatekeeper-sign-in--input {
+      .gatekeeper--input {
         margin-bottom: 16px;
       }
     }
@@ -25,13 +25,13 @@
   /**
    * Styles specific to a horizontal display.
    */
-  &.gatekeeper-sign-in--horizontal {
-    .gatekeeper-sign-in--input-controls {
+  &.gatekeeper--horizontal {
+    .gatekeeper--input-controls {
       flex-direction: row;
     }
   }
 
-  &.gatekeeper-sign-in--recaptcha-v2 {
+  &.gatekeeper--recaptcha-v2 {
     .g-recaptcha {
       margin-bottom: 16px;
     }
