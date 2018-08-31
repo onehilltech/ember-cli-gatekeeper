@@ -1,10 +1,10 @@
 import {default as TokenMetadata} from './-lib/token-metadata';
 
-import SignInControllerMixin from './-lib/mixins/sign-in-controller-mixin';
+import SignInControllerMixin from './-lib/mixins/sign-in-controller';
 import SignInComponent from './components/gatekeeper-sign-in';
 import SignInWithRecaptchaComponent from './components/gatekeeper-sign-in-with-recaptcha';
 
-import SignUpControllerMixin from './-lib/mixins/sign-up-controller-mixin';
+import SignUpControllerMixin from './-lib/mixins/sign-up-controller';
 import SignUpComponent from './components/gatekeeper-sign-up';
 import SignUpWithRecaptchaComponent from './components/gatekeeper-sign-in-with-recaptcha';
 
