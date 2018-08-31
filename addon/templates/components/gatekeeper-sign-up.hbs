@@ -1,0 +1,50 @@
+{{#mdc-form submit=(action "submit") valid=(action (mut valid))}}
+  {{#unless useEmailForUsername}}
+    <div>
+      {{mdc-textfield type="text"
+                      style=style
+                      value=username
+                      label=usernameLabel
+                      errorMessage=usernameErrorMessage
+                      required=true}}
+    </div>
+  {{/unless}}
+
+  <div>
+    {{mdc-textfield type="email"
+                    style=style
+                    value=email
+                    label=emailLabel
+                    errorMessage=emailErrorMessage
+                    required=true}}
+  </div>
+
+  <div>
+    {{mdc-textfield type="password"
+                    style=style
+                    value=password
+                    label=passwordLabel
+                    errorMessage=passwordErrorMessage
+                    required=true}}
+  </div>
+
+
+  {{#if mustConfirmPassword}}
+    <div>
+      {{mdc-textfield type="password"
+                      style=style
+                      value=confirmPassword
+                      label=confirmPasswordLabel
+                      errorMessage=confirmErrorMessage
+                      required=true}}
+    </div>
+  {{/if}}
+
+  <div>
+    {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
+      {{submitButtonText}}
+    {{/mdc-button}}
+  </div>
+{{/mdc-form}}
+
+{{mdc-snackbar message=messageToUser}}

@@ -16,21 +16,14 @@ export default RESTAdapter.extend({
   createRecord (store, type, snapshot) {
     let _super = this._super;
     let adapter = this;
-    let adapterOptions = snapshot.adapterOptions;
+    let { adapterOptions } = snapshot;
     let opts = {};
 
-    if (isPresent (adapterOptions)) {
-      const {useUserToken} = adapterOptions;
+    if (isPresent (Object.keys (adapterOptions))) {
+      Object.assign (opts, adapterOptions);
 
-      // If we are to use the user token, then ter
-      if (useUserToken) {
-        return this._super (...arguments);
-      }
-
-      let recaptcha = adapterOptions.recaptcha;
-
-      if (isPresent (recaptcha)) {
-        opts.recaptcha = recaptcha;
+      if (opts.signIn) {
+        delete opts.signIn;
       }
     }
 

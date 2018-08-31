@@ -11,25 +11,11 @@ import { isEmpty, isPresent, isNone } from '@ember/utils';
 import { get } from '@ember/object'
 import { merge } from '@ember/polyfills';
 
-import { default as Submit } from '../-lib/submit-strategy';
+import { default as StandardSubmit } from '../-lib/standard-submit-strategy';
+
 
 function noOp () {}
 
-/**
- * The standard sign in process.
- */
-const StandardSubmit = Submit.extend ({
-  /// The standard sign is never has any additional reasons for
-  /// being marked as disabled.
-  disabled: false,
-
-  /**
-   * Initiate the sign in process.
-   */
-  submit () {
-    this.get ('component').doSubmit ();
-  }
-});
 
 /**
  * @class SignInComponent
