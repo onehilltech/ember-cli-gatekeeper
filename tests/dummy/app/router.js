@@ -11,6 +11,8 @@ Router.map(function() {
   this.route('unauthorized');
   this.route('sign-up', function() {
     this.route('standard');
+    this.route('recaptcha-invisible');
+    this.route('recaptcha-v2');
   });
   this.route('sign-in', function() {
     this.route('standard');

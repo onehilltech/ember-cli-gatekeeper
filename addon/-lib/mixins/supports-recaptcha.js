@@ -73,7 +73,7 @@ export default Mixin.create ({
   classNameBindings: ['recaptchaClassName'],
 
   recaptchaClassName: computed ('recaptcha', function () {
-    const recaptcha = this.getProperties ('recaptcha');
+    const recaptcha = this.get ('recaptcha');
     return `gatekeeper--recaptcha-${recaptcha}`;
   }),
 

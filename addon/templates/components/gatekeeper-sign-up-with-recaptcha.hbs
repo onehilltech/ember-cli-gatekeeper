@@ -1,0 +1,60 @@
+{{#mdc-form submit=(action "submit") valid=(action (mut valid))}}
+  <div class="gatekeeper--input-controls">
+    {{#unless useEmailForUsername}}
+      <div class="gatekeeper--input gatekeeper--username">
+        {{mdc-textfield type="text"
+                        style=style
+                        value=username
+                        label=usernameLabel
+                        errorMessage=usernameErrorMessage
+                        required=true}}
+      </div>
+    {{/unless}}
+
+    <div class="gatekeeper--input gatekeeper--email">
+      {{mdc-textfield type="email"
+                      style=style
+                      value=email
+                      label=emailLabel
+                      errorMessage=emailErrorMessage
+                      required=true}}
+    </div>
+
+    <div class="gatekeeper--input gatekeeper--password">
+      {{mdc-textfield type="password"
+                      style=style
+                      value=password
+                      label=passwordLabel
+                      errorMessage=passwordErrorMessage
+                      required=true}}
+    </div>
+
+
+    {{#if mustConfirmPassword}}
+      <div class="gatekeeper--input gatekeeper--password-confirm">
+        {{mdc-textfield type="password"
+                        style=style
+                        value=confirmPassword
+                        label=confirmPasswordLabel
+                        errorMessage=confirmErrorMessage
+                        required=true}}
+      </div>
+    {{/if}}
+
+    <div>
+      {{component componentName
+                  siteKey=siteKey
+                  verified=(action "verified")
+                  reset=reset
+                  execute=execute}}
+    </div>
+
+    <div class="gatekeeper--submit">
+      {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
+        {{submitButtonText}}
+      {{/mdc-button}}
+    </div>
+  </div>
+{{/mdc-form}}
+
+{{mdc-snackbar message=messageToUser}}
