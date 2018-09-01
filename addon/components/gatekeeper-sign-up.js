@@ -2,9 +2,9 @@ import Component from '@ember/component';
 import layout from '../templates/components/gatekeeper-sign-up';
 
 import { computed, get } from '@ember/object';
-import { equal, not, or } from '@ember/object/computed';
+import { not, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { isPresent, isEmpty } from '@ember/utils';
+import { isPresent } from '@ember/utils';
 
 import { default as StandardSubmit } from "../-lib/standard-submit-strategy";
 
@@ -49,6 +49,15 @@ export default Component.extend ({
 
   submitButtonText: 'Create My Account',
 
+  showPassword: false,
+  passwordIcon: computed ('showPassword', function () {
+    return this.get ('showPassword') ? 'visibility' : 'visibility_off';
+  }),
+
+  passwordType: computed ('showPassword', function () {
+    return this.get ('showPassword') ? 'text' : 'password';
+  }),
+
   confirmed: computed ('{mustConfirmPassword,password,confirmPassword}', function () {
     const {
       mustConfirmPassword,
@@ -88,8 +97,17 @@ export default Component.extend ({
 
     if (isPresent (error)) {
       switch (error.code) {
-        case 'already_exists':
-          this.set ('emailErrorMessage', 'This email address already has an account.');
+        case 'username_exists':
+          if (this.get ('useEmailForUsername')) {
+            this.set ('emailErrorMessage', error.detail);
+          }
+          else {
+            this.set ('usernameErrorMessage', error.detail);
+          }
+          break;
+
+        case 'email_exists':
+          this.set ('emailErrorMessage', error.detail);
           break;
 
         default:
@@ -142,6 +160,10 @@ export default Component.extend ({
       this.get ('submit').submit ();
 
       return false;
+    },
+
+    toggle () {
+      this.toggleProperty ('showPassword');
     }
   },
 });

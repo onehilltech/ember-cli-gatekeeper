@@ -78,7 +78,7 @@
     "@material/animation" "^0.34.0"
     "@material/theme" "^0.38.0"
 
-"@material/floating-label@0.39.0", "@material/floating-label@^0.39.0":
+"@material/floating-label@0.39.0":
   version "0.39.0"
   resolved "https://registry.yarnpkg.com/@material/floating-label/-/floating-label-0.39.0.tgz#7dedf6cab6c629202904e2c2adcf098de4068b8a"
   dependencies:
@@ -96,6 +96,15 @@
     "@material/theme" "^0.38.0"
     "@material/typography" "^0.38.0"
 
+"@material/floating-label@^0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@material/floating-label/-/floating-label-0.39.1.tgz#8e5f2144460086ee8d586d6715cf0ed1707d3406"
+  dependencies:
+    "@material/base" "^0.39.0"
+    "@material/rtl" "^0.39.1"
+    "@material/theme" "^0.39.1"
+    "@material/typography" "^0.39.0"
+
 "@material/form-field@0.38.1":
   version "0.38.1"
   resolved "https://registry.yarnpkg.com/@material/form-field/-/form-field-0.38.1.tgz#8764d08ecee5eb76e33a68c5d52dba1397ce3cef"
@@ -106,7 +115,7 @@
     "@material/theme" "^0.38.0"
     "@material/typography" "^0.38.0"
 
-"@material/line-ripple@0.39.0", "@material/line-ripple@^0.39.0":
+"@material/line-ripple@0.39.0":
   version "0.39.0"
   resolved "https://registry.yarnpkg.com/@material/line-ripple/-/line-ripple-0.39.0.tgz#b576767a4cdaba883fdc51df59a366147315b0b3"
   dependencies:
@@ -122,7 +131,15 @@
     "@material/base" "^0.35.0"
     "@material/theme" "^0.38.0"
 
-"@material/notched-outline@0.39.0", "@material/notched-outline@^0.39.0":
+"@material/line-ripple@^0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@material/line-ripple/-/line-ripple-0.39.1.tgz#1caab8dcd2dbec21a96060abd3f1cb85b8b63335"
+  dependencies:
+    "@material/animation" "^0.39.0"
+    "@material/base" "^0.39.0"
+    "@material/theme" "^0.39.1"
+
+"@material/notched-outline@0.39.0":
   version "0.39.0"
   resolved "https://registry.yarnpkg.com/@material/notched-outline/-/notched-outline-0.39.0.tgz#487cceba21e09285e6477bee2c55d3ac0b611a00"
   dependencies:
@@ -138,6 +155,15 @@
     "@material/animation" "^0.34.0"
     "@material/base" "^0.35.0"
     "@material/theme" "^0.38.0"
+
+"@material/notched-outline@^0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@material/notched-outline/-/notched-outline-0.39.1.tgz#bd6d5adc2a0c5f63bb1ab4e1db7d43f37e488fa9"
+  dependencies:
+    "@material/animation" "^0.39.0"
+    "@material/base" "^0.39.0"
+    "@material/rtl" "^0.39.1"
+    "@material/theme" "^0.39.1"
 
 "@material/ripple@0.39.0", "@material/ripple@^0.39.0":
   version "0.39.0"
@@ -155,6 +181,14 @@
     "@material/base" "^0.35.0"
     "@material/theme" "^0.38.0"
 
+"@material/ripple@^0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@material/ripple/-/ripple-0.39.1.tgz#3f9ecac87f4552ab63dd543d01b882a7e04a8f75"
+  dependencies:
+    "@material/animation" "^0.39.0"
+    "@material/base" "^0.39.0"
+    "@material/theme" "^0.39.1"
+
 "@material/rtl@0.39.0", "@material/rtl@^0.39.0":
   version "0.39.0"
   resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.39.0.tgz#f7f9fe4f11934efb7d5a8c06a2f2860de81743b4"
@@ -162,6 +196,10 @@
 "@material/rtl@^0.36.0":
   version "0.36.0"
   resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.36.0.tgz#a81b587981dc6e09f51e26da8a7447f89358ccd5"
+
+"@material/rtl@^0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.39.1.tgz#dcaf6f93fc6cd540137edb352139dc8139bca436"
 
 "@material/select@0.38.1":
   version "0.38.1"
@@ -205,18 +243,18 @@
     "@material/selection-control" "^0.38.1"
     "@material/theme" "^0.38.0"
 
-"@material/textfield@0.39.0":
-  version "0.39.0"
-  resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-0.39.0.tgz#9ec024410d1f7ff62e814c576902ac960d4449df"
+"@material/textfield@^0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-0.39.1.tgz#53ef33a0c973d0ec090cea4690c7b95cafd02e9c"
   dependencies:
     "@material/animation" "^0.39.0"
     "@material/base" "^0.39.0"
-    "@material/floating-label" "^0.39.0"
-    "@material/line-ripple" "^0.39.0"
-    "@material/notched-outline" "^0.39.0"
-    "@material/ripple" "^0.39.0"
-    "@material/rtl" "^0.39.0"
-    "@material/theme" "^0.39.0"
+    "@material/floating-label" "^0.39.1"
+    "@material/line-ripple" "^0.39.1"
+    "@material/notched-outline" "^0.39.1"
+    "@material/ripple" "^0.39.1"
+    "@material/rtl" "^0.39.1"
+    "@material/theme" "^0.39.1"
     "@material/typography" "^0.39.0"
 
 "@material/theme@0.39.0", "@material/theme@^0.39.0":
@@ -226,6 +264,10 @@
 "@material/theme@^0.38.0":
   version "0.38.0"
   resolved "https://registry.yarnpkg.com/@material/theme/-/theme-0.38.0.tgz#c1a2247eba4af2ba47da4456921ab420869fda55"
+
+"@material/theme@^0.39.1":
+  version "0.39.1"
+  resolved "https://registry.yarnpkg.com/@material/theme/-/theme-0.39.1.tgz#5fb160222e2b213628b285af26ca65c6f4327fe5"
 
 "@material/typography@0.38.0", "@material/typography@^0.38.0":
   version "0.38.0"
@@ -3058,9 +3100,9 @@ ember-cli-mdc-form-field@0.27.12:
     ember-cli-htmlbars "^3.0.0"
     ember-cli-sass "^7.1.7"
 
-ember-cli-mdc-form@0.28.3:
-  version "0.28.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-form/-/ember-cli-mdc-form-0.28.3.tgz#ce53b2ae915f2bd8c7fd4e5afe8493f0128dcc1b"
+ember-cli-mdc-form@0.28.4:
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-form/-/ember-cli-mdc-form-0.28.4.tgz#9aa307725d0a401e5b569091d6dbe3b7a2c1e6da"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.2.3"
@@ -3150,9 +3192,9 @@ ember-cli-mdc-switch@0.27.12:
     ember-cli-htmlbars "^3.0.0"
     ember-cli-sass "^7.1.7"
 
-ember-cli-mdc-textfield@0.28.3:
-  version "0.28.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-textfield/-/ember-cli-mdc-textfield-0.28.3.tgz#f80e7b362d1e95857a029d7fc2b3ecc083a53bdf"
+ember-cli-mdc-textfield@0.28.4:
+  version "0.28.4"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-textfield/-/ember-cli-mdc-textfield-0.28.4.tgz#4c73b4f6da66cce83c3a0ac8e20dad7a20c7e22c"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.2.3"

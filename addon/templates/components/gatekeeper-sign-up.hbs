@@ -7,7 +7,11 @@
                                          value=username
                                          label=usernameLabel
                                          errorMessage=usernameErrorMessage
-                                         required=true}}
+                                         required=true
+                                         icon=usernameIcon
+                                         iconPosition="trailing"
+                                         iconClickable=false
+                                         autocapitalize="none"}}
       </div>
     {{/unless}}
 
@@ -17,27 +21,38 @@
                                        value=email
                                        label=emailLabel
                                        errorMessage=emailErrorMessage
-                                       required=true}}
+                                       required=true
+                                       icon=emailIcon
+                                       iconPosition="trailing"
+                                       iconClickable=false}}
     </div>
 
     <div class="gatekeeper--input gatekeeper--password">
-      {{mdc-textfield-with-helper-text type="password"
+      {{mdc-textfield-with-helper-text type=passwordType
                                        style=style
                                        value=password
                                        label=passwordLabel
                                        errorMessage=passwordErrorMessage
-                                       required=true}}
+                                       required=true
+                                       icon=passwordIcon
+                                       iconPosition="trailing"
+                                       iconClickable=true
+                                       iconClick=(action "toggle")}}
     </div>
 
 
     {{#if mustConfirmPassword}}
       <div class="gatekeeper--input gatekeeper--password-confirm">
-        {{mdc-textfield-with-helper-text type="password"
+        {{mdc-textfield-with-helper-text type=passwordType
                                          style=style
                                          value=confirmPassword
                                          label=confirmPasswordLabel
                                          errorMessage=confirmErrorMessage
-                                         required=true}}
+                                         required=true
+                                         icon=passwordIcon
+                                         iconPosition="trailing"
+                                         iconClickable=true
+                                         iconClick=(action "toggle")}}
       </div>
     {{/if}}
 
