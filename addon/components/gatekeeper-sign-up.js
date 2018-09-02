@@ -91,7 +91,6 @@ export default Component.extend ({
    * @param account
    */
   didCreateAccount (account) {
-    this.getWithDefault ('complete', noOp) (account);
   },
 
   /**
@@ -154,10 +153,12 @@ export default Component.extend ({
 
     account.save ({adapterOptions}).then (account => {
       this.set ('submitting', false);
-      this.didCreateAccount (account);
+
+      return Promise.resolve (this.didCreateAccount (account))
+        .then (() => this.getWithDefault ('complete', noOp) (account));
     }).catch (xhr => {
       this.set ('submitting', false);
-      this.didError (xhr);
+      return this.didError (xhr);
     });
   },
 
