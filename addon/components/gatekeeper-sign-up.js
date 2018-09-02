@@ -70,6 +70,13 @@ export default Component.extend ({
 
   unconfirmed: not ('confirmed'),
 
+  confirmErrorMessage: computed ('confirmPassword', function () {
+    const { unconfirmed, confirmPassword } = this.getProperties (['unconfirmed', 'confirmPassword']);
+    return isPresent (confirmPassword) && unconfirmed ? 'The passwords do not match.' : null;
+  }),
+
+  defaultConfirmErrorMessage: 'The passwords do not match.',
+
   disabled: or ('{submitting,invalid,unconfirmed}', 'submit.disabled'),
 
   init () {
