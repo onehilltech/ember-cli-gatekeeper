@@ -110,6 +110,10 @@ export default Component.extend ({
           this.set ('emailErrorMessage', error.detail);
           break;
 
+        case 'invalid_password':
+          this.set ('passwordErrorMessage', error.detail);
+          break;
+
         default:
           this.set ('messageToUser', error.detail);
       }
