@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
-import { SignUpControllerMixin } from 'ember-cli-gatekeeper';
+import Completed  from 'ember-cli-gatekeeper/mixins/completed';
 
-export default Controller.extend (SignUpControllerMixin, {
+export default Controller.extend (Completed, {
   init () {
     this._super (...arguments);
 

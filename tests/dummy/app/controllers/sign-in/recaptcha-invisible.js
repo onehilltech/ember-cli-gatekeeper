@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
-import { SignInControllerMixin } from 'ember-cli-gatekeeper';
+import Completed  from 'ember-cli-gatekeeper/mixins/completed';
 
-export default Controller.extend (SignInControllerMixin, {
+export default Controller.extend (Completed, {
   signInOptions: null,
 
   init () {
