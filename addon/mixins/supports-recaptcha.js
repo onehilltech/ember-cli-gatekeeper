@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { readOnly, equal, bool, not } from '@ember/object/computed';
 import { isEmpty } from '@ember/utils';
 
-import { default as Submit } from '../submit-strategy';
+import { default as Submit } from '../-lib/submit-strategy';
 
 /**
  * The sign in process that requires recaptcha.
