@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="" />
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -607,7 +603,7 @@
       <workItem from="1536610898202" duration="3542000" />
       <workItem from="1536684589152" duration="693000" />
       <workItem from="1536732255560" duration="1868000" />
-      <workItem from="1536769315912" duration="1749000" />
+      <workItem from="1536769315912" duration="2120000" />
     </task>
     <servers />
   </component>
@@ -644,7 +640,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="713225000" />
+    <option name="totallyTimeSpent" value="713596000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
