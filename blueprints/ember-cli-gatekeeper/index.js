@@ -1,28 +1,21 @@
-const { installer: { installAddons, installPackages } } = require ('ember-cli-blueprint-helpers');
+/* eslint-env node */
 
-module.exports = {
-  description: '',
+const { Blueprint } = require ('ember-cli-blueprint-helpers');
 
-  normalizeEntityName () {
-    // no-op since we're just adding dependencies
-  },
+module.exports = Blueprint.extend ({
+  packages: [
+    {name: 'micromatch', target: '3.1.10'},
+    {name: 'jsrsasign', target: '8.0.12'}
+  ],
 
-  afterInstall () {
-    return installPackages (this, [
-      {name: 'micromatch', target: '^3.1.10'},
-      {name: 'jsrsasign', target: '^8.0.7'}
-    ]).then (() => {
-      return installAddons (this, {
-        packages: [
-          {name: '@onehilltech/ember-cli-storage', target: '^0.2.1'},
-          {name: 'ember-cli-mdc-form'},
-          {name: 'ember-cli-mdc-textfield'},
-          {name: 'ember-cli-mdc-button'},
-          {name: 'ember-cli-mdc-snackbar'},
-          {name: 'ember-cli-google-recaptcha', target: '^1.0.0'},
-          {name: 'ember-api-actions', target: '^0.1.7'}
-        ]
-      })
-    });
-  }
-};
+  addons: [
+    {name: '@onehilltech/ember-cli-storage', target: '0.2.1'},
+    {name: 'ember-cli-mdc-form'},
+    {name: 'ember-cli-mdc-textfield'},
+    {name: 'ember-cli-mdc-button'},
+    {name: 'ember-cli-mdc-snackbar'},
+    {name: 'ember-cli-mdc-textfield'},
+    {name: 'ember-cli-google-recaptcha', target: '2.0.1'},
+    {name: 'ember-api-actions', target: '0.1.9'}
+  ]
+});
