@@ -5,7 +5,7 @@ import { computed, get } from '@ember/object';
 import { alias, bool, not } from '@ember/object/computed';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
-import { copy } from '@ember/object/internals';
+import { copy } from 'ember-copy';
 import { resolve, Promise } from 'rsvp'
 import { assign } from '@ember/polyfills'
 
@@ -21,7 +21,7 @@ export default Service.extend({
     this._super (...arguments);
 
     let ENV = getOwner (this).resolveRegistration ('config:environment');
-    this.setProperties (copy (get (ENV, 'gatekeeper')));
+    this.setProperties (copy (get (ENV, 'gatekeeper'), true));
   },
 
   isAuthenticated: bool ('accessToken'),
