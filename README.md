@@ -65,25 +65,27 @@ First, create the route using [ember-cli](https://ember-cli.com/).
 
     ember g route [name]
     
-Then, import `ember-cli-gatekeeper` into the generated route file, and extend from
-`Gatekeeper.User.AuthenticatedRoute` instead of the default `Ember.Route`.
+Then, import the `Authenticated` mixin from `ember-cli-gatekeeper` and apply it
+to the route.
 
-```javascript 1.6
+```ecmascript 6
 // app/routes/comments.js
 
-import Gatekeeper from 'ember-cli-gatekeeper';
+import Route from '@ember/routing/route';
+import Authenticated from 'ember-cli-gatekeeper/mixins/authenticated';
 
-export default Gatekeeper.User.AuthenticatedRoute.extend ({
+export default Route.extend (Authenticated, {
   model () {
+    // Get the user for the current session.
     let currentUser = this.get ('currentUser');
-    return this.get ('store').query ('comments', {user: currentUser.id});
+    return this.get ('store').query ('comments', {user: user.id});
   }
 });
 ```
 
 The [gatekeeper](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/services/gatekeeper.js) 
 service is injected into all routes. The 
-[AuthenticatedRoute](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/-lib/user/authenticated-route.js) 
+[Authenticated](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/mixins/authenticated.js) 
 class provides the `currentUser` property, which gives you access to the 
 [account model](https://github.com/onehilltech/ember-cli-gatekeeper/blob/master/addon/models/account.js)
 (less the password) for the signed in user.
@@ -98,19 +100,19 @@ class provides the `currentUser` property, which gives you access to the
 a remote server. When using Gatekeeper, the routes for accessing these resources is
 protected via an authorization token. To get this authorization token into each
 [ember-data](https://github.com/emberjs/data) request, you must extend your application 
-(or model-specific adapter) from `Gatekeeper.User.RESTAdapter`.
+(or model-specific adapter) from the `RESTAdapter` in Gatekeeper.
 
-```javascript 1.6
+```javascript
 // app/adapters/application.js
 
-import Gatekeeper from 'ember-cli-gatekeeper';
+import RESTAdapter from 'ember-cli-gatekeeper/-lib/user/adapters/rest';
 
-export default Gatekeeper.User.RESTAdapter.extend({
+export default RESTAdapter.extend({
   
 });
 ```
 
-You can then continue [configuring the adapter](https://emberjs.com/api/ember-data/2.16/classes/DS.RESTAdapter) 
+You can then continue [configuring the adapter](https://emberjs.com/api/ember-data/3.3/classes/DS.RESTAdapter) 
 as normal.
 
 ## Signing in a user
@@ -156,7 +158,7 @@ in the default login form.
 A signed in user can be signed out from any where in the application as long as you
 have access to the `gatekeeper` service.
 
-> The `gatekeeper` service is injected into all routes and controllers.
+> The `session` service is injected into all routes and controllers.
 
 ```javascript 1.6
 // app/controllers/index.js
@@ -166,7 +168,7 @@ import Controller from '@ember/controller';
 export default Controller.extend({
   actions: {
     signOut () {
-      this.get ('gatekeeper').signOut ().then (() => {
+      this.get ('session').signOut ().then (() => {
         this.replaceRoute ('sign-in');
       });
     }
