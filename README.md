@@ -176,8 +176,10 @@ in the default login form. Next, you replace the standard sign in component with
 reCAPTCHA sign in component.
 
 ```handlebars
-{{gatekeeper-sign-in-with-recaptcha complete=(action "complete")}}
+{{gatekeeper-sign-in-with-recaptcha recaptcha=v2 complete=(action "complete")}}
 ```
+
+> Set `recaptcha="invisible"` to use invisible reCAPTCHA.
 
 ## Signing out a user
 
@@ -203,6 +205,29 @@ export default Controller.extend({
 ```
 
 ## Allowing users to create accounts
+
+The Gatekeeper add-on also provides a default form for creating an new account. You use
+it in a similar manner as signing in a user. First, add the sign up form to the route for
+signing up a user, and configure the form to your needs.
+
+```handlebars
+{{gatekeeper-sign-up complete=(action "complete")}}
+```
+
+> The Gatekeeper add-on also has sign up components that supports reCAPTCHA.
+
+Then, apply the `Completed` mixin to the controller for the sign up route.
+
+```javascript
+import Controller from '@ember/controller';
+import Completed  from 'ember-cli-gatekeeper/mixins/completed';
+
+export default Controller.extend (Completed, {
+
+});
+```
+
+### Manually creating an account
 
 We use the `account` model to create user accounts. We assume that you have
 created a template to gather the `username`, `password`, and `email address`
