@@ -227,6 +227,9 @@ export default Controller.extend (Completed, {
 });
 ```
 
+> The client registered with the server must have the `gatekeeper.account.create` scope.
+> Otherwise, the client will not be authorized to create the account.
+
 ### Manually creating an account
 
 We use the `account` model to create user accounts. We assume that you have

@@ -39,7 +39,7 @@
           <entry key="hbs" value="2012" />
           <entry key="js" value="18667" />
           <entry key="json" value="108" />
-          <entry key="md" value="2181" />
+          <entry key="md" value="2401" />
           <entry key="scss" value="375" />
         </counts>
       </usages-collector>
@@ -48,7 +48,7 @@
           <entry key="Handlebars/Mustache" value="2012" />
           <entry key="JSON" value="108" />
           <entry key="JavaScript" value="18669" />
-          <entry key="Markdown" value="2179" />
+          <entry key="Markdown" value="2399" />
           <entry key="SCSS" value="375" />
         </counts>
       </usages-collector>
@@ -116,8 +116,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="295">
-                <caret line="228" lean-forward="true" selection-start-line="228" selection-end-line="228" />
+              <first_editor relative-caret-position="389">
+                <caret line="230" column="69" selection-start-line="230" selection-start-column="69" selection-end-line="230" selection-end-column="69" />
                 <folding>
                   <element signature="e#26#37#0" expanded="true" />
                   <element signature="e#0#43#0" expanded="true" />
@@ -708,7 +708,7 @@
       <workItem from="1537654434231" duration="834000" />
       <workItem from="1538288545496" duration="8000" />
       <workItem from="1538289019522" duration="859000" />
-      <workItem from="1538585805389" duration="2909000" />
+      <workItem from="1538585805389" duration="3111000" />
     </task>
     <servers />
   </component>
@@ -745,7 +745,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="725344000" />
+    <option name="totallyTimeSpent" value="725546000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -760,7 +760,7 @@
     <frame x="0" y="23" width="1440" height="786" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23326287" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23326287" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.5103093" side_tool="true" weight="0.23960535" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -1145,8 +1145,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="295">
-            <caret line="228" lean-forward="true" selection-start-line="228" selection-end-line="228" />
+          <first_editor relative-caret-position="389">
+            <caret line="230" column="69" selection-start-line="230" selection-start-column="69" selection-end-line="230" selection-end-column="69" />
             <folding>
               <element signature="e#26#37#0" expanded="true" />
               <element signature="e#0#43#0" expanded="true" />
