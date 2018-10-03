@@ -68,7 +68,7 @@ First, create the route using [ember-cli](https://ember-cli.com/).
 Then, import the `Authenticated` mixin from `ember-cli-gatekeeper` and apply it
 to the route.
 
-```ecmascript 6
+```javascript
 // app/routes/comments.js
 
 import Route from '@ember/routing/route';
@@ -182,7 +182,7 @@ We use the `account` model to create user accounts. We assume that you have
 created a template to gather the `username`, `password`, and `email address`
 from the user and have a controller action to that creates the account:
 
-```javascript 1.6
+```javascript
 import Controller from '@ember/controller';
 
 export default Controller.extend({
