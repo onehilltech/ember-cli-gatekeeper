@@ -116,8 +116,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="357">
-                <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+              <first_editor relative-caret-position="413">
+                <caret line="162" column="13" lean-forward="true" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
                 <folding>
                   <element signature="e#26#37#0" expanded="true" />
                 </folding>
@@ -634,7 +634,7 @@
       <workItem from="1537654434231" duration="834000" />
       <workItem from="1538288545496" duration="8000" />
       <workItem from="1538289019522" duration="859000" />
-      <workItem from="1538585805389" duration="1418000" />
+      <workItem from="1538585805389" duration="1447000" />
     </task>
     <servers />
   </component>
@@ -671,7 +671,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="723853000" />
+    <option name="totallyTimeSpent" value="723882000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1071,8 +1071,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="357">
-            <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+          <first_editor relative-caret-position="413">
+            <caret line="162" column="13" lean-forward="true" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
             <folding>
               <element signature="e#26#37#0" expanded="true" />
             </folding>

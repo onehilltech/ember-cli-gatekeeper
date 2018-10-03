@@ -138,7 +138,7 @@ Gatekeeper provides out-of-the-box support for Google reCAPTCHA via the
 [ember-cli-google-recaptcha](https://github.com/onehilltech/ember-cli-google-recaptcha) add-on.
 All you have to do is add your `siteKey` to `config/environment.js`:
 
-```javascript 1.6
+```javascript
 let ENV = {
   // ...
   
@@ -160,7 +160,7 @@ have access to the `gatekeeper` service.
 
 > The `session` service is injected into all routes and controllers.
 
-```javascript 1.6
+```javascript
 // app/controllers/index.js
 
 import Controller from '@ember/controller';
