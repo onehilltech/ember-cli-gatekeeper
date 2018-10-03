@@ -118,13 +118,34 @@ as normal.
 ## Signing in a user
 
 To sign in a user, you need a route with a form that collects the user's username
-and password. To simplify this process, `ember-cli-gatekeeper` provides a blueprint
-for seeding the application with a sign in route:
+and password. The Gatekeeper add-on provides a form that can be used to sign-in 
+a user.
 
-    ember g gatekeeper-sign-in-route sign-in
-    
-The blueprint about will generate a sign in route, template, and controller, and add
-the route to the router.
+```handlebars
+{{gatekeeper-sign-in complete=(action "complete")}}
+```
+
+This form needs to be added to your sign-in route. When the user has signed in 
+successfully, the `complete` action is invoked. At this point, you are free to 
+transition to any route in the application.
+
+A standard practice is to route to either the start route, or to the previous 
+route the user tried to access when they were not signed in. If you want this 
+behavior, then apply the `Completed` mixin to the controller for the sign in
+route.
+
+```javascript
+import Controller from '@ember/controller';
+import Completed  from 'ember-cli-gatekeeper/mixins/completed';
+
+export default Controller.extend (Completed, {
+  
+});
+
+```
+
+Now, the user will either be routed to the start route, or the previously accessed
+route before being routed to the sign in route, when they successfully sign in.
 
 ### Using reCAPTCHA
 
@@ -136,7 +157,7 @@ are not robots.
 
 Gatekeeper provides out-of-the-box support for Google reCAPTCHA via the 
 [ember-cli-google-recaptcha](https://github.com/onehilltech/ember-cli-google-recaptcha) add-on.
-All you have to do is add your `siteKey` to `config/environment.js`:
+First, you have to do is add your `siteKey` to `config/environment.js`:
 
 ```javascript
 let ENV = {
@@ -151,7 +172,12 @@ let ENV = {
 ```
 
 The add-on will automatically detect the presence of the `siteKey`, and enable Google reCAPTCHA
-in the default login form.
+in the default login form. Next, you replace the standard sign in component with the 
+reCAPTCHA sign in component.
+
+```handlebars
+{{gatekeeper-sign-in-with-recaptcha complete=(action "complete")}}
+```
 
 ## Signing out a user
 
