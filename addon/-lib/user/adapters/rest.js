@@ -19,7 +19,8 @@ export default DS.RESTAdapter.extend ({
    */
   headers: computed ('accessToken', function () {
     return {
-      Authorization: `Bearer ${this.get ('accessToken.access_token')}`
+      Authorization: `Bearer ${this.get ('accessToken.access_token')}`,
+      'Cache-Control': 'private, max-age=0, no-cache, no-store'
     };
   }),
 
