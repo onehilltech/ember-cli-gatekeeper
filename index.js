@@ -1,9 +1,6 @@
 /* eslint-env node */
 'use strict';
 
-const NodeBuiltins = require('rollup-plugin-node-builtins');
-const NodeGlobals = require ('rollup-plugin-node-globals');
-
 module.exports = {
   name: 'ember-cli-gatekeeper',
 

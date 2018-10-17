@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,8 +24,8 @@
     <session id="-1578578734">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="25" />
-          <entry key="project.open.time.0" value="19" />
+          <entry key="project.closed" value="26" />
+          <entry key="project.open.time.0" value="20" />
           <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.14" value="2" />
           <entry key="project.open.time.15" value="2" />
@@ -33,13 +33,13 @@
           <entry key="project.open.time.49" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="31" />
+          <entry key="project.opened" value="32" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="hbs" value="2012" />
-          <entry key="js" value="18667" />
+          <entry key="js" value="18671" />
           <entry key="json" value="108" />
           <entry key="md" value="2401" />
           <entry key="scss" value="375" />
@@ -49,7 +49,7 @@
         <counts>
           <entry key="Handlebars/Mustache" value="2012" />
           <entry key="JSON" value="108" />
-          <entry key="JavaScript" value="18669" />
+          <entry key="JavaScript" value="18673" />
           <entry key="Markdown" value="2399" />
           <entry key="SCSS" value="375" />
         </counts>
@@ -59,7 +59,7 @@
           <entry key="Makefile" value="1" />
           <entry key="bowerrc" value="1" />
           <entry key="hbs" value="84" />
-          <entry key="js" value="240" />
+          <entry key="js" value="241" />
           <entry key="json" value="20" />
           <entry key="md" value="1" />
           <entry key="scss" value="12" />
@@ -69,7 +69,7 @@
         <counts>
           <entry key="Handlebars/Mustache" value="84" />
           <entry key="JSON" value="21" />
-          <entry key="JavaScript" value="240" />
+          <entry key="JavaScript" value="241" />
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SCSS" value="12" />
@@ -87,7 +87,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addon/-lib/user/adapters/rest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
+            <state relative-caret-position="520">
               <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -96,19 +96,28 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-205">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="137">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="39">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
+            <state relative-caret-position="232">
               <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
             </state>
           </provider>
@@ -193,7 +202,6 @@
       <list>
         <option value="$PROJECT_DIR$/tests/dummy/app/routes/application.js" />
         <option value="$PROJECT_DIR$/addon/-lib/mixins/authenticated-route.js" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-in.hbs" />
         <option value="$PROJECT_DIR$/addon/-lib/controllers/sign-in.js" />
         <option value="$PROJECT_DIR$/addon/-lib/mixins/sign-in-support.js" />
@@ -235,13 +243,14 @@
         <option value="$PROJECT_DIR$/tests/dummy/app/routes/index.js" />
         <option value="$PROJECT_DIR$/addon/-lib/user/index.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/controllers/index.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" />
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" />
         <option value="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" />
         <option value="$PROJECT_DIR$/addon/services/gatekeeper.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -308,17 +317,6 @@
           <expand>
             <path>
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="blueprints" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="blueprints" type="462c0819:PsiDirectoryNode" />
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -636,7 +634,8 @@
       <workItem from="1538679307004" duration="1916000" />
       <workItem from="1539126275103" duration="16000" />
       <workItem from="1539126550047" duration="2000" />
-      <workItem from="1539781803458" duration="543000" />
+      <workItem from="1539781803458" duration="1005000" />
+      <workItem from="1539783956202" duration="848000" />
     </task>
     <servers />
   </component>
@@ -673,7 +672,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="728743000" />
+    <option name="totallyTimeSpent" value="730053000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -714,6 +713,7 @@
     <option name="exactExcludedFiles">
       <list>
         <option value="$PROJECT_DIR$/../ember-cli-mdc/packages/mdc-fab/node_modules/ember-ajax/addon/-private/types.js" />
+        <option value="$PROJECT_DIR$/../../malachi/malachi-submit/node_modules/ember-ajax/addon/-private/types.js" />
       </list>
     </option>
   </component>
@@ -915,13 +915,6 @@
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/sign-in/standard.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/addon/mixins/supports-recaptcha.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
@@ -1064,7 +1057,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/addon/-lib/user/adapters/rest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
+        <state relative-caret-position="520">
           <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
@@ -1072,17 +1065,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-205">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="39">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
+        <state relative-caret-position="232">
           <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
