@@ -3408,14 +3408,14 @@ ember-cli-blueprint-helpers@^0.3.1-6:
     npm-check "^5.8.0"
     semver "^5.5.1"
 
-ember-cli-blueprint-helpers@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-blueprint-helpers/-/ember-cli-blueprint-helpers-0.4.0.tgz#b3ac12f1d40e86ed3ce22c48b491c898a3f2a308"
+ember-cli-blueprint-helpers@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-blueprint-helpers/-/ember-cli-blueprint-helpers-0.4.2.tgz#b7c8ef73a7f0d424438c1c42417a4fe78b38e319"
   dependencies:
     base-object "^1.2.1"
     bluebird "^3.5.1"
     core-object "^3.1.5"
-    npm-check "^5.8.0"
+    fs-extra "^7.0.0"
     semver "^5.5.1"
 
 ember-cli-broccoli-sane-watcher@^2.0.4:

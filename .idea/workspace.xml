@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/-lib/user/adapters/rest.js" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,8 +22,8 @@
     <session id="-1578578734">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="22" />
-          <entry key="project.open.time.0" value="16" />
+          <entry key="project.closed" value="25" />
+          <entry key="project.open.time.0" value="18" />
           <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.14" value="2" />
           <entry key="project.open.time.15" value="2" />
@@ -32,7 +31,7 @@
           <entry key="project.open.time.49" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="28" />
+          <entry key="project.opened" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -82,12 +81,12 @@
     <favorites_list name="ember-cli-gatekeeper" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/addon/-lib/user/adapters/rest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+            <state relative-caret-position="233">
+              <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -295,27 +294,6 @@
               <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
               <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
               <item name="addon" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="-lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="-lib" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="-lib" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -629,7 +607,9 @@
       <workItem from="1538288545496" duration="8000" />
       <workItem from="1538289019522" duration="859000" />
       <workItem from="1538585805389" duration="3831000" />
-      <workItem from="1538679307004" duration="611000" />
+      <workItem from="1538679307004" duration="1916000" />
+      <workItem from="1539126275103" duration="16000" />
+      <workItem from="1539126550047" duration="2000" />
     </task>
     <servers />
   </component>
@@ -666,7 +646,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="726877000" />
+    <option name="totallyTimeSpent" value="728200000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -679,7 +659,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="786" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23326287" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -693,7 +672,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32599118" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5116279" side_tool="true" weight="0.4126285" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4883721" weight="0.79880774" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4883721" visible="true" weight="0.48435172" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32798833" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
@@ -1036,11 +1015,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="322">
             <caret line="249" column="62" lean-forward="true" selection-start-line="249" selection-start-column="62" selection-end-line="249" selection-end-column="62" />
-            <folding>
-              <element signature="e#26#37#0" expanded="true" />
-              <element signature="e#0#43#0" expanded="true" />
-              <element signature="e#0#43#0" expanded="true" />
-            </folding>
           </first_editor>
           <second_editor />
         </state>
@@ -1076,8 +1050,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/addon/-lib/user/adapters/rest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        <state relative-caret-position="233">
+          <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
