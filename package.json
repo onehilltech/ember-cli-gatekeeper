@@ -22,12 +22,9 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
-    "ember-auto-import": "^1.2.13",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^3.0.0",
     "ember-cli-mdc-sass": "0.58.1",
-    "lodash.merge": "^4.6.1",
-    "micromatch": "^3.1.10",
     "semver": "^5.5.1"
   },
   "devDependencies": {
@@ -97,6 +94,7 @@
     "jsrsasign": "8.0.12",
     "loader.js": "^4.2.3",
     "material-design-icons": "3.0.1",
+    "micromatch": "^3.1.10",
     "qunit-dom": "^0.6.2",
     "sass": "1.14.2"
   },

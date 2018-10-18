@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { alias, bool } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 
-import micromatch from 'micromatch';
+import micromatch from 'npm:micromatch';
 
 export default EmberObject.extend ({
   audience: alias ('aud'),
