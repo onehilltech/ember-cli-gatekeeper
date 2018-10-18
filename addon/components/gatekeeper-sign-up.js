@@ -90,7 +90,7 @@ export default Component.extend ({
    *
    * @param account
    */
-  didCreateAccount (account) {
+  didCreateAccount (/*account*/) {
   },
 
   /**

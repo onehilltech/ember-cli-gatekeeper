@@ -1,7 +1,7 @@
 import RESTAdapter from '../-lib/user/adapters/rest';
 
 import { isPresent, isEmpty } from '@ember/utils';
-import { get, getWithDefault, computed } from '@ember/object';
+import { getWithDefault } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
 /**
@@ -48,9 +48,9 @@ export default RESTAdapter.extend({
     return isEmpty (Object.keys (query)) ? this.buildURL (modelName, 'me', null, 'findRecord', null) : this._super (...arguments);
   },
 
-  ajaxOptions (url, type, options) {
+  ajaxOptions (url /*, type, options*/) {
     let hash = this._super (...arguments);
-    let beforeSend = hash.beforeSend || function (xhr) { };
+    let beforeSend = hash.beforeSend || function (/*xhr*/) { };
 
     hash.beforeSend = function (xhr) {
       // Call the original beforeSend() function.

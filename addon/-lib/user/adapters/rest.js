@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 import { computed } from '@ember/object';
-import { readOnly, or } from '@ember/object/computed';
+import { or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isNone } from '@ember/utils';
 import { reject } from 'rsvp';

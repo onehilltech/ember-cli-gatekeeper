@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 
 import { computed } from '@ember/object';
-import { readOnly, equal, bool, not } from '@ember/object/computed';
+import { readOnly, bool, not } from '@ember/object/computed';
 import { isEmpty } from '@ember/utils';
 
 import { default as Submit } from '../-lib/submit-strategy';
@@ -37,7 +37,7 @@ const V2RecaptchaSignIn = RecaptchaSignIn.extend ({
     this.component.doSubmit ({recaptcha: response});
   },
 
-  verified (response) {
+  verified (/*response*/) {
 
   }
 });

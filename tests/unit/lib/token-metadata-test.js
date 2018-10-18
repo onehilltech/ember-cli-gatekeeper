@@ -10,7 +10,7 @@ module ('Unit | Library | TokenMetadata', function () {
     assert.ok (metadata.supports ('a.b'));
   });
 
-  it ('it should not support a scope', function (assert) {
+  test ('it should not support a scope', function (assert) {
     const metadata = TokenMetadata.create ({
       scope: ['a.b']
     });

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { moduleForModel, test } from 'ember-qunit';
 import { startMirage } from 'dummy/initializers/ember-cli-mirage';
 
@@ -36,7 +36,7 @@ test ('it saves the model', function (assert) {
     email: 'email'
   });
 
-  return Ember.run (function () {
+  return run (function () {
     return model.save ().then ((account) => {
       assert.equal (account.get ('id'), 1);
       assert.equal (account.get ('username'), 'username');

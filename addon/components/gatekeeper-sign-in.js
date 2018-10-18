@@ -4,12 +4,10 @@ import layout from '../templates/components/gatekeeper-sign-in';
 
 import { inject } from '@ember/service';
 import { computed } from '@ember/object'
-import { not, or, readOnly, alias } from '@ember/object/computed';
-
-import { isEmpty, isPresent, isNone } from '@ember/utils';
+import { not, or } from '@ember/object/computed';
+import { isPresent } from '@ember/utils';
 
 import { get } from '@ember/object'
-import { merge } from '@ember/polyfills';
 
 import { default as StandardSubmit } from '../-lib/standard-submit-strategy';
 
