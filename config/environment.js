@@ -2,5 +2,13 @@
 'use strict';
 
 module.exports = function (environment, appConfig) {
-  return { };
+  return {
+    autoImport: {
+      webpack: {
+        node: {
+          fs: 'empty'
+        }
+      }
+    }
+  };
 };

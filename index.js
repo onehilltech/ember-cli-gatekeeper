@@ -1,19 +1,24 @@
 /* eslint-env node */
 'use strict';
 
+const merge = require ('lodash.merge');
+
 module.exports = {
   name: 'ember-cli-gatekeeper',
 
   included (app) {
     this._super (...arguments);
 
-    app.import ('node_modules/jsrsasign/lib/jsrsasign-all-min.js');
-    app.import ('node_modules/micromatch/index.js', {
-      using: [
-        { transformation: 'cjs', as: 'micromatch', plugins: [NodeBuiltins (), NodeGlobals ()] }
-      ]
-    })
-  },
+    merge (app.options, {
+      autoImport: {
+        webpack: {
+          node: {
+            fs: 'empty'
+          }
+        }
+      }
+    });
 
-  importTransforms: require('ember-cli-cjs-transform').importTransforms
+    app.import ('node_modules/jsrsasign/lib/jsrsasign-all-min.js');
+  },
 };
