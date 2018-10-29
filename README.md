@@ -150,7 +150,7 @@ route before being routed to the sign in route, when they successfully sign in.
 ### Using reCAPTCHA
 
 Gatekeeper uses different public/private key verification schemes to ensure that robots are 
-not accessing the system. When developing a web application, it is not save 
+not accessing the system. When developing a web application, it is not safe 
 to place a secret in an EmberJS application because it will be accessible to site visitors.
 We therefore recommend you use a reCAPTCHA service, such as Google reCAPTCHA, to verify users
 are not robots.
