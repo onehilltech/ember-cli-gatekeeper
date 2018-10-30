@@ -4,6 +4,7 @@ const { Blueprint } = require ('ember-cli-blueprint-helpers');
 
 module.exports = Blueprint.extend ({
   packages: [
+    {name: 'ember-browserify'},
     {name: 'micromatch', target: '3.1.10'},
     {name: 'jsrsasign', target: '8.0.12'}
   ],
@@ -14,7 +15,6 @@ module.exports = Blueprint.extend ({
     {name: 'ember-cli-mdc-textfield'},
     {name: 'ember-cli-mdc-button'},
     {name: 'ember-cli-mdc-snackbar'},
-    {name: 'ember-cli-mdc-textfield'},
     {name: 'ember-copy'},
     {name: 'ember-cli-google-recaptcha', target: '2.0.1'},
     {name: 'ember-api-actions', target: '0.1.9'}
