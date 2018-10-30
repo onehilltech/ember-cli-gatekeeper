@@ -97,7 +97,7 @@ class provides the `currentUser` property, which gives you access to the
 ## Accessing protected data
 
 [ember-data](https://github.com/emberjs/data) uses data models to access resources on 
-a remote server. When using Gatekeeper, the routes for accessing these resources is
+a remote server. When using Gatekeeper, the routes for accessing these resources are
 protected via an authorization token. To get this authorization token into each
 [ember-data](https://github.com/emberjs/data) request, you must extend your application 
 (or model-specific adapter) from the `RESTAdapter` in Gatekeeper.
@@ -150,7 +150,7 @@ route before being routed to the sign in route, when they successfully sign in.
 ### Using reCAPTCHA
 
 Gatekeeper uses different public/private key verification schemes to ensure that robots are 
-not accessing the system. When developing a web application, it is not save 
+not accessing the system. When developing a web application, it is not safe 
 to place a secret in an EmberJS application because it will be accessible to site visitors.
 We therefore recommend you use a reCAPTCHA service, such as Google reCAPTCHA, to verify users
 are not robots.
