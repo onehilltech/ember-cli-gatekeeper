@@ -93,7 +93,8 @@ class provides the `currentUser` property, which gives you access to the
 
 > When this route is accessed and the user is not signed in, the user will
 > be transitioned to the `sign-in` route (see [Configuration](#defining-the-configuration)). After
-> the user signs in, the user will be transitioned back to the original route.
+> the user signs in, the user will be transitioned back to the original route or the `startRoute`
+> defined in the configuration.
 
 ## Accessing protected data
 
