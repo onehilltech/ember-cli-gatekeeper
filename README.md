@@ -185,7 +185,7 @@ Next, you replace the standard sign in component with the reCAPTCHA sign in comp
 ## Signing out a user
 
 A signed in user can be signed out from any where in the application as long as you
-have access to the `gatekeeper` service.
+have access to the `session` service.
 
 > The `session` service is injected into all routes and controllers.
 
