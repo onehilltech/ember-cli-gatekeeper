@@ -174,9 +174,7 @@ let ENV = {
 };
 ```
 
-The add-on will automatically detect the presence of the `siteKey`, and enable Google reCAPTCHA
-in the default login form. Next, you replace the standard sign in component with the 
-reCAPTCHA sign in component.
+Next, you replace the standard sign in component with the reCAPTCHA sign in component.
 
 ```handlebars
 {{gatekeeper-sign-in-with-recaptcha recaptcha=v2 complete=(action "complete")}}
