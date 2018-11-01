@@ -101,8 +101,9 @@ class provides the `currentUser` property, which gives you access to the
 [ember-data](https://github.com/emberjs/data) uses data models to access resources on 
 a remote server. When using Gatekeeper, the routes for accessing these resources are
 protected via an authorization token. To get this authorization token into each
-[ember-data](https://github.com/emberjs/data) request, you must extend your application 
-(or model-specific adapter) from the `RESTAdapter` in Gatekeeper.
+[ember-data](https://github.com/emberjs/data) request, the adapters in your application 
+(either the application or model-specific adapters) must extend the `RESTAdapter` in 
+Gatekeeper.
 
 ```javascript
 // app/adapters/application.js
