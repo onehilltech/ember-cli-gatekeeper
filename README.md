@@ -47,7 +47,7 @@ let ENV = {
   },
   
   gatekeeper: {
-    baseUrl: 'https://mydomain.com/gatekeeper',
+    baseUrl: [gatekeeper mount endpoint],
 
     tokenOptions: {      
       client_id: '59ee923e1fd71c2ae68ade62',
