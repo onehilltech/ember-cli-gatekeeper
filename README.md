@@ -47,7 +47,7 @@ let ENV = {
   },
   
   gatekeeper: {
-    baseUrl: [gatekeeper mount endpoint],
+    baseUrl: 'https://api.onehilltech.com/gatekeeper',
 
     tokenOptions: {      
       client_id: '59ee923e1fd71c2ae68ade62',
