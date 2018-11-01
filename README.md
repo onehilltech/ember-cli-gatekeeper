@@ -9,6 +9,7 @@ EmberJS add-on for [blueprint-gatekeeper](https://github.com/onehilltech/bluepri
 Installation
 --------------
 
+    npm install ember-cli-blueprint-helpers --save-dev      # temp workaround   
     ember install ember-cli-gatekeeper
     
 Getting Started
