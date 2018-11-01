@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-gatekeeper",
-  "version": "0.43.6",
+  "version": "0.43.5",
   "description": "ember-cli addon for @onehiltech/blueprint-gatekeeper.",
   "keywords": [
     "ember-addon",
@@ -24,8 +24,7 @@
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^3.0.0",
-    "semver": "^5.5.1",
-    "ember-cli-blueprint-helpers": "^0.4.5"
+    "semver": "^5.5.1"
   },
   "devDependencies": {
     "@material/button": "0.40.1",
@@ -37,6 +36,7 @@
     "ember-api-actions": "0.1.9",
     "ember-browserify": "^1.2.2",
     "ember-cli": "~3.3.0",
+    "ember-cli-blueprint-helpers": "^0.4.5",
     "ember-cli-custom-properties": "1.0.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
