@@ -234,7 +234,7 @@ export default Controller.extend (Completed, {
 ### Manually creating an account
 
 We use the `account` model to create user accounts. We assume that you have
-created a template to gather the `username`, `password`, and `email address`
+created a template to gather the `username`, `password`, and `email`
 from the user and have a controller action to that creates the account:
 
 ```javascript
