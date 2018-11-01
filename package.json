@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-gatekeeper",
-  "version": "0.43.4",
+  "version": "0.43.5",
   "description": "ember-cli addon for @onehiltech/blueprint-gatekeeper.",
   "keywords": [
     "ember-addon",
