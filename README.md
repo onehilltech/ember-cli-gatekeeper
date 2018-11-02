@@ -174,9 +174,7 @@ let ENV = {
 };
 ```
 
-The add-on will automatically detect the presence of the `siteKey`, and enable Google reCAPTCHA
-in the default login form. Next, you replace the standard sign in component with the 
-reCAPTCHA sign in component.
+Next, you replace the standard sign in component with the reCAPTCHA sign in component.
 
 ```handlebars
 {{gatekeeper-sign-in-with-recaptcha recaptcha=v2 complete=(action "complete")}}
@@ -187,7 +185,7 @@ reCAPTCHA sign in component.
 ## Signing out a user
 
 A signed in user can be signed out from any where in the application as long as you
-have access to the `gatekeeper` service.
+have access to the `session` service.
 
 > The `session` service is injected into all routes and controllers.
 
@@ -236,7 +234,7 @@ export default Controller.extend (Completed, {
 ### Manually creating an account
 
 We use the `account` model to create user accounts. We assume that you have
-created a template to gather the `username`, `password`, and `email address`
+created a template to gather the `username`, `password`, and `email`
 from the user and have a controller action to that creates the account:
 
 ```javascript
