@@ -1,6 +1,7 @@
-import { AuthenticatedRoute } from 'ember-cli-gatekeeper';
+import Route from '@ember/routing/route';
+import Authenticated from 'ember-cli-gatekeeper/mixins/authenticated';
 
-export default AuthenticatedRoute.extend({
+export default Route.extend (Authenticated, {
   model () {
     return this.get ('store').findAll ('dummy');
   }

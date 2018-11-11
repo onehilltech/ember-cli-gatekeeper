@@ -1,4 +1,5 @@
-import Gatekeeper from 'ember-cli-gatekeeper';
+import RESTAdapter from 'ember-cli-gatekeeper/-lib/user/adapters/rest';
 
-export default Gatekeeper.User.RESTAdapter.extend({
+export default RESTAdapter.extend ({
+
 });
