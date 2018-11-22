@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import UnauthenicatedMixin from 'ember-cli-gatekeeper/mixins/unauthenicated';
+import UnauthenicatedMixin from 'ember-cli-gatekeeper/mixins/unauthenticated';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | unauthenicated', function() {
