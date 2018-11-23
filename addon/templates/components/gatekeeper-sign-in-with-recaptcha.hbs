@@ -15,18 +15,18 @@
     </div>
 
     <div class="gatekeeper--input gatekeeper--password">
-      {{mdc-textfield-with-helper-text value=password
-                                       style=style
-                                       required=true
-                                       type=passwordType
-                                       label=passwordLabel
-                                       icon=passwordIcon
-                                       iconPosition="trailing"
-                                       iconClickable=enableShowPassword
-                                       iconClick=(action "toggleShowPassword")
-                                       autocomplete="off"
-                                       autocapitalize="none"
-                                       errorMessage=passwordErrorMessage}}
+      {{mdc-password-textfield-with-helper-text value=password
+                                                style=style
+                                                required=true
+                                                type=passwordType
+                                                label=passwordLabel
+                                                icon=passwordIcon
+                                                iconPosition="trailing"
+                                                iconClickable=enableShowPassword
+                                                iconClick=(action "toggleShowPassword")
+                                                autocomplete="off"
+                                                autocapitalize="none"
+                                                errorMessage=passwordErrorMessage}}
     </div>
 
     <div>

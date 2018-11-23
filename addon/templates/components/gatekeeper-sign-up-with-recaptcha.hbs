@@ -21,23 +21,23 @@
     </div>
 
     <div class="gatekeeper--input gatekeeper--password">
-      {{mdc-textfield type="password"
-                      style=style
-                      value=password
-                      label=passwordLabel
-                      errorMessage=passwordErrorMessage
-                      required=true}}
+      {{mdc-password-textfield-with-helper-text type="password"
+                                                style=style
+                                                value=password
+                                                label=passwordLabel
+                                                errorMessage=passwordErrorMessage
+                                                required=true}}
     </div>
 
 
     {{#if mustConfirmPassword}}
       <div class="gatekeeper--input gatekeeper--password-confirm">
-        {{mdc-textfield type="password"
-                        style=style
-                        value=confirmPassword
-                        label=confirmPasswordLabel
-                        errorMessage=confirmErrorMessage
-                        required=true}}
+        {{mdc-password-textfield-with-helper-text type="password"
+                                                  style=style
+                                                  value=confirmPassword
+                                                  label=confirmPasswordLabel
+                                                  errorMessage=confirmErrorMessage
+                                                  required=true}}
       </div>
     {{/if}}
 
