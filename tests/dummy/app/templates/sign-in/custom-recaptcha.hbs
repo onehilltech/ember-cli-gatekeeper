@@ -1,3 +1,7 @@
+{{!-- The siteKey is not required here. We are using it here because we
+      are override the default siteKey in config/environment.js. The same
+      is true for signInOptions. --}}
+      
 {{solid-sign-in-with-recaptcha siteKey="6LdcLDcUAAAAANCqibBJg2RZDRSUjqjoD8JvXVIx"
                                signInOptions=signInOptions
                                complete=(action "complete")}}
