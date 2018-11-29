@@ -19,6 +19,7 @@ Router.map(function() {
     this.route('recaptcha-v2');
     this.route('recaptcha-invisible');
     this.route('custom');
+    this.route('custom-recaptcha');
   });
 });
 
