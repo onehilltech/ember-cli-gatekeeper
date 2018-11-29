@@ -9,8 +9,8 @@ export default Controller.extend (Completed, {
 
     // The signInOptions is not required unless you are overriding the default
     // sign in options defined in config/environment.js. We are only doing it
-    // here because we need to test different version of the sign in in the dummy
-    // test application
+    // here because we need to test different versions of the sign in component 
+    // the dummy test application.
 
     this.set ('signInOptions', {
       client_id: '58ed90e1105aee00001e429f',
