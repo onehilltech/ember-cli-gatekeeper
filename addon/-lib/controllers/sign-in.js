@@ -1,6 +1,9 @@
-import Ember from 'ember';
+import { getWithDefault } from '@ember/object';
+import { getOwner } from '@ember/application';
+import { isNone, typeOf } from '@ember/utils';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend ({
+export default Controller.extend ({
   actions: {
     /**
      * Action called by the sign in component after the sign in process is completed
@@ -11,16 +14,16 @@ export default Ember.Controller.extend ({
       // Perform the redirect from the sign in page.
       let redirectTo = this.get ('redirectTo');
 
-      if (Ember.isNone (redirectTo)) {
+      if (isNone (redirectTo)) {
         // There is no redirect transition. So, we either transition to the default
         // transition route, or we transition to the index.
-        let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-        let target = Ember.getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
+        let ENV = getOwner (this).resolveRegistration ('config:environment');
+        let target = getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
 
         this.replaceRoute (target);
       }
       else {
-        if (Ember.typeOf (redirectTo) === 'string') {
+        if (typeOf (redirectTo) === 'string') {
           // We either have a url or a route name.
           this.replaceRoute (redirectTo);
         }

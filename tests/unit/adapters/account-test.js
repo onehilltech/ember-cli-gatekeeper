@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { moduleFor, test } from 'ember-qunit';
 import { startMirage } from 'dummy/initializers/ember-cli-mirage';
 
@@ -34,7 +34,7 @@ test ('it creates a record', function (assert) {
   let adapter = this.subject ();
   let store = this.container.lookup ('service:store');
 
-  return Ember.run (function() {
+  return run (function() {
     let account = store.createRecord ('account', {
       id: 1,
       username: 'username',

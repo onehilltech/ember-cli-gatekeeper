@@ -1,20 +1,29 @@
 /* global KJUR,KEYUTIL */
-import Ember from 'ember';
+import { resolve, Promise } from 'rsvp';
 
-export default Ember.Service.extend({
+import { isPresent, isNone } from '@ember/utils';
+import $ from 'jquery';
+import { assign } from '@ember/polyfills';
+import { get, computed } from '@ember/object';
+import { copy } from '@ember/object/internals';
+import { getOwner } from '@ember/application';
+import { alias, bool, not } from '@ember/object/computed';
+import Service, { inject as service } from '@ember/service';
+
+export default Service.extend({
   /// Reference to local storage.
-  storage: Ember.inject.service ('local-storage'),
-  accessToken: Ember.computed.alias ('storage.gatekeeper_client_token'),
+  storage: service ('local-storage'),
+  accessToken: alias ('storage.gatekeeper_client_token'),
 
   init () {
     this._super (...arguments);
 
-    let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-    this.setProperties (Ember.copy (Ember.get (ENV, 'gatekeeper')));
+    let ENV = getOwner (this).resolveRegistration ('config:environment');
+    this.setProperties (copy (get (ENV, 'gatekeeper')));
   },
 
-  isAuthenticated: Ember.computed.bool ('accessToken'),
-  isUnauthenticated: Ember.computed.not ('isAuthenticated'),
+  isAuthenticated: bool ('accessToken'),
+  isUnauthenticated: not ('isAuthenticated'),
 
   computeUrl (relativeUrl) {
     return `${this.get ('baseUrl')}${relativeUrl}`;
@@ -48,7 +57,7 @@ export default Ember.Service.extend({
   _requestToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
     const tokenOptions = this.get ('tokenOptions');
-    const data = Ember.assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
+    const data = assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
 
     const ajaxOptions = {
       method: 'POST',
@@ -59,17 +68,17 @@ export default Ember.Service.extend({
       data: JSON.stringify (data)
     };
 
-    return Ember.$.ajax (ajaxOptions);
+    return $.ajax (ajaxOptions);
   },
 
-  publicKey: Ember.computed ('publicCert', function () {
+  publicKey: computed ('publicCert', function () {
     const publicCert = this.get ('publicCert');
-    return Ember.isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
+    return isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
   }),
 
-  secretOrPublicKey: Ember.computed ('{secret,publicKey}', function () {
+  secretOrPublicKey: computed ('{secret,publicKey}', function () {
     let secret = this.get ('secret');
-    return Ember.isPresent (secret) ? secret : this.get ('publicKey');
+    return isPresent (secret) ? secret : this.get ('publicKey');
   }),
 
   /**
@@ -79,17 +88,17 @@ export default Ember.Service.extend({
    * @param token
    */
   verifyToken (token) {
-    if (Ember.isNone (token)) {
-      return Ember.RSVP.resolve ({});
+    if (isNone (token)) {
+      return resolve ({});
     }
 
-    return new Ember.RSVP.Promise ((resolve, reject) => {
+    return new Promise ((resolve, reject) => {
       const {
         secretOrPublicKey,
         verifyOptions
       } = this.getProperties (['secretOrPublicKey','verifyOptions']);
 
-      if (Ember.isNone (secretOrPublicKey)) {
+      if (isNone (secretOrPublicKey)) {
         return resolve (true);
       }
 

@@ -1,7 +1,13 @@
-import Ember from 'ember';
+import { merge } from '@ember/polyfills';
+import { isEmpty, isPresent } from '@ember/utils';
+import { equal } from '@ember/object/computed';
+import { computed, get } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Evented, { on } from '@ember/object/evented';
+import Component from '@ember/component';
 import ReCaptcha from "../mixins/recaptcha";
 
-export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
+export default Component.extend (Evented, ReCaptcha, {
   //== username properties
 
   usernameLabelText: 'Username',
@@ -23,7 +29,7 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
 
   mergedProperties: ['signInOptions','submitButtonStateText'],
 
-  session: Ember.inject.service (),
+  session: service (),
 
   signInOptions: {},
 
@@ -33,21 +39,21 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
     verifying: 'Verifying...'
   },
 
-  submitButtonText: Ember.computed ('state', function () {
+  submitButtonText: computed ('state', function () {
     let state = this.get ('state');
     return this.get (`submitButtonStateText.${state}`);
   }),
 
   state: 'signedOut',
-  isSignedOut: Ember.computed.equal ('state', 'signedOut'),
-  isSigningIn: Ember.computed.equal ('state', 'signingIn'),
+  isSignedOut: equal ('state', 'signedOut'),
+  isSigningIn: equal ('state', 'signingIn'),
 
-  disabled: Ember.computed ('{state,username,password}', 'recaptcha.value', function () {
+  disabled: computed ('{state,username,password}', 'recaptcha.value', function () {
     let {username, password,state} = this.getProperties (['username', 'password', 'state']);
 
-    return Ember.isEmpty (username) ||
-      Ember.isEmpty (password) ||
-      (Ember.get (this, 'recaptcha.type') === 'v2' && Ember.isEmpty (Ember.get (this, 'recaptcha.value'))) ||
+    return isEmpty (username) ||
+      isEmpty (password) ||
+      (get (this, 'recaptcha.type') === 'v2' && isEmpty (get (this, 'recaptcha.value'))) ||
       state !== 'signedOut';
   }),
 
@@ -60,12 +66,12 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
     this.sendAction ('signInComplete');
   },
 
-  handleError: Ember.on ('error', function (xhr) {
+  handleError: on ('error', function (xhr) {
     this.set ('state', 'signedOut');
 
-    let error = Ember.get (xhr, 'responseJSON.errors.0');
+    let error = get (xhr, 'responseJSON.errors.0');
 
-    if (Ember.isPresent (error)) {
+    if (isPresent (error)) {
       switch (error.code) {
         case 'invalid_username':
           this.set ('usernameErrorMessage', error.detail);
@@ -91,7 +97,7 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
 
       let recaptcha = this.get ('recaptcha');
 
-      if (Ember.isPresent (recaptcha) && Ember.isEmpty (recaptcha.get ('value'))) {
+      if (isPresent (recaptcha) && isEmpty (recaptcha.get ('value'))) {
         recaptcha.set ('reset', true);
       }
       else {
@@ -103,9 +109,9 @@ export default Ember.Component.extend (Ember.Evented, ReCaptcha, {
   _doSubmit () {
     // Login the user.
     let {username, password, signInOptions, recaptcha} = this.getProperties (['username', 'password', 'signInOptions', 'recaptcha']);
-    let opts = Ember.merge ({username, password}, signInOptions);
+    let opts = merge ({username, password}, signInOptions);
 
-    if (Ember.isPresent (recaptcha)) {
+    if (isPresent (recaptcha)) {
       opts.recaptcha = recaptcha.get ('value');
     }
 

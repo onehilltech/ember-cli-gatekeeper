@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { isNone, isPresent } from '@ember/utils';
 
 export default function (capability, metadata) {
-  if (Ember.isNone (metadata)) {
+  if (isNone (metadata)) {
     metadata = 'session.metadata';
   }
 
-  return Ember.computed (`${metadata}.scope.[]`, function () {
+  return computed (`${metadata}.scope.[]`, function () {
     let meta = this.get (metadata);
-    return Ember.isPresent (meta) ? meta.hasCapability (capability) : false;
+    return isPresent (meta) ? meta.hasCapability (capability) : false;
   });
 }

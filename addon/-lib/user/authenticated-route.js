@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { getOwner } from '@ember/application';
+import { isNone, isEmpty, isPresent } from '@ember/utils';
+import { computed, get, getWithDefault } from '@ember/object';
 import Material from 'ember-cli-mdl';
 
 const bearerErrorCodes = [
@@ -16,10 +18,10 @@ export default Material.Route.extend ({
 
   concatenatedProperties: ['capabilities'],
 
-  currentUser: Ember.computed ('session.currentUser', function () {
+  currentUser: computed ('session.currentUser', function () {
     let currentUser = this.get ('session.currentUser');
 
-    if (Ember.isNone (currentUser)) {
+    if (isNone (currentUser)) {
       return null;
     }
 
@@ -58,9 +60,9 @@ export default Material.Route.extend ({
 
   actions: {
     error (reason, transition) {
-      let errors = Ember.get (reason, 'errors');
+      let errors = get (reason, 'errors');
 
-      if (Ember.isEmpty (errors))
+      if (isEmpty (errors))
         return true;
 
       for (let i = 0, len = errors.length; i < len; ++ i) {
@@ -69,8 +71,8 @@ export default Material.Route.extend ({
         if (error.status === '403' && bearerErrorCodes.indexOf (error.code) !== -1) {
           // Redirect to sign in page, allowing the user to redirect back to the
           // original page. But, do not support the back button.
-          let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-          let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+          let ENV = getOwner (this).resolveRegistration ('config:environment');
+          let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
           let signInController = this.controllerFor (signInRoute);
 
           signInController.setProperties ({
@@ -97,13 +99,13 @@ export default Material.Route.extend ({
     let isSignedIn = this.get ('session.isSignedIn');
 
     if (!isSignedIn) {
-      let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-      let signInRoute = Ember.getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+      let ENV = getOwner (this).resolveRegistration ('config:environment');
+      let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
       let signInController = this.controllerFor (signInRoute);
 
       // Set the redirect to route so we can come back to this route when the
       // user has signed in.
-      if (Ember.isPresent (signInController)) {
+      if (isPresent (signInController)) {
         signInController.set ('redirectTo', transition);
       }
 
@@ -113,6 +115,6 @@ export default Material.Route.extend ({
 
   _checkCapabilities () {
     let capabilities = this.get ('capabilities');
-    return Ember.isEmpty (capabilities) ? true : this.get ('session.metadata').hasCapability (capabilities);
+    return isEmpty (capabilities) ? true : this.get ('session.metadata').hasCapability (capabilities);
   }
 });

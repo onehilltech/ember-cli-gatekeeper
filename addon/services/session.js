@@ -1,23 +1,32 @@
 /* global KJUR */
 
-import Ember from 'ember';
-import TokenMetadata from '../-lib/token-metadata';
-import { Promise } from 'rsvp';
+import { run } from '@ember/runloop';
 
-export default Ember.Service.extend (Ember.Evented, {
-  gatekeeper: Ember.inject.service (),
-  storage: Ember.inject.service ('local-storage'),
-  store: Ember.inject.service (),
+import { copy } from '@ember/object/internals';
+import $ from 'jquery';
+import { merge, assign } from '@ember/polyfills';
+import { isNone } from '@ember/utils';
+import { computed } from '@ember/object';
+import { alias, bool, not } from '@ember/object/computed';
+import Evented from '@ember/object/evented';
+import Service, { inject as service } from '@ember/service';
+import TokenMetadata from '../-lib/token-metadata';
+import { Promise, reject, resolve, all } from 'rsvp';
+
+export default Service.extend (Evented, {
+  gatekeeper: service (),
+  storage: service ('local-storage'),
+  store: service (),
 
   /// [private] The current authenticated user.
-  currentUser: Ember.computed.alias ('storage.gatekeeper_user'),
-  accessToken: Ember.computed.alias ('storage.gatekeeper_user_token'),
+  currentUser: alias ('storage.gatekeeper_user'),
+  accessToken: alias ('storage.gatekeeper_user_token'),
 
   /// Payload information contained in the access token.
-  metadata: Ember.computed ('accessToken', function () {
+  metadata: computed ('accessToken', function () {
     const accessToken = this.get ('accessToken.access_token');
 
-    if (Ember.isNone (accessToken)) {
+    if (isNone (accessToken)) {
       return TokenMetadata.create ();
     }
 
@@ -26,10 +35,10 @@ export default Ember.Service.extend (Ember.Evented, {
   }),
 
   /// Test if the current user is signed in.
-  isSignedIn: Ember.computed.bool ('accessToken'),
+  isSignedIn: bool ('accessToken'),
 
   /// Test if the there is no user signed in.
-  isSignedOut: Ember.computed.not ('isSignedIn'),
+  isSignedOut: not ('isSignedIn'),
 
   /// The current promise refreshing the access token.
   _refreshToken: null,
@@ -58,7 +67,7 @@ export default Ember.Service.extend (Ember.Evented, {
    * @returns {*}
    */
   signIn (opts) {
-    const tokenOptions = Ember.merge ({grant_type: 'password'}, opts);
+    const tokenOptions = merge ({grant_type: 'password'}, opts);
 
     return this._requestToken (tokenOptions).then (token => {
       this.set ('accessToken', token);
@@ -70,7 +79,7 @@ export default Ember.Service.extend (Ember.Evented, {
         this._completeSignIn ();
       }).catch (reason => {
         this.set ('accessToken');
-        return Ember.RSVP.reject (reason);
+        return reject (reason);
       });
     });
   },
@@ -88,12 +97,12 @@ export default Ember.Service.extend (Ember.Evented, {
       headers: this.get ('_httpHeaders')
     };
 
-    return Ember.$.ajax (ajaxOptions).then (result => {
+    return $.ajax (ajaxOptions).then (result => {
       if (result) {
         this._completeSignOut ();
       }
 
-      return Ember.RSVP.resolve (result);
+      return resolve (result);
     }).catch (xhr => {
       if (xhr.status === 401) {
         // The token is bad. Try to refresh the token, then attempt to sign out the
@@ -103,7 +112,7 @@ export default Ember.Service.extend (Ember.Evented, {
         });
       }
       else {
-        return Ember.RSVP.reject (xhr);
+        return reject (xhr);
       }
     });
   },
@@ -146,7 +155,7 @@ export default Ember.Service.extend (Ember.Evented, {
 
   },
 
-  _httpHeaders: Ember.computed ('accessToken', function () {
+  _httpHeaders: computed ('accessToken', function () {
     return {Authorization: `Bearer ${this.get ('accessToken.access_token')}`}
   }),
 
@@ -157,13 +166,13 @@ export default Ember.Service.extend (Ember.Evented, {
    * @param ajaxOptions
    */
   ajax (ajaxOptions) {
-    let dupOptions = Ember.copy (ajaxOptions, false);
+    let dupOptions = copy (ajaxOptions, false);
 
     dupOptions.headers = dupOptions.headers || {};
     dupOptions.headers.Authorization = `Bearer ${this.get ('accessToken.access_token')}`;
 
-    return new Ember.RSVP.Promise ((resolve, reject) => {
-      Ember.$.ajax (dupOptions).then (resolve).catch (xhr => {
+    return new Promise ((resolve, reject) => {
+      $.ajax (dupOptions).then (resolve).catch (xhr => {
         switch (xhr.status) {
           case 401:
             // Use the Gatekeeper service to refresh the token. If the token is refreshed,
@@ -171,11 +180,11 @@ export default Ember.Service.extend (Ember.Evented, {
             // back to the client.
             this.refreshToken ()
               .then (() => this.ajax (dupOptions))
-              .catch ((xhr) => Ember.run (null, reject, xhr));
+              .catch ((xhr) => run (null, reject, xhr));
             break;
 
           default:
-            Ember.run (null, reject, xhr);
+            run (null, reject, xhr);
         }
       });
     });
@@ -195,7 +204,7 @@ export default Ember.Service.extend (Ember.Evented, {
   _requestToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
     const tokenOptions = this.get ('gatekeeper.tokenOptions');
-    const data = Ember.assign ({}, tokenOptions, opts);
+    const data = assign ({}, tokenOptions, opts);
 
     const ajaxOptions = {
       method: 'POST',
@@ -206,12 +215,12 @@ export default Ember.Service.extend (Ember.Evented, {
       data: JSON.stringify (data)
     };
 
-    return Ember.$.ajax (ajaxOptions)
+    return $.ajax (ajaxOptions)
       .then (token => {
         // Verify the access token and refresh token, if applicable.
         let gatekeeper = this.get ('gatekeeper');
 
-        return Ember.RSVP.all ([
+        return all ([
           gatekeeper.verifyToken (token.access_token),
           gatekeeper.verifyToken (token.refresh_token)
         ]).then (() => token);

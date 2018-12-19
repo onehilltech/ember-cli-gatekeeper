@@ -1,14 +1,19 @@
+import { isPresent, isEmpty } from '@ember/utils';
+import { computed, get } from '@ember/object';
+import { equal } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Evented, { on } from '@ember/object/evented';
+import Component from '@ember/component';
 import ReCaptcha from '../-lib/mixins/recaptcha';
 import layout from '../templates/components/gatekeeper-create-account';
-import Ember from 'ember';
 
-export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
+export default Component.extend (ReCaptcha, Evented, {
   layout,
 
   classNames: ['gk-form--create-account'],
   mergedProperties: ['submitButtonStateText'],
 
-  store: Ember.inject.service (),
+  store: service (),
 
   confirmPassword: true,
 
@@ -30,8 +35,8 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
   accountEnabled: true,
 
   state: 'waiting',
-  isVerifying: Ember.computed.equal ('state', 'waiting'),
-  isSubmitting: Ember.computed.equal ('state', 'submitting'),
+  isVerifying: equal ('state', 'waiting'),
+  isSubmitting: equal ('state', 'submitting'),
 
   submitButtonStateText: {
     waiting: 'Sign Up',
@@ -39,22 +44,22 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
     submitting: 'Signing Up...'
   },
 
-  submitButtonText: Ember.computed ('state', function () {
+  submitButtonText: computed ('state', function () {
     let state = this.get ('state');
     return this.get (`submitButtonStateText.${state}`);
   }),
 
-  confirmErrorMessage: Ember.computed ('confirmedPassword', function () {
+  confirmErrorMessage: computed ('confirmedPassword', function () {
     let {confirmedPassword,passwordMatches} = this.getProperties (['confirmedPassword','passwordMatches']);
-    return Ember.isPresent (confirmedPassword) && !passwordMatches  ? 'The password does not match' : null;
+    return isPresent (confirmedPassword) && !passwordMatches  ? 'The password does not match' : null;
   }),
 
-  passwordMatches: Ember.computed ('{password,confirmedPassword}', function () {
+  passwordMatches: computed ('{password,confirmedPassword}', function () {
     let {password,confirmPassword,confirmedPassword} = this.getProperties (['password','confirmPassword','confirmedPassword']);
-    return !confirmPassword || (!Ember.isEmpty (password) && password === confirmedPassword);
+    return !confirmPassword || (!isEmpty (password) && password === confirmedPassword);
   }),
 
-  disabled: Ember.computed ('{state,useEmailForUsername,username,email,password,confirmPassword,confirmedPassword}', function () {
+  disabled: computed ('{state,useEmailForUsername,username,email,password,confirmPassword,confirmedPassword}', function () {
     let {
       state,
       useEmailForUsername,
@@ -72,21 +77,21 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
       username = email;
     }
 
-    return Ember.isEmpty (username) ||
-      Ember.isEmpty (email) ||
-      Ember.isEmpty (password) ||
+    return isEmpty (username) ||
+      isEmpty (email) ||
+      isEmpty (password) ||
       !passwordMatches;
   }),
 
-  didCreateAccount: Ember.on ('didCreateAccount', function (account) {
+  didCreateAccount: on ('didCreateAccount', function (account) {
     this.sendAction ('accountCreated', account);
   }),
 
-  handleError: Ember.on ('error', function (xhr) {
+  handleError: on ('error', function (xhr) {
     this.set ('state', 'waiting');
-    let error = Ember.get (xhr, 'errors.0');
+    let error = get (xhr, 'errors.0');
 
-    if (Ember.isPresent (error)) {
+    if (isPresent (error)) {
       switch (error.code) {
         case 'already_exists':
           this.set ('emailErrorMessage', 'This email address already has an account.');
@@ -107,7 +112,7 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
 
       let recaptcha = this.get ('recaptcha');
 
-      if (Ember.isPresent (recaptcha) && Ember.isEmpty (recaptcha.get ('value'))) {
+      if (isPresent (recaptcha) && isEmpty (recaptcha.get ('value'))) {
         recaptcha.set ('reset', true);
       }
       else {
@@ -138,7 +143,7 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
       adapterOptions.signIn = true;
     }
 
-    if (Ember.isPresent (recaptcha)) {
+    if (isPresent (recaptcha)) {
       adapterOptions.recaptcha = recaptcha.get ('value');
     }
 
@@ -162,7 +167,7 @@ export default Ember.Component.extend (ReCaptcha, Ember.Evented, {
         });
       }
 
-      if (Ember.isPresent (recaptcha)) {
+      if (isPresent (recaptcha)) {
         recaptcha.set ('value');
       }
 

@@ -1,6 +1,15 @@
-import Ember from 'ember';
+import { on } from '@ember/object/evented';
+import { isPresent } from '@ember/utils';
+import { getOwner } from '@ember/application';
+import Mixin from '@ember/object/mixin';
+import EmberObject, {
+  computed,
+  get,
+  getWithDefault,
+  observer
+} from '@ember/object';
 
-const ReCaptcha = Ember.Object.extend ({
+const ReCaptcha = EmberObject.extend ({
   /// Reset the ReCaptcha component
   reset: false,
 
@@ -10,38 +19,38 @@ const ReCaptcha = Ember.Object.extend ({
   /// The ReCaptcha has expired.
   expired: false,
 
-  componentName: Ember.computed ('type', function () {
+  componentName: computed ('type', function () {
     let type = this.get ('type');
     return `g-recaptcha-${type}`;
   })
 });
 
-export default Ember.Mixin.create ({
+export default Mixin.create ({
   init () {
     this._super (...arguments);
 
-    let ENV = Ember.getOwner (this).resolveRegistration ('config:environment');
-    let recaptcha = Ember.get (ENV, 'ember-cli-google.recaptcha');
+    let ENV = getOwner (this).resolveRegistration ('config:environment');
+    let recaptcha = get (ENV, 'ember-cli-google.recaptcha');
 
-    if (Ember.isPresent (recaptcha)) {
-      let type = Ember.getWithDefault (recaptcha, 'type', 'invisible');
+    if (isPresent (recaptcha)) {
+      let type = getWithDefault (recaptcha, 'type', 'invisible');
       this.set ('recaptcha', ReCaptcha.create ({type}));
     }
   },
 
-  _resetReCaptcha: Ember.on ('error', function () {
+  _resetReCaptcha: on ('error', function () {
     let recaptcha = this.get ('recaptcha');
 
-    if (Ember.isPresent (recaptcha)) {
+    if (isPresent (recaptcha)) {
       recaptcha.set ('value');
     }
   }),
 
-  _isHuman: Ember.observer ('recaptcha.value', function () {
+  _isHuman: observer ('recaptcha.value', function () {
     let {recaptcha} = this.getProperties (['recaptcha']);
     let {type, value} = recaptcha.getProperties (['type', 'value']);
 
-    if (Ember.isPresent (value) && type === 'invisible') {
+    if (isPresent (value) && type === 'invisible') {
       this._doSubmit ();
     }
   }),
