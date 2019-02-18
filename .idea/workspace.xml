@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" afterDir="false" />
     </list>
     <ignored path="ember-cli-gatekeeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -18,122 +20,16 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-1578578734">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="42" />
-          <entry key="project.open.time.0" value="33" />
-          <entry key="project.open.time.1" value="4" />
-          <entry key="project.open.time.14" value="2" />
-          <entry key="project.open.time.15" value="3" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.19" value="1" />
-          <entry key="project.open.time.23" value="1" />
-          <entry key="project.open.time.49" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="48" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="hbs" value="2528" />
-          <entry key="js" value="20337" />
-          <entry key="json" value="153" />
-          <entry key="md" value="2401" />
-          <entry key="scss" value="375" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="Handlebars/Mustache" value="2528" />
-          <entry key="JSON" value="153" />
-          <entry key="JavaScript" value="20339" />
-          <entry key="Markdown" value="2399" />
-          <entry key="SCSS" value="375" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="Makefile" value="1" />
-          <entry key="bowerrc" value="1" />
-          <entry key="hbs" value="107" />
-          <entry key="js" value="304" />
-          <entry key="json" value="28" />
-          <entry key="md" value="1" />
-          <entry key="scss" value="12" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Handlebars/Mustache" value="107" />
-          <entry key="JSON" value="29" />
-          <entry key="JavaScript" value="304" />
-          <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="SCSS" value="12" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.js.language.service.starts" />
-      <usages-collector id="statistics.vcs.git.usages" />
-    </session>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="ember-cli-gatekeeper" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-invisible.hbs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-in/custom-recaptcha.hbs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/components/solid-sign-in-with-recaptcha.hbs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="11" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/addon/mixins/supports-recaptcha.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="57" column="49" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/addon/services/session.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-81">
-              <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/addon/adapters/account.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-80">
-              <caret selection-end-line="96" selection-end-column="1" />
+            <state relative-caret-position="1248">
+              <caret line="96" column="1" selection-start-line="96" selection-start-column="1" selection-end-line="96" selection-end-column="1" />
               <folding>
                 <element signature="e#0#53#0" expanded="true" />
               </folding>
@@ -142,10 +38,27 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/dummy/app/components/solid-sign-in-with-recaptcha.js">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="26">
+              <caret line="2" column="59" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addon/components/gatekeeper-sign-up-with-recaptcha.js">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret selection-end-line="10" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
@@ -154,10 +67,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/sign-in/index.hbs">
+        <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
+            <state relative-caret-position="130">
+              <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -275,8 +197,6 @@
         <option value="$PROJECT_DIR$/tests/dummy/app/adapters/application.js" />
         <option value="$PROJECT_DIR$/addon/mixins/unauthenicated.js" />
         <option value="$PROJECT_DIR$/tests/unit/mixins/unauthenticated-test.js" />
-        <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" />
-        <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" />
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs" />
         <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up-with-recaptcha.hbs" />
         <option value="$PROJECT_DIR$/package.json" />
@@ -290,12 +210,10 @@
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/custom-recaptcha.hbs" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/index.hbs" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/components/solid-sign-in-with-recaptcha.hbs" />
+        <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" />
+        <option value="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
-    <package-json value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>false</service-enabled>
@@ -303,18 +221,6 @@
     <annotation-enable>false</annotation-enable>
     <other-services-enabled>false</other-services-enabled>
     <auto-save>true</auto-save>
-  </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/package.json" />
-    </packageJsonPaths>
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
@@ -329,40 +235,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="mixins" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
-              <item name="addon" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -380,6 +252,50 @@
               <item name="ember-cli-gatekeeper" type="cbb8eebc:String" user="ember-cli-gatekeeper" />
               <item name="blueprints" type="cbb8eebc:String" user="blueprints" />
               <item name="ember-cli-gatekeeper" type="cbb8eebc:String" user="ember-cli-gatekeeper" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="ember-cli-gatekeeper" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
+              <item name="addon" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
+              <item name="addon" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
+              <item name="addon" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ember-cli-gatekeeper" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ember-cli-gatekeeper" type="462c0819:PsiDirectoryNode" />
+              <item name="addon" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -505,16 +421,16 @@
       <option name="LAUNCH_OPTION" value="DEFAULT" />
       <method v="2" />
     </configuration>
-    <configuration name="Run application" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="s" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/ember" working-dir="$PROJECT_DIR$">
+    <configuration name="Run application" type="NodeJSConfigurationType" application-parameters="s" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/ember" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
-    <configuration name="Run tests" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="test" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/ember" working-dir="$PROJECT_DIR$">
+    <configuration name="Run tests" type="NodeJSConfigurationType" application-parameters="test" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/ember" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
-    <configuration name="ember g ember-cli-gatekeeper" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="g ember-cli-gatekeeper" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v8.11.1/bin/ember" working-dir="$PROJECT_DIR$">
+    <configuration name="ember g ember-cli-gatekeeper" type="NodeJSConfigurationType" application-parameters="g ember-cli-gatekeeper" path-to-node="node" path-to-js-file="$USER_HOME$/.nvm/versions/node/v8.11.1/bin/ember" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+    <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
@@ -526,9 +442,9 @@
     <list>
       <item itemvalue="Ember Serve.Run application" />
       <item itemvalue="Ember Test.Run all tests" />
-      <item itemvalue="Node.js.ember g ember-cli-gatekeeper" />
-      <item itemvalue="Node.js.Run tests" />
       <item itemvalue="Node.js.Run application" />
+      <item itemvalue="Node.js.Run tests" />
+      <item itemvalue="Node.js.ember g ember-cli-gatekeeper" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -750,7 +666,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="773612000" />
+    <option name="totallyTimeSpent" value="773925000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -762,9 +678,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="798" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="805" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23326287" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48969072" visible="true" weight="0.23326287" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.5103093" side_tool="true" weight="0.23960535" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -776,7 +693,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32533732" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5116279" side_tool="true" weight="0.4126285" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.4883721" visible="true" weight="0.48316252" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4883721" visible="true" weight="0.4826087" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32798833" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
@@ -789,7 +706,6 @@
     <option name="version" value="1" />
     <option name="exactExcludedFiles">
       <list>
-        <option value="$PROJECT_DIR$/../ember-cli-mdc/packages/mdc-fab/node_modules/ember-ajax/addon/-private/types.js" />
         <option value="$PROJECT_DIR$/../../malachi/malachi-submit/node_modules/ember-ajax/addon/-private/types.js" />
         <option value="$PROJECT_DIR$/../../malachi/malachi-webform/webapp/node_modules/ember-ajax/addon/-private/types.js" />
       </list>
@@ -802,9 +718,6 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -867,19 +780,8 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/ember-cli-blueprint-helpers/lib/blueprint.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="133" column="59" selection-start-line="133" selection-start-column="59" selection-end-line="133" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/ember-cli-mdc-sass/node_modules/ember-cli-blueprint-helpers/lib/blueprint.js" />
-    <entry file="file://$PROJECT_DIR$/node_modules/ember-cli-mdc-sass/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-331" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/ember-cli-mdc-sass/package.json" />
     <entry file="file://$PROJECT_DIR$/addon/supports.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -949,13 +851,7 @@
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/controllers/application.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/ember-cli-mdc-form/addon/components/mdc-form.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="100" column="3" lean-forward="true" selection-end-line="101" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/ember-cli-mdc-form/addon/components/mdc-form.js" />
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/adapters/application.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="65">
@@ -991,13 +887,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" column="59" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
@@ -1029,20 +918,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-649">
           <caret line="66" column="9" selection-start-line="66" selection-start-column="2" selection-end-line="66" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1090,13 +965,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/routes/sign-in/custom.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="37" lean-forward="true" selection-start-line="32" selection-end-line="37" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/dummy/app/templates/components/solid-sign-in.hbs">
       <provider selected="true" editor-type-id="text-editor">
@@ -1180,11 +1048,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/addon/adapters/account.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-80">
-          <caret selection-end-line="96" selection-end-column="1" />
+        <state relative-caret-position="1248">
+          <caret line="96" column="1" selection-start-line="96" selection-start-column="1" selection-end-line="96" selection-end-column="1" />
           <folding>
             <element signature="e#0#53#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="2" column="59" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/components/gatekeeper-sign-up-with-recaptcha.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
         </state>
       </provider>
     </entry>

@@ -6,8 +6,9 @@
                                        type=usernameType
                                        label=usernameLabel
                                        icon=usernameIcon
-                                       iconPosition="trailing"
-                                       iconClickable=false
+                                       iconPosition=usernameIconPosition
+                                       iconClickable=usernameIconClickable
+                                       iconClick=usernameIconClick
                                        autocapitalize="none"
                                        autocomplete=usernameAutoComplete
                                        required=true
@@ -21,7 +22,7 @@
                                                 type=passwordType
                                                 label=passwordLabel
                                                 icon=passwordIcon
-                                                iconPosition="trailing"
+                                                iconPosition=passwordIconPosition
                                                 iconClickable=enableShowPassword
                                                 iconClick=(action "toggleShowPassword")
                                                 autocomplete="off"
