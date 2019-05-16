@@ -5,7 +5,7 @@ const { Blueprint } = require ('ember-cli-blueprint-helpers');
 module.exports = Blueprint.extend ({
   packages: [
     {name: 'ember-browserify'},
-    {name: 'micromatch', target: '3.1.10'},
+    {name: 'micromatch', target: '4.0.2'},
     {name: 'jsrsasign', target: '8.0.12'}
   ],
 
