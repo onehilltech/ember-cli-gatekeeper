@@ -6,16 +6,18 @@ import { alias, bool, not } from '@ember/object/computed';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { copy } from 'ember-copy';
-import { resolve, Promise } from 'rsvp'
-import { assign } from '@ember/polyfills'
+import { resolve, Promise } from 'rsvp';
+import { assign } from '@ember/polyfills';
 
 import $ from 'jquery';
 
-export default Service.extend({
+export default Service.extend ({
   /// Reference to local storage.
   storage: service ('local-storage'),
+  ajax: service (),
 
   accessToken: alias ('storage.gatekeeper_client_token'),
+
 
   init () {
     this._super (...arguments);
@@ -40,6 +42,22 @@ export default Service.extend({
     return this._requestToken (opts).then ((token) => {
       this.set ('accessToken', token);
     });
+  },
+
+  /**
+   * Reset the password
+   */
+  resetPassword (token, password) {
+    let url = this.computeUrl ('/password/reset');
+
+    let opts = {
+      method: 'POST',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify ({'reset-password': {token, password}})
+    };
+
+    return this.get ('ajax').request (url, opts);
   },
 
   /**
