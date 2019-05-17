@@ -4,11 +4,15 @@ import { computed } from '@ember/object';
 import { alias, bool } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 
-import micromatch from 'micromatch';
+import { some } from 'lodash';
+
+import { A } from '@ember/array';
 
 export default EmberObject.extend ({
   audience: alias ('aud'),
+
   subject: alias ('sub'),
+
   issuer: alias ('iss'),
 
   issuedAt: computed ('iat', function () {
@@ -36,7 +40,8 @@ export default EmberObject.extend ({
    * @return {Boolean}
    */
   supports (scope) {
-    return micromatch.some (scope, this.get ('scope'));
+    let regexps = this.get ('_regexps');
+    return some (regexps, regexp => regexp.test (scope));
   },
 
   /**
@@ -46,5 +51,10 @@ export default EmberObject.extend ({
    */
   hasCapability (capability) {
     return this.supports (capability);
-  }
+  },
+
+  _regexps: computed ('scope.[]', function ()  {
+    let scope = this.get ('scope');
+    return isPresent (scope) ? scope.map (s => new RegExp (s)) : A ();
+  })
 });
