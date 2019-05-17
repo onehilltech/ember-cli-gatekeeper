@@ -27,108 +27,188 @@
   dependencies:
     "@glimmer/di" "^0.2.0"
 
-"@material/animation@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/animation/-/animation-0.41.0.tgz#315b45b32e1aeebee8a4cf555b8ad52076d09ddd"
-
-"@material/base@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/base/-/base-0.41.0.tgz#badadce711b4c25b1eb889a5e7581e32cd07c421"
-
-"@material/button@0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/button/-/button-0.41.0.tgz#2663f23780e777e5c9ebc8bf35e385f1edc94673"
+"@material/animation@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@material/animation/-/animation-1.0.0.tgz#dfd8575c8b031203917dc838ac0e3c0fe0f6709b"
   dependencies:
-    "@material/elevation" "^0.41.0"
-    "@material/ripple" "^0.41.0"
-    "@material/rtl" "^0.40.1"
-    "@material/shape" "^0.41.0"
-    "@material/theme" "^0.41.0"
-    "@material/typography" "^0.41.0"
+    tslib "^1.9.3"
 
-"@material/elevation@0.41.0", "@material/elevation@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/elevation/-/elevation-0.41.0.tgz#db6b75ea43354fe35936cba2d78c55390faf4e9e"
+"@material/base@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@material/base/-/base-1.0.0.tgz#e4ef0b22c54aa887af94f5988fb1c0cb3245beba"
   dependencies:
-    "@material/animation" "^0.41.0"
-    "@material/theme" "^0.41.0"
+    tslib "^1.9.3"
 
-"@material/floating-label@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/floating-label/-/floating-label-0.41.0.tgz#17a9af90199b3bcf0ba13b1b5d3616451c7c8c0b"
+"@material/button@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@material/button/-/button-2.0.0.tgz#8699cbae8fe30572b2d6e499438f85481be6262a"
   dependencies:
-    "@material/animation" "^0.41.0"
-    "@material/base" "^0.41.0"
-    "@material/rtl" "^0.40.1"
-    "@material/theme" "^0.41.0"
-    "@material/typography" "^0.41.0"
+    "@material/elevation" "^1.1.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^2.0.0"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^1.0.0"
 
-"@material/line-ripple@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/line-ripple/-/line-ripple-0.41.0.tgz#de499b0d1dc7f60ddbf497bcc49be76475642d1f"
+"@material/button@^2.0.0":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@material/button/-/button-2.1.1.tgz#e2bc631bad8480dd0b46fbbaaaa7d6712bf0d86d"
   dependencies:
-    "@material/animation" "^0.41.0"
-    "@material/base" "^0.41.0"
-    "@material/theme" "^0.41.0"
+    "@material/elevation" "^1.1.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^2.1.1"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^1.0.0"
 
-"@material/notched-outline@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/notched-outline/-/notched-outline-0.41.0.tgz#0b84bc710032fd9809fb21a9233fe3e71a142733"
+"@material/dom@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@material/dom/-/dom-1.1.0.tgz#3bd3d1a3415b4181118fecb182d93beda56a6f8c"
   dependencies:
-    "@material/animation" "^0.41.0"
-    "@material/base" "^0.41.0"
-    "@material/rtl" "^0.40.1"
-    "@material/shape" "^0.41.0"
-    "@material/theme" "^0.41.0"
+    tslib "^1.9.3"
 
-"@material/ripple@0.41.0", "@material/ripple@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/ripple/-/ripple-0.41.0.tgz#73dbb9bf0e1d72382926b39f2527c011e689dde2"
+"@material/elevation@1.1.0", "@material/elevation@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@material/elevation/-/elevation-1.1.0.tgz#def23c360ae067b43c1632a331b9883b9f679cc5"
   dependencies:
-    "@material/animation" "^0.41.0"
-    "@material/base" "^0.41.0"
-    "@material/theme" "^0.41.0"
+    "@material/animation" "^1.0.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/theme" "^1.1.0"
 
-"@material/rtl@^0.40.1":
-  version "0.40.1"
-  resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.40.1.tgz#5b0d973e3c6f8e2ea3656c06ada37ba2fedfa206"
+"@material/feature-targeting@^0.44.1":
+  version "0.44.1"
+  resolved "https://registry.yarnpkg.com/@material/feature-targeting/-/feature-targeting-0.44.1.tgz#afafc80294e5efab94bee31a187273d43d34979a"
 
-"@material/shape@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/shape/-/shape-0.41.0.tgz#2b1cb9a9e1240965ae25a107bbd6e29ca0257583"
-
-"@material/snackbar@0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/snackbar/-/snackbar-0.41.0.tgz#011528205d7d2f62fae9452099af5186dfb1a810"
+"@material/floating-label@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@material/floating-label/-/floating-label-1.1.0.tgz#505b9f8c7628d0498a18b165c387d4c34840ca60"
   dependencies:
-    "@material/animation" "^0.41.0"
-    "@material/base" "^0.41.0"
-    "@material/rtl" "^0.40.1"
-    "@material/theme" "^0.41.0"
-    "@material/typography" "^0.41.0"
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/rtl" "^0.42.0"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^1.0.0"
+    tslib "^1.9.3"
 
-"@material/textfield@0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-0.41.0.tgz#e12630599b93ed536f10f698bbe9024048a604e4"
+"@material/icon-button@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@material/icon-button/-/icon-button-2.0.0.tgz#90f84025cc720253bc0a55e4c9b654f749154e17"
   dependencies:
-    "@material/animation" "^0.41.0"
-    "@material/base" "^0.41.0"
-    "@material/floating-label" "^0.41.0"
-    "@material/line-ripple" "^0.41.0"
-    "@material/notched-outline" "^0.41.0"
-    "@material/ripple" "^0.41.0"
-    "@material/rtl" "^0.40.1"
-    "@material/shape" "^0.41.0"
-    "@material/theme" "^0.41.0"
-    "@material/typography" "^0.41.0"
+    "@material/base" "^1.0.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^2.0.0"
+    "@material/theme" "^1.1.0"
+    tslib "^1.9.3"
 
-"@material/theme@0.41.0", "@material/theme@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/theme/-/theme-0.41.0.tgz#4f8252a872b17845cc661b867cbbf54e51a26759"
+"@material/icon-button@^2.0.0":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@material/icon-button/-/icon-button-2.1.1.tgz#574842abc808da774e77c097dfca2d7e74ec23f5"
+  dependencies:
+    "@material/base" "^1.0.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^2.1.1"
+    "@material/theme" "^1.1.0"
+    tslib "^1.9.3"
 
-"@material/typography@0.41.0", "@material/typography@^0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@material/typography/-/typography-0.41.0.tgz#645e0199bdba6b09d935352ab2095d07c33ec395"
+"@material/line-ripple@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@material/line-ripple/-/line-ripple-1.1.0.tgz#0fef69c14ddf42877f10eed05c1a2489808f1cf4"
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/theme" "^1.1.0"
+    tslib "^1.9.3"
+
+"@material/notched-outline@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@material/notched-outline/-/notched-outline-1.1.1.tgz#a79c8aa3c5662b676bb46741658f434afa38f0da"
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/floating-label" "^1.1.0"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    tslib "^1.9.3"
+
+"@material/ripple@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@material/ripple/-/ripple-2.0.0.tgz#f8c84c874e784ce00a81f2915917c2bc9a0de628"
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/dom" "^1.1.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/theme" "^1.1.0"
+    tslib "^1.9.3"
+
+"@material/ripple@^2.0.0", "@material/ripple@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@material/ripple/-/ripple-2.1.1.tgz#850e44bafe9db962f400c7e067eb28c1cb11010b"
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/dom" "^1.1.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/theme" "^1.1.0"
+    tslib "^1.9.3"
+
+"@material/rtl@0.42.0", "@material/rtl@^0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.42.0.tgz#1836e78186c2d8b996f6fbf97adab203535335bc"
+
+"@material/shape@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@material/shape/-/shape-1.1.1.tgz#7a5368694bc3555e69ea547950904b46fa1024bf"
+  dependencies:
+    "@material/feature-targeting" "^0.44.1"
+
+"@material/snackbar@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@material/snackbar/-/snackbar-2.0.0.tgz#e4965daaf156d70ab7c4fd670d95b1f45c9b76ab"
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/button" "^2.0.0"
+    "@material/dom" "^1.1.0"
+    "@material/icon-button" "^2.0.0"
+    "@material/ripple" "^2.0.0"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^1.0.0"
+    tslib "^1.9.3"
+
+"@material/textfield@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-2.0.0.tgz#87f97ccd8762bb4c1ddc6c11e781a8dcc7d817b0"
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/dom" "^1.1.0"
+    "@material/floating-label" "^1.1.0"
+    "@material/line-ripple" "^1.1.0"
+    "@material/notched-outline" "^1.1.1"
+    "@material/ripple" "^2.0.0"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.1.1"
+    "@material/theme" "^1.1.0"
+    "@material/typography" "^1.0.0"
+    tslib "^1.9.3"
+
+"@material/theme@1.1.0", "@material/theme@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@material/theme/-/theme-1.1.0.tgz#9c95dd804168c23c30589fcf09ecc5af5b3d1adc"
+  dependencies:
+    "@material/feature-targeting" "^0.44.1"
+
+"@material/typography@1.0.0", "@material/typography@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@material/typography/-/typography-1.0.0.tgz#327ecfcac5ee3af8a3a102f3f125a761202f4189"
+  dependencies:
+    "@material/feature-targeting" "^0.44.1"
 
 "@mike-north/js-lib-semantic-release-config@^0.0.0-development":
   version "0.0.0-development"
@@ -3220,9 +3300,9 @@ ember-cli-broccoli-sane-watcher@^2.0.4:
     rsvp "^3.0.18"
     sane "^2.4.1"
 
-ember-cli-custom-properties@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-custom-properties/-/ember-cli-custom-properties-1.1.0.tgz#0e241de0dbe99700ca4c4f7622a1e5ba8af4166b"
+ember-cli-custom-properties@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-custom-properties/-/ember-cli-custom-properties-1.1.1.tgz#f9804325eed3522a7f57fa3e8bd3c7f0cd13352f"
   dependencies:
     ember-cli-babel "^6.6.0"
 
@@ -3300,38 +3380,38 @@ ember-cli-lodash-subset@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ember-cli-lodash-subset/-/ember-cli-lodash-subset-2.0.1.tgz#20cb68a790fe0fde2488ddfd8efbb7df6fe766f2"
 
-ember-cli-mdc-animation@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-animation/-/ember-cli-mdc-animation-0.68.0.tgz#972adfffe4162e3515c9e478c2e96b7b89f7d2d6"
+ember-cli-mdc-animation@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-animation/-/ember-cli-mdc-animation-0.78.2.tgz#6fd31233883f1c1e5481af64b0ab022025a6106a"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
-ember-cli-mdc-base@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-base/-/ember-cli-mdc-base-0.68.0.tgz#4474df0c3c413789f6553eb2c4fc29c7cbe2a4e0"
+ember-cli-mdc-base@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-base/-/ember-cli-mdc-base-0.78.2.tgz#162d2cda8b45585fc308b11134548e6dbd169cb5"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
 
-ember-cli-mdc-button@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-button/-/ember-cli-mdc-button-0.68.0.tgz#966e13589c620de13c09d26aecabba888357f8eb"
+ember-cli-mdc-button@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-button/-/ember-cli-mdc-button-0.78.2.tgz#312b0c0b3f03f54fbc9e107a8ade1dac914d3326"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
     ember-cli-htmlbars "^3.0.0"
     ember-cli-htmlbars-inline-precompile "^1.0.0"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
-ember-cli-mdc-elevation@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-elevation/-/ember-cli-mdc-elevation-0.68.0.tgz#9ceb8c558ca05fb6a93de29fe41f7b3b365be200"
+ember-cli-mdc-elevation@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-elevation/-/ember-cli-mdc-elevation-0.78.2.tgz#093cb4bf90d80446a7f47acff9c5c3a67df21378"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
 ember-cli-mdc-floating-label@0.68.0:
   version "0.68.0"
@@ -3343,23 +3423,33 @@ ember-cli-mdc-floating-label@0.68.0:
     ember-cli-htmlbars-inline-precompile "^1.0.0"
     ember-cli-mdc-sass "^0.68.0"
 
-ember-cli-mdc-form@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-form/-/ember-cli-mdc-form-0.68.0.tgz#08908ab17494ba3a804a7b2e6b5ff3189761ac31"
+ember-cli-mdc-form@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-form/-/ember-cli-mdc-form-0.78.2.tgz#80d39efeccae70151c9e146f4717df1c067eddeb"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
     ember-cli-htmlbars "^3.0.0"
 
-ember-cli-mdc-icon@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-icon/-/ember-cli-mdc-icon-0.68.0.tgz#0d43672f1fbba46e80d1fbdb54d2eaed024d4f34"
+ember-cli-mdc-icon-button@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-icon-button/-/ember-cli-mdc-icon-button-0.78.2.tgz#faf266847c2bff640604fb54a366ccba95b34f33"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
     ember-cli-htmlbars "^3.0.0"
     ember-cli-htmlbars-inline-precompile "^1.0.0"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
+
+ember-cli-mdc-icon@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-icon/-/ember-cli-mdc-icon-0.78.2.tgz#6cf652549ece2b61374ce95388f06d24b9090cd7"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cli-blueprint-helpers "^0.4.5"
+    ember-cli-htmlbars "^3.0.0"
+    ember-cli-htmlbars-inline-precompile "^1.0.0"
+    ember-cli-mdc-sass "^0.78.2"
 
 ember-cli-mdc-line-ripple@0.68.0:
   version "0.68.0"
@@ -3380,24 +3470,33 @@ ember-cli-mdc-notched-outline@0.68.0:
     ember-cli-htmlbars "^3.0.0"
     ember-cli-mdc-sass "^0.68.0"
 
-ember-cli-mdc-ripple@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-ripple/-/ember-cli-mdc-ripple-0.68.0.tgz#733c42559d950bc4d6e10ec944209268e5a27ce8"
+ember-cli-mdc-ripple@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-ripple/-/ember-cli-mdc-ripple-0.78.2.tgz#8f6781da66b33b30dbc8a72ea7849a4bd2e140ff"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
     ember-cli-htmlbars "^2.0.1"
     ember-cli-htmlbars-inline-precompile "^1.0.0"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
-ember-cli-mdc-rtl@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-rtl/-/ember-cli-mdc-rtl-0.68.0.tgz#58a7c60e70261d5aa0ca1da97fd34f2e28e46181"
+ember-cli-mdc-rtl@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-rtl/-/ember-cli-mdc-rtl-0.78.2.tgz#4c79a3ede9151c527ef1d6875d50b040fee44c6c"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
 
-ember-cli-mdc-sass@0.68.0, ember-cli-mdc-sass@^0.68.0:
+ember-cli-mdc-sass@0.78.2, ember-cli-mdc-sass@^0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-sass/-/ember-cli-mdc-sass-0.78.2.tgz#8765a4da0eab318948afa38ef8db43121690cce5"
+  dependencies:
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^3.0.1"
+    ember-cli-babel "^6.6.0"
+    ember-cli-blueprint-helpers "^0.4.5"
+
+ember-cli-mdc-sass@^0.68.0:
   version "0.68.0"
   resolved "https://registry.yarnpkg.com/ember-cli-mdc-sass/-/ember-cli-mdc-sass-0.68.0.tgz#f2d4fb84b39351601a95fba57dbbb4ec173b0f28"
   dependencies:
@@ -3406,47 +3505,47 @@ ember-cli-mdc-sass@0.68.0, ember-cli-mdc-sass@^0.68.0:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
 
-ember-cli-mdc-shape@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-shape/-/ember-cli-mdc-shape-0.68.0.tgz#79e06a1cbde458447659499c33cbc113bb0e0eb5"
+ember-cli-mdc-shape@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-shape/-/ember-cli-mdc-shape-0.78.2.tgz#43595d86c221bca74c732573de704ca3687a10ea"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
-ember-cli-mdc-snackbar@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-snackbar/-/ember-cli-mdc-snackbar-0.68.0.tgz#3a816b26065598c24da296e64c4faca8d9c5d711"
+ember-cli-mdc-snackbar@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-snackbar/-/ember-cli-mdc-snackbar-0.78.2.tgz#10381fd6e95be3fe62341a60c938f5026a8a9fe2"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
     ember-cli-htmlbars "^3.0.0"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
-ember-cli-mdc-textfield@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-textfield/-/ember-cli-mdc-textfield-0.68.0.tgz#f155deaf44e79d81716663e1f1af57a961d07b9f"
+ember-cli-mdc-textfield@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-textfield/-/ember-cli-mdc-textfield-0.78.2.tgz#893f81f5ed6600d4acc1be1aaffa4eb0072ddbc1"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
     ember-cli-htmlbars "^3.0.0"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
-ember-cli-mdc-theme@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-theme/-/ember-cli-mdc-theme-0.68.0.tgz#b15f6e7cdde212864081ccbbdf033edffc205e73"
+ember-cli-mdc-theme@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-theme/-/ember-cli-mdc-theme-0.78.2.tgz#0bce7daa27d906ac1c1c7914bda6054477726567"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
-ember-cli-mdc-typography@0.68.0:
-  version "0.68.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-mdc-typography/-/ember-cli-mdc-typography-0.68.0.tgz#87d8558e1a3bf726d6016120ce45b6a4fd412f05"
+ember-cli-mdc-typography@0.78.2:
+  version "0.78.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-mdc-typography/-/ember-cli-mdc-typography-0.78.2.tgz#5a417c1c1af184da88c8f3c6827aa675c30c0769"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-blueprint-helpers "^0.4.5"
-    ember-cli-mdc-sass "^0.68.0"
+    ember-cli-mdc-sass "^0.78.2"
 
 ember-cli-mirage@^0.4.9:
   version "0.4.9"
@@ -8822,9 +8921,9 @@ sane@^2.2.0, sane@^2.4.1:
   optionalDependencies:
     fsevents "^1.2.3"
 
-sass@1.15.1:
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.15.1.tgz#25a03f6813413540210580b670628360c36267d3"
+sass@1.20.1:
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.20.1.tgz#737b901fe072336da540b6d00ec155e2267420da"
   dependencies:
     chokidar "^2.0.0"
 
@@ -9763,6 +9862,10 @@ trim-off-newlines@^1.0.0:
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
+
+tslib@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 
 tty-browserify@~0.0.0:
   version "0.0.1"
