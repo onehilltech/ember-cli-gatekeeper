@@ -1,7 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { getOwner } from '@ember/application';
 import { getWithDefault } from '@ember/object';
-import { isPresent } from '@ember/utils';
 
 /**
  * A mixin that redirects the user to the start route if they are sign in. This
