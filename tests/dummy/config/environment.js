@@ -53,7 +53,8 @@ module.exports = function (environment) {
         alg: ['HS256'],
         iss: ['gatekeeper']
       }
-    }
+    };
+
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
