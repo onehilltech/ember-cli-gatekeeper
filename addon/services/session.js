@@ -1,3 +1,5 @@
+/* global KJUR */
+
 import Service from '@ember/service';
 import Evented from '@ember/object/evented';
 
@@ -5,7 +7,6 @@ import { isNone } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { alias, bool, not } from '@ember/object/computed';
-import { merge, assign } from '@ember/polyfills';
 import { Promise, reject, resolve, all } from 'rsvp';
 import { run } from '@ember/runloop';
 import { copy } from '@ember/object/internals';
@@ -67,7 +68,7 @@ export default Service.extend (Evented, {
    * @returns {*}
    */
   signIn (opts) {
-    const tokenOptions = merge ({grant_type: 'password'}, opts);
+    const tokenOptions = Object.assign ({grant_type: 'password'}, opts);
 
     return this._requestToken (tokenOptions).then (token => {
       this.set ('accessToken', token);
@@ -156,7 +157,7 @@ export default Service.extend (Evented, {
   },
 
   _httpHeaders: computed ('accessToken', function () {
-    return {Authorization: `Bearer ${this.get ('accessToken.access_token')}`}
+    return {Authorization: `Bearer ${this.get ('accessToken.access_token')}`};
   }),
 
   /**
@@ -198,13 +199,12 @@ export default Service.extend (Evented, {
    * Private method for requesting an access token from the server.
    *
    * @param opts
-   * @returns {RSVP.Promise}
    * @private
    */
   _requestToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
     const tokenOptions = this.get ('gatekeeper.tokenOptions');
-    const data = assign ({}, tokenOptions, opts);
+    const data = Object.assign ({}, tokenOptions, opts);
 
     const ajaxOptions = {
       method: 'POST',
