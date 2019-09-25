@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/services/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/services/session.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/styles/addon.scss" beforeDir="false" afterPath="$PROJECT_DIR$/addon/styles/addon.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/standard.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/standard.hbs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,75 +21,6 @@
   <component name="FavoritesManager">
     <favorites_list name="ember-cli-gatekeeper" />
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Ember.</find>
-      <find>Ember.isPresent</find>
-      <find>router</find>
-      <find>capability</find>
-      <find>'value'</find>
-      <find>type</find>
-      <find>noOp</find>
-      <find>signIn</find>
-      <find>'signIn'</find>
-      <find>SignIn</find>
-      <find>doSignIn</find>
-      <find>mdl</find>
-      <find>mdl-layout</find>
-      <find>gatekeeper-sign-in--input-controls</find>
-      <find>gatekeeper-sign-in--input</find>
-      <find>signUp</find>
-      <find>-sign-in</find>
-      <find>0.43.1-17</find>
-      <find>showSnackbar</find>
-      <find>showSn</find>
-      <find>&quot;session.currentUser&quot;</find>
-      <find>session.curre</find>
-      <find>session</find>
-      <find>.email</find>
-      <find>email</find>
-      <find>nanomatch</find>
-      <find>sane</find>
-      <find>brow</find>
-      <find>jsrsasign</find>
-      <find>micromatch</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>_accessToken</replace>
-      <replace>ember-cli-gatekeeper</replace>
-      <replace>firstError.detail</replace>
-      <replace>reason</replace>
-      <replace>error</replace>
-      <replace>_requestToken</replace>
-      <replace>enableAccount</replace>
-      <replace>let</replace>
-      <replace>accessToken</replace>
-      <replace>currentUser</replace>
-      <replace>get ('gatekeeper')</replace>
-      <replace>session.</replace>
-      <replace>'session'</replace>
-      <replace>TokenMetadata</replace>
-      <replace>isEmpty</replace>
-      <replace>on</replace>
-      <replace>session</replace>
-      <replace>run</replace>
-      <replace>isNone</replace>
-      <replace>isPresent</replace>
-      <replace>get</replace>
-      <replace>name</replace>
-      <replace>'response'</replace>
-      <replace>'submit'</replace>
-      <replace>Submit</replace>
-      <replace>doSubmit</replace>
-      <replace>mdc</replace>
-      <replace>gatekeeper--input-controls</replace>
-      <replace>gatekeeper--input</replace>
-      <replace>0.43.1-18</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>$PROJECT_DIR$/addon</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -98,11 +33,6 @@
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="805" />
   </component>
   <component name="ProjectId" id="1RB8M3K1DrmpNJ5RP8djgWq5HHo" />
   <component name="PropertiesComponent">
@@ -175,6 +105,7 @@
       <option name="SSL_KEY" value="" />
       <option name="SSL_CERT" value="" />
       <module name="NAME" value="ember-cli-gatekeeper" />
+      <node-interpreter value="project" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="EMBER_SERVE_CONFIGURATION" factoryName="Ember serve configuration factory">
@@ -435,7 +366,9 @@
       <workItem from="1558067470903" duration="42000" />
       <workItem from="1558069935903" duration="2007000" />
       <workItem from="1558098142960" duration="2489000" />
-      <workItem from="1569129077947" duration="76000" />
+      <workItem from="1569129077947" duration="226000" />
+      <workItem from="1569129993279" duration="402000" />
+      <workItem from="1569418761001" duration="3878000" />
     </task>
     <servers />
   </component>
@@ -482,13 +415,35 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/should-preserve-symlinks.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/should-preserve-symlinks.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/resolve-package-path.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache-group.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache-group.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/resolve-package-path.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/index.d.ts" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

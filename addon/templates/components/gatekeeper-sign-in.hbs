@@ -1,41 +1,39 @@
 {{#mdc-form submit=(action "signIn") valid=(action (mut valid))}}
-  <div class="gatekeeper--input-controls">
-    <div class="gatekeeper--input gatekeeper--username">
-      {{mdc-textfield-with-helper-text value=username
-                                       style=style
-                                       type=usernameType
-                                       label=usernameLabel
-                                       icon=usernameIcon
-                                       iconPosition=usernameIconPosition
-                                       iconClickable=usernameIconClickable
-                                       iconClick=usernameIconClick
-                                       autocapitalize="none"
-                                       autocomplete=usernameAutoComplete
-                                       required=true
-                                       errorMessage=usernameErrorMessage}}
-    </div>
+  {{mdc-textfield-with-helper-text class="gatekeeper-sign-in__username"
+                                   value=username
+                                   style=style
+                                   required=true
+                                   type=usernameType
+                                   label=usernameLabel
+                                   icon=usernameIcon
+                                   iconPosition=usernameIconPosition
+                                   iconClickable=usernameIconClickable
+                                   iconClick=usernameIconClick
+                                   autocapitalize="none"
+                                   autocomplete=usernameAutoComplete
+                                   helperText=usernameHelperText
+                                   errorMessage=usernameErrorMessage}}
 
-    <div class="gatekeeper--input gatekeeper--password">
-      {{mdc-password-textfield-with-helper-text value=password
-                                                style=style
-                                                required=true
-                                                type=passwordType
-                                                label=passwordLabel
-                                                icon=passwordIcon
-                                                iconPosition=passwordIconPosition
-                                                iconClickable=enableShowPassword
-                                                iconClick=(action "toggleShowPassword")
-                                                autocomplete="off"
-                                                autocapitalize="none"
-                                                errorMessage=passwordErrorMessage}}
-    </div>
+  {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-in__password"
+                                            value=password
+                                            style=style
+                                            required=true
+                                            type=passwordType
+                                            label=passwordLabel
+                                            icon=passwordIcon
+                                            iconPosition=passwordIconPosition
+                                            iconClickable=enableShowPassword
+                                            iconClick=(action "toggleShowPassword")
+                                            autocomplete="off"
+                                            autocapitalize="none"
+                                            helperText=passwordHelperText
+                                            errorMessage=passwordErrorMessage}}
 
-    <div class="gatekeeper--submit">
-      {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
-        {{submitButtonText}}
-      {{/mdc-button}}
-    </div>
-  </div>
+  {{yield}}
+
+  {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
+    {{submitButtonText}}
+  {{/mdc-button}}
 {{/mdc-form}}
 
 {{mdc-snackbar message=errorMessage}}

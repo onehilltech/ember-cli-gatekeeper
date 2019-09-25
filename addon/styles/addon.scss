@@ -1,41 +1,15 @@
 .gatekeeper-sign-in, .gatekeeper-sign-up {
-  .gatekeeper--input-controls {
-    padding: 16px;
+  &__username, &__password, &__email {
+    width: 100%;
+    margin-bottom: 16px;
 
-    display: flex;
-
-    .mdc-text-field__icon:focus {
-      outline: none;
-    }
-
-
-  }
-
-  /**
-   * Styles specific to the vertical display.
-   */
-  &:not(.gatekeeper--horizontal) {
-    .gatekeeper--input-controls {
-      flex-direction: column;
-
-      .gatekeeper--input {
-        margin-bottom: 16px;
-      }
+    .mdc-text-field {
+      width: 100%;
     }
   }
 
-  /**
-   * Styles specific to a horizontal display.
-   */
-  &.gatekeeper--horizontal {
-    .gatekeeper--input-controls {
-      flex-direction: row;
-    }
-  }
-
-  &.gatekeeper--recaptcha-v2 {
-    .g-recaptcha {
-      margin-bottom: 16px;
-    }
+  .mdc-button[type="submit"] {
+    width: 100%;
+    margin-top: 16px;
   }
 }

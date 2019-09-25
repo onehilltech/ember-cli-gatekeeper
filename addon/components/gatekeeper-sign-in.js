@@ -3,17 +3,13 @@ import Component from '@ember/component';
 import layout from '../templates/components/gatekeeper-sign-in';
 
 import { inject } from '@ember/service';
-import { computed } from '@ember/object'
+import { computed, get } from '@ember/object';
 import { not, or } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 
-import { get } from '@ember/object'
-
 import { default as StandardSubmit } from '../-lib/standard-submit-strategy';
 
-
 function noOp () {}
-
 
 /**
  * @class SignInComponent
@@ -22,9 +18,6 @@ export default Component.extend ({
   layout,
 
   classNames: ['gatekeeper-sign-in'],
-  classNameBindings: ['horizontal:gatekeeper--horizontal'],
-
-  horizontal: false,
 
   /// The default style for the text field.
   style: 'box',
