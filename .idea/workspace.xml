@@ -2,25 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.template-lintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CONTRIBUTING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/dummy/config/optional-features.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/.npmignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE.md" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/addon/styles/addon.scss" beforeDir="false" afterPath="$PROJECT_DIR$/addon/styles/addon.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/ember-try.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/ember-try.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/blueprints/ember-cli-gatekeeper/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testem.js" beforeDir="false" afterPath="$PROJECT_DIR$/testem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-v2.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-v2.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/config/environment.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/config/environment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-invisible.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-invisible.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +47,7 @@
     <property name="editor.config.accepted" value="true" />
     <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/.nvm/versions/node/v6.4.0/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -73,19 +63,19 @@
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/addon/-lib/mixins" />
-      <recent name="$PROJECT_DIR$/app/styles" />
-      <recent name="$PROJECT_DIR$/addon/-lib/client" />
-      <recent name="$PROJECT_DIR$/addon/lib/client" />
-      <recent name="$PROJECT_DIR$/app" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/addon" />
       <recent name="$PROJECT_DIR$/addon/utils" />
       <recent name="$PROJECT_DIR$/addon/-lib" />
       <recent name="$PROJECT_DIR$/addon/-lib/mixins" />
       <recent name="$PROJECT_DIR$/app/node_modules" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/config" />
+      <recent name="$PROJECT_DIR$/addon/-lib/mixins" />
+      <recent name="$PROJECT_DIR$/app/styles" />
+      <recent name="$PROJECT_DIR$/addon/-lib/client" />
+      <recent name="$PROJECT_DIR$/addon/lib/client" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -385,38 +375,6 @@
     </task>
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="Run_all_tests - 2018.08.20 at 16h 56m 52s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 16h 58m 41s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 16h 59m 07s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 17h 01m 24s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 17h 44m 58s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 17h 48m 09s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 17h 49m 52s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 17h 57m 12s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 19h 07m 51s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-    <history-entry file="Run_all_tests - 2018.08.20 at 19h 09m 42s.xml">
-      <configuration name="Run all tests" configurationId="EMBER_TEST_CONFIGURATION" />
-    </history-entry>
-  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -444,6 +402,81 @@
         <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.js" />
         <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.d.ts" />
         <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-babel-transpiler/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-babel-transpiler/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-babel-transpiler/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-babel-transpiler/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-babel-transpiler/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-babel-transpiler/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-lint-eslint/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-lint-eslint/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-lint-eslint/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-lint-eslint/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-lint-eslint/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-lint-eslint/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-lodash/node_modules/broccoli-persistent-filter/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-template-lint/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-template-lint/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-template-lint/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-template-lint/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-template-lint/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-template-lint/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-htmlbars/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-htmlbars/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-htmlbars/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-htmlbars/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-htmlbars/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli-htmlbars/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-rollup/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-rollup/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-rollup/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-rollup/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-rollup/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/broccoli-rollup/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/-private/utils/url-helpers.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/-private/utils/is-string.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/-private/utils/get-header.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/-private/utils/parse-response-headers.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/mixins/legacy/normalize-error-response.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli/node_modules/fs-tree-diff/lib/entry.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli/node_modules/fs-tree-diff/lib/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli/node_modules/fs-tree-diff/lib/index.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli/node_modules/fs-tree-diff/lib/util.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli/node_modules/fs-tree-diff/lib/util.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-cli/node_modules/fs-tree-diff/lib/entry.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/ember-test-waiters/addon/types/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/services/ajax.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/utils/ajax.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/mixins/ajax-request.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/mixins/ajax-support.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/-private/promise.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/-private/types.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/should-preserve-symlinks.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/should-preserve-symlinks.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/resolve-package-path.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache-group.d.ts" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/cache-group.js" />
+        <option value="$PROJECT_DIR$/node_modules/resolve-package-path/lib/resolve-package-path.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-test-waiters/addon/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-test-waiters/addon/build-waiter.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-test-waiters/addon/test-waiter.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-test-waiters/addon/noop-test-waiter.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-test-waiters/addon/waiter-manager.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-test-waiters/addon/wait-for-promise.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/ajax-request.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/errors.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/raw.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/index.js" />
+        <option value="$PROJECT_DIR$/node_modules/ember-ajax/addon/request.js" />
         <option value="$PROJECT_DIR$/node_modules/resolve-package-path/index.js" />
         <option value="$PROJECT_DIR$/node_modules/resolve-package-path/index.d.ts" />
       </list>

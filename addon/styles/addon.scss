@@ -14,7 +14,9 @@
   }
 
   .g-recaptcha {
-    margin-bottom: 16px;
+    &--v2 {
+      margin-bottom: 16px;
+    }
   }
 }
 
