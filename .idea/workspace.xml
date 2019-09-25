@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,8 +80,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Ember Serve.Run application">
-    <configuration name="Run application" type="EMBER_SERVE_CONFIGURATION" factoryName="Ember serve configuration factory">
+  <component name="RunManager" selected="Ember Serve.Run dummy application">
+    <configuration name="Run dummy application" type="EMBER_SERVE_CONFIGURATION" factoryName="Ember serve configuration factory">
       <option name="PORT" value="" />
       <option name="HOST" value="" />
       <option name="ENVIRONMENT" value="development" />
@@ -161,7 +159,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Ember Serve.Run application" />
+      <item itemvalue="Ember Serve.Run dummy application" />
       <item itemvalue="Node.js.Run application" />
       <item itemvalue="Node.js.Run tests" />
       <item itemvalue="Node.js.ember g ember-cli-gatekeeper" />
