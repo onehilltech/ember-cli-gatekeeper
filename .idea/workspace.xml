@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/styles/addon.scss" beforeDir="false" afterPath="$PROJECT_DIR$/addon/styles/addon.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/standard.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/standard.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -368,7 +364,7 @@
       <workItem from="1558098142960" duration="2489000" />
       <workItem from="1569129077947" duration="226000" />
       <workItem from="1569129993279" duration="402000" />
-      <workItem from="1569418761001" duration="3878000" />
+      <workItem from="1569418761001" duration="4509000" />
     </task>
     <servers />
   </component>
