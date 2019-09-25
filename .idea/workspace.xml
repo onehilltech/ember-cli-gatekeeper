@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/services/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/services/session.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-up.hbs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -436,6 +437,7 @@
       <workItem from="1558069935903" duration="2007000" />
       <workItem from="1558098142960" duration="2489000" />
       <workItem from="1569129077947" duration="76000" />
+      <workItem from="1569417206580" duration="448000" />
     </task>
     <servers />
   </component>
@@ -488,7 +490,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
