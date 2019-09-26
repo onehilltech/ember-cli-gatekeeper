@@ -54,13 +54,17 @@ export default Component.extend ({
   //== button
 
   signInButtonColor: 'primary',
+  signInButtonText: 'Sign In',
+  signInOptions: null,
+
+  showSignUpButton: false,
+  signUpButtonText: 'Sign Up',
 
   mergedProperties: ['signInOptions','submitButtonStateText'],
 
   session: inject (),
 
-  signInOptions: null,
-  submitButtonText: 'Sign In',
+
 
   submitting: false,
 
