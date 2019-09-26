@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="94583d82-e387-47aa-8139-db77a157b2f1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" beforeDir="false" afterPath="$PROJECT_DIR$/addon/components/gatekeeper-sign-in.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addon/styles/addon.scss" beforeDir="false" afterPath="$PROJECT_DIR$/addon/styles/addon.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in-with-recaptcha.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/addon/templates/components/gatekeeper-sign-in.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-invisible.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-invisible.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-v2.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/recaptcha-v2.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/standard.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dummy/app/templates/sign-in/standard.hbs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
