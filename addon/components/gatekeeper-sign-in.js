@@ -64,8 +64,6 @@ export default Component.extend ({
 
   session: inject (),
 
-
-
   submitting: false,
 
   /// The disabled state for the button. The button is disabled if we are signing
@@ -86,7 +84,7 @@ export default Component.extend ({
    *
    * @param options
    */
-  doSubmit (options = {}) {
+  signIn (options = {}) {
     let {username, password, signInOptions} = this.getProperties (['username', 'password', 'signInOptions']);
     let opts = Object.assign ({}, signInOptions, options, {username, password});
 
@@ -96,12 +94,14 @@ export default Component.extend ({
     this.get ('session').signIn (opts)
       .then (() => {
         this.didSignIn ();
-        this.getWithDefault ('complete', noOp) ();
+        this.getWithDefault ('signInComplete', noOp) ();
       })
       .catch (this.handleError.bind (this))
-      .then (() => {
-        this.set ('submitting', false);
-      });
+      .then (() => this.set ('submitting', false));
+  },
+
+  signUp () {
+    this.getWithDefault ('signUpClick', noOp) ();
   },
 
   willSignIn () {
@@ -146,9 +146,20 @@ export default Component.extend ({
       // Prevent the default event from occurring.
       ev.preventDefault ();
 
+      // Get the active element in the document. If should be the button that was clicked
+      // to trigger this event on the form.
+
+      let { value } = document.activeElement;
+
       // Reset the current error message.
       this.set ('errorMessage');
-      this.get ('submit').submit ();
+
+      if (value === 'signIn') {
+        this.get ('submit').signIn ();
+      }
+      else if (value === 'signUp') {
+        this.get ('submit').signUp ();
+      }
 
       return false;
     }
