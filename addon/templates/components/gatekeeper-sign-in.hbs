@@ -32,12 +32,12 @@
   {{yield}}
 
   <div class="gatekeeper-sign-in__buttons">
-    {{#mdc-button type="submit" class="gatekeeper-sign-in__button--sign-in" style=signInButtonStyle disabled=disabled}}
+    {{#mdc-button type="submit" name="action" value="sign-up" class="gatekeeper-sign-in__button--sign-in" style=signInButtonStyle disabled=disabled}}
       {{signInButtonText}}
     {{/mdc-button}}
 
     {{#if showSignUpButton}}
-      {{#mdc-button class="gatekeeper-sign-in__button--sign-up" style=signUpButtonStyle click=signUpClick}}
+      {{#mdc-button type="submit" name="action" value="sign-up" class="gatekeeper-sign-in__button--sign-up" style=signUpButtonStyle}}
         {{signUpButtonText}}
       {{/mdc-button}}
     {{/if}}
