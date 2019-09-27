@@ -131,7 +131,7 @@ export default Component.extend ({
   /**
    * Perform the submission of the information to create an account.
    */
-  doSubmit (options = {}) {
+  signUp (options = {}) {
     let {
       username,
       password,
@@ -169,7 +169,7 @@ export default Component.extend ({
 
       // Reset the current error message.
       this.set ('errorMessage');
-      this.get ('submit').submit ();
+      this.get ('submit').signUp ();
 
       return false;
     },
