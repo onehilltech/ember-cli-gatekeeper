@@ -1,4 +1,4 @@
-{{#mdc-form submit=(action "signIn") valid=(action (mut valid))}}
+{{#mdc-form valid=(action (mut valid))}}
   {{mdc-textfield-with-helper-text class="gatekeeper-sign-in__username"
                                    value=username
                                    style=style
@@ -40,7 +40,9 @@
                   name="action"
                   value="signIn"
                   class="gatekeeper-sign-in__button--sign-in"
-                  style=signInButtonStyle disabled=disabled}}
+                  style=signInButtonStyle
+                  click=(action "submit" "signIn")
+                  disabled=disabled}}
       {{signInButtonText}}
     {{/mdc-button}}
 
@@ -49,7 +51,9 @@
                     name="action"
                     value="signUp"
                     class="gatekeeper-sign-in__button--sign-up"
-                    style=signUpButtonStyle click=signUpClick}}
+                    style=signUpButtonStyle click=signUpClick
+                    click=(action "submit" "signUp")
+                    disabled=disabled}}
         {{signUpButtonText}}
       {{/mdc-button}}
     {{/if}}

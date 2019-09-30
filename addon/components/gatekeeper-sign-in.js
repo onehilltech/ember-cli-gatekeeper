@@ -142,23 +142,16 @@ export default Component.extend ({
       this.toggleProperty ('showPassword');
     },
 
-    signIn (ev) {
-      // Prevent the default event from occurring.
+    submit (action, ev) {
       ev.preventDefault ();
 
-      // Get the active element in the document. If should be the button that was clicked
-      // to trigger this event on the form.
+      const { target: { form } } = ev;
 
-      let { value } = document.activeElement;
-
-      // Reset the current error message.
-      this.set ('errorMessage');
-
-      if (value === 'signIn') {
-        this.get ('submit').signIn ();
-      }
-      else if (value === 'signUp') {
-        this.get ('submit').signUp ();
+      if (form.checkValidity ()) {
+        if (action === 'signIn')
+          this.get ('submit').signIn ();
+        else if (action === 'signUp')
+          this.get ('submit').signUp ();
       }
 
       return false;
