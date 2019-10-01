@@ -27,9 +27,21 @@ export default RESTAdapter.extend({
       }
     }
 
+    // There is a chance that we are creating an account for one that already exists. We need
+    // to remove the account that matches this email address from our cache. Otherwise, if we
+    // do create an account from an existing email address that we have cached on the device,
+    // this request will fail.
+
+    const email = snapshot.attr ('email');
+    const account = store.peekAll ('account').find (account => account.email === email);
+
+    if (isPresent (account)) {
+      account.unloadRecord ();
+    }
+
     return this.get ('session.gatekeeper').authenticate (opts).then (() => {
       return _super.call (adapter, store, type, snapshot);
-    })
+    });
   },
 
   urlForCreateRecord (modelName, snapshot) {
