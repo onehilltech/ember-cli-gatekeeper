@@ -1,4 +1,4 @@
-{{#mdc-form submit=(action "submit") valid=(action (mut valid))}}
+{{#mdc-form submit=(action "submit") validity=(action (mut valid))}}
   {{#unless useEmailForUsername}}
     {{mdc-textfield-with-helper-text class="gatekeeper-sign-up__username"
                                      type="text"
