@@ -36,7 +36,7 @@ export default RESTAdapter.extend({
     const account = store.peekAll ('account').find (account => account.email === email);
 
     if (isPresent (account)) {
-      if (account.isSaving) {
+      if (!account.isSaving) {
         account.unloadRecord ();
       }
     }
