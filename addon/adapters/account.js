@@ -36,7 +36,9 @@ export default RESTAdapter.extend({
     const account = store.peekAll ('account').find (account => account.email === email);
 
     if (isPresent (account)) {
-      account.unloadRecord ();
+      if (account.isSaving) {
+        account.unloadRecord ();
+      }
     }
 
     return this.get ('session.gatekeeper').authenticate (opts).then (() => {
