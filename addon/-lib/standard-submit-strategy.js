@@ -11,7 +11,14 @@ export default Submit.extend ({
   /**
    * Initiate the sign in process.
    */
-  submit () {
-    this.get ('component').doSubmit ();
+  signIn () {
+    this.get ('component').signIn ();
+  },
+
+  /**
+   * Initiate the sign up process.
+   */
+  signUp () {
+    this.get ('component').signUp ();
   }
 });

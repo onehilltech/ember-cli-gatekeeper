@@ -1,41 +1,38 @@
 .gatekeeper-sign-in, .gatekeeper-sign-up {
-  .gatekeeper--input-controls {
-    padding: 16px;
+  &__username, &__password, &__email, &__password-confirm {
+    width: 100%;
+    margin-bottom: 16px;
+
+    .mdc-text-field {
+      width: 100%;
+    }
+  }
+
+  &__buttons {
+    margin-top: 16px;
 
     display: flex;
+    flex-direction: row;
 
-    .mdc-text-field__icon:focus {
-      outline: none;
-    }
-
-
+    align-items: center;
   }
 
-  /**
-   * Styles specific to the vertical display.
-   */
-  &:not(.gatekeeper--horizontal) {
-    .gatekeeper--input-controls {
-      flex-direction: column;
+  .mdc-button[type="submit"] {
+    width: 100%;
+    flex-grow: 1;
+  }
 
-      .gatekeeper--input {
-        margin-bottom: 16px;
-      }
+  &__button {
+    &--sign-up {
+      width: 45%;
+      margin-left: 16px;
     }
   }
 
-  /**
-   * Styles specific to a horizontal display.
-   */
-  &.gatekeeper--horizontal {
-    .gatekeeper--input-controls {
-      flex-direction: row;
-    }
-  }
-
-  &.gatekeeper--recaptcha-v2 {
-    .g-recaptcha {
-      margin-bottom: 16px;
+  .g-recaptcha {
+    &--v2 {
+      margin-bottom: 32px;
     }
   }
 }
+

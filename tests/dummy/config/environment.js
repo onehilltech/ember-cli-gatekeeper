@@ -9,6 +9,7 @@ module.exports = function (environment) {
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
+
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.

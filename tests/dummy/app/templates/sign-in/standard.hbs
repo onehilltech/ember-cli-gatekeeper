@@ -1,7 +1,12 @@
-{{gatekeeper-sign-in usernameType="text"
+{{gatekeeper-sign-in style="outlined"
+                     usernameType="text"
                      usernameLabel="Email address"
                      usernameIcon="person"
-                     submitButtonStyle="raised"
-                     enableShowPassword=true
+                     signInButtonStyle="raised"
                      signInOptions=signInOptions
+                     showSignUpButton=true
+                     signUpButtonStyle="outlined"
+                     signUpClick=signUpClick
+                     enableShowPassword=true
+                     horizontal=true
                      complete=(action "complete")}}

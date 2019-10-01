@@ -1,62 +1,55 @@
 {{#mdc-form submit=(action "submit") valid=(action (mut valid))}}
-  <div class="gatekeeper--input-controls">
-    {{#unless useEmailForUsername}}
-      <div class="gatekeeper--input gatekeeper--username">
-        {{mdc-textfield-with-helper-text type="text"
-                                         style=style
-                                         value=username
-                                         label=usernameLabel
-                                         required=true
-                                         icon=usernameIcon
-                                         iconPosition=usernameIconPosition
-                                         iconClickable=usernameIconClickable
-                                         helperText=usernameHelperText
-                                         errorMessage=usernameErrorMessage
-                                         autocapitalize="none"}}
-      </div>
-    {{/unless}}
+  {{#unless useEmailForUsername}}
+    {{mdc-textfield-with-helper-text class="gatekeeper-sign-up__username"
+                                     type="text"
+                                     style=style
+                                     value=username
+                                     label=usernameLabel
+                                     errorMessage=usernameErrorMessage
+                                     helperText=usernameHelperText
+                                     required=true
+                                     icon=usernameIcon
+                                     iconPosition=usernameIconPosition
+                                     iconClickable=usernameIconClickable
+                                     autocapitalize="none"}}
+  {{/unless}}
 
-    <div class="gatekeeper--input gatekeeper--email">
-      {{mdc-textfield-with-helper-text type="email"
-                                       style=style
-                                       value=email
-                                       label=emailLabel
-                                       errorMessage=emailErrorMessage
-                                       helperText=emailHelperText
-                                       required=true
-                                       icon=emailIcon
-                                       iconPosition=emailIconPosition
-                                       iconClickable=emailIconClickable}}
-    </div>
+  {{mdc-textfield-with-helper-text class="gatekeeper-sign-up__email"
+                                   type="email"
+                                   style=style
+                                   value=email
+                                   label=emailLabel
+                                   errorMessage=emailErrorMessage
+                                   helperText=emailHelperText
+                                   required=true
+                                   icon=emailIcon
+                                   iconPosition=emailIconPosition
+                                   iconClickable=emailIconClickable}}
 
-    <div class="gatekeeper--input gatekeeper--password">
-      {{mdc-password-textfield-with-helper-text type=passwordType
-                                                style=style
-                                                value=password
-                                                label=passwordLabel
-                                                errorMessage=passwordErrorMessage
-                                                helperText=passwordHelperText
-                                                required=true}}
-    </div>
+  {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-up__password"
+                                            type=passwordType
+                                            style=style
+                                            value=password
+                                            label=passwordLabel
+                                            errorMessage=passwordErrorMessage
+                                            helperText=passwordHelperText
+                                            required=true}}
 
+  {{#if mustConfirmPassword}}
+    {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-up__password-confirm"
+                                              type=passwordType
+                                              style=style
+                                              value=confirmPassword
+                                              label=confirmPasswordLabel
+                                              errorMessage=confirmErrorMessage
+                                              required=true}}
+  {{/if}}
 
-    {{#if mustConfirmPassword}}
-      <div class="gatekeeper--input gatekeeper--password-confirm">
-        {{mdc-password-textfield-with-helper-text type=passwordType
-                                                  style=style
-                                                  value=confirmPassword
-                                                  label=confirmPasswordLabel
-                                                  errorMessage=confirmErrorMessage
-                                                  required=true}}
-      </div>
-    {{/if}}
+  {{yield}}
 
-    <div class="gatekeeper--submit">
-      {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
-        {{submitButtonText}}
-      {{/mdc-button}}
-    </div>
-  </div>
+  {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
+    {{submitButtonText}}
+  {{/mdc-button}}
 {{/mdc-form}}
 
 {{mdc-snackbar message=messageToUser}}

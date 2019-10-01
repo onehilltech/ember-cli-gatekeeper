@@ -1,43 +1,59 @@
-{{#mdc-form submit=(action "signIn") valid=(action (mut valid))}}
-  <div class="gatekeeper--input-controls">
-    <div class="gatekeeper--input gatekeeper--username">
-      {{mdc-textfield-with-helper-text value=username
-                                       style=style
-                                       type=usernameType
-                                       label=usernameLabel
-                                       icon=usernameIcon
-                                       iconPosition=usernameIconPosition
-                                       iconClickable=usernameIconClickable
-                                       iconClick=usernameIconClick
-                                       autocapitalize="none"
-                                       autocomplete=usernameAutoComplete
-                                       required=true
-                                       helperText=usernameHelperText
-                                       errorMessage=usernameErrorMessage}}
-    </div>
+{{#mdc-form valid=(action (mut valid))}}
+  {{mdc-textfield-with-helper-text class="gatekeeper-sign-in__username"
+                                   value=username
+                                   style=style
+                                   required=true
+                                   type=usernameType
+                                   label=usernameLabel
+                                   icon=usernameIcon
+                                   iconPosition=usernameIconPosition
+                                   iconClickable=usernameIconClickable
+                                   iconClick=usernameIconClick
+                                   autocapitalize="none"
+                                   autocomplete=usernameAutoComplete
+                                   helperText=usernameHelperText
+                                   errorMessage=usernameErrorMessage}}
 
-    <div class="gatekeeper--input gatekeeper--password">
-      {{mdc-password-textfield-with-helper-text value=password
-                                                style=style
-                                                required=true
-                                                type=passwordType
-                                                label=passwordLabel
-                                                icon=passwordIcon
-                                                iconPosition=passwordIconPosition
-                                                iconClickable=enableShowPassword
-                                                iconClick=(action "toggleShowPassword")
-                                                helperText=passwordHelperText
-                                                autocomplete="off"
-                                                autocapitalize="none"
-                                                errorMessage=passwordErrorMessage}}
-    </div>
+  {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-in__password"
+                                            value=password
+                                            style=style
+                                            required=true
+                                            type=passwordType
+                                            label=passwordLabel
+                                            icon=passwordIcon
+                                            iconPosition=passwordIconPosition
+                                            iconClickable=enableShowPassword
+                                            iconClick=(action "toggleShowPassword")
+                                            autocomplete="off"
+                                            autocapitalize="none"
+                                            helperText=passwordHelperText
+                                            errorMessage=passwordErrorMessage}}
+  {{yield}}
 
-    <div class="gatekeeper--submit">
-      {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
-        {{submitButtonText}}
+  <div class="gatekeeper-sign-in__buttons">
+    {{#mdc-button type="submit"
+                  name="action"
+                  value="signIn"
+                  class="gatekeeper-sign-in__button--sign-in"
+                  style=signInButtonStyle
+                  click=(action "submit" "signIn")
+                  disabled=disabled}}
+      {{signInButtonText}}
+    {{/mdc-button}}
+
+    {{#if showSignUpButton}}
+      {{#mdc-button type="submit"
+                    name="action"
+                    value="signUp"
+                    class="gatekeeper-sign-in__button--sign-up"
+                    style=signUpButtonStyle
+                    click=(action "submit" "signUp")
+                    disabled=disabled}}
+        {{signUpButtonText}}
       {{/mdc-button}}
-    </div>
+    {{/if}}
   </div>
+
 {{/mdc-form}}
 
 {{mdc-snackbar message=errorMessage}}

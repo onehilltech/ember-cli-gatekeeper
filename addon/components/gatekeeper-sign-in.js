@@ -3,17 +3,13 @@ import Component from '@ember/component';
 import layout from '../templates/components/gatekeeper-sign-in';
 
 import { inject } from '@ember/service';
-import { computed } from '@ember/object'
+import { computed, get } from '@ember/object';
 import { not, or } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 
-import { get } from '@ember/object'
-
 import { default as StandardSubmit } from '../-lib/standard-submit-strategy';
 
-
 function noOp () {}
-
 
 /**
  * @class SignInComponent
@@ -22,9 +18,6 @@ export default Component.extend ({
   layout,
 
   classNames: ['gatekeeper-sign-in'],
-  classNameBindings: ['horizontal:gatekeeper--horizontal'],
-
-  horizontal: false,
 
   /// The default style for the text field.
   style: 'box',
@@ -61,13 +54,15 @@ export default Component.extend ({
   //== button
 
   signInButtonColor: 'primary',
+  signInButtonText: 'Sign In',
+  signInOptions: null,
+
+  showSignUpButton: false,
+  signUpButtonText: 'Sign Up',
 
   mergedProperties: ['signInOptions','submitButtonStateText'],
 
   session: inject (),
-
-  signInOptions: null,
-  submitButtonText: 'Sign In',
 
   submitting: false,
 
@@ -89,7 +84,7 @@ export default Component.extend ({
    *
    * @param options
    */
-  doSubmit (options = {}) {
+  signIn (options = {}) {
     let {username, password, signInOptions} = this.getProperties (['username', 'password', 'signInOptions']);
     let opts = Object.assign ({}, signInOptions, options, {username, password});
 
@@ -99,12 +94,14 @@ export default Component.extend ({
     this.get ('session').signIn (opts)
       .then (() => {
         this.didSignIn ();
-        this.getWithDefault ('complete', noOp) ();
+        this.getWithDefault ('signInComplete', noOp) ();
       })
       .catch (this.handleError.bind (this))
-      .then (() => {
-        this.set ('submitting', false);
-      });
+      .then (() => this.set ('submitting', false));
+  },
+
+  signUp () {
+    this.getWithDefault ('signUpClick', noOp) ();
   },
 
   willSignIn () {
@@ -145,13 +142,17 @@ export default Component.extend ({
       this.toggleProperty ('showPassword');
     },
 
-    signIn (ev) {
-      // Prevent the default event from occurring.
+    submit (action, ev) {
       ev.preventDefault ();
 
-      // Reset the current error message.
-      this.set ('errorMessage');
-      this.get ('submit').submit ();
+      const { target: { form } } = ev;
+
+      if (form.checkValidity ()) {
+        if (action === 'signIn')
+          this.get ('submit').signIn ();
+        else if (action === 'signUp')
+          this.get ('submit').signUp ();
+      }
 
       return false;
     }

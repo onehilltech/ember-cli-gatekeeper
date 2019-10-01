@@ -45,6 +45,22 @@ export default Service.extend ({
   },
 
   /**
+   * Initiate the forgot password process.
+   */
+  forgotPassword (email) {
+    let url = this.computeUrl ('/password/forgot');
+
+    let opts = {
+      method: 'POST',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify ({email})
+    };
+
+    return this.get ('ajax').request (url, opts);
+  },
+
+  /**
    * Reset the password
    */
   resetPassword (token, password) {
