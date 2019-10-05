@@ -4,7 +4,7 @@ import Completed  from 'ember-cli-gatekeeper/mixins/completed';
 export default Controller.extend (Completed, {
   signInOptions: null,
 
-  passwordRequirements: Object.freeze ([
+  requirements: Object.freeze ([
     {description: 'Must be 8 characters or longer', pattern: /[\w\W]{8,}/},
     {description: 'Must have at least 1 lowercase letter', pattern: /[a-z]+/},
   ]),
