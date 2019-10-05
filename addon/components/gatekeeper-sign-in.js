@@ -4,8 +4,9 @@ import layout from '../templates/components/gatekeeper-sign-in';
 
 import { inject } from '@ember/service';
 import { computed, get } from '@ember/object';
-import { not, or } from '@ember/object/computed';
-import { isPresent } from '@ember/utils';
+import { not, or, empty, readOnly } from '@ember/object/computed';
+import { isPresent, isEmpty } from '@ember/utils';
+import { A } from '@ember/array';
 
 import { default as StandardSubmit } from '../-lib/standard-submit-strategy';
 
@@ -42,15 +43,6 @@ export default Component.extend ({
 
   passwordLabel: 'Password',
 
-  passwordIcon: computed ('{enableShowPassword,showPassword}', function () {
-    const {enableShowPassword,showPassword} = this.getProperties (['enableShowPassword','showPassword']);
-    return enableShowPassword ? (showPassword ? 'visibility' : 'visibility_off') : null;
-  }),
-
-  passwordType: computed ('showPassword', function () {
-    return this.get ('showPassword') ? 'text' : 'password';
-  }),
-
   //== button
 
   signInButtonColor: 'primary',
@@ -66,9 +58,11 @@ export default Component.extend ({
 
   submitting: false,
 
+  invalidPassword: not ('validPassword'),
+
   /// The disabled state for the button. The button is disabled if we are signing
   /// in, the form has invalid inputs, or the recaptcha is unverified.
-  disabled: or ('submitting', 'invalid', 'submit.disabled'),
+  disabled: or ('submitting', 'invalid', 'submit.disabled', 'invalidPassword'),
 
   /// The submit strategy for the component.
   submit: null,
@@ -138,20 +132,18 @@ export default Component.extend ({
   },
 
   actions: {
-    toggleShowPassword () {
-      this.toggleProperty ('showPassword');
-    },
-
     submit (action, ev) {
       ev.preventDefault ();
 
       const { target: { form } } = ev;
 
       if (form.checkValidity ()) {
-        if (action === 'signIn')
+        if (action === 'signIn') {
           this.get ('submit').signIn ();
-        else if (action === 'signUp')
+        }
+        else if (action === 'signUp') {
           this.get ('submit').signUp ();
+        }
       }
 
       return false;

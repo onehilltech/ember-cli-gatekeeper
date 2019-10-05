@@ -1,21 +1,5 @@
 // route: sign-up
 
 .mdl-route__sign-up {
-  .mdl-layout__content {
-    padding: 16px;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-
-    .mdl-button[type="submit"] {
-      margin-top: 32px;
-    }
-
-    .sign-in {
-      margin-top: 32px;
-    }
-  }
+  padding: 8px;
 }
