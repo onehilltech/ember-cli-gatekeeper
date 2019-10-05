@@ -18,16 +18,13 @@
                                             value=password
                                             style=style
                                             required=true
-                                            type=passwordType
                                             label=passwordLabel
                                             icon=passwordIcon
-                                            iconPosition=passwordIconPosition
-                                            iconClickable=enableShowPassword
-                                            iconClick=(action "toggleShowPassword")
                                             autocomplete="off"
                                             autocapitalize="none"
                                             helperText=passwordHelperText
-                                            errorMessage=passwordErrorMessage}}
+                                            requirements=passwordRequirements
+                                            valid=validPassword}}
 
   {{component componentName
               siteKey=siteKey
