@@ -27,18 +27,17 @@
                                    iconClickable=emailIconClickable}}
 
   {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-up__password"
-                                            type=passwordType
                                             style=style
                                             value=password
                                             label=passwordLabel
-                                            errorMessage=passwordErrorMessage
                                             helperText=passwordHelperText
-                                            required=true}}
+                                            required=true
+                                            requirements=passwordRequirements
+                                            valid=validPassword}}
 
 
   {{#if mustConfirmPassword}}
     {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-up__password-confirm"
-                                              type=passwordType
                                               style=style
                                               value=confirmPassword
                                               label=confirmPasswordLabel

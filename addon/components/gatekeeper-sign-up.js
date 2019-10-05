@@ -36,6 +36,8 @@ export default Component.extend ({
   passwordLabel: 'Password',
   confirmPasswordLabel: 'Confirm password',
 
+  invalidPassword: not ('validPassword'),
+
   /// Sign in the user when the account is created.
   autoSignIn: true,
 
@@ -48,15 +50,6 @@ export default Component.extend ({
   submit: null,
 
   submitButtonText: 'Create My Account',
-
-  showPassword: false,
-  passwordIcon: computed ('showPassword', function () {
-    return this.get ('showPassword') ? 'visibility' : 'visibility_off';
-  }),
-
-  passwordType: computed ('showPassword', function () {
-    return this.get ('showPassword') ? 'text' : 'password';
-  }),
 
   confirmed: computed ('{mustConfirmPassword,password,confirmPassword}', function () {
     const {
@@ -77,7 +70,7 @@ export default Component.extend ({
 
   defaultConfirmErrorMessage: 'The passwords do not match.',
 
-  disabled: or ('{submitting,invalid,unconfirmed}', 'submit.disabled'),
+  disabled: or ('{submitting,invalid,unconfirmed,invalidPassword}', 'submit.disabled'),
 
   init () {
     this._super (...arguments);
