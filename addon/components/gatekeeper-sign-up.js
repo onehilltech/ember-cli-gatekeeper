@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import layout from '../templates/components/gatekeeper-sign-up';
 
 import { computed, get } from '@ember/object';
-import { not, or } from '@ember/object/computed';
+import { and, not, or, empty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
 
@@ -36,7 +36,11 @@ export default Component.extend ({
   passwordLabel: 'Password',
   confirmPasswordLabel: 'Confirm password',
 
+  checkPasswordRequirements: true,
+  noPasswordRequirements: empty ('passwordRequirements'),
+  hasPasswordRequirements: not ('noPasswordRequirements'),
   invalidPassword: not ('validPassword'),
+  badPassword: and ('{checkPasswordRequirements,hasPasswordRequirements,invalidPassword}'),
 
   /// Sign in the user when the account is created.
   autoSignIn: true,
@@ -70,7 +74,7 @@ export default Component.extend ({
 
   defaultConfirmErrorMessage: 'The passwords do not match.',
 
-  disabled: or ('{submitting,invalid,unconfirmed,invalidPassword}', 'submit.disabled'),
+  disabled: or ('{submitting,invalid,unconfirmed,badPassword}', 'submit.disabled'),
 
   init () {
     this._super (...arguments);
