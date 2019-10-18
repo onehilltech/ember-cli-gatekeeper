@@ -48,19 +48,21 @@ export default Service.extend ({
    * Initiate the forgot password process.
    */
   forgotPassword (email) {
-    let url = this.computeUrl ('/password/forgot');
+    this.authenticate ().then (() => {
+      let url = this.computeUrl ('/password/forgot');
 
-    let opts = {
-      method: 'POST',
-      dataType: 'json',
-      contentType: 'application/json',
-      headers: {
-        Authorization: `Bearer ${this.accessToken.access_token}`
-      },
-      data: JSON.stringify ({email})
-    };
+      let opts = {
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+          Authorization: `Bearer ${this.accessToken.access_token}`
+        },
+        data: JSON.stringify ({email})
+      };
 
-    return this.get ('ajax').request (url, opts);
+      return this.get ('ajax').request (url, opts);
+    });
   },
 
   /**
