@@ -54,6 +54,9 @@ export default Service.extend ({
       method: 'POST',
       dataType: 'json',
       contentType: 'application/json',
+      headers: {
+        Authorization: `Bearer ${this.accessToken.access_token}`
+      },
       data: JSON.stringify ({email})
     };
 
