@@ -3,7 +3,7 @@
 import Service from '@ember/service';
 import Evented from '@ember/object/evented';
 
-import { isNone } from '@ember/utils';
+import { isNone, isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { alias, bool, not } from '@ember/object/computed';
@@ -44,6 +44,17 @@ export default Service.extend (Evented, {
   /// The current promise refreshing the access token.
   _refreshToken: null,
 
+  /// The authentication url for a session.
+  authenticateUrl: computed ('gatekeeper.authenticateUrl', function () {
+    const authUrl = this.get ('gatekeeper.authenticateUrl');
+    return isEmpty (authUrl) ? this.computeUrl ('/oauth2/token') : authUrl;
+  }),
+
+  refreshUrl: computed ('gatekeeper.refreshUrl', function () {
+    const refreshUrl = this.get ('gatekeeper.refreshUrl');
+    return isEmpty (refreshUrl) ? this.computeUrl ('/oauth2/token') : refreshUrl;
+  }),
+
   actions: {
     signOut () {
       this.signOut ();
@@ -69,8 +80,9 @@ export default Service.extend (Evented, {
    */
   signIn (opts) {
     const tokenOptions = Object.assign ({grant_type: 'password'}, opts);
+    const authenticateUrl = this.get ('authenticateUrl');
 
-    return this._requestToken (tokenOptions).then (token => {
+    return this._requestToken (authenticateUrl, tokenOptions).then (token => {
       this.set ('accessToken', token);
 
       // Query the service for the current user. We are going to cache their id
@@ -198,11 +210,11 @@ export default Service.extend (Evented, {
   /**
    * Private method for requesting an access token from the server.
    *
+   * @param url
    * @param opts
    * @private
    */
-  _requestToken (opts) {
-    const url = this.computeUrl ('/oauth2/token');
+  _requestToken (url, opts) {
     const tokenOptions = this.get ('gatekeeper.tokenOptions');
     const data = Object.assign ({}, tokenOptions, opts);
 
@@ -226,7 +238,6 @@ export default Service.extend (Evented, {
         ]).then (() => token);
       });
   },
-
 
   /**
    * Complete the sign in process.
