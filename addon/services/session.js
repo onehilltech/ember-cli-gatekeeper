@@ -48,12 +48,12 @@ export default Service.extend (Evented, {
   authenticateUrl: computed ('gatekeeper.authenticateUrl', function () {
     const authUrl = this.get ('gatekeeper.authenticateUrl');
     return isEmpty (authUrl) ? this.computeUrl ('/oauth2/token') : authUrl;
-  }),
+  }).readOnly (),
 
   refreshUrl: computed ('gatekeeper.refreshUrl', function () {
     const refreshUrl = this.get ('gatekeeper.refreshUrl');
     return isEmpty (refreshUrl) ? this.computeUrl ('/oauth2/token') : refreshUrl;
-  }),
+  }).readOnly (),
 
   actions: {
     signOut () {
