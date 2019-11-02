@@ -3,10 +3,9 @@ import Component from '@ember/component';
 import layout from '../templates/components/gatekeeper-sign-in';
 
 import { inject } from '@ember/service';
-import { computed, get } from '@ember/object';
-import { not, or, empty, readOnly } from '@ember/object/computed';
-import { isPresent, isEmpty } from '@ember/utils';
-import { A } from '@ember/array';
+import { get } from '@ember/object';
+import { not, or } from '@ember/object/computed';
+import { isPresent } from '@ember/utils';
 
 import { default as StandardSubmit } from '../-lib/standard-submit-strategy';
 

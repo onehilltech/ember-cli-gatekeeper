@@ -32,9 +32,9 @@ const V2RecaptchaSignIn = RecaptchaSignIn.extend ({
   /// The v2 is disabled as long as there is no response (i.e., unverified).
   disabled: not ('component.response'),
 
-  submit () {
+  signIn () {
     const response = this.component.get ('response');
-    this.component.doSubmit ({recaptcha: response});
+    this.component.signIn ({recaptcha: response});
   },
 
   verified (/*response*/) {
@@ -51,7 +51,7 @@ const InvisibleRecaptchaSignIn = RecaptchaSignIn.extend ({
   componentName: 'g-recaptcha-invisible',
   disabled: false,
 
-  submit () {
+  signIn () {
     const response = this.component.get ('response');
 
     if (isEmpty (response)) {
@@ -60,12 +60,12 @@ const InvisibleRecaptchaSignIn = RecaptchaSignIn.extend ({
     }
     else {
       // We have a response, so we can just complete the sign in.
-      this.component.doSubmit ({ recaptcha: response });
+      this.component.signIn ({ recaptcha: response });
     }
   },
 
   verified (response) {
-    this.component.doSubmit ({ recaptcha: response });
+    this.component.signIn ({ recaptcha: response });
   }
 });
 
