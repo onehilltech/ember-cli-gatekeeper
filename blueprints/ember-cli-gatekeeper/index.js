@@ -15,7 +15,7 @@ module.exports = Blueprint.extend ({
     {name: 'ember-cli-mdc-snackbar', target: '0.80.0'},
     {name: 'ember-copy'},
     {name: 'ember-cli-google-recaptcha', target: '2.3.1'},
-    {name: 'ember-api-actions', target: '0.1.9'},
+    {name: 'ember-api-actions', target: '0.2.8'},
     {name: 'ember-lodash'}
   ]
 });
