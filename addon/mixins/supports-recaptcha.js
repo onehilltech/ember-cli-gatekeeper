@@ -17,7 +17,7 @@ const RecaptchaSignIn = Submit.extend ({
   },
 
   handleError () {
-    this.component.set ('reset', true);
+    this.component.setProperties ({ reset: true, response: null });
   }
 });
 
