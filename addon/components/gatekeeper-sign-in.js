@@ -126,25 +126,26 @@ export default Component.extend ({
   },
 
   actions: {
-    submit (action, ev) {
+    signInForm (ev) {
+      // Prevent the default behavior of the button.
+      ev.preventDefault ();
+
+      const { target : form } = ev;
+
+      if (form.checkValidity ()) {
+        this.signIn ();
+      }
+    },
+
+    signInButton (ev) {
+      // Prevent the default behavior of the button.
       ev.preventDefault ();
 
       const { target: { form } } = ev;
 
-      if (form.checkValidity ()) {
-        if (action === 'signIn') {
-          this.signIn ();
-        }
-        else if (action === 'signUp') {
-          this.signUp ();
-        }
+      if (form.checkValidity()) {
+        this.signIn ();
       }
-
-      return false;
-    },
-
-    signIn () {
-      this.signIn ();
     },
 
     signUp () {

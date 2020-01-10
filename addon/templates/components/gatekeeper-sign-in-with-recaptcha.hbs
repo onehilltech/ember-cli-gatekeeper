@@ -39,7 +39,7 @@
                   value="signIn"
                   class="gatekeeper-sign-in__button--sign-in"
                   style=signInButtonStyle
-                  click=(action "submit" "signIn")
+                  click=(action "signInButton")
                   disabled=signInDisabled}}
       {{signInButtonText}}
     {{/mdc-button}}
@@ -50,7 +50,7 @@
                     value="signUp"
                     class="gatekeeper-sign-in__button--sign-up"
                     style=signUpButtonStyle
-                    click=(action "submit" "signUp")
+                    click=(action "signUp")
                     disabled=signUpDisabled}}
         {{signUpButtonText}}
       {{/mdc-button}}
