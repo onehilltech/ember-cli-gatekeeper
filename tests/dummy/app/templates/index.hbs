@@ -23,4 +23,12 @@
     <blockquote>This session is allowed to create accounts.</blockquote>
   {{/if}}
 
+  <h5 class="mdc-typography--headline6">Authenticate</h5>
+
+  {{#mdc-form submit=(action "authenticate")}}
+    {{mdc-password-textfield-with-helper-text label="Password" value=password}}
+
+    {{#mdc-button style="raised"}}Check{{/mdc-button}}
+  {{/mdc-form}}
+
 </div>
