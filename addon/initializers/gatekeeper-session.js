@@ -4,6 +4,6 @@ export function initialize (application) {
 }
 
 export default {
-  name: 'session',
+  name: 'gatekeeper-session',
   initialize
 };
