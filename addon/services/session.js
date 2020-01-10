@@ -131,6 +131,25 @@ export default Service.extend (Evented, {
   },
 
   /**
+   * Authenticate the existing user. This is useful if you need to verify the current
+   * user has access to a specific part of the application.
+   *
+   * @param password
+   */
+  authenticate (password) {
+    const url = this.computeUrl ('accounts/authenticate');
+    const ajaxOptions = {
+      method: 'POST',
+      url,
+      data: {
+        authenticate: { password }
+      }
+    };
+
+    return this.ajax (ajaxOptions);
+  },
+
+  /**
    * Manually refresh the access token for the current user.
    *
    * @returns {*|RSVP.Promise}

@@ -27,7 +27,7 @@
                                             requirements=passwordRequirements
                                             valid=validPassword}}
 
-  {{component componentName
+  {{component recaptchaComponentName
               siteKey=siteKey
               verified=(action "verified")
               reset=reset
@@ -40,7 +40,7 @@
                   class="gatekeeper-sign-in__button--sign-in"
                   style=signInButtonStyle
                   click=(action "submit" "signIn")
-                  disabled=disabled}}
+                  disabled=signInDisabled}}
       {{signInButtonText}}
     {{/mdc-button}}
 
@@ -49,9 +49,9 @@
                     name="action"
                     value="signUp"
                     class="gatekeeper-sign-in__button--sign-up"
-                    style=signUpButtonStyle click=signUpClick
+                    style=signUpButtonStyle
                     click=(action "submit" "signUp")
-                    disabled=disabled}}
+                    disabled=signUpDisabled}}
         {{signUpButtonText}}
       {{/mdc-button}}
     {{/if}}

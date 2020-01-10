@@ -1,8 +1,8 @@
 import Mixin from '@ember/object/mixin';
 
 import { computed } from '@ember/object';
-import { readOnly, bool, not } from '@ember/object/computed';
-import { isEmpty } from '@ember/utils';
+import { bool, not, readOnly, or } from '@ember/object/computed';
+import { isPresent } from '@ember/utils';
 
 import { default as Submit } from '../-lib/submit-strategy';
 
@@ -12,12 +12,12 @@ import { default as Submit } from '../-lib/submit-strategy';
 const RecaptchaSignIn = Submit.extend ({
   component: null,
 
-  verified () {
-
-  },
-
   handleError () {
     this.component.setProperties ({ reset: true, response: null });
+  },
+
+  verified () {
+
   }
 });
 
@@ -27,18 +27,11 @@ const RecaptchaSignIn = Submit.extend ({
  * Sign in strategy for recaptcha v2.
  */
 const V2RecaptchaSignIn = RecaptchaSignIn.extend ({
-  componentName: 'g-recaptcha-v2',
-
   /// The v2 is disabled as long as there is no response (i.e., unverified).
-  disabled: not ('component.response'),
+  disabled: readOnly ('component.unverified'),
 
-  signIn () {
-    const response = this.component.get ('response');
-    this.component.signIn ({recaptcha: response});
-  },
-
-  verified (/*response*/) {
-
+  signIn (verifiedCallback) {
+    return verifiedCallback ();
   }
 });
 
@@ -48,24 +41,23 @@ const V2RecaptchaSignIn = RecaptchaSignIn.extend ({
  * Sign in strategy for recaptcha invisible.
  */
 const InvisibleRecaptchaSignIn = RecaptchaSignIn.extend ({
-  componentName: 'g-recaptcha-invisible',
+  /// The component is never disabled.
   disabled: false,
 
-  signIn () {
+  signIn (verifiedCallback) {
     const response = this.component.get ('response');
 
-    if (isEmpty (response)) {
-      // We do not have a response. Let's execute the recaptcha for the first time.
-      this.component.set ('execute', true);
-    }
-    else {
+    if (isPresent (response)) {
       // We have a response, so we can just complete the sign in.
-      this.component.signIn ({ recaptcha: response });
+      return verifiedCallback ();
     }
+
+    // We do not have a response. Let's execute the recaptcha for the first time.
+    this.component.set ('execute', true);
   },
 
-  verified (response) {
-    this.component.signIn ({ recaptcha: response });
+  verified (verifiedCallback) {
+    return verifiedCallback ();
   }
 });
 
@@ -79,38 +71,65 @@ export default Mixin.create ({
 
   recaptcha: 'invisible',
 
+  recaptchaImpl: computed ('recaptcha', function () {
+    const Class = this.get ('recaptcha') === 'invisible' ? InvisibleRecaptchaSignIn : V2RecaptchaSignIn;
+    return Class.create ({component: this});
+  }),
+
+  recaptchaComponentName: computed ('recaptcha', function () {
+    return `g-recaptcha-${this.recaptcha}`;
+  }),
+
+  /// Reset the recaptcha.
   reset: false,
+
+  /// Execute the recaptcha.
   execute: false,
 
+  /// The current recaptcha response.
   response: null,
+
+  /// The user has been verified.
   verified: bool ('response'),
+
+  /// The user is not verified.
   unverified: not ('verified'),
 
-  _recaptcha: null,
+  /// Disabled state for the sign in button.
+  signInDisabled: or ('disabled', 'recaptchaImpl.disabled'),
 
-  componentName: readOnly ('submit.componentName'),
+  /**
+   * Sign in the user.
+   *
+   * @param options
+   * @returns {void|*}
+   */
+  signIn (options) {
+    return this.get ('recaptchaImpl').signIn (this._verified.bind (this, options));
+  },
 
-  didReceiveAttrs () {
-    this._super (...arguments);
+  /**
+   * Implementation of what happens after sign in.
+   *
+   * @param baseClassSignIn
+   * @param options
+   * @private
+   */
+  _verified (options) {
+    let response = this.get ('response');
+    let opts = Object.assign ({recaptcha: response}, options);
 
-    const recaptcha = this.get ('recaptcha');
-
-    if (recaptcha !== this._recaptcha) {
-      const Class = recaptcha === 'v2' ? V2RecaptchaSignIn : InvisibleRecaptchaSignIn;
-      this.set ('submit', Class.create ({component: this}));
-
-      this._recaptcha = recaptcha;
-    }
+    // Pass control to the base class.
+    this._executeSignIn (opts);
   },
 
   actions: {
     verified (response) {
+      // Cache the response.
       this.set ('response', response);
-      this.get ('submit').verified (response);
-    },
 
-    expired () {
-      this.get ('submit').expired ();
+      // Let the implementation know we are verified.
+      return this.get ('recaptchaImpl').verified (this._verified.bind (this));
     }
   }
 });

@@ -62,29 +62,24 @@ export default Component.extend ({
   /// The disabled state for the button. The button is disabled if we are signing
   /// in, the form has invalid inputs, or the recaptcha is unverified.
   disabled: or ('submitting', 'invalid', 'submit.disabled', 'invalidPassword'),
-
-  /// The submit strategy for the component.
-  submit: null,
-
-  init () {
-    this._super (...arguments);
-
-    this.set ('submit', StandardSubmit.create ({component: this}));
-  },
-
+  
   /**
    * Do the sign in process.
    *
    * @param options
    */
   signIn (options = {}) {
+    return this._executeSignIn (options);
+  },
+
+  _executeSignIn (options) {
     let {username, password, signInOptions} = this.getProperties (['username', 'password', 'signInOptions']);
     let opts = Object.assign ({}, signInOptions, options, {username, password});
 
     this.willSignIn ();
     this.set ('submitting', true);
 
-    this.get ('session').signIn (opts)
+    return this.get ('session').signIn (opts)
       .then (() => {
         this.didSignIn ();
         this.getWithDefault ('signInComplete', noOp) ();
@@ -94,7 +89,7 @@ export default Component.extend ({
   },
 
   signUp () {
-    this.getWithDefault ('signUpClick', noOp) ();
+    return this.getWithDefault ('signUpClick', noOp) ();
   },
 
   willSignIn () {
@@ -138,10 +133,10 @@ export default Component.extend ({
 
       if (form.checkValidity ()) {
         if (action === 'signIn') {
-          this.get ('submit').signIn ();
+          this.signIn ();
         }
         else if (action === 'signUp') {
-          this.get ('submit').signUp ();
+          this.signUp ();
         }
       }
 
