@@ -141,6 +141,14 @@ export default Component.extend ({
       }
 
       return false;
+    },
+
+    signIn () {
+      this.signIn ();
+    },
+
+    signUp () {
+      this.signUp ();
     }
   }
 });
