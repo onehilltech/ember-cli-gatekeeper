@@ -139,17 +139,9 @@ export default Service.extend (Evented, {
   authenticate (password) {
     const url = this.computeUrl ('/accounts/authenticate');
     const data = { authenticate: { password } };
+    const adapter = this.store.adapterFor ('account');
 
-    const ajaxOptions = {
-      method: 'POST',
-      url,
-      cache: false,
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify (data)
-    };
-
-    return this.ajax (ajaxOptions);
+    return adapter.ajax (url, 'POST', { data });
   },
 
   /**
