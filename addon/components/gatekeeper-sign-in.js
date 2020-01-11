@@ -101,9 +101,6 @@ export default Component.extend ({
   },
 
   handleError (xhr) {
-    /// Handle an error.
-    this.get ('submit').handleError ();
-
     let error = get (xhr, 'responseJSON.errors.0');
 
     if (isPresent (error)) {

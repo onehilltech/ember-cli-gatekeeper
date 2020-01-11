@@ -98,6 +98,13 @@ export default Mixin.create ({
   /// Disabled state for the sign in button.
   signInDisabled: or ('disabled', 'recaptchaImpl.disabled'),
 
+  handleError () {
+    this._super (...arguments);
+
+    // Reset the response.
+    this.set ('response', null);
+  },
+
   /**
    * Sign in the user.
    *
