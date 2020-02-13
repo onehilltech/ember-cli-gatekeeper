@@ -118,7 +118,7 @@ export default Component.extend ({
       }
     }
     else {
-      this.setProperties ('errorMessage', xhr.statusText);
+      this.setProperties ('errorMessage', xhr.statusText || xhr.message);
     }
   },
 
