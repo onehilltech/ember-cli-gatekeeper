@@ -47,8 +47,8 @@ export default Service.extend ({
   /**
    * Initiate the forgot password process.
    */
-  forgotPassword (email) {
-    return this.authenticate ().then (() => {
+  forgotPassword (email, opts) {
+    return this.authenticate (opts).then (() => {
       let url = this.computeUrl ('/password/forgot');
 
       let opts = {
