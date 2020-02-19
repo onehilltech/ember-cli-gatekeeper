@@ -69,7 +69,7 @@ export default Service.extend (Evented, {
    * request to the server.
    */
   forceSignOut () {
-    this.setProperties ({accessToken: null, currentUser: null});
+    this.setProperties ({accessToken: null, currentUser: null, lockScreen: false});
     this.trigger ('signedOut');
   },
 
