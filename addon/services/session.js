@@ -23,6 +23,9 @@ export default Service.extend (Evented, {
   currentUser: alias ('storage.gatekeeper_user'),
   accessToken: alias ('storage.gatekeeper_user_token'),
 
+  /// The lock screen state for the session
+  lockScreen: alias ('storage.gatekeeper_lock_screen'),
+
   /// Payload information contained in the access token.
   metadata: computed ('accessToken', function () {
     const accessToken = this.get ('accessToken.access_token');
