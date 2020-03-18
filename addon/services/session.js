@@ -2,6 +2,7 @@
 
 import Service from '@ember/service';
 import Evented from '@ember/object/evented';
+import EmberObject from '@ember/object';
 
 import { isNone, isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
@@ -13,6 +14,27 @@ import { copy } from '@ember/object/internals';
 import $ from 'jquery';
 
 import TokenMetadata from '../-lib/token-metadata';
+
+const TempSession = EmberObject.extend ({
+  signOut () {
+    const url = this.computeUrl ('/oauth2/logout');
+    const accessToken = this.get ('accessToken');
+
+    const ajaxOptions = {
+      type: 'POST',
+      url,
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    };
+
+    return $.ajax (ajaxOptions);
+  },
+
+  computeUrl (relativeUrl) {
+    return this.get ('gatekeeper').computeUrl (relativeUrl);
+  },
+});
 
 export default Service.extend (Evented, {
   gatekeeper: service (),
@@ -98,6 +120,26 @@ export default Service.extend (Evented, {
         return reject (reason);
       });
     });
+  },
+
+  /**
+   * Create a temporary session for the current user.
+   *
+   * @param payload
+   * @param options
+   * @returns {*}
+   */
+  createTempSession (payload, options) {
+    const {authenticateUrl, accessToken: { access_token } } = this.getProperties (['authenticateUrl', 'accessToken']);
+    const tokenOptions = Object.assign ({grant_type: 'temp'}, { payload, options, access_token });
+
+    return this._requestToken (authenticateUrl, tokenOptions)
+      .then (({access_token}) => {
+        const gatekeeper = this.get ('gatekeeper');
+        const opts = Object.assign ({}, { accessToken: access_token, gatekeeper });
+
+        return TempSession.create (opts);
+      });
   },
 
   /**

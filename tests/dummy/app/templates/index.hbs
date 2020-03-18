@@ -31,4 +31,11 @@
     {{#mdc-button style="raised"}}Check{{/mdc-button}}
   {{/mdc-form}}
 
+  <h5 class="mdc-typography--headline6">Temp Session</h5>
+
+  {{#if tempSession}}
+    {{#mdc-button style="raised" click=(action "endTempSession")}}End Temp Session{{/mdc-button}}
+  {{else}}
+    {{#mdc-button style="raised" click=(action "createTempSession")}}Create Temp Session{{/mdc-button}}
+  {{/if}}
 </div>

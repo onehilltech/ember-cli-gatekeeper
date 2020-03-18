@@ -7,6 +7,8 @@ export default Controller.extend({
 
   supportsCreateAccount: supports ('gatekeeper.account.create'),
 
+  tempSession: null,
+
   actions: {
     authenticate () {
       const {password, session } = this.getProperties (['password', 'session']);
@@ -19,6 +21,20 @@ export default Controller.extend({
           }
         })
         .catch (res => this.snackbar ({message: res.responseText}));
+    },
+
+    createTempSession () {
+      this.get ('session').createTempSession ({name: 'John Doe'}, { expiration: '10 minutes', audience: 'temp'})
+        .then (this.set.bind (this, 'tempSession'));
+    },
+
+    endTempSession () {
+      this.get ('tempSession').signOut ()
+        .then (result => {
+          if (result) {
+            this.set ('tempSession', null);
+          }
+        });
     }
   }
 });
