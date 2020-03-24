@@ -9,10 +9,10 @@ module.exports = Blueprint.extend ({
 
   addons: [
     {name: '@onehilltech/ember-cli-storage', target: '0.2.1'},
-    {name: 'ember-cli-mdc-form', target: '1.0.0-alpha.0'},
-    {name: 'ember-cli-mdc-textfield', target: '1.0.0-alpha.15'},
-    {name: 'ember-cli-mdc-button', target: '1.0.0-alpha.6'},
-    {name: 'ember-cli-mdc-snackbar', target: '1.0.0-alpha.15'},
+    {name: 'ember-cli-mdc-form'},
+    {name: 'ember-cli-mdc-textfield'},
+    {name: 'ember-cli-mdc-button'},
+    {name: 'ember-cli-mdc-snackbar'},
     {name: 'ember-copy'},
     {name: 'ember-cli-google-recaptcha', target: '2.3.1'},
     {name: 'ember-api-actions', target: '0.2.8'},
