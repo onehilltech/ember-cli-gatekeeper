@@ -143,6 +143,25 @@ export default Service.extend (Evented, {
   },
 
   /**
+   * Open an existing session from an access token.
+   *
+   * @param accessToken
+   */
+  openFrom (accessToken) {
+    return this.gatekeeper.verifyToken (accessToken)
+      .then (() => {
+        // Force the current session to sign out.
+        this.forceSignOut ();
+
+        // Set the provided access token as the current access token.
+        this.set (accessToken, {access_token: accessToken});
+
+        return this.get ('store').queryRecord ('account', {});
+      })
+      .then (account => this.set ('currentUser', account.toJSON ({includeId: true})));
+  },
+
+  /**
    * Sign out of the service.
    *
    * @returns {RSVP.Promise|*}

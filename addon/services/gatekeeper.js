@@ -18,7 +18,6 @@ export default Service.extend ({
 
   accessToken: alias ('storage.gatekeeper_client_token'),
 
-
   init () {
     this._super (...arguments);
 
