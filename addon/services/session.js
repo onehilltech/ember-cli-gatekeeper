@@ -154,7 +154,7 @@ export default Service.extend (Evented, {
         this.forceSignOut ();
 
         // Set the provided access token as the current access token.
-        this.set (accessToken, {access_token: accessToken});
+        this.set ('accessToken', {access_token: accessToken});
 
         return this.get ('store').queryRecord ('account', {});
       })
