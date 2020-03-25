@@ -27,7 +27,7 @@ export default EmberObject.extend ({
 
   isExpired: computed ('exp', function () {
     const exp = this.get ('exp');
-    return isPresent (exp) ? (exp <= Date.now () * 1000) : false;
+    return isPresent (exp) ? (exp <= Date.now () / 1000) : false;
   }),
 
   /// Test if the token has an expiration date.
