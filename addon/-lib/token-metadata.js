@@ -17,17 +17,17 @@ export default EmberObject.extend ({
 
   issuedAt: computed ('iat', function () {
     const iat = this.get ('iat');
-    return isPresent (iat) ? new Date (iat) : null;
+    return isPresent (iat) ? new Date (iat * 1000) : null;
   }),
 
   expiresAt: computed ('exp', function () {
     const exp = this.get ('exp');
-    return isPresent (exp) ? new Date (exp) : null;
+    return isPresent (exp) ? new Date (exp * 1000) : null;
   }),
 
   isExpired: computed ('exp', function () {
     const exp = this.get ('exp');
-    return isPresent (exp) ? (exp <= Date.now ()) : false;
+    return isPresent (exp) ? (exp <= Date.now () * 1000) : false;
   }),
 
   /// Test if the token has an expiration date.
