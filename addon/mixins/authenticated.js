@@ -101,15 +101,12 @@ export default Mixin.create ({
     if (!isSignedIn) {
       let ENV = getOwner (this).resolveRegistration ('config:environment');
       let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
-      let signInController = this.controllerFor (signInRoute);
+      let { intent: { url }} = transition;
 
       // Set the redirect to route so we can come back to this route when the
       // user has signed in.
-      if (isPresent (signInController)) {
-        signInController.set ('redirectTo', transition);
-      }
-
-      this.replaceWith (signInRoute);
+      const queryParams = { redirect: url };
+      this.replaceWith (signInRoute, { queryParams });
     }
   },
 

@@ -1,6 +1,8 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend ({
+  queryParams: Object.freeze (['redirect']),
+
   signInOptions: null,
 
   requirements: Object.freeze ([

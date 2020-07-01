@@ -162,8 +162,8 @@ export default Component.extend ({
     let params = query.split ('&');
     return params.reduce ((accum, param) => {
       let [name, value] = param.split ('=');
-      return name === 'redirect' ? value : accum;
-    });
+      return name === 'redirect' ? decodeURIComponent (value) : accum;
+    }, null);
   }),
 
   actions: {
