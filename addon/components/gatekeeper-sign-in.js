@@ -3,13 +3,15 @@ import Component from '@ember/component';
 import layout from '../templates/components/gatekeeper-sign-in';
 
 import { inject } from '@ember/service';
-import { get } from '@ember/object';
+import { get, getWithDefault, computed } from '@ember/object';
 import { not, or } from '@ember/object/computed';
-import { isPresent } from '@ember/utils';
+import { isPresent, isNone } from '@ember/utils';
+import { getOwner } from '@ember/application';
+import { inject as service } from '@ember/service';
 
-import { default as StandardSubmit } from '../-lib/standard-submit-strategy';
-
-function noOp () {}
+function identity (value) {
+  return () => value;
+}
 
 /**
  * @class SignInComponent
@@ -62,7 +64,9 @@ export default Component.extend ({
   /// The disabled state for the button. The button is disabled if we are signing
   /// in, the form has invalid inputs, or the recaptcha is unverified.
   disabled: or ('submitting', 'invalid', 'submit.disabled', 'invalidPassword'),
-  
+
+  router: service (),
+
   /**
    * Do the sign in process.
    *
@@ -81,15 +85,19 @@ export default Component.extend ({
 
     return this.get ('session').signIn (opts)
       .then (() => {
+        // Notify the subclass that the user did sign in to the application.
         this.didSignIn ();
-        this.getWithDefault ('signInComplete', noOp) ();
+
+        if (this.getWithDefault ('signInComplete', identity (true)) ()) {
+          this._redirectTo ();
+        }
       })
       .catch (this.handleError.bind (this))
       .then (() => this.set ('submitting', false));
   },
 
   signUp () {
-    return this.getWithDefault ('signUpClick', noOp) ();
+    return this.getWithDefault ('signUpClick', identity (true)) ();
   },
 
   willSignIn () {
@@ -121,6 +129,42 @@ export default Component.extend ({
       this.setProperties ('errorMessage', xhr.statusText || xhr.message);
     }
   },
+
+  /**
+   * Perform the redirect to for the user. This will either take the user to the original
+   * page they accessed before being redirected to the sign-in page, or the start route
+   * if no redirect is present.
+   *
+   * @private
+   */
+  _redirectTo () {
+    // Perform the redirect from the sign in page.
+    let redirectTo = this.get ('redirect');
+
+    if (isNone (redirectTo)) {
+      // There is no redirect url. So, we either transition to the default route, or we
+      // transition to the index.
+      let ENV = getOwner (this).resolveRegistration ('config:environment');
+      redirectTo = getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
+    }
+
+    this.router.replaceWith (redirectTo);
+  },
+
+  redirect: computed ('router.currentURL', function () {
+    let currentURL = this.get ('router.currentURL');
+    let [ , query ] = currentURL.split ('?');
+
+    if (isNone (query)) {
+      return null;
+    }
+
+    let params = query.split ('&');
+    return params.reduce ((accum, param) => {
+      let [name, value] = param.split ('=');
+      return name === 'redirect' ? value : accum;
+    });
+  }),
 
   actions: {
     signInForm (ev) {

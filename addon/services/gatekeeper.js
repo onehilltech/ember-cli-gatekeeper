@@ -8,8 +8,7 @@ import { getOwner } from '@ember/application';
 import { copy } from 'ember-copy';
 import { resolve, Promise } from 'rsvp';
 import { assign } from '@ember/polyfills';
-
-import $ from 'jquery';
+import jQuery from 'jquery';
 
 export default Service.extend ({
   /// Reference to local storage.
@@ -144,6 +143,6 @@ export default Service.extend ({
       data: JSON.stringify (data)
     };
 
-    return $.ajax (ajaxOptions);
+    return jQuery.ajax (ajaxOptions);
   },
 });

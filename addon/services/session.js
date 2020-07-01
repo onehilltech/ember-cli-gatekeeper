@@ -11,7 +11,7 @@ import { alias, bool, not } from '@ember/object/computed';
 import { Promise, reject, resolve, all } from 'rsvp';
 import { run } from '@ember/runloop';
 import { copy } from '@ember/object/internals';
-import $ from 'jquery';
+import jQuery from 'jquery'
 
 import TokenMetadata from '../-lib/token-metadata';
 
@@ -28,7 +28,7 @@ const TempSession = EmberObject.extend ({
       }
     };
 
-    return $.ajax (ajaxOptions);
+    return jQuery.ajax (ajaxOptions);
   },
 
   computeUrl (relativeUrl) {
@@ -174,7 +174,7 @@ export default Service.extend (Evented, {
       headers: this.get ('_httpHeaders')
     };
 
-    return $.ajax (ajaxOptions).then (result => {
+    return jQuery.ajax (ajaxOptions).then (result => {
       if (result) {
         this._completeSignOut ();
       }
@@ -263,7 +263,7 @@ export default Service.extend (Evented, {
     dupOptions.headers.Authorization = `Bearer ${this.get ('accessToken.access_token')}`;
 
     return new Promise ((resolve, reject) => {
-      $.ajax (dupOptions).then (resolve).catch (xhr => {
+      jQuery.ajax (dupOptions).then (resolve).catch (xhr => {
         switch (xhr.status) {
           case 401:
             // Use the Gatekeeper service to refresh the token. If the token is refreshed,
@@ -305,7 +305,7 @@ export default Service.extend (Evented, {
       data: JSON.stringify (data)
     };
 
-    return $.ajax (ajaxOptions)
+    return jQuery.ajax (ajaxOptions)
       .then (token => {
         // Verify the access token and refresh token, if applicable.
         let gatekeeper = this.get ('gatekeeper');
