@@ -11,7 +11,7 @@ export default Controller.extend({
 
   actions: {
     authenticate () {
-      const {password, session } = this.getProperties (['password', 'session']);
+      const {password, session } = this;
 
       session.authenticate (password)
         .then (result => {
@@ -24,12 +24,12 @@ export default Controller.extend({
     },
 
     createTempSession () {
-      this.get ('session').createTempSession ({name: 'John Doe'}, { expiration: '10 minutes', audience: 'temp'})
+      this.session.createTempSession ({name: 'John Doe'}, { expiration: '10 minutes', audience: 'temp'})
         .then (this.set.bind (this, 'tempSession'));
     },
 
     endTempSession () {
-      this.get ('tempSession').signOut ()
+      this.tempSession.signOut ()
         .then (result => {
           if (result) {
             this.set ('tempSession', null);

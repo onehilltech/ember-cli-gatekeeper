@@ -35,7 +35,7 @@ export default Mixin.create({
     signInController.setProperties ({redirectTo, messageToUser: errorMessage});
 
     // Force the user to sign out.
-    let { session } = this.getProperties (['session']);
+    let { session } = this;
     session.forceSignOut ();
 
     this.replaceWith (signInRoute);

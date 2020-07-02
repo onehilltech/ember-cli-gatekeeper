@@ -28,7 +28,7 @@ export default Service.extend ({
   isUnauthenticated: not ('isAuthenticated'),
 
   computeUrl (relativeUrl) {
-    return `${this.get ('baseUrl')}${relativeUrl}`;
+    return `${this.baseUrl}${relativeUrl}`;
   },
 
   /**
@@ -59,7 +59,7 @@ export default Service.extend ({
         data: JSON.stringify ({email})
       };
 
-      return this.get ('ajax').request (url, opts);
+      return this.ajax.request (url, opts);
     });
   },
 
@@ -76,7 +76,7 @@ export default Service.extend ({
       data: JSON.stringify ({'reset-password': {token, password}})
     };
 
-    return this.get ('ajax').request (url, opts);
+    return this.ajax.request (url, opts);
   },
 
   /**
@@ -87,13 +87,13 @@ export default Service.extend ({
   },
 
   publicKey: computed ('publicCert', function () {
-    const publicCert = this.get ('publicCert');
+    const publicCert = this.publicCert;
     return isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
   }),
 
   secretOrPublicKey: computed ('{secret,publicKey}', function () {
-    let secret = this.get ('secret');
-    return isPresent (secret) ? secret : this.get ('publicKey');
+    let secret = this.secret;
+    return isPresent (secret) ? secret : this.publicKey;
   }),
 
   /**
@@ -111,7 +111,7 @@ export default Service.extend ({
       const {
         secretOrPublicKey,
         verifyOptions
-      } = this.getProperties (['secretOrPublicKey','verifyOptions']);
+      } = this;
 
       if (isEmpty (secretOrPublicKey)) {
         return resolve (true);
@@ -131,7 +131,7 @@ export default Service.extend ({
    */
   _requestToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
-    const tokenOptions = this.get ('tokenOptions');
+    const tokenOptions = this.tokenOptions;
     const data = assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
 
     const ajaxOptions = {

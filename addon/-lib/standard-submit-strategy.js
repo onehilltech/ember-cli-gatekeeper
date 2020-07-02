@@ -1,4 +1,4 @@
-import {default as Submit} from "./submit-strategy";
+import { default as Submit } from "./submit-strategy";
 
 /**
  * The standard sign in process.
@@ -12,13 +12,13 @@ export default Submit.extend ({
    * Initiate the sign in process.
    */
   signIn () {
-    this.get ('component').signIn ();
+    this.component.signIn ();
   },
 
   /**
    * Initiate the sign up process.
    */
   signUp () {
-    this.get ('component').signUp ();
+    this.component.signUp ();
   }
 });

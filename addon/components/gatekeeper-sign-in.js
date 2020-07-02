@@ -77,13 +77,13 @@ export default Component.extend ({
   },
 
   _executeSignIn (options) {
-    let {username, password, signInOptions} = this.getProperties (['username', 'password', 'signInOptions']);
+    let {username, password, signInOptions} = this;
     let opts = Object.assign ({}, signInOptions, options, {username, password});
 
     this.willSignIn ();
     this.set ('submitting', true);
 
-    return this.get ('session').signIn (opts)
+    return this.session.signIn (opts)
       .then (() => {
         // Notify the subclass that the user did sign in to the application.
         this.didSignIn ();
@@ -139,7 +139,7 @@ export default Component.extend ({
    */
   _redirectTo () {
     // Perform the redirect from the sign in page.
-    let redirectTo = this.get ('redirect');
+    let redirectTo = this.redirect;
 
     if (isNone (redirectTo)) {
       // There is no redirect url. So, we either transition to the default route, or we

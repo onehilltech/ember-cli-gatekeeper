@@ -60,7 +60,7 @@ export default Component.extend ({
       mustConfirmPassword,
       password,
       confirmPassword
-    } = this.getProperties (['mustConfirmPassword', 'password', 'confirmPassword']);
+    } = this;
 
     return !mustConfirmPassword || password === confirmPassword;
   }),
@@ -68,7 +68,7 @@ export default Component.extend ({
   unconfirmed: not ('confirmed'),
 
   confirmErrorMessage: computed ('confirmPassword', function () {
-    const { unconfirmed, confirmPassword } = this.getProperties (['unconfirmed', 'confirmPassword']);
+    const { unconfirmed, confirmPassword } = this;
     return isPresent (confirmPassword) && unconfirmed ? 'The passwords do not match.' : null;
   }),
 
@@ -101,7 +101,7 @@ export default Component.extend ({
     if (isPresent (error)) {
       switch (error.code) {
         case 'username_exists':
-          if (this.get ('useEmailForUsername')) {
+          if (this.useEmailForUsername) {
             this.set ('emailErrorMessage', error.detail);
           }
           else {
@@ -137,7 +137,7 @@ export default Component.extend ({
       signUpOptions,
       useEmailForUsername,
       accountEnabled
-    } = this.getProperties (['username','password','email','recaptcha', 'autoSignIn', 'useEmailForUsername', 'accountEnabled', 'signUpOptions']);
+    } = this;
 
     if (useEmailForUsername) {
       username = email;
@@ -145,7 +145,7 @@ export default Component.extend ({
 
     this.set ('submitting', true);
 
-    let account = this.get ('store').createRecord ('account', {username, password, email, enabled: accountEnabled});
+    let account = this.store.createRecord ('account', {username, password, email, enabled: accountEnabled});
     let adapterOptions = Object.assign ({}, signUpOptions, {signIn: autoSignIn}, options);
 
     account.save ({adapterOptions}).then (account => {
@@ -166,7 +166,7 @@ export default Component.extend ({
 
       // Reset the current error message.
       this.set ('errorMessage');
-      this.get ('submit').signUp ();
+      this.submit.signUp ();
 
       return false;
     },

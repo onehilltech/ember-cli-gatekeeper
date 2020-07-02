@@ -1,7 +1,7 @@
 <div class="container">
   <h3 class="mdc-typography--headline4">Gatekeeper Demo</h3>
 
-  <div>{{#link-to "unauthorized"}}Unauthorized Test{{/link-to}}</div>
+  <div><LinkTo @route="unauthorized">Unauthorized Test</LinkTo></div>
   <div><a href="#" {{action "signOut" target=session}}>Sign Out</a></div>
 
   {{#if model}}
@@ -25,17 +25,17 @@
 
   <h5 class="mdc-typography--headline6">Authenticate</h5>
 
-  {{#mdc-form submit=(action "authenticate")}}
-    {{mdc-password-textfield-with-helper-text label="Password" value=password}}
+  <MdcForm @submit={{action "authenticate"}}>
+    <MdcPasswordTextfieldWithHelperText @label="Password" @value={{password}} />
 
-    {{#mdc-button style="raised"}}Check{{/mdc-button}}
-  {{/mdc-form}}
+    <MdcButton @style="raised">Check</MdcButton>
+  </MdcForm>
 
   <h5 class="mdc-typography--headline6">Temp Session</h5>
 
   {{#if tempSession}}
-    {{#mdc-button style="raised" click=(action "endTempSession")}}End Temp Session{{/mdc-button}}
+    <MdcButton @style="raised" @click={{action "endTempSession"}}>End Temp Session</MdcButton>
   {{else}}
-    {{#mdc-button style="raised" click=(action "createTempSession")}}Create Temp Session{{/mdc-button}}
+    <MdcButton @style="raised" @click={{action "createTempSession"}}>Create Temp Session</MdcButton>
   {{/if}}
 </div>

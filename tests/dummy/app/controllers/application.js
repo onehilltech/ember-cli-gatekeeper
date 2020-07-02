@@ -4,7 +4,7 @@ export default Controller.extend({
   init () {
     this._super (...arguments);
 
-    const session = this.get ('session');
+    const session = this.session;
     session.on ('signedOut', this.didSignOut.bind (this));
   },
 

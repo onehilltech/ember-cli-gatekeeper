@@ -3,6 +3,6 @@ import Authenticated from 'ember-cli-gatekeeper/mixins/authenticated';
 
 export default Route.extend (Authenticated, {
   model () {
-    return this.get ('store').findAll ('dummy');
+    return this.store.findAll ('dummy');
   }
 });

@@ -1,30 +1,32 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('gatekeeper-sign-in-vertical', 'Integration | Component | gatekeeper sign in vertical', {
-  integration: true
-});
+module('Integration | Component | gatekeeper sign in vertical', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders [default]', function(assert) {
-  this.render(hbs`{{gatekeeper-sign-in-vertical}}`);
+  test('it renders [default]', async function(assert) {
+    await render(hbs`{{gatekeeper-sign-in-vertical}}`);
 
-  assert.equal (this.$ ('input.username').next ().text ().trim (), 'Username');
-  assert.equal (this.$ ('input.username').attr ('type'), 'text');
-  assert.equal (this.$ ('input.username').attr ('placeholder'), 'Username');
-  assert.equal (this.$ ('input.username').attr ('autocomplete'), 'off');
+    assert.equal (this.$ ('input.username').next ().text ().trim (), 'Username');
+    assert.dom('input.username').hasAttribute('type', 'text');
+    assert.dom('input.username').hasAttribute('placeholder', 'Username');
+    assert.dom('input.username').hasAttribute('autocomplete', 'off');
 
-  assert.equal (this.$ ('input.password').next ().text ().trim (), 'Password');
-  assert.equal (this.$ ('input.password').attr ('placeholder'), 'Password');
+    assert.equal (this.$ ('input.password').next ().text ().trim (), 'Password');
+    assert.dom('input.password').hasAttribute('placeholder', 'Password');
 
-  assert.equal (this.$ ('.btn.sign-in').text ().trim (), 'Sign In');
+    assert.dom('.btn.sign-in').hasText('Sign In');
 
-  assert.equal (this.$ ('a.create-account').text ().trim (), 'Do not have an account? Create one.');
-});
+    assert.dom('a.create-account').hasText('Do not have an account? Create one.');
+  });
 
-test('it renders [no create account]', function(assert) {
+  test('it renders [no create account]', async function(assert) {
 
-  this.set ('canCreateAccount', false);
-  this.render(hbs`{{gatekeeper-sign-in-vertical canCreateAccount=canCreateAccount}}`);
+    this.set ('canCreateAccount', false);
+    await render(hbs`{{gatekeeper-sign-in-vertical canCreateAccount=canCreateAccount}}`);
 
-  assert.equal (this.$ ('a.create-account').length, 0);
+    assert.dom('a.create-account').doesNotExist();
+  });
 });

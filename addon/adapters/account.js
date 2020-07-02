@@ -90,7 +90,7 @@ export default RESTAdapter.extend({
 
         // The account was created and logged in at the same time. We need to
         // extract the token, and register it with the gatekeeper service.
-        let session = this.get ('session');
+        let session = this.session;
         let currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
 
         session.setProperties ({currentUser, accessToken});

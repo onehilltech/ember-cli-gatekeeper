@@ -1,54 +1,21 @@
-{{#mdc-form submit=(action "submit") validity=(action (mut valid))}}
+<MdcForm @submit={{action "submit"}} @validity={{action (mut valid)}}>
   {{#unless useEmailForUsername}}
-    {{mdc-textfield-with-helper-text class="gatekeeper-sign-up__username"
-                                     type="text"
-                                     style=style
-                                     value=username
-                                     label=usernameLabel
-                                     errorMessage=usernameErrorMessage
-                                     helperText=usernameHelperText
-                                     required=true
-                                     icon=usernameIcon
-                                     iconPosition=usernameIconPosition
-                                     iconClickable=usernameIconClickable
-                                     autocapitalize="none"}}
+    <MdcTextfieldWithHelperText @class="gatekeeper-sign-up__username" @type="text" @style={{style}} @value={{username}} @label={{usernameLabel}} @errorMessage={{usernameErrorMessage}} @helperText={{usernameHelperText}} @required={{true}} @icon={{usernameIcon}} @iconPosition={{usernameIconPosition}} @iconClickable={{usernameIconClickable}} @autocapitalize="none" />
   {{/unless}}
 
-  {{mdc-textfield-with-helper-text class="gatekeeper-sign-up__email"
-                                   type="email"
-                                   style=style
-                                   value=email
-                                   label=emailLabel
-                                   errorMessage=emailErrorMessage
-                                   helperText=emailHelperText
-                                   required=true
-                                   icon=emailIcon
-                                   iconPosition=emailIconPosition
-                                   iconClickable=emailIconClickable}}
+  <MdcTextfieldWithHelperText @class="gatekeeper-sign-up__email" @type="email" @style={{style}} @value={{email}} @label={{emailLabel}} @errorMessage={{emailErrorMessage}} @helperText={{emailHelperText}} @required={{true}} @icon={{emailIcon}} @iconPosition={{emailIconPosition}} @iconClickable={{emailIconClickable}} />
 
-  {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-up__password"
-                                            style=style
-                                            value=password
-                                            label=passwordLabel
-                                            helperText=passwordHelperText
-                                            required=true
-                                            requirements=passwordRequirements
-                                            valid=validPassword}}
+  <MdcPasswordTextfieldWithHelperText @class="gatekeeper-sign-up__password" @style={{style}} @value={{password}} @label={{passwordLabel}} @helperText={{passwordHelperText}} @required={{true}} @requirements={{passwordRequirements}} @valid={{validPassword}} />
 
   {{#if mustConfirmPassword}}
-    {{mdc-password-textfield-with-helper-text class="gatekeeper-sign-up__password-confirm"
-                                              style=style
-                                              value=confirmPassword
-                                              label=confirmPasswordLabel
-                                              errorMessage=confirmErrorMessage
-                                              required=true}}
+    <MdcPasswordTextfieldWithHelperText @class="gatekeeper-sign-up__password-confirm" @style={{style}} @value={{confirmPassword}} @label={{confirmPasswordLabel}} @errorMessage={{confirmErrorMessage}} @required={{true}} />
   {{/if}}
 
   {{yield}}
 
-  {{#mdc-button type="submit" style=submitButtonStyle disabled=disabled}}
+  <MdcButton @type="submit" @style={{submitButtonStyle}} @disabled={{disabled}}>
     {{submitButtonText}}
-  {{/mdc-button}}
-{{/mdc-form}}
+  </MdcButton>
+</MdcForm>
 
-{{mdc-snackbar message=messageToUser}}
+<MdcSnackbar @message={{messageToUser}} />

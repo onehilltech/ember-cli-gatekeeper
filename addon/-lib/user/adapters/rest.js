@@ -48,7 +48,7 @@ export default DS.RESTAdapter.extend ({
 
       // Refresh the access token, and try the request again. If the request fails
       // a second time, then return the original error.
-      return this.get ('session').refreshToken ()
+      return this.session.refreshToken ()
         .then (() => _super.call (adapter, url, type, options))
         .catch (() => reject (err));
     });

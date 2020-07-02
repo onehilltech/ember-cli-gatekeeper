@@ -3,6 +3,8 @@
 module.exports = {
   globals: {
     server: true,
+    KJUR: true,
+    KEYUTIL: true
   },
   root: true,
   parser: 'babel-eslint',
@@ -24,11 +26,6 @@ module.exports = {
     browser: true
   },
   rules: {
-  },
-  globals: {
-    server: true,
-    KJUR: true,
-    KEYUTIL: true
   },
   overrides: [
     // node files

@@ -18,7 +18,7 @@ import TokenMetadata from '../-lib/token-metadata';
 const TempSession = EmberObject.extend ({
   signOut () {
     const url = this.computeUrl ('/oauth2/logout');
-    const accessToken = this.get ('accessToken');
+    const accessToken = this.accessToken;
 
     const ajaxOptions = {
       type: 'POST',
@@ -32,7 +32,7 @@ const TempSession = EmberObject.extend ({
   },
 
   computeUrl (relativeUrl) {
-    return this.get ('gatekeeper').computeUrl (relativeUrl);
+    return this.gatekeeper.computeUrl (relativeUrl);
   },
 });
 
@@ -105,14 +105,14 @@ export default Service.extend (Evented, {
    */
   signIn (opts) {
     const tokenOptions = Object.assign ({grant_type: 'password'}, opts);
-    const authenticateUrl = this.get ('authenticateUrl');
+    const authenticateUrl = this.authenticateUrl;
 
     return this._requestToken (authenticateUrl, tokenOptions).then (token => {
       this.set ('accessToken', token);
 
       // Query the service for the current user. We are going to cache their id
       // just in case the application needs to use it.
-      return this.get ('store').queryRecord ('account', {}).then (account => {
+      return this.store.queryRecord ('account', {}).then (account => {
         this.set ('currentUser', account.toJSON ({includeId: true}));
         this._completeSignIn ();
       }).catch (reason => {
@@ -130,12 +130,12 @@ export default Service.extend (Evented, {
    * @returns {*}
    */
   createTempSession (payload, options) {
-    const {authenticateUrl, accessToken: { access_token } } = this.getProperties (['authenticateUrl', 'accessToken']);
+    const {authenticateUrl, accessToken: { access_token } } = this;
     const tokenOptions = Object.assign ({grant_type: 'temp'}, { payload, options, access_token });
 
     return this._requestToken (authenticateUrl, tokenOptions)
       .then (({access_token}) => {
-        const gatekeeper = this.get ('gatekeeper');
+        const gatekeeper = this.gatekeeper;
         const opts = Object.assign ({}, { accessToken: access_token, gatekeeper });
 
         return TempSession.create (opts);
@@ -156,7 +156,7 @@ export default Service.extend (Evented, {
         // Set the provided access token as the current access token.
         this.set ('accessToken', {access_token: accessToken});
 
-        return this.get ('store').queryRecord ('account', {});
+        return this.store.queryRecord ('account', {});
       })
       .then (account => this.set ('currentUser', account.toJSON ({includeId: true})));
   },
@@ -171,7 +171,7 @@ export default Service.extend (Evented, {
     const ajaxOptions = {
       type: 'POST',
       url,
-      headers: this.get ('_httpHeaders')
+      headers: this._httpHeaders
     };
 
     return jQuery.ajax (ajaxOptions).then (result => {
@@ -282,7 +282,7 @@ export default Service.extend (Evented, {
   },
 
   computeUrl (relativeUrl) {
-    return this.get ('gatekeeper').computeUrl (relativeUrl);
+    return this.gatekeeper.computeUrl (relativeUrl);
   },
 
   /**
@@ -308,7 +308,7 @@ export default Service.extend (Evented, {
     return jQuery.ajax (ajaxOptions)
       .then (token => {
         // Verify the access token and refresh token, if applicable.
-        let gatekeeper = this.get ('gatekeeper');
+        let gatekeeper = this.gatekeeper;
 
         return all ([
           gatekeeper.verifyToken (token.access_token),

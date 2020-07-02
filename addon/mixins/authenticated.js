@@ -24,7 +24,7 @@ export default Mixin.create ({
       return null;
     }
 
-    let store = this.get ('store');
+    let store = this.store;
     let data = store.normalize ('account', currentUser);
     data.data.id = currentUser.id;
 
@@ -34,13 +34,13 @@ export default Mixin.create ({
   init () {
     this._super (...arguments);
 
-    this.get ('session').on ('signedOut', this, 'didSignOut');
+    this.session.on ('signedOut', this, 'didSignOut');
   },
 
   destroy () {
     this._super (...arguments);
 
-    this.get ('session').off ('signedOut', this, 'didSignOut');
+    this.session.off ('signedOut', this, 'didSignOut');
   },
 
   beforeModel (transition) {
@@ -81,7 +81,7 @@ export default Mixin.create ({
           });
 
           // Force the user to sign out.
-          this.get ('session').forceSignOut ();
+          this.session.forceSignOut ();
           this.replaceWith (signInRoute);
           return;
         }
@@ -111,7 +111,7 @@ export default Mixin.create ({
   },
 
   _checkCapabilities () {
-    let capabilities = this.get ('capabilities');
+    let capabilities = this.capabilities;
     return isEmpty (capabilities) ? true : this.get ('session.metadata').hasCapability (capabilities);
   }
 });

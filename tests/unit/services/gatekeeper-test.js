@@ -1,11 +1,12 @@
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('service:gatekeeper', 'Unit | Service | gatekeeper', {
-  needs: ['service:local-storage', 'config:environment']
-});
+module('Unit | Service | gatekeeper', function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  let service = this.subject();
-  assert.ok(service);
+  // Replace this with your real tests.
+  test('it exists', function(assert) {
+    let service = this.owner.lookup('service:gatekeeper');
+    assert.ok(service);
+  });
 });

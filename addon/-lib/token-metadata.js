@@ -16,17 +16,17 @@ export default EmberObject.extend ({
   issuer: alias ('iss'),
 
   issuedAt: computed ('iat', function () {
-    const iat = this.get ('iat');
+    const iat = this.iat;
     return isPresent (iat) ? new Date (iat * 1000) : null;
   }),
 
   expiresAt: computed ('exp', function () {
-    const exp = this.get ('exp');
+    const exp = this.exp;
     return isPresent (exp) ? new Date (exp * 1000) : null;
   }),
 
   isExpired: computed ('exp', function () {
-    const exp = this.get ('exp');
+    const exp = this.exp;
     return isPresent (exp) ? (exp <= Date.now () / 1000) : false;
   }),
 
@@ -40,7 +40,7 @@ export default EmberObject.extend ({
    * @return {Boolean}
    */
   supports (scope) {
-    let regexps = this.get ('_regexps');
+    let regexps = this._regexps;
     return some (regexps, regexp => regexp.test (scope));
   },
 
@@ -54,7 +54,7 @@ export default EmberObject.extend ({
   },
 
   _regexps: computed ('scope.[]', function ()  {
-    let scope = this.get ('scope');
+    let scope = this.scope;
     return isPresent (scope) ? scope.map (s => new RegExp (s)) : A ();
   })
 });

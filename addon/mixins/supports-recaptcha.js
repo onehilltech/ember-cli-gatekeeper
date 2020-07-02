@@ -65,14 +65,14 @@ export default Mixin.create ({
   classNameBindings: ['recaptchaClassName'],
 
   recaptchaClassName: computed ('recaptcha', function () {
-    const recaptcha = this.get ('recaptcha');
+    const recaptcha = this.recaptcha;
     return `gatekeeper--recaptcha-${recaptcha}`;
   }),
 
   recaptcha: 'invisible',
 
   recaptchaImpl: computed ('recaptcha', function () {
-    const Class = this.get ('recaptcha') === 'invisible' ? InvisibleRecaptchaSignIn : V2RecaptchaSignIn;
+    const Class = this.recaptcha === 'invisible' ? InvisibleRecaptchaSignIn : V2RecaptchaSignIn;
     return Class.create ({component: this});
   }),
 
@@ -112,7 +112,7 @@ export default Mixin.create ({
    * @returns {void|*}
    */
   signIn (options) {
-    return this.get ('recaptchaImpl').signIn (this._verified.bind (this, options));
+    return this.recaptchaImpl.signIn (this._verified.bind (this, options));
   },
 
   /**
@@ -123,7 +123,7 @@ export default Mixin.create ({
    * @private
    */
   _verified (options) {
-    let response = this.get ('response');
+    let response = this.response;
     let opts = Object.assign ({recaptcha: response}, options);
 
     // Pass control to the base class.
@@ -136,7 +136,7 @@ export default Mixin.create ({
       this.set ('response', response);
 
       // Let the implementation know we are verified.
-      return this.get ('recaptchaImpl').verified (this._verified.bind (this));
+      return this.recaptchaImpl.verified (this._verified.bind (this));
     }
   }
 });
