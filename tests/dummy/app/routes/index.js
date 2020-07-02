@@ -1,8 +1,11 @@
 import Route from '@ember/routing/route';
-import Authenticated from 'ember-cli-gatekeeper/mixins/authenticated';
+import { authenticated } from 'ember-cli-gatekeeper';
+import { get } from '@ember/object';
 
-export default Route.extend (Authenticated, {
-  model () {
-    return this.store.findRecord ('account', this.get ('currentUser.id'), { reload: true });
+@authenticated
+export default class IndexRoute extends Route {
+  async model () {
+    let currentUserId = get (this, 'currentUser.id');
+    return this.store.findRecord ('account', currentUserId, { reload: true });
   }
-});
+}
