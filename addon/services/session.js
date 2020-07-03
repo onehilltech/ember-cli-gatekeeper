@@ -11,7 +11,7 @@ import { alias, bool, not } from '@ember/object/computed';
 import { Promise, reject, resolve, all } from 'rsvp';
 import { run } from '@ember/runloop';
 import { copy } from '@ember/object/internals';
-import jQuery from 'jquery'
+import jQuery from 'jquery';
 
 import TokenMetadata from '../-lib/token-metadata';
 

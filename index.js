@@ -1,8 +1,6 @@
 /* eslint-env node */
 'use strict';
 
-const merge = require ('lodash.merge');
-
 module.exports = {
   name: 'ember-cli-gatekeeper',
 

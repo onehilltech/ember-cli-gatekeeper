@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { alias, bool } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 
-import { some } from 'lodash';
+import { some } from 'lodash-es';
 
 import { A } from '@ember/array';
 
