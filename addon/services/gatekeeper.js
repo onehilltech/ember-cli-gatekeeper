@@ -1,43 +1,41 @@
 import Service from '@ember/service';
 
 import { inject as service } from '@ember/service';
-import { computed, get } from '@ember/object';
+import { get } from '@ember/object';
 import { alias, bool, not } from '@ember/object/computed';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
-import { copy } from 'ember-copy';
-import { resolve, Promise } from 'rsvp';
+import { resolve, Promise, reject } from 'rsvp';
 import { assign } from '@ember/polyfills';
 import { KJUR, KEYUTIL } from 'jsrsasign';
 
-/*
-import fetch from 'fetch';
-
-import {
-  isAbortError,
-  isServerErrorResponse,
-  isUnauthorizedResponse
-} from 'ember-fetch/errors';
-*/
-
-export default Service.extend ({
-  /// Reference to local storage.
-  storage: service ('local-storage'),
-  accessToken: alias ('storage.gatekeeper_client_token'),
-
-  init () {
-    this._super (...arguments);
+export default class GatekeeperService extends Service {
+  constructor () {
+    super (...arguments);
 
     let ENV = getOwner (this).resolveRegistration ('config:environment');
-    this.setProperties (copy (get (ENV, 'gatekeeper'), true));
-  },
+    this._config = get (ENV, 'gatekeeper');
+  }
 
-  isAuthenticated: bool ('accessToken'),
-  isUnauthenticated: not ('isAuthenticated'),
+  @service ('local-storage')
+  storage;
+
+  @alias ('storage.gatekeeper_client_token')
+  accessToken;
+
+  @bool ('accessToken')
+  isAuthenticated;
+
+  @not ('isAuthenticated')
+  isUnauthenticated;
+
+  get baseUrl () {
+    return this._config.baseUrl;
+  }
 
   computeUrl (relativeUrl) {
     return `${this.baseUrl}${relativeUrl}`;
-  },
+  }
 
   /**
    * Authenticate the client.
@@ -45,64 +43,55 @@ export default Service.extend ({
    * @param opts
    */
   authenticate (opts) {
-    return this._requestToken (opts).then ((token) => {
-      this.set ('accessToken', token);
-    });
-  },
+    return this._requestClientToken (opts).then ((token) => this.accessToken = token);
+  }
 
   /**
    * Initiate the forgot password process.
    */
   forgotPassword (email, opts) {
-    return this.authenticate (opts).then (() => {
-      let url = this.computeUrl ('/password/forgot');
+    return this.authenticate (opts)
+      .then (() => {
+        let url = this.computeUrl ('/password/forgot');
 
-      let opts = {
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        headers: {
-          Authorization: `Bearer ${this.accessToken.access_token}`
-        },
-        data: JSON.stringify ({email})
-      };
+        let opts = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${this.accessToken.access_token}`
+          },
+          body: JSON.stringify ({email})
+        };
 
-      return this.ajax.request (url, opts);
-    });
-  },
+        return fetch (url, opts);
+      })
+      .then (response => response.ok ? response.json () : this._handleErrorResponse (response));
+  }
 
   /**
-   * Reset the password
+   * Reset the password for the user.
    */
   resetPassword (token, password) {
     let url = this.computeUrl ('/password/reset');
 
-    let opts = {
+    let options = {
       method: 'POST',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify ({'reset-password': {token, password}})
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify ({'reset-password': {token, password}})
     };
 
-    return this.ajax.request (url, opts);
-  },
+    return fetch (url, options).then (response => response.ok ? response.json () : this._handleErrorResponse (response));
+  }
 
-  /**
-   * Reset the state of the service.
-   */
-  reset () {
-    this.set ('accessToken');
-  },
+  get publicKey () {
+    return isPresent (this._config.publicCert) ? KEYUTIL.getKey (this._config.publicCert) : null;
+  }
 
-  publicKey: computed ('publicCert', function () {
-    const publicCert = this.publicCert;
-    return isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
-  }),
-
-  secretOrPublicKey: computed ('{secret,publicKey}', function () {
-    let secret = this.secret;
-    return isPresent (secret) ? secret : this.publicKey;
-  }),
+  get secretOrPublicKey () {
+    return this._config.secret || this._config.publicKey;
+  }
 
   /**
    * Verify a token. If there is no secret or public key, then the token is assumed
@@ -112,7 +101,7 @@ export default Service.extend ({
    */
   verifyToken (token) {
     if (isNone (token)) {
-      return resolve ({});
+      return resolve (true);
     }
 
     return new Promise ((resolve, reject) => {
@@ -125,10 +114,10 @@ export default Service.extend ({
         return resolve (true);
       }
 
-      const isValid = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
-      return isValid ? resolve (true) : reject (new Error ('Failed to verify token.'));
+      const verified = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
+      return verified ? resolve (true) : reject (new Error ('Failed to verify token.'));
     });
-  },
+  }
 
   /**
    * Requesting an access token from the server.
@@ -137,7 +126,7 @@ export default Service.extend ({
    * @returns {RSVP.Promise}
    * @private
    */
-  _requestToken (opts) {
+  _requestClientToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
     const tokenOptions = this.tokenOptions;
     const data = assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
@@ -151,16 +140,10 @@ export default Service.extend ({
     };
 
     return fetch (url, options)
-      .then ((response) => {
-        if (response.ok) {
-          return response.json ();
-        }
-        else if (isUnauthorizedResponse (response)) {
-          // handle 401 response
-        }
-        else if (isServerErrorResponse (response)) {
-          // handle 5xx respones
-        }
-      });
-  },
-});
+      .then ((response) => response.ok ? response.json () : this._handleErrorResponse (response));
+  }
+
+  _handleErrorResponse (response) {
+    return response.json ().then (reject);
+  }
+}
