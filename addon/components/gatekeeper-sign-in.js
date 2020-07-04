@@ -109,7 +109,7 @@ export default Component.extend ({
   },
 
   handleError (xhr) {
-    let error = get (xhr, 'responseJSON.errors.0');
+    let error = get (xhr, 'errors.0');
 
     if (isPresent (error)) {
       switch (error.code) {

@@ -29,6 +29,7 @@
     "ember-cli-babel": "^7.17.2",
     "ember-cli-blueprint-helpers": "^0.4.7",
     "ember-cli-htmlbars": "^4.2.2",
+    "ember-cli-mdc-sass": "^1.0.2",
     "jsrsasign": "^8.0.20",
     "lodash-es": "^4.17.15"
   },
@@ -61,7 +62,6 @@
     "ember-cli-mdc-notched-outline": "^1.0.2",
     "ember-cli-mdc-ripple": "^1.0.2",
     "ember-cli-mdc-rtl": "^1.0.2",
-    "ember-cli-mdc-sass": "^1.0.2",
     "ember-cli-mdc-shape": "^1.0.2",
     "ember-cli-mdc-snackbar": "^1.0.2",
     "ember-cli-mdc-textfield": "^1.0.2",

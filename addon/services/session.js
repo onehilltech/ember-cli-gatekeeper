@@ -5,26 +5,16 @@ import EmberObject from '@ember/object';
 
 import { isNone } from '@ember/utils';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
+import { action, setProperties } from '@ember/object';
 import { alias, bool, not } from '@ember/object/computed';
-import { Promise, reject, resolve, all } from 'rsvp';
-import { run } from '@ember/runloop';
-import { copy } from '@ember/object/internals';
-
+import { Promise, reject, all } from 'rsvp';
 import { KJUR } from 'jsrsasign';
 
 import TokenMetadata from '../-lib/token-metadata';
 
-/*
-import fetch from 'fetch';
-
-import {
-  isAbortError,
-  isServerErrorResponse,
-  isUnauthorizedResponse
-} from 'ember-fetch/errors';
-*/
-
+/**
+ * A temporary session for the current user.
+ */
 const TempSession = EmberObject.extend ({
   signOut () {
     const url = this.computeUrl ('/oauth2/logout');
@@ -32,13 +22,12 @@ const TempSession = EmberObject.extend ({
 
     const options = {
       type: 'POST',
-      url,
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     };
 
-    return jQuery.ajax (ajaxOptions);
+    return fetch (url, options);
   },
 
   computeUrl (relativeUrl) {
@@ -186,7 +175,7 @@ export default class SessionService extends Service {
    * @returns {RSVP.Promise|*}
    */
   @action
-  signOut () {
+  signOut (force = false) {
     const url = this.computeUrl ('/oauth2/logout');
     const options = { method: 'POST', headers: this.httpHeaders };
 
@@ -195,16 +184,11 @@ export default class SessionService extends Service {
         if (response.ok)
           return response.json ();
 
-        if (xhr.status === 401) {
-          // The token is bad. Try to refresh the token, then attempt to sign out the
-          // user again in a graceful manner.
-          return this.refreshToken ().then (() => {
-            return this.signOut ();
-          });
-        }
-        else {
-          return reject (xhr);
-        }
+        // The token is bad. Try to refresh the token, then attempt to sign out the
+        // user again in a graceful manner.
+        return response.status === 401 ?
+          this.refreshToken ().catch ().then (() => this.signOut (true)) :
+          force;
       })
       .then ((result) => {
         if (result)
@@ -234,9 +218,8 @@ export default class SessionService extends Service {
    * @returns {*|RSVP.Promise}
    */
   refreshToken () {
-    if (this._refreshToken) {
+    if (this._refreshToken)
       return this._refreshToken;
-    }
 
     this._refreshToken = new Promise ((resolve, reject) => {
       const tokenOptions = {
@@ -244,22 +227,17 @@ export default class SessionService extends Service {
         refresh_token: this.accessToken.refresh_token
       };
 
-      this._requestToken (tokenOptions).then ((token) => {
-        // Replace the current user token with this new token, reset the promise
-        // variable for next time, and resolve the promise.
-        this.accessToken = token;
-        this._refreshToken = null;
-        resolve ();
-      }).catch ((xhr) => {
-        // Reset the state of the service. The client, if observing the sign in
-        // state of the user, should show the authentication form.
-        this.forceSignOut ();
+      this._requestToken (tokenOptions)
+        .then (response => {
+          if (response.ok)
+            return response.json ();
 
-        // Reset the promise variable since we are done refreshing the token, and
-        // reject the promise.
-        this._refreshToken = null;
-        reject (xhr);
-      });
+          // Force the current user to sign out of the application.
+          this._refreshToken = null;
+          return response.json ().then (reject);
+        })
+        .then (token => setProperties (this, {accessToken: token, _refreshToken: null}))
+        .then (resolve);
     });
 
     return this._refreshToken;
@@ -267,37 +245,6 @@ export default class SessionService extends Service {
 
   get httpHeaders () {
     return { Authorization: `Bearer ${this.accessToken.access_token}` };
-  }
-
-  /**
-   * Send an authorized AJAX request for the current user. The authorization
-   * header will be added to the original request.
-   *
-   * @param ajaxOptions
-   */
-  ajax (ajaxOptions) {
-    let dupOptions = copy (ajaxOptions, false);
-
-    dupOptions.headers = dupOptions.headers || {};
-    dupOptions.headers.Authorization = `Bearer ${this.accessToken.access_token}`;
-
-    return new Promise ((resolve, reject) => {
-      jQuery.ajax (dupOptions).then (resolve).catch (xhr => {
-        switch (xhr.status) {
-          case 401:
-            // Use the Gatekeeper service to refresh the token. If the token is refreshed,
-            // then retry the original request. Otherwise, pass the original error to the
-            // back to the client.
-            this.refreshToken ()
-              .then (() => this.ajax (dupOptions))
-              .catch ((xhr) => run (null, reject, xhr));
-            break;
-
-          default:
-            run (null, reject, xhr);
-        }
-      });
-    });
   }
 
   computeUrl (relativeUrl) {
@@ -324,23 +271,17 @@ export default class SessionService extends Service {
     };
 
     return fetch (url, options)
-      .then ((response) => {
-        if (response.ok)
-          return response.json ();
-
-        if (isUnauthorizedResponse (response)) {
-          // handle 401 response
-        }
-        else if (isServerErrorResponse (response)) {
-          // handle 5xx respones
-        }
-      })
+      .then ((response) => response.ok ? response.json () : this._handleErrorResponse (response))
       .then (token => {
         return all ([
           this.gatekeeper.verifyToken (token.access_token),
           this.gatekeeper.verifyToken (token.refresh_token)
         ]).then (() => token);
       });
+  }
+
+  _handleErrorResponse (response) {
+    return response.json ().then (reject);
   }
 
   /**
