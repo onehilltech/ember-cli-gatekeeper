@@ -33,6 +33,10 @@ export default class GatekeeperService extends Service {
     return this._config.baseUrl;
   }
 
+  get tokenOptions () {
+    return this._config.tokenOptions;
+  }
+
   computeUrl (relativeUrl) {
     return `${this.baseUrl}${relativeUrl}`;
   }

@@ -41,7 +41,8 @@ export default class AuthenticatedController extends Controller {
   @action
   createTempSession () {
     this.session.createTempSession ({name: 'John Doe'}, { expiration: '10 minutes', audience: 'temp'})
-      .then (this.set.bind (this, 'tempSession'));
+      .then (this.set.bind (this, 'tempSession'))
+      .catch (res => this.snackbar ({message: res.responseText}));
   }
 
   @action

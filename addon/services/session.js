@@ -21,7 +21,7 @@ const TempSession = EmberObject.extend ({
     const accessToken = this.accessToken;
 
     const options = {
-      type: 'POST',
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
@@ -259,7 +259,7 @@ export default class SessionService extends Service {
    * @private
    */
   _requestToken (url, opts) {
-    const tokenOptions = this.get ('gatekeeper.tokenOptions');
+    const tokenOptions = this.gatekeeper.tokenOptions;
     const data = Object.assign ({}, tokenOptions, opts);
 
     const options = {
