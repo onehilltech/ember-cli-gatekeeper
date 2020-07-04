@@ -1,0 +1,56 @@
+.gatekeeper-sign-in, .gatekeeper-sign-up {
+  &__username, &__password, &__email, &__password-confirm {
+    width: 100%;
+    margin-bottom: 16px;
+
+    .mdc-text-field {
+      width: 100%;
+    }
+  }
+
+  &__buttons {
+    margin-top: 16px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+  }
+
+  .mdc-button[type="submit"] {
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  &__button {
+    &--sign-up {
+      width: 45%;
+      margin-left: 16px;
+    }
+  }
+
+  .g-recaptcha {
+    &--v2 {
+      margin-bottom: 32px;
+    }
+  }
+}
+
+.gatekeeper-lock-screen {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  z-index: 99;
+
+  background-color: white;
+
+  &--hidden {
+    display: none !important;
+  }
+}
+

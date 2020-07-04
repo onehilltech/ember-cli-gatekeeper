@@ -1,0 +1,6 @@
+<MdcForm @submit={{action "signInForm"}} as |form|>
+  <Input @type="text" @value={{username}} required={{true}} />
+  <Input @type="password" @value={{password}} required={{true}} />
+
+  <button type="submit" disabled={{form.isInvalid}}>Sign In</button>
+</MdcForm>

@@ -1,0 +1,26 @@
+<MdcForm @validity={{action (mut valid)}}>
+  <MdcTextfieldWithHelperText @class="gatekeeper-sign-in__username" @value={{username}} @style={{style}} @required={{true}} @type={{usernameType}} @label={{usernameLabel}} @icon={{usernameIcon}} @iconPosition={{usernameIconPosition}} @iconClickable={{usernameIconClickable}} @iconClick={{usernameIconClick}} @autocapitalize="none" @autocomplete={{usernameAutoComplete}} @helperText={{usernameHelperText}} @errorMessage={{usernameErrorMessage}} />
+
+  <MdcPasswordTextfieldWithHelperText @class="gatekeeper-sign-in__password" @value={{password}} @style={{style}} @required={{true}} @label={{passwordLabel}} @icon={{passwordIcon}} @autocomplete="off" @autocapitalize="none" @helperText={{passwordHelperText}} @errorMessage={{passwordErrorMessage}} @requirements={{passwordRequirements}} @valid={{validPassword}} />
+
+  {{component recaptchaComponentName
+              siteKey=siteKey
+              verified=(action "verified")
+              reset=reset
+              execute=execute}}
+
+  <div class="gatekeeper-sign-in__buttons">
+    <MdcButton @type="submit" @name="action" @value="signIn" @class="gatekeeper-sign-in__button--sign-in" @style={{signInButtonStyle}} @click={{action "signInButton"}} @disabled={{signInDisabled}}>
+      {{signInButtonText}}
+    </MdcButton>
+
+    {{#if showSignUpButton}}
+      <MdcButton @type="submit" @name="action" @value="signUp" @class="gatekeeper-sign-in__button--sign-up" @style={{signUpButtonStyle}} @click={{action "signUp"}} @disabled={{signUpDisabled}}>
+        {{signUpButtonText}}
+      </MdcButton>
+    {{/if}}
+  </div>
+
+</MdcForm>
+
+<MdcSnackbar @message={{errorMessage}} />

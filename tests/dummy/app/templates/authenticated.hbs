@@ -1,0 +1,41 @@
+<div class="container">
+  <h3 class="mdc-typography--headline4">Gatekeeper Demo</h3>
+
+  <div><LinkTo @route="unauthorized">Unauthorized Test</LinkTo></div>
+  <div><a href="#" {{on "click" this.signOut}}>Sign Out</a></div>
+
+  {{#if model}}
+    <h5 class="mdc-typography--headline6">This Account</h5>
+
+    <div>Id: {{model.id}}</div>
+    <div>Username: {{model.username}}</div>
+    <div>Email: {{model.email}}</div>
+    <div>Scope: {{model.scope}}</div>
+  {{/if}}
+
+  <h5 class="mdc-typography--headline6">Session Metadata</h5>
+
+  {{#each-in metadata as |key value|}}
+    <div>{{key}}: {{value}}</div>
+  {{/each-in}}
+
+  {{#if supportsCreateAccount}}
+    <blockquote>This session is allowed to create accounts.</blockquote>
+  {{/if}}
+
+  <h5 class="mdc-typography--headline6">Authenticate</h5>
+
+  <MdcForm @submit={{action "authenticate"}}>
+    <MdcPasswordTextfieldWithHelperText @label="Password" @value={{password}} />
+
+    <MdcButton @style="raised">Check</MdcButton>
+  </MdcForm>
+
+  <h5 class="mdc-typography--headline6">Temp Session</h5>
+
+  {{#if tempSession}}
+    <MdcButton @style="raised" @click={{action "endTempSession"}}>End Temp Session</MdcButton>
+  {{else}}
+    <MdcButton @style="raised" @click={{action "createTempSession"}}>Create Temp Session</MdcButton>
+  {{/if}}
+</div>
