@@ -93,6 +93,10 @@ export default class GatekeeperService extends Service {
     return this._config.secret || this._config.publicKey;
   }
 
+  get verifyOptions () {
+    return this._config.verifyOptions;
+  }
+
   /**
    * Verify a token. If there is no secret or public key, then the token is assumed
    * to be valid.
