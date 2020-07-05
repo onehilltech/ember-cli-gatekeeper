@@ -37,6 +37,10 @@ export default class GatekeeperService extends Service {
     return this._config.tokenOptions;
   }
 
+  get authenticateUrl () {
+    return this._config.authenticateUrl;
+  }
+
   computeUrl (relativeUrl) {
     return `${this.baseUrl}${relativeUrl}`;
   }
