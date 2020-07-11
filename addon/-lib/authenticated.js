@@ -39,7 +39,7 @@ const AuthenticatedMixin = M.create ({
           let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
 
           // Display the error message.
-          this.send ('app:snackbar', { message: error.detail });
+          //this.send ('app:snackbar', { message: error.detail });
 
           // Force the user to sign out.
           this.session.forceSignOut ();
