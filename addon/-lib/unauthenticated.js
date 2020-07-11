@@ -26,10 +26,5 @@ function applyMixin (Clazz) {
 }
 
 export default function unauthenticated (param) {
-  if (isFunction (param)) {
-    return applyMixin (param);
-  }
-  else if (isPlainObject (param)) {
-    return applyMixin;
-  }
+  return applyMixin (param);
 }
