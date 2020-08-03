@@ -101,8 +101,8 @@ export default Mixin.create ({
   handleError () {
     this._super (...arguments);
 
-    // Reset the response.
-    this.set ('response', null);
+    // Let the implementation handle the error.
+    this.recaptchaImpl.handleError ()
   },
 
   /**
@@ -118,7 +118,6 @@ export default Mixin.create ({
   /**
    * Implementation of what happens after sign in.
    *
-   * @param baseClassSignIn
    * @param options
    * @private
    */
