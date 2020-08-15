@@ -4,7 +4,7 @@ const { Blueprint } = require ('ember-cli-blueprint-helpers');
 
 module.exports = Blueprint.extend ({
   addons: [
-    {name: '@onehilltech/ember-cli-storage', target: '0.2.1'},
+    {name: '@onehilltech/ember-cli-storage', target: '^1.0.0'},
     {name: 'ember-cli-mdc-form', target: '^1.0.0'},
     {name: 'ember-cli-mdc-textfield', target: '^1.0.0'},
     {name: 'ember-cli-mdc-button', target: '^1.0.0'},

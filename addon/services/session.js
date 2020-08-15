@@ -1,9 +1,7 @@
-/* global KJUR */
-
 import Service from '@ember/service';
 import EmberObject from '@ember/object';
 
-import { isNone } from '@ember/utils';
+import { isNone, isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { action, setProperties } from '@ember/object';
 import { alias, bool, not } from '@ember/object/computed';
@@ -60,6 +58,25 @@ export default class SessionService extends Service {
   @alias ('storage.gatekeeper_lock_screen')
   lockScreen;
 
+  _account;
+
+  /// The user account model for the current session.
+  get account () {
+    if (isPresent (this._account) && this._account.id === this.currentUser.id) {
+      return this._account;
+    }
+
+    if (isNone (this.currentUser)) {
+      return null;
+    }
+
+    let data = this.store.normalize ('account', this.currentUser);
+    data.data.id = this.currentUser.id;
+
+    this._account = this.store.push (data);
+    return this._account;
+  }
+
   get metadata () {
     if (isNone (this.accessToken.access_token)) {
       return TokenMetadata.create ();
@@ -96,6 +113,7 @@ export default class SessionService extends Service {
     this.accessToken = null;
     this.currentUser = null;
     this.lockScreen = false;
+    this._account = null;
   }
 
   /**
@@ -116,6 +134,7 @@ export default class SessionService extends Service {
       // just in case the application needs to use it.
       return this.store.queryRecord ('account', {})
         .then (account => {
+          this.account = account;
           this.currentUser = account.toJSON ({includeId: true});
         })
         .catch (reason => {
