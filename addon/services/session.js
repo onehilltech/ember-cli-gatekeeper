@@ -85,9 +85,14 @@ export default class SessionService extends Service {
     return TokenMetadata.create (parsed.payloadObj);
   }
 
-  /// Test if the current user is signed in.
-  @bool ('accessToken')
-  isSignedIn;
+  /**
+   * Test if the current session is signed in.
+   *
+   * @returns {*}
+   */
+  get isSignedIn () {
+    return isPresent (this.accessToken);
+  }
 
   /// Test if the there is no user signed in.
   @not ('isSignedIn')
