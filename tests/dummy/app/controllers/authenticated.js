@@ -31,7 +31,7 @@ export default class AuthenticatedController extends Controller {
     session.authenticate (password)
       .then (result => {
         if (result) {
-          this.snackbar ({message: 'We authenticated the user.'});
+          this.snackbar.show ({message: 'We authenticated the user.'});
           this.set ('snackbar', null);
         }
       })
@@ -42,7 +42,7 @@ export default class AuthenticatedController extends Controller {
   createTempSession () {
     this.session.createTempSession ({name: 'John Doe'}, { expiration: '10 minutes', audience: 'temp'})
       .then (this.set.bind (this, 'tempSession'))
-      .catch (res => this.snackbar ({message: res.responseText}));
+      .catch (res => this.snackbar.show ({message: res.responseText}));
   }
 
   @action

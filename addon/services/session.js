@@ -4,9 +4,11 @@ import EmberObject from '@ember/object';
 import { isNone, isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { action, setProperties } from '@ember/object';
-import { alias, bool, not } from '@ember/object/computed';
+import { bool, not } from '@ember/object/computed';
 import { Promise, reject, all } from 'rsvp';
 import { KJUR } from 'jsrsasign';
+import { local } from '@onehilltech/ember-cli-storage';
+import { tracked } from "@glimmer/tracking";
 
 import TokenMetadata from '../-lib/token-metadata';
 
@@ -42,20 +44,17 @@ export default class SessionService extends Service {
   @service
   gatekeeper;
 
-  @service ('local-storage')
-  storage;
-
   @service
   store;
 
-  @alias ('storage.gatekeeper_user')
+  @local ({name: 'gatekeeper_user', serialize: JSON.stringify, deserialize: JSON.parse})
   currentUser;
 
-  @alias ('storage.gatekeeper_user_token')
+  @local ({name: 'gatekeeper_user_token', serialize: JSON.stringify, deserialize: JSON.parse})
   accessToken;
 
   /// The lock screen state for the session.
-  @alias ('storage.gatekeeper_lock_screen')
+  @local ({name: 'gatekeeper_lock_screen', deserialize (value) { return value === 'true' }})
   lockScreen;
 
   _account;
@@ -134,7 +133,7 @@ export default class SessionService extends Service {
       // just in case the application needs to use it.
       return this.store.queryRecord ('account', {})
         .then (account => {
-          this.account = account;
+          this._account = account;
           this.currentUser = account.toJSON ({includeId: true});
         })
         .catch (reason => {

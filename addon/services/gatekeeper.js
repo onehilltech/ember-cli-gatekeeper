@@ -2,12 +2,13 @@ import Service from '@ember/service';
 
 import { inject as service } from '@ember/service';
 import { get } from '@ember/object';
-import { alias, bool, not } from '@ember/object/computed';
+import { bool, not } from '@ember/object/computed';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { resolve, Promise, reject } from 'rsvp';
 import { assign } from '@ember/polyfills';
 import { KJUR, KEYUTIL } from 'jsrsasign';
+import { local } from '@onehilltech/ember-cli-storage';
 
 export default class GatekeeperService extends Service {
   constructor () {
@@ -17,10 +18,7 @@ export default class GatekeeperService extends Service {
     this._config = get (ENV, 'gatekeeper');
   }
 
-  @service ('local-storage')
-  storage;
-
-  @alias ('storage.gatekeeper_client_token')
+  @local ({name: 'gatekeeper_client_token', serialize: JSON.stringify, deserialize: JSON.parse})
   accessToken;
 
   @bool ('accessToken')

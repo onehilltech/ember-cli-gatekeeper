@@ -1,28 +1,37 @@
 import DS from 'ember-data';
 
-import { computed } from '@ember/object';
 import { or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { isNone } from '@ember/utils';
+import { isNone, isPresent } from '@ember/utils';
 import { reject } from 'rsvp';
 
-export default DS.RESTAdapter.extend ({
+export default class RestAdapter extends DS.RESTAdapter {
   /// The session service for Gatekeeper.
-  session: service (),
+  @service
+  session;
 
   /// We are either going to use the session access token, or the client access token. We
   /// prefer the session access token to the client access token.
-  accessToken: or ('session.accessToken','session.gatekeeper.accessToken'),
+  get accessToken () {
+    return this.session.accessToken || this.session.gatekeeper.accessToken;
+  }
 
   /**
    * Get the default headers for the REST adapter.
    */
-  headers: computed ('accessToken', function () {
-    return {
-      Authorization: `Bearer ${this.get ('accessToken.access_token')}`,
+  get headers () {
+    let accessToken = this.accessToken;
+
+    let headers = {
       'Cache-Control': 'private, max-age=0, no-cache, no-store'
     };
-  }),
+
+    if (isPresent (accessToken)) {
+      headers.Authorization = `Bearer ${accessToken.access_token}`;
+    }
+
+    return headers;
+  }
 
   /**
    * Execute an AJAX request.
@@ -32,10 +41,7 @@ export default DS.RESTAdapter.extend ({
   ajax (url, type, options) {
     // We are going to intercept the original request before it goes out and
     // replace the error handler with our error handler.
-    const adapter = this;
-    const _super = this._super;
-
-    return this._super (...arguments).catch (err => {
+    return super.ajax (...arguments).catch (err => {
       if (isNone (err.errors)) {
         return reject (err);
       }
@@ -49,8 +55,8 @@ export default DS.RESTAdapter.extend ({
       // Refresh the access token, and try the request again. If the request fails
       // a second time, then return the original error.
       return this.session.refreshToken ()
-        .then (() => _super.call (adapter, url, type, options))
+        .then (() => super.ajax (url, type, options))
         .catch (() => reject (err));
     });
   }
-});
+}
