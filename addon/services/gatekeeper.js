@@ -21,7 +21,7 @@ export default class GatekeeperService extends Service {
   }
 
   /// The access token stored in local storage.
-  @local ({name: 'gatekeeper_client_token', serialize: JSON.stringify, deserialize: JSON.parse})
+  @local
   _tokenString;
 
   @tracked
