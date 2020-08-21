@@ -1,14 +1,16 @@
 import Service from '@ember/service';
 
-import { inject as service } from '@ember/service';
-import { get } from '@ember/object';
-import { bool, not } from '@ember/object/computed';
+import { get, computed, set } from '@ember/object';
+import { not } from '@ember/object/computed';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { resolve, Promise, reject } from 'rsvp';
 import { assign } from '@ember/polyfills';
 import { KJUR, KEYUTIL } from 'jsrsasign';
 import { local } from '@onehilltech/ember-cli-storage';
+
+import AccessToken from "../-lib/access-token";
+import { tracked } from "@glimmer/tracking";
 
 export default class GatekeeperService extends Service {
   constructor () {
@@ -18,11 +20,27 @@ export default class GatekeeperService extends Service {
     this._config = get (ENV, 'gatekeeper');
   }
 
+  /// The access token stored in local storage.
   @local ({name: 'gatekeeper_client_token', serialize: JSON.stringify, deserialize: JSON.parse})
-  accessToken;
+  _tokenString;
 
-  @bool ('accessToken')
-  isAuthenticated;
+  @tracked
+  _tokenChanged = 0;
+
+  /// The singleton access token for the gatekeeper.
+  @computed ('_tokenChanged')
+  get accessToken () {
+    return AccessToken.fromString (this._tokenString);
+  }
+
+  /**
+   * Test if the client has been authenticated.
+   *
+   * @returns {boolean}
+   */
+  get isAuthenticated () {
+    return this.accessToken.isValid && !this.accessToken.isExpired;
+  }
 
   @not ('isAuthenticated')
   isUnauthenticated;
@@ -49,7 +67,16 @@ export default class GatekeeperService extends Service {
    * @param opts
    */
   authenticate (opts) {
-    return this._requestClientToken (opts).then ((token) => this.accessToken = token);
+    if (this.isAuthenticated) {
+      return Promise.resolve ();
+    }
+
+    return this._requestClientToken (opts).then (token => {
+      this._tokenString = token.access_token;
+
+      // Increment the number of times the token has changed.
+      this._tokenChanged ++;
+    });
   }
 
   /**
@@ -64,9 +91,9 @@ export default class GatekeeperService extends Service {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${this.accessToken.access_token}`
+            'Authorization': `Bearer ${this.accessToken.toString ()}`
           },
-          body: JSON.stringify ({email})
+          body: JSON.stringify ({ email })
         };
 
         return fetch (url, opts);
@@ -92,7 +119,9 @@ export default class GatekeeperService extends Service {
   }
 
   get publicKey () {
-    return isPresent (this._config.publicCert) ? KEYUTIL.getKey (this._config.publicCert) : null;
+    const { publicCert } = this._config;
+
+    return isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
   }
 
   get secretOrPublicKey () {
@@ -125,7 +154,7 @@ export default class GatekeeperService extends Service {
       }
 
       const verified = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
-      return verified ? resolve (true) : reject (new Error ('Failed to verify token.'));
+      return verified ? resolve (true) : reject (new Error ('The access token could not be verified.'));
     });
   }
 

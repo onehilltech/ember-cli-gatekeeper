@@ -13,7 +13,7 @@ export default class RestAdapter extends DS.RESTAdapter {
   /// We are either going to use the session access token, or the client access token. We
   /// prefer the session access token to the client access token.
   get accessToken () {
-    return this.session.accessToken || this.session.gatekeeper.accessToken;
+    return this.session.accessToken || this.session.gatekeeper.accessToken.toString ();
   }
 
   /**

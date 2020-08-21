@@ -1,4 +1,4 @@
-Stock Components
+<h3>Stock Components</h3>
 
 <ul>
   <li><LinkTo @route="sign-in.standard">Standard</LinkTo></li>
@@ -6,9 +6,21 @@ Stock Components
   <li><LinkTo @route="sign-in.recaptcha-invisible">Recaptcha - invisible</LinkTo></li>
 </ul>
 
-Custom Components
+<h3>Custom Components</h3>
 
 <ul>
   <li><LinkTo @route="sign-in.custom">Custom</LinkTo></li>
   <li><LinkTo @route="sign-in.custom-recaptcha">Recaptcha</LinkTo></li>
 </ul>
+
+<h3>Client</h3>
+
+{{#if this.gatekeeper.isAuthenticated}}
+  <p>The client has been authenticated.</p>
+{{else}}
+  <p>
+    <button {{on "click" this.authenticate}}>Click to authenticate the client</button>
+  </p>
+{{/if}}
+
+<GRecaptchaInvisible @verified={{action "verified"}} @execute={{this.execute}} />
