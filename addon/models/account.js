@@ -19,5 +19,5 @@ export default DS.Model.extend({
   scope: DS.attr (),
 
   /// Change the password for the account.
-  changePassword: memberAction ({ path: 'password', type: 'post', urlType: 'findRecord'})
+  changePassword: memberAction ({ path: 'password', type: 'post', urlType: 'findRecord'}),
 });

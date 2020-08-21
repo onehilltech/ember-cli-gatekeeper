@@ -21,7 +21,7 @@ export default class GatekeeperService extends Service {
   }
 
   /// The access token stored in local storage.
-  @local
+  @local('gatekeeper_client_token')
   _tokenString;
 
   @tracked

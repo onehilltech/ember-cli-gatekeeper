@@ -3,14 +3,13 @@ import EmberObject from '@ember/object';
 
 import { isNone, isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
-import { action, setProperties } from '@ember/object';
-import { bool, not } from '@ember/object/computed';
+import { action, computed } from '@ember/object';
+import { not } from '@ember/object/computed';
 import { Promise, reject, all } from 'rsvp';
-import { KJUR } from 'jsrsasign';
 import { local } from '@onehilltech/ember-cli-storage';
 import { tracked } from "@glimmer/tracking";
 
-import TokenMetadata from '../-lib/token-metadata';
+import AccessToken from "../-lib/access-token";
 
 /**
  * A temporary session for the current user.
@@ -50,8 +49,14 @@ export default class SessionService extends Service {
   @local ({name: 'gatekeeper_user', serialize: JSON.stringify, deserialize: JSON.parse})
   currentUser;
 
-  @local ({name: 'gatekeeper_user_token', serialize: JSON.stringify, deserialize: JSON.parse})
-  accessToken;
+  @local ('gatekeeper_user_token')
+  _tokenString;
+
+  @local ('gatekeeper_refresh_token')
+  _refreshingTokenString;
+
+  @tracked
+  _tokenChanged = 0;
 
   /// The lock screen state for the session.
   @local ({name: 'gatekeeper_lock_screen', deserialize (value) { return value === 'true' }})
@@ -76,13 +81,14 @@ export default class SessionService extends Service {
     return this._account;
   }
 
-  get metadata () {
-    if (isNone (this.accessToken.access_token)) {
-      return TokenMetadata.create ();
-    }
+  @computed ('_tokenChanged')
+  get accessToken () {
+    return AccessToken.fromString (this._tokenString);
+  }
 
-    let parsed = KJUR.jws.JWS.parse (this.accessToken.access_token);
-    return TokenMetadata.create (parsed.payloadObj);
+  @computed ('_tokenChanged')
+  get refreshToken () {
+    return AccessToken.fromString (this._refreshingTokenString);
   }
 
   /**
@@ -91,15 +97,12 @@ export default class SessionService extends Service {
    * @returns {*}
    */
   get isSignedIn () {
-    return isPresent (this.accessToken);
+    return this.accessToken.isValid;
   }
 
   /// Test if the there is no user signed in.
   @not ('isSignedIn')
   isSignedOut;
-
-  /// The current promise refreshing the access token.
-  _refreshToken = null;
 
   get authenticateUrl () {
     return this.gatekeeper.authenticateUrl || this.computeUrl ('/oauth2/token');
@@ -114,8 +117,11 @@ export default class SessionService extends Service {
    * request to the server.
    */
   forceSignOut () {
-    this.accessToken = null;
     this.currentUser = null;
+
+    // Reset the properties associated with the access tokens.
+    this._resetTokens ();
+
     this.lockScreen = false;
     this._account = null;
   }
@@ -132,7 +138,10 @@ export default class SessionService extends Service {
     const tokenOptions = Object.assign ({grant_type: 'password'}, opts);
 
     return this._requestToken (this.authenticateUrl, tokenOptions).then (token => {
-      this.accessToken = token;
+      const { access_token, refresh_token } = token;
+
+      // Save the different access tokens, and increment the token change count.
+      this._updateTokens (access_token, refresh_token);
 
       // Query the service for the current user. We are going to cache their id
       // just in case the application needs to use it.
@@ -142,10 +151,20 @@ export default class SessionService extends Service {
           this.currentUser = account.toJSON ({includeId: true});
         })
         .catch (reason => {
-          this.accessToken = null;
+          // Reset the access tokens, and the counter.
+          this._resetTokens ();
+
           return reject (reason);
         });
     });
+  }
+
+  _resetTokens () {
+    this._tokenString = null;
+    this._refreshingTokenString = null;
+
+    // We still increment the counter since this is a token change.
+    this._tokenChanged ++;
   }
 
   /**
@@ -159,7 +178,7 @@ export default class SessionService extends Service {
     const tokenOptions = Object.assign ({grant_type: 'temp'}, {
       payload,
       options,
-      access_token: this.accessToken.access_token
+      access_token: this.accessToken.toString ()
     });
 
     return this._requestToken (this.authenticateUrl, tokenOptions)
@@ -183,7 +202,7 @@ export default class SessionService extends Service {
         this.forceSignOut ();
 
         // Set the provided access token as the current access token.
-        this.accessToken = {access_token: accessToken};
+        this._updateTokens (accessToken);
 
         return this.store.queryRecord ('account', {});
       })
@@ -204,13 +223,14 @@ export default class SessionService extends Service {
 
     return fetch (url, options)
       .then ((response) => {
-        if (response.ok)
+        if (response.ok) {
           return response.json ();
+        }
 
         // The token is bad. Try to refresh the token, then attempt to sign out the
         // user again in a graceful manner.
         return response.status === 401 ?
-          this.refreshToken ().catch ().then (() => this.signOut (true)) :
+          this.refresh ().catch ().then (() => this.signOut (true)) :
           force;
       })
       .then ((result) => {
@@ -240,38 +260,53 @@ export default class SessionService extends Service {
    *
    * @returns {*|RSVP.Promise}
    */
-  refreshToken () {
-    if (this._refreshToken)
-      return this._refreshToken;
+  refresh () {
+    if (isPresent (this._refreshingToken)) {
+      return this._refreshingToken;
+    }
 
-    this._refreshToken = new Promise ((resolve, reject) => {
+    this._refreshingToken = new Promise ((resolve, reject) => {
       const tokenOptions = {
         grant_type: 'refresh_token',
-        refresh_token: this.accessToken.refresh_token
+        refresh_token: this.refreshToken.toString ()
       };
 
       this._requestToken (tokenOptions)
         .then (response => {
-          if (response.ok)
+          if (response.ok) {
             return response.json ();
+          }
 
           // Force the current user to sign out of the application.
-          this._refreshToken = null;
+          this._resetTokens ();
           return response.json ().then (reject);
         })
-        .then (token => setProperties (this, {accessToken: token, _refreshToken: null}))
+        .then (token => {
+          const { access_token, refresh_token } = token;
+
+          // Update the access tokens, and clear the refreshing token promise.
+          this._updateTokens (access_token, refresh_token);
+          this._refreshingToken = null;
+        })
         .then (resolve);
     });
 
-    return this._refreshToken;
+    return this._refreshingToken;
   }
 
   get httpHeaders () {
-    return { Authorization: `Bearer ${this.accessToken.access_token}` };
+    return { Authorization: `Bearer ${this.accessToken.toString ()}` };
   }
 
   computeUrl (relativeUrl) {
     return this.gatekeeper.computeUrl (relativeUrl);
+  }
+
+  _updateTokens (accessToken, refreshToken) {
+    this._tokenString = accessToken;
+    this._refreshingTokenString = refreshToken;
+
+    this._tokenChanged ++;
   }
 
   /**

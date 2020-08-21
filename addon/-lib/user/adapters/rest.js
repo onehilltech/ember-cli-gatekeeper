@@ -1,6 +1,5 @@
 import DS from 'ember-data';
 
-import { or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isNone, isPresent } from '@ember/utils';
 import { reject } from 'rsvp';
@@ -13,7 +12,7 @@ export default class RestAdapter extends DS.RESTAdapter {
   /// We are either going to use the session access token, or the client access token. We
   /// prefer the session access token to the client access token.
   get accessToken () {
-    return this.session.accessToken || this.session.gatekeeper.accessToken.toString ();
+    return this.session.accessToken.toString () || this.session.gatekeeper.accessToken.toString ();
   }
 
   /**
@@ -27,7 +26,7 @@ export default class RestAdapter extends DS.RESTAdapter {
     };
 
     if (isPresent (accessToken)) {
-      headers.Authorization = `Bearer ${accessToken.access_token}`;
+      headers.Authorization = `Bearer ${accessToken}`;
     }
 
     return headers;
@@ -54,7 +53,7 @@ export default class RestAdapter extends DS.RESTAdapter {
 
       // Refresh the access token, and try the request again. If the request fails
       // a second time, then return the original error.
-      return this.session.refreshToken ()
+      return this.session.refresh ()
         .then (() => super.ajax (url, type, options))
         .catch (() => reject (err));
     });
