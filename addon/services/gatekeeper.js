@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 
-import { get, computed, set } from '@ember/object';
+import { get, computed } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
@@ -21,7 +21,7 @@ export default class GatekeeperService extends Service {
   }
 
   /// The access token stored in local storage.
-  @local('gatekeeper_client_token')
+  @local('gatekeeper_ct')
   _tokenString;
 
   @tracked

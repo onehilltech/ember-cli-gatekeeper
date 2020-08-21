@@ -1,13 +1,13 @@
 import { isNone, isPresent } from '@ember/utils';
 import { computed } from '@ember/object';
 
-export default function (name, metadata) {
-  if (isNone (metadata)) {
-    metadata = 'session.metadata';
+export default function (name, propertyName) {
+  if (isNone (propertyName)) {
+    propertyName = 'session.accessToken';
   }
 
-  return computed (`${metadata}.scope.[]`, function () {
-    let meta = this.get (metadata);
-    return isPresent (meta) ? meta.supports (name) : false;
+  return computed (`${propertyName}.scope.[]`, function () {
+    let accessToken = this.get (propertyName);
+    return isPresent (accessToken) ? accessToken.supports (name) : false;
   });
 }

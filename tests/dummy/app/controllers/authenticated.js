@@ -7,7 +7,7 @@ import { tracked } from "@glimmer/tracking";
 import supports  from 'ember-cli-gatekeeper/supports';
 
 export default class AuthenticatedController extends Controller {
-  @alias ('session.metadata')
+  @alias ('session.accessToken')
   metadata;
 
   @supports ('gatekeeper.account.create')

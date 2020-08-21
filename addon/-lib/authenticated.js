@@ -1,5 +1,5 @@
-import { get, getWithDefault } from '@ember/object';
-import { isEmpty } from '@ember/utils';
+import { get, getWithDefault, set } from '@ember/object';
+import { isEmpty, isPresent } from '@ember/utils';
 import { getOwner } from '@ember/application';
 
 import { Mixin as M } from 'base-object';
@@ -18,7 +18,15 @@ const bearerErrorCodes = [
 const AuthenticatedMixin = M.create ({
   beforeModel (transition) {
     this._super (...arguments);
+
     this._checkSignedIn (transition);
+
+    let authorized = isPresent (this.authorizations.scope) ?
+      this.session.accessToken.supports (this.authorizations.scope) :
+      true;
+
+    let controller = this.controllerFor (transition.targetName);
+    set (controller, 'isAuthorized', authorized);
   },
 
   actions: {
@@ -53,6 +61,12 @@ const AuthenticatedMixin = M.create ({
     }
   },
 
+  /**
+   * Check that the current user is authenticated.
+   *
+   * @param transition
+   * @private
+   */
   _checkSignedIn (transition) {
     let isSignedIn = get (this, 'session.isSignedIn');
 
@@ -69,8 +83,11 @@ const AuthenticatedMixin = M.create ({
   },
 });
 
-function applyMixin (Clazz) {
-  return AuthenticatedMixin.apply (Clazz.prototype);
+function applyMixin (Clazz, options = {}) {
+  AuthenticatedMixin.apply (Clazz.prototype);
+
+  let { scope } = options;
+  Object.assign (Clazz.prototype, { authorizations: { scope } });
 }
 
 export default function authenticated (param) {
@@ -78,6 +95,8 @@ export default function authenticated (param) {
     return applyMixin (param);
   }
   else if (isPlainObject (param)) {
-    return applyMixin;
+    return function (Route) {
+      return applyMixin (Route, param);
+    }
   }
 }

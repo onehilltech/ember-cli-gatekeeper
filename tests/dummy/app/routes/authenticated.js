@@ -1,6 +1,8 @@
 import Route from '@ember/routing/route';
 import { authenticated } from 'ember-cli-gatekeeper';
 
-@authenticated
+@authenticated({
+  scope: 'foo'
+})
 export default class AuthenticatedRoute extends Route {
 }

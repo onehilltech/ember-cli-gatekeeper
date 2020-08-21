@@ -49,10 +49,10 @@ export default class SessionService extends Service {
   @local ({name: 'gatekeeper_user', serialize: JSON.stringify, deserialize: JSON.parse})
   currentUser;
 
-  @local ('gatekeeper_user_token')
+  @local ('gatekeeper_ut')
   _tokenString;
 
-  @local ('gatekeeper_refresh_token')
+  @local ('gatekeeper_rt')
   _refreshingTokenString;
 
   @tracked

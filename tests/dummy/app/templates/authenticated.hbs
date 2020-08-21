@@ -13,14 +13,29 @@
     <div>Scope: {{model.scope}}</div>
   {{/if}}
 
-  <h5 class="mdc-typography--headline6">Session Metadata</h5>
+  <h5 class="mdc-typography--headline6">Scope</h5>
 
-  {{#each-in metadata as |key value|}}
-    <div>{{key}}: {{value}}</div>
-  {{/each-in}}
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Value</th></tr>
+    </thead>
+
+    <tbody>
+    {{#each-in metadata as |key value|}}
+      <tr><td>{{key}}</td><td>{{value}}</td></tr>
+    {{/each-in}}
+    </tbody>
+  </table>
+
 
   {{#if supportsCreateAccount}}
     <blockquote>This session is allowed to create accounts.</blockquote>
+  {{/if}}
+
+  {{#if this.isAuthorized}}
+    <blockquote>The user <b>is authorized</b> to access this route.</blockquote>
+  {{else}}
+    <blockquote>The user <b>is not authorized</b> to access this route.</blockquote>
   {{/if}}
 
   <h5 class="mdc-typography--headline6">Authenticate</h5>
