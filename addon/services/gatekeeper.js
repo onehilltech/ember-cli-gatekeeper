@@ -65,9 +65,10 @@ export default class GatekeeperService extends Service {
    * Authenticate the client.
    *
    * @param opts
+   * @param force
    */
-  authenticate (opts) {
-    if (this.isAuthenticated) {
+  authenticate (opts, force = false) {
+    if (this.isAuthenticated && !force) {
       return Promise.resolve ();
     }
 
