@@ -25,7 +25,7 @@ const AuthenticatedMixin = M.create ({
       this.session.accessToken.supports (this.authorizations.scope) :
       true;
 
-    let controller = this.controllerFor (transition.targetName);
+    let controller = this.controllerFor (this.routeName);
     set (controller, 'isAuthorized', authorized);
   },
 
