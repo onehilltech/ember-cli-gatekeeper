@@ -27,6 +27,20 @@ const AuthenticatedMixin = M.create ({
 
     let controller = this.controllerFor (this.routeName);
     set (controller, 'isAuthorized', authorized);
+
+    if (!authorized) {
+      this.authorizationFailed (transition);
+    }
+  },
+
+  /**
+   * The authorization failed. This callback can be used by a client to react to
+   * the current user not having valid authorization to access the route.
+   *
+   * @param transition          The current transition.
+   */
+  authorizationFailed (transition) {
+
   },
 
   actions: {
