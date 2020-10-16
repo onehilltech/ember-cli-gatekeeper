@@ -77,11 +77,10 @@ const AuthenticatedMixin = M.create ({
     if (!isSignedIn) {
       let ENV = getOwner (this).resolveRegistration ('config:environment');
       let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
-      let { intent: { url }} = transition;
 
       // Set the redirect to route so we can come back to this route when the
       // user has signed in.
-      const queryParams = { redirect: url };
+      const queryParams = { redirect: transition.targetName };
       this.replaceWith (signInRoute, { queryParams });
     }
   },
