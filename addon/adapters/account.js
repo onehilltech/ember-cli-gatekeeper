@@ -93,12 +93,11 @@ export default RESTAdapter.extend({
         // Delete the access token from the payload.
         delete payload.token;
 
+
         // The account was created and logged in at the same time. We need to
         // extract the token, and register it with the gatekeeper service.
-        let session = this.session;
-        let currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
-
-        session.setProperties ({currentUser, accessToken});
+        this.session._updateTokens (accessToken.access_token, accessToken.refresh_token);
+        this.session.currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
       }
     }
 
