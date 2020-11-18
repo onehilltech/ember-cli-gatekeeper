@@ -7,7 +7,6 @@ import { action, computed } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { Promise, reject, all } from 'rsvp';
 import { local } from '@onehilltech/ember-cli-storage';
-import { tracked } from "@glimmer/tracking";
 
 import AccessToken from "../-lib/access-token";
 
@@ -62,6 +61,7 @@ export default class SessionService extends Service {
   _account;
 
   /// The user account model for the current session.
+  @computed ('_account')
   get account () {
     if (isPresent (this._account) && this._account.id === this.currentUser.id) {
       return this._account;
@@ -78,10 +78,12 @@ export default class SessionService extends Service {
     return this._account;
   }
 
+  @computed ('_tokenString')
   get accessToken () {
     return AccessToken.fromString (this._tokenString);
   }
 
+  @computed ('_refreshingTokenString')
   get refreshToken () {
     return AccessToken.fromString (this._refreshingTokenString);
   }
