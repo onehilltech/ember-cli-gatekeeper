@@ -1,14 +1,14 @@
 import Helper from '@ember/component/helper';
 
 import { inject as service } from '@ember/service';
-import { isPresent } from '@ember/utils';
+import { isPresent, isEmpty } from '@ember/utils';
 
 export default class ProtectedUrlHelper extends Helper {
   @service
   session;
 
   compute([url], { baseUrl }) {
-    if (isPresent (baseUrl) && !url.startsWith (baseUrl)) {
+    if (isEmpty (url) || (isPresent (baseUrl) && !url.startsWith (baseUrl))) {
       return url;
     }
 
