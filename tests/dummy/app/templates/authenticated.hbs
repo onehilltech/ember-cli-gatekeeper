@@ -40,7 +40,9 @@
 
   <h5 class="mdc-typography--headline6">Protected Url Helper</h5>
 
-  <div>{{protected-url "http://localhost:8080/images/me.png"}}</div>
+  <p>{{protected-url "http://localhost:8080/images/me.png"}}</p>
+
+  <p>{{protected-url "http://notoken:8080/images/me.png" baseUrl="http://localhost:8080"}}</p>
 
   <h5 class="mdc-typography--headline6">Authenticate</h5>
 
