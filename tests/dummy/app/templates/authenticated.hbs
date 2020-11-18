@@ -38,6 +38,10 @@
     <blockquote>The user <b>is not authorized</b> to access this route.</blockquote>
   {{/if}}
 
+  <h5 class="mdc-typography--headline6">Protected Url Helper</h5>
+
+  <div>{{protected-url "http://localhost:8080/images/me.png"}}</div>
+
   <h5 class="mdc-typography--headline6">Authenticate</h5>
 
   <MdcForm @submit={{action "authenticate"}}>
