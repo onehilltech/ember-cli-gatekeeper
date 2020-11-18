@@ -29,7 +29,7 @@ const AuthenticatedMixin = M.create ({
     set (controller, 'isAuthorized', authorized);
 
     if (!authorized) {
-      transition.send ('unauthorized', transition);
+      transition.trigger ('unauthorized', transition);
     }
   },
 

@@ -10,7 +10,6 @@ import { KJUR, KEYUTIL } from 'jsrsasign';
 import { local } from '@onehilltech/ember-cli-storage';
 
 import AccessToken from "../-lib/access-token";
-import { tracked } from "@glimmer/tracking";
 
 export default class GatekeeperService extends Service {
   constructor () {
@@ -24,11 +23,8 @@ export default class GatekeeperService extends Service {
   @local('gatekeeper_ct')
   _tokenString;
 
-  @tracked
-  _tokenChanged = 0;
-
   /// The singleton access token for the gatekeeper.
-  @computed ('_tokenChanged')
+  @computed ('_tokenString')
   get accessToken () {
     return AccessToken.fromString (this._tokenString);
   }
@@ -75,8 +71,38 @@ export default class GatekeeperService extends Service {
     return this._requestClientToken (opts).then (token => {
       this._tokenString = token.access_token;
 
-      // Increment the number of times the token has changed.
-      this._tokenChanged ++;
+      // Notify all observers that our token has changed.
+      this.notifyPropertyChange ('_tokenString');
+    });
+  }
+
+  /**
+   * Unauthenticate the client on the platform.
+   */
+  unauthenticate () {
+    return this.signOut (this.accessToken.toString());
+  }
+
+  /**
+   * Sign out a token on the system.
+   */
+  signOut (token) {
+    const url = this.computeUrl ('/oauth2/logout');
+
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+
+    return fetch (url, options).then ((response) => {
+      if (response.ok) {
+        return response.json ();
+      }
+      else {
+        return response.json ().then (result => Promise.reject (result));
+      }
     });
   }
 

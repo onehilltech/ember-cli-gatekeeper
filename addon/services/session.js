@@ -55,9 +55,6 @@ export default class SessionService extends Service {
   @local ('gatekeeper_rt')
   _refreshingTokenString;
 
-  @tracked
-  _tokenChanged = 0;
-
   /// The lock screen state for the session.
   @local ({name: 'gatekeeper_lock_screen', deserialize (value) { return value === 'true' }})
   lockScreen;
@@ -81,12 +78,10 @@ export default class SessionService extends Service {
     return this._account;
   }
 
-  @computed ('_tokenChanged')
   get accessToken () {
     return AccessToken.fromString (this._tokenString);
   }
 
-  @computed ('_tokenChanged')
   get refreshToken () {
     return AccessToken.fromString (this._refreshingTokenString);
   }
@@ -110,20 +105,6 @@ export default class SessionService extends Service {
 
   get refreshUrl () {
     return this.gatekeeper.refreshUrl || this.computeUrl ('/oauth2/token');
-  }
-
-  /**
-   * Force the current user to sign out. This does not communicate the sign out
-   * request to the server.
-   */
-  forceSignOut () {
-    this.currentUser = null;
-
-    // Reset the properties associated with the access tokens.
-    this._resetTokens ();
-
-    this.lockScreen = false;
-    this._account = null;
   }
 
   /**
@@ -159,12 +140,53 @@ export default class SessionService extends Service {
     });
   }
 
+  /**
+   * Sign out of the service.
+   *
+   * @returns {RSVP.Promise|*}
+   */
+  @action
+  signOut (force = false) {
+    return this.gatekeeper.signOut (this.accessToken.toString ()).catch (reason => {
+      if (isPresent (reason.errors)) {
+        let [error] = reason.errors;
+
+        if (force || (error.status === '403' || error.status === '401')) {
+          this.forceSignOut ();
+          return true;
+        }
+      }
+      else {
+        // Force the rejection to continue upstream.
+        return Promise.reject (reason);
+      }
+    });
+  }
+
+  /**
+   * Force the current user to sign out. This does not communicate the sign out
+   * request to the server.
+   */
+  forceSignOut () {
+    this.currentUser = null;
+    this.notifyPropertyChange ('currentUser');
+
+    // Reset the properties associated with the access tokens.
+    this._resetTokens ();
+
+    this._account = null;
+    this.notifyPropertyChange ('_account');
+
+    // Reset the lock screen.
+    this.lockScreen = false;
+  }
+
   _resetTokens () {
     this._tokenString = null;
     this._refreshingTokenString = null;
 
-    // We still increment the counter since this is a token change.
-    this._tokenChanged ++;
+    this.notifyPropertyChange ('_tokenString');
+    this.notifyPropertyChange ('_refreshingTokenString');
   }
 
   /**
@@ -208,36 +230,6 @@ export default class SessionService extends Service {
       })
       .then (account => {
         this.currentUser = account.toJSON ({includeId: true});
-      });
-  }
-
-  /**
-   * Sign out of the service.
-   *
-   * @returns {RSVP.Promise|*}
-   */
-  @action
-  signOut (force = false) {
-    const url = this.computeUrl ('/oauth2/logout');
-    const options = { method: 'POST', headers: this.httpHeaders };
-
-    return fetch (url, options)
-      .then ((response) => {
-        if (response.ok) {
-          return response.json ();
-        }
-
-        // The token is bad. Try to refresh the token, then attempt to sign out the
-        // user again in a graceful manner.
-        return response.status === 401 ?
-          this.refresh ().catch ().then (() => this.signOut (true)) :
-          force;
-      })
-      .then ((result) => {
-        if (result)
-          this._completeSignOut ();
-
-        return result;
       });
   }
 
@@ -340,14 +332,5 @@ export default class SessionService extends Service {
 
   _handleErrorResponse (response) {
     return response.json ().then (reject);
-  }
-
-  /**
-   * Complete the sign out process.
-   *
-   * @private
-   */
-  _completeSignOut () {
-    this.forceSignOut ();
   }
 }
