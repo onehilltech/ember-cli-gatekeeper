@@ -300,7 +300,8 @@ export default class SessionService extends Service {
     this._tokenString = accessToken;
     this._refreshingTokenString = refreshToken;
 
-    this._tokenChanged ++;
+    this.notifyPropertyChange ('_tokenString');
+    this.notifyPropertyChange ('_refreshingTokenString');
   }
 
   /**
