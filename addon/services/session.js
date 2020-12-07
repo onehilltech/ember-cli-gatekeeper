@@ -149,39 +149,27 @@ export default class SessionService extends Service {
    */
   @action
   signOut (force = false) {
-    if (this.isSignedOut) {
-      return Promise.resolve (true);
-    }
+    return this.gatekeeper.signOut (this.accessToken.toString ()).catch (reason => {
+      if (isPresent (reason.errors)) {
+        let [error] = reason.errors;
 
-    return this.gatekeeper.signOut (this.accessToken.toString ())
-      .then (result => {
-        if (result) {
-          this.completeSignOut ();
+        if (force || (error.status === '403' || error.status === '401')) {
+          this.forceSignOut ();
+          return true;
         }
-
-        return result;
-      })
-      .catch (reason => {
-        if (isPresent (reason.errors)) {
-          let [error] = reason.errors;
-
-          if (force || (error.status === '403' || error.status === '401')) {
-            this.completeSignOut ();
-            return true;
-          }
-        }
-        else {
-          // Force the rejection to continue upstream.
-          return Promise.reject (reason);
-        }
-      });
+      }
+      else {
+        // Force the rejection to continue upstream.
+        return Promise.reject (reason);
+      }
+    });
   }
 
   /**
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
    */
-  completeSignOut () {
+  forceSignOut () {
     this.currentUser = null;
     this.notifyPropertyChange ('currentUser');
 
@@ -196,11 +184,7 @@ export default class SessionService extends Service {
   }
 
   _resetTokens () {
-    this._tokenString = null;
-    this._refreshingTokenString = null;
-
-    this.notifyPropertyChange ('_tokenString');
-    this.notifyPropertyChange ('_refreshingTokenString');
+    this._updateTokens (null, null);
   }
 
   /**
@@ -235,7 +219,7 @@ export default class SessionService extends Service {
     return this.gatekeeper.verifyToken (accessToken)
       .then (() => {
         // Force the current session to sign out.
-        this.completeSignOut ();
+        this.forceSignOut ();
 
         // Set the provided access token as the current access token.
         this._updateTokens (accessToken);
@@ -277,7 +261,7 @@ export default class SessionService extends Service {
         refresh_token: this.refreshToken.toString ()
       };
 
-      this._requestToken (tokenOptions)
+      this._requestToken (this.authenticateUrl, tokenOptions)
         .then (response => {
           if (response.ok) {
             return response.json ();
@@ -294,7 +278,8 @@ export default class SessionService extends Service {
           this._updateTokens (access_token, refresh_token);
           this._refreshingToken = null;
         })
-        .then (resolve);
+        .then (resolve)
+        .catch (reject);
     });
 
     return this._refreshingToken;
@@ -336,16 +321,18 @@ export default class SessionService extends Service {
     };
 
     return fetch (url, options)
-      .then ((response) => response.ok ? response.json () : this._handleErrorResponse (response))
-      .then (token => {
-        return all ([
-          this.gatekeeper.verifyToken (token.access_token),
-          this.gatekeeper.verifyToken (token.refresh_token)
-        ]).then (() => token);
+      .then (response => {
+        return response.json ().then (res => {
+          if (response.ok) {
+            return all ([
+              this.gatekeeper.verifyToken (res.access_token),
+              this.gatekeeper.verifyToken (res.refresh_token)
+            ]).then (() => res);
+          }
+          else {
+            return Promise.reject (res);
+          }
+        });
       });
-  }
-
-  _handleErrorResponse (response) {
-    return response.json ().then (reject);
   }
 }
