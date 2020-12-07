@@ -149,27 +149,39 @@ export default class SessionService extends Service {
    */
   @action
   signOut (force = false) {
-    return this.gatekeeper.signOut (this.accessToken.toString ()).catch (reason => {
-      if (isPresent (reason.errors)) {
-        let [error] = reason.errors;
+    if (this.isSignedOut) {
+      return Promise.resolve (true);
+    }
 
-        if (force || (error.status === '403' || error.status === '401')) {
-          this.forceSignOut ();
-          return true;
+    return this.gatekeeper.signOut (this.accessToken.toString ())
+      .then (result => {
+        if (result) {
+          this.completeSignOut ();
         }
-      }
-      else {
-        // Force the rejection to continue upstream.
-        return Promise.reject (reason);
-      }
-    });
+
+        return result;
+      })
+      .catch (reason => {
+        if (isPresent (reason.errors)) {
+          let [error] = reason.errors;
+
+          if (force || (error.status === '403' || error.status === '401')) {
+            this.completeSignOut ();
+            return true;
+          }
+        }
+        else {
+          // Force the rejection to continue upstream.
+          return Promise.reject (reason);
+        }
+      });
   }
 
   /**
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
    */
-  forceSignOut () {
+  completeSignOut () {
     this.currentUser = null;
     this.notifyPropertyChange ('currentUser');
 
@@ -223,7 +235,7 @@ export default class SessionService extends Service {
     return this.gatekeeper.verifyToken (accessToken)
       .then (() => {
         // Force the current session to sign out.
-        this.forceSignOut ();
+        this.completeSignOut ();
 
         // Set the provided access token as the current access token.
         this._updateTokens (accessToken);
