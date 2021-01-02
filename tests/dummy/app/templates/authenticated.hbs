@@ -46,8 +46,8 @@
 
   <h5 class="mdc-typography--headline6">Authenticate</h5>
 
-  <MdcForm @submit={{action "authenticate"}}>
-    <MdcPasswordTextfieldWithHelperText @label="Password" @value={{password}} />
+  <MdcForm @submit={{this.authenticate}}>
+    <MdcPasswordTextfield @label="Password" @value={{this.password}} @style="outlined" />
 
     <MdcButton @style="raised">Check</MdcButton>
   </MdcForm>

@@ -1,112 +1,108 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from "@glimmer/tracking";
 
-import layout from '../templates/components/gatekeeper-sign-in';
-
-import { inject } from '@ember/service';
-import { get, getWithDefault, computed } from '@ember/object';
-import { not, or } from '@ember/object/computed';
+import { action, get, getWithDefault } from '@ember/object';
 import { isPresent, isNone } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
 
 function identity (value) {
-  return () => value;
+  return () => value ;
 }
 
 /**
- * @class SignInComponent
+ * @class GatekeeperSignInComponent
  */
-export default Component.extend ({
-  layout,
+export default class GatekeeperSignInComponent extends Component {
+  @tracked
+  valid;
 
-  classNames: ['gatekeeper-sign-in'],
+  @tracked
+  submitting
 
-  /// The default style for the text field.
-  style: 'box',
+  @tracked
+  username;
 
-  /// The valid state for the sign in component.
-  valid: true,
-  invalid: not ('valid'),
+  @tracked
+  password;
+
+  get signInOptions () {
+    return this.args.signInOptions || {};
+  }
 
   //== username properties
 
-  username: null,
-  usernameType: 'text',
-  usernameLabel: 'Username',
-  usernameIcon: null,
-  usernameIconPosition: null,
-  usernameAutoComplete: 'off',
+  get usernameLabel () {
+    return this.args.usernameLabel || 'Username';
+  }
+
+  get usernameType () {
+    return this.args.usernameType || 'text';
+  }
+
+  get usernameAutoComplete () {
+    return this.args.usernameAutoComplete || 'off';
+  }
+
+  @action
+  usernameLeadingIconClick () {
+    return this.args.usernameLeadingIconClick || identity;
+  }
+
+  @action
+  usernameTrailingIconClick () {
+    return this.args.usernameTrailingIconClick || identity;
+  }
 
   //== password properties
 
-  showPassword: false,
-  enableShowPassword: false,
+  get passwordLabel () {
+    return this.args.passwordLabel || 'Password'
+  }
 
-  passwordLabel: 'Password',
+  //== sign-in button
 
-  //== button
+  get signInButtonText () {
+    return this.args.signInButtonText || 'Sign In';
+  }
 
-  signInButtonColor: 'primary',
-  signInButtonText: 'Sign In',
-  signInOptions: null,
+  get signInButtonDisabled () {
+    return this.submitting || this.invalid || this.args.signInDisabled;
+  }
 
-  showSignUpButton: false,
-  signUpButtonText: 'Sign Up',
+  //== sign-up button
 
-  mergedProperties: ['signInOptions','submitButtonStateText'],
+  get showSignUpButton () {
+    return this.args.showSignUpButton || false;
+  }
 
-  session: inject (),
+  get signUpButtonText () {
+    return this.args.signUpButtonText || 'Sign Up';
+  }
 
-  submitting: false,
+  @service
+  router;
 
-  invalidPassword: not ('validPassword'),
+  @service
+  session;
 
-  /// The disabled state for the button. The button is disabled if we are signing
-  /// in, the form has invalid inputs, or the recaptcha is unverified.
-  disabled: or ('submitting', 'invalid', 'submit.disabled', 'invalidPassword'),
+  @action
+  didInsert () {
+    this.valid = false;
+    this.submitting = false;
 
-  router: service (),
+    this.username = this.args.username;
+    this.password = this.args.password;
+  }
 
-  /**
-   * Do the sign in process.
-   *
-   * @param options
-   */
-  signIn (options = {}) {
-    return this._executeSignIn (options);
-  },
+  @tracked
+  usernameErrorMessage;
 
-  _executeSignIn (options) {
-    let {username, password, signInOptions} = this;
-    let opts = Object.assign ({}, signInOptions, options, {username, password});
+  @tracked
+  passwordErrorMessage;
 
-    this.willSignIn ();
-    this.set ('submitting', true);
-
-    return this.session.signIn (opts)
-      .then (() => {
-        // Notify the subclass that the user did sign in to the application.
-        this.didSignIn ();
-
-        if (this.getWithDefault ('signInComplete', identity (true)) ()) {
-          this._redirectTo ();
-        }
-      })
-      .catch (this.handleError.bind (this))
-      .then (() => this.set ('submitting', false));
-  },
-
-  signUp () {
-    return this.getWithDefault ('signUpClick', identity (true)) ();
-  },
-
-  willSignIn () {
-
-  },
-
-  didSignIn () {
-
-  },
+  @tracked
+  errorMessage;
 
   handleError (xhr) {
     let error = get (xhr, 'errors.0');
@@ -114,21 +110,21 @@ export default Component.extend ({
     if (isPresent (error)) {
       switch (error.code) {
         case 'invalid_username':
-          this.set ('usernameErrorMessage', error.detail);
+          this.usernameErrorMessage = error.detail;
           break;
 
         case 'invalid_password':
-          this.set ('passwordErrorMessage', error.detail);
+          this.passwordErrorMessage = error.detail;
           break;
 
         default:
-          this.set ('errorMessage', error.detail);
+          this.errorMessage = error.detail;
       }
     }
     else {
-      this.setProperties ('errorMessage', xhr.statusText || xhr.message);
+      this.errorMessage = xhr.message || xhr.statusText;
     }
-  },
+  }
 
   /**
    * Perform the redirect to for the user. This will either take the user to the original
@@ -137,9 +133,9 @@ export default Component.extend ({
    *
    * @private
    */
-  _redirectTo () {
+  redirect () {
     // Perform the redirect from the sign in page.
-    let redirectTo = this.redirect;
+    let redirectTo = this.args.redirectTo || this.redirectTo;
 
     if (isNone (redirectTo)) {
       // There is no redirect url. So, we either transition to the default route, or we
@@ -149,11 +145,11 @@ export default Component.extend ({
     }
 
     this.router.replaceWith (redirectTo);
-  },
+  }
 
-  redirect: computed ('router.currentURL', function () {
-    let currentURL = this.get ('router.currentURL');
-    let [ , query ] = currentURL.split ('?');
+  get redirectTo () {
+    let currentURL = this.router.currentURL;
+    let [, query] = currentURL.split ('?');
 
     if (isNone (query)) {
       return null;
@@ -164,33 +160,50 @@ export default Component.extend ({
       let [name, value] = param.split ('=');
       return name === 'redirect' ? decodeURIComponent (value) : accum;
     }, null);
-  }),
-
-  actions: {
-    signInForm (ev) {
-      // Prevent the default behavior of the button.
-      ev.preventDefault ();
-
-      const { target : form } = ev;
-
-      if (form.checkValidity ()) {
-        this.signIn ();
-      }
-    },
-
-    signInButton (ev) {
-      // Prevent the default behavior of the button.
-      ev.preventDefault ();
-
-      const { target: { form } } = ev;
-
-      if (form.checkValidity()) {
-        this.signIn ();
-      }
-    },
-
-    signUp () {
-      this.signUp ();
-    }
   }
-});
+
+  @action
+  signIn () {
+    let { username, password, signInOptions } = this;
+    let options = Object.assign ({}, signInOptions, { username, password });
+
+    // Reset the state of the component.
+    this.reset ();
+
+    this.submitting = true;
+
+    // Let the subclass know we are signing in.
+    return Promise.resolve (() => this.willSignIn ())
+      .then (() => this.session.signIn (options))
+      .then (() => this.didSignIn ())
+      .then (() => {
+        // Notify the subclass that the user did sign in to the application.
+        if (this.signInComplete ()) {
+          this.redirect ();
+        }
+      })
+      .catch (this.handleError.bind (this))
+      .then (() => this.submitting = false);
+  }
+
+  reset () {
+    this.errorMessage = this.usernameErrorMessage = this.passwordErrorMessage = null;
+  }
+
+  willSignIn () {
+
+  }
+
+  didSignIn () {
+
+  }
+
+  get signInComplete () {
+    return this.args.signInComplete || identity (true);
+  }
+
+  @action
+  validity (valid) {
+    this.valid = valid;
+  }
+}

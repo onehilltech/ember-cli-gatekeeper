@@ -1,1 +1,8 @@
-<GatekeeperSignIn @style="outlined" @usernameType="text" @usernameLabel="Email address" @usernameIcon="person" @signInButtonStyle="raised" @signInOptions={{signInOptions}} @showSignUpButton={{true}} @signUpButtonStyle="outlined" @signUpClick={{signUpClick}} @passwordRequirements={{requirements}} />
+<GatekeeperSignIn @style="outlined"
+                  @usernameType="text"
+                  @usernameLabel="Email address"
+                  @usernameLeadingIcon="person"
+                  @signInButtonStyle="raised"
+                  @signInOptions={{this.signInOptions}}
+                  @signUpRoute="sign-up.standard"
+                  @signUpButtonStyle="outlined" />

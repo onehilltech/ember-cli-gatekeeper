@@ -1,0 +1,49 @@
+<div class="gatekeeper-sign-in" {{did-insert this.didInsert}}>
+  <MdcForm @validity={{this.validity}} @submit={{this.signIn}}>
+    <div class="gatekeeper-sign-in__username">
+      <MdcTextfield @value={{this.username}}
+                    @style={{@style}}
+                    required={{true}}
+                    @label={{this.usernameLabel}}
+                    @type={{this.usernameType}}
+                    @leadingIcon={{@usernameLeadingIcon}}
+                    @leadingIconClick={{this.usernameLeadingIconClick}}
+                    @trailingIcon={{@usernameTrailingIcon}}
+                    @trailingIconClick={{this.usernameTrailingIconClick}}
+                    @autocapitalize="none"
+                    @autocomplete={{this.usernameAutoComplete}}
+                    @persistentHelperText={{@usernamePersistentHelperText}}
+                    @helperText={{@usernameHelperText}}
+                    @errorMessage={{this.usernameErrorMessage}} />
+    </div>
+
+
+    <div class="gatekeeper-sign-in__password">
+      <MdcPasswordTextfield @value={{this.password}}
+                            @style={{@style}}
+                            required={{true}}
+                            @label={{this.passwordLabel}}
+                            @autocomplete="off"
+                            @autocapitalize="none"
+                            @helperText={{@passwordHelperText}}
+                            @errorMessage={{this.passwordErrorMessage}}/>
+    </div>
+
+    <div class="gatekeeper-sign-in__buttons">
+      <MdcButton type="submit"
+                 class="gatekeeper-sign-in__button gatekeeper-sign-in__button--sign-in"
+                 @style={{@signInButtonStyle}}
+                 disabled={{this.signInButtonDisabled}}>
+        {{this.signInButtonText}}
+      </MdcButton>
+
+      {{#if @signUpRoute}}
+        <MdcButtonLinkTo class="gatekeeper-sign-in__button gatekeeper-sign-in__button--sign-up"
+                         @route={{@signUpRoute}}
+                         @style={{@signUpButtonStyle}}>
+          {{this.signUpButtonText}}
+        </MdcButtonLinkTo>
+      {{/if}}
+    </div>
+  </MdcForm>
+</div>

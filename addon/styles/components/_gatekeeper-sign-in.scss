@@ -1,0 +1,46 @@
+.gatekeeper-sign-in {
+  .mdc-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__username, &__password, &__email {
+    width: 100%;
+    margin-bottom: 32px;
+
+    .mdc-text-field {
+      width: 100%;
+    }
+  }
+
+  &__buttons {
+    margin-top: 16px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+  }
+
+  .mdc-button {
+    width: 100%;
+    flex-grow: 1;
+
+    + .mdc-button {
+      margin-left: 32px;
+    }
+  }
+
+  &__button {
+    &--sign-up {
+      width: 45%;
+      margin-left: 16px;
+    }
+  }
+
+  .g-recaptcha {
+    &--v2 {
+      margin-bottom: 32px;
+    }
+  }
+}
