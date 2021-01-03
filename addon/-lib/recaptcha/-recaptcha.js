@@ -1,4 +1,7 @@
+import {tracked} from "@glimmer/tracking";
+
 export default class Recaptcha {
+  @tracked
   response;
 
   constructor (component) {
@@ -16,6 +19,10 @@ export default class Recaptcha {
 
   verified (response) {
     this.response = response;
+  }
+
+  isVerified () {
+
   }
 }
 

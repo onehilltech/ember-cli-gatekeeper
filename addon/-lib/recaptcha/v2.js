@@ -1,4 +1,5 @@
 import Recaptcha from "./-recaptcha";
+import { isPresent } from '@ember/utils';
 
 /**
  * Recaptcha v2 is when the user much check the challenge box to verify they
@@ -7,5 +8,7 @@ import Recaptcha from "./-recaptcha";
  * the verification process.
  */
 export default class RecaptchaV2 extends Recaptcha {
-
+  isVerified () {
+    return isPresent (this.response);
+  }
 }

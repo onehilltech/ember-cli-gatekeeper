@@ -66,8 +66,12 @@ export default class GatekeeperSignInComponent extends Component {
     return this.args.signInButtonText || 'Sign In';
   }
 
+  isSignInDisabled () {
+    return false;
+  }
+
   get signInButtonDisabled () {
-    return this.submitting || !this.valid || this.args.signInDisabled;
+    return this.submitting || !this.valid || this.args.signInDisabled || this.isSignInDisabled ();
   }
 
   //== sign-up button

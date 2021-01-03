@@ -29,6 +29,19 @@
                             @errorMessage={{this.passwordErrorMessage}}/>
     </div>
 
+    {{#if this.v2}}
+      <GRecaptchaV2 @siteKey={{@siteKey}}
+                    @verified={{this.verified}}
+                    @reset={{this.resetRecaptcha}}
+                    @execute={{this.executeRecaptcha}} />
+    {{else if this.invisible}}
+      <GRecaptchaInvisible @siteKey={{@siteKey}}
+                           @verified={{this.verified}}
+                           @reset={{this.reset}}
+                           @execute={{this.execute}}  />
+    {{/if}}
+
+
     <div class="gatekeeper-sign-in__buttons">
       <MdcButton type="submit"
                  class="gatekeeper-sign-in__button gatekeeper-sign-in__button--sign-in"
@@ -47,15 +60,3 @@
     </div>
   </MdcForm>
 </div>
-
-{{#if this.v2}}
-  <GRecaptchaV2 @siteKey={{@siteKey}}
-                @verified={{this.verified}}
-                @reset={{this.resetRecaptcha}}
-                @execute={{this.executeRecaptcha}} />
-{{else if this.invisible}}
-  <GRecaptchaInvisible @siteKey={{@siteKey}}
-                       @verified={{this.verified}}
-                       @reset={{this.reset}}
-                       @execute={{this.execute}}  />
-{{/if}}

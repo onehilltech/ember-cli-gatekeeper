@@ -42,8 +42,7 @@ export default class GatekeeperSignInWithRecaptchaComponent extends SignInCompon
     return Object.assign ({}, options, { recaptcha: this._recaptchaImpl.response });
   }
 
-  executeRecaptcha () {
-    this.resetRecaptcha = true;
-    this.executeRecaptcha = true;
+  isSignInDisabled () {
+    return !this._recaptchaImpl.isVerified ();
   }
 }
