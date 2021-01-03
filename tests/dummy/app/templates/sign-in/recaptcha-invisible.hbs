@@ -3,10 +3,8 @@
                                @siteKey="6LdcLDcUAAAAANCqibBJg2RZDRSUjqjoD8JvXVIx"
                                @usernameType="text"
                                @usernameLabel="Email address"
-                               @usernameIcon="person"
+                               @usernameLeadingIcon="person"
                                @signInButtonStyle="raised"
-                               @signInOptions={{signInOptions}}
+                               @signInOptions={{this.signInOptions}}
                                @signUpButtonStyle="outlined"
-                               @showSignUpButton={{true}}
-                               @enableShowPassword={{true}}
-                               @passwordRequirements={{requirements}} />
+                               @signUpRoute="sign-up.recaptcha-invisible" />
