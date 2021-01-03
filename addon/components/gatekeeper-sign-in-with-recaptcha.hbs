@@ -1,26 +1,61 @@
-<MdcForm @validity={{action (mut valid)}}>
-  <MdcTextfieldWithHelperText @class="gatekeeper-sign-in__username" @value={{username}} @style={{style}} @required={{true}} @type={{usernameType}} @label={{usernameLabel}} @icon={{usernameIcon}} @iconPosition={{usernameIconPosition}} @iconClickable={{usernameIconClickable}} @iconClick={{usernameIconClick}} @autocapitalize="none" @autocomplete={{usernameAutoComplete}} @helperText={{usernameHelperText}} @errorMessage={{usernameErrorMessage}} />
+<div class="gatekeeper-sign-in" {{did-insert this.didInsert}}>
+  <MdcForm @validity={{this.validity}} @submit={{this.signIn}}>
+    <div class="gatekeeper-sign-in__username">
+      <MdcTextfield @value={{this.username}}
+                    @style={{@style}}
+                    required={{true}}
+                    @label={{this.usernameLabel}}
+                    @type={{this.usernameType}}
+                    @leadingIcon={{@usernameLeadingIcon}}
+                    @leadingIconClick={{this.usernameLeadingIconClick}}
+                    @trailingIcon={{@usernameTrailingIcon}}
+                    @trailingIconClick={{this.usernameTrailingIconClick}}
+                    @autocapitalize="none"
+                    @autocomplete={{this.usernameAutoComplete}}
+                    @persistentHelperText={{@usernamePersistentHelperText}}
+                    @helperText={{@usernameHelperText}}
+                    @errorMessage={{this.usernameErrorMessage}} />
+    </div>
 
-  <MdcPasswordTextfieldWithHelperText @class="gatekeeper-sign-in__password" @value={{password}} @style={{style}} @required={{true}} @label={{passwordLabel}} @icon={{passwordIcon}} @autocomplete="off" @autocapitalize="none" @helperText={{passwordHelperText}} @errorMessage={{passwordErrorMessage}} @requirements={{passwordRequirements}} @valid={{validPassword}} />
 
-  {{component recaptchaComponentName
-              siteKey=siteKey
-              verified=(action "verified")
-              reset=reset
-              execute=execute}}
+    <div class="gatekeeper-sign-in__password">
+      <MdcPasswordTextfield @value={{this.password}}
+                            @style={{@style}}
+                            required={{true}}
+                            @label={{this.passwordLabel}}
+                            @autocomplete="off"
+                            @autocapitalize="none"
+                            @helperText={{@passwordHelperText}}
+                            @errorMessage={{this.passwordErrorMessage}}/>
+    </div>
 
-  <div class="gatekeeper-sign-in__buttons">
-    <MdcButton @type="submit" @name="action" @value="signIn" @class="gatekeeper-sign-in__button--sign-in" @style={{signInButtonStyle}} @click={{action "signInButton"}} @disabled={{signInDisabled}}>
-      {{signInButtonText}}
-    </MdcButton>
-
-    {{#if showSignUpButton}}
-      <MdcButton @type="submit" @name="action" @value="signUp" @class="gatekeeper-sign-in__button--sign-up" @style={{signUpButtonStyle}} @click={{action "signUp"}} @disabled={{signUpDisabled}}>
-        {{signUpButtonText}}
+    <div class="gatekeeper-sign-in__buttons">
+      <MdcButton type="submit"
+                 class="gatekeeper-sign-in__button gatekeeper-sign-in__button--sign-in"
+                 @style={{@signInButtonStyle}}
+                 disabled={{this.signInButtonDisabled}}>
+        {{this.signInButtonText}}
       </MdcButton>
-    {{/if}}
-  </div>
 
-</MdcForm>
+      {{#if @signUpRoute}}
+        <MdcButtonLinkTo class="gatekeeper-sign-in__button gatekeeper-sign-in__button--sign-up"
+                         @route={{@signUpRoute}}
+                         @style={{@signUpButtonStyle}}>
+          {{this.signUpButtonText}}
+        </MdcButtonLinkTo>
+      {{/if}}
+    </div>
+  </MdcForm>
+</div>
 
-<MdcSnackbar @message={{errorMessage}} />
+{{#if this.v2}}
+  <GRecaptchaV2 @siteKey={{@siteKey}}
+                @verified={{this.verified}}
+                @reset={{this.resetRecaptcha}}
+                @execute={{this.executeRecaptcha}} />
+{{else if this.invisible}}
+  <GRecaptchaInvisible @siteKey={{@siteKey}}
+                       @verified={{this.verified}}
+                       @reset={{this.reset}}
+                       @execute={{this.execute}}  />
+{{/if}}

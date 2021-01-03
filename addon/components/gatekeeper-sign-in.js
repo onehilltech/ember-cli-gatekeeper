@@ -67,7 +67,7 @@ export default class GatekeeperSignInComponent extends Component {
   }
 
   get signInButtonDisabled () {
-    return this.submitting || this.invalid || this.args.signInDisabled;
+    return this.submitting || !this.valid || this.args.signInDisabled;
   }
 
   //== sign-up button
@@ -87,12 +87,18 @@ export default class GatekeeperSignInComponent extends Component {
   session;
 
   @action
-  didInsert () {
+  didInsert (element) {
     this.valid = false;
     this.submitting = false;
 
     this.username = this.args.username;
     this.password = this.args.password;
+
+    this.doPrepareComponent (element);
+  }
+
+  doPrepareComponent (/* element */) {
+
   }
 
   @tracked
@@ -174,7 +180,8 @@ export default class GatekeeperSignInComponent extends Component {
 
     // Let the subclass know we are signing in.
     return Promise.resolve (() => this.willSignIn ())
-      .then (() => this.session.signIn (options))
+      .then (() => this.doPrepareOptions (options))
+      .then (options => this.session.signIn (options))
       .then (() => this.didSignIn ())
       .then (() => {
         // Notify the subclass that the user did sign in to the application.
@@ -192,6 +199,10 @@ export default class GatekeeperSignInComponent extends Component {
 
   willSignIn () {
 
+  }
+
+  doPrepareOptions (options) {
+    return options;
   }
 
   didSignIn () {
