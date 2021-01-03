@@ -13,8 +13,7 @@ export default class RecaptchaInvisible extends Recaptcha {
     return new Promise ((resolve) => {
       this.completed = resolve;
 
-      component.reset = true;
-      component.execute = true;
+      component.executeRecaptcha = true;
     });
   }
 
@@ -22,5 +21,9 @@ export default class RecaptchaInvisible extends Recaptcha {
     super.verified (response);
 
     this.completed ();
+  }
+
+  isNextDisabled () {
+    return false;
   }
 }

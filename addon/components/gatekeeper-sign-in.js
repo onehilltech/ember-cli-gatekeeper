@@ -177,9 +177,6 @@ export default class GatekeeperSignInComponent extends Component {
     let { username, password, signInOptions } = this;
     let options = Object.assign ({}, signInOptions, { username, password });
 
-    // Reset the state of the component.
-    this.reset ();
-
     this.submitting = true;
 
     // Let the subclass know we are signing in.
@@ -193,8 +190,13 @@ export default class GatekeeperSignInComponent extends Component {
           this.redirect ();
         }
       })
-      .catch (this.handleError.bind (this))
-      .then (() => this.submitting = false);
+      .catch (reason => {
+        this.submitting = false;
+
+
+        this.handleError (reason);
+        this.reset ();
+      });
   }
 
   reset () {

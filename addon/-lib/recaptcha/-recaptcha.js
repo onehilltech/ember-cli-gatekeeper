@@ -21,7 +21,7 @@ export default class Recaptcha {
     this.response = response;
   }
 
-  isVerified () {
+  isNextDisabled () {
 
   }
 }

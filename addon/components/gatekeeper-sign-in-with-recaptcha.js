@@ -21,6 +21,12 @@ export default class GatekeeperSignInWithRecaptchaComponent extends SignInCompon
     return this._recaptchaImpl.verify (this);
   }
 
+  reset () {
+    super.reset ();
+
+    this.resetRecaptcha = true;
+  }
+
   get recaptcha () {
     return this.args.recaptcha || 'invisible';
   }
@@ -43,6 +49,6 @@ export default class GatekeeperSignInWithRecaptchaComponent extends SignInCompon
   }
 
   isSignInDisabled () {
-    return !this._recaptchaImpl.isVerified ();
+    return this._recaptchaImpl.isNextDisabled ();
   }
 }

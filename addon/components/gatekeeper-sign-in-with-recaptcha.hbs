@@ -37,8 +37,8 @@
     {{else if this.invisible}}
       <GRecaptchaInvisible @siteKey={{@siteKey}}
                            @verified={{this.verified}}
-                           @reset={{this.reset}}
-                           @execute={{this.execute}}  />
+                           @reset={{this.resetRecaptcha}}
+                           @execute={{this.executeRecaptcha}}  />
     {{/if}}
 
 

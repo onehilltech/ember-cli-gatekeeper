@@ -1,5 +1,5 @@
 import Recaptcha from "./-recaptcha";
-import { isPresent } from '@ember/utils';
+import { isNone } from '@ember/utils';
 
 /**
  * Recaptcha v2 is when the user much check the challenge box to verify they
@@ -8,7 +8,7 @@ import { isPresent } from '@ember/utils';
  * the verification process.
  */
 export default class RecaptchaV2 extends Recaptcha {
-  isVerified () {
-    return isPresent (this.response);
+  isNextDisabled () {
+    return isNone (this.response);
   }
 }
