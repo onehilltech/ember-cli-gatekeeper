@@ -54,8 +54,9 @@ const AuthenticatedMixin = M.create ({
           //this.send ('app:snackbar', { message: error.detail });
 
           // Force the user to sign out.
-          this.session.forceSignOut ();
-          this.replaceWith (signInRoute);
+          this.session.signOut (true).then (() => {
+            this.replaceWith (signInRoute);
+          });
 
           return;
         }
