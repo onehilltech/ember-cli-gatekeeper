@@ -1,27 +1,66 @@
-<MdcForm @submit={{action "submit"}} @validity={{action (mut valid)}}>
-  {{#unless useEmailForUsername}}
-    <MdcTextfieldWithHelperText @class="gatekeeper-sign-up__username" @type="text" @style={{style}} @value={{username}} @label={{usernameLabel}} @errorMessage={{usernameErrorMessage}} @helperText={{usernameHelperText}} @required={{true}} @icon={{usernameIcon}} @iconPosition={{usernameIconPosition}} @iconClickable={{usernameIconClickable}} @autocapitalize="none" />
-  {{/unless}}
+<div class="gatekeeper-sign-up" {{did-insert this.didInsert}}>
+  <MdcForm @submit={{this.signUp}} @validity={{this.validity}}>
+    {{#unless this.useEmailForUsername}}
+      <div class="gatekeeper-sign-up__username">
+        <MdcTextfield type="text"
+                      required="true"
+                      autocapitalize="none"
+                      @style={{this.style}}
+                      @value={{this.username}}
+                      @label={{this.usernameLabel}}
+                      @leadingIcon={{@usernameLeadingIcon}}
+                      @errorMessage={{this.usernameErrorMessage}}
+                      @helperText={{@usernameHelperText}} />
+      </div>
+    {{/unless}}
 
-  <MdcTextfieldWithHelperText @class="gatekeeper-sign-up__email" @type="email" @style={{style}} @value={{email}} @label={{emailLabel}} @errorMessage={{emailErrorMessage}} @helperText={{emailHelperText}} @required={{true}} @icon={{emailIcon}} @iconPosition={{emailIconPosition}} @iconClickable={{emailIconClickable}} />
+    <div class="gatekeeper-sign-up__email">
+      <MdcTextfield type="email"
+                    required="true"
+                    @style={{this.style}}
+                    @value={{this.email}}
+                    @label={{this.emailLabel}}
+                    @leadingIcon={{@emailLeadingIcon}}
+                    @errorMessage={{this.emailErrorMessage}}
+                    @helperText={{this.emailHelperText}} />
+    </div>
 
-  <MdcPasswordTextfieldWithHelperText @class="gatekeeper-sign-up__password" @style={{style}} @value={{password}} @label={{passwordLabel}} @helperText={{passwordHelperText}} @required={{true}} @requirements={{passwordRequirements}} @valid={{validPassword}} />
+    <div class="gatekeeper-sign-up__password">
+      <MdcPasswordTextfield @style={{@style}}
+                            @value={{this.password}}
+                            @label={{this.passwordLabel}}
+                            @helperText={{@passwordHelperText}}
+                            required="true" />
+    </div>
 
+    {{#if this.confirmPassword}}
+      <div class="gatekeeper-sign-up__confirm-password">
+        <MdcPasswordTextfield @style={{@style}}
+                              @value={{this.confirmed}}
+                              @label={{this.confirmPasswordLabel}}
+                              @errorMessage={{this.confirmErrorMessage}}
+                              required="true" />
+      </div>
+    {{/if}}
 
-  {{#if mustConfirmPassword}}
-    <MdcPasswordTextfieldWithHelperText @class="gatekeeper-sign-up__password-confirm" @style={{style}} @value={{confirmPassword}} @label={{confirmPasswordLabel}} @errorMessage={{confirmErrorMessage}} @required={{true}} />
-  {{/if}}
+    {{#if this.v2}}
+      <GRecaptchaV2 @siteKey={{@siteKey}}
+                    @verified={{this.verified}}
+                    @reset={{this.resetRecaptcha}}
+                    @execute={{this.executeRecaptcha}} />
+    {{else if this.invisible}}
+      <GRecaptchaInvisible @siteKey={{@siteKey}}
+                           @verified={{this.verified}}
+                           @reset={{this.resetRecaptcha}}
+                           @execute={{this.executeRecaptcha}}  />
+    {{/if}}
 
-  {{component recaptchaComponentName
-              siteKey=siteKey
-              verified=(action "verified")
-              reset=reset
-              execute=execute}}
-
-  <MdcButton @type="submit" @style={{submitButtonStyle}} @disabled={{disabled}}>
-    {{submitButtonText}}
-  </MdcButton>
-
-</MdcForm>
-
-<MdcSnackbar @message={{messageToUser}} />
+    <div class="gatekeeper-sign-up__actions">
+      <MdcButton type="submit"
+                 class="gatekeeper-sign-up--submit"
+                 @style={{this.submitButtonStyle}}
+                 @label={{this.submitButtonText}}
+                 disabled={{this.submitButtonDisabled}} />
+    </div>
+  </MdcForm>
+</div>

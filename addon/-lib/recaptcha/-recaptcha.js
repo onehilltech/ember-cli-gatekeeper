@@ -14,7 +14,7 @@ export default class Recaptcha {
   }
 
   verify () {
-
+    return this.response;
   }
 
   verified (response) {

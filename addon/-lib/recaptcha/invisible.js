@@ -19,8 +19,7 @@ export default class RecaptchaInvisible extends Recaptcha {
 
   verified (response) {
     super.verified (response);
-
-    this.completed ();
+    this.completed (response);
   }
 
   isNextDisabled () {

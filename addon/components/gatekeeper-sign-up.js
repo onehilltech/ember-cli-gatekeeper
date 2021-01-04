@@ -44,9 +44,15 @@ export default class GatekeeperSignUpComponent extends Component {
   passwordErrorMessage;
 
   @action
-  didInsert () {
+  didInsert (element) {
     this.valid = false;
     this.submitting = false;
+
+    this.doPrepareComponent (element);
+  }
+
+  doPrepareComponent (/* element */) {
+
   }
 
   @action
@@ -110,7 +116,7 @@ export default class GatekeeperSignUpComponent extends Component {
   }
 
   get submitButtonDisabled () {
-    return this.submitting || !this.isConfirmed || !this.valid;
+    return this.submitting || !this.isConfirmed || !this.valid || this.args.signUpDisabled || this.isSignUpDisabled ();
   }
 
   get accountEnabled () {
@@ -149,6 +155,7 @@ export default class GatekeeperSignUpComponent extends Component {
     let adapterOptions = Object.assign ({}, signUpOptions, { signIn });
 
     return Promise.resolve ()
+      .then (() => this.willSignUp ())
       .then (() => this.doPrepareOptions (adapterOptions))
       .then (adapterOptions => {
         let account = this.store.createRecord ('account', {username, password, email, enabled: accountEnabled});
@@ -163,8 +170,21 @@ export default class GatekeeperSignUpComponent extends Component {
       .then (() => this.submitting = false);
   }
 
+  @action
+  verified (response) {
+    this._recaptchaImpl.verified (response);
+  }
+
+  willSignUp () {
+
+  }
+
   doPrepareOptions (options) {
-    return options;
+    return Object.assign ({}, options, { recaptcha: this._recaptchaImpl.response });
+  }
+
+  isSignUpDisabled () {
+    return false;
   }
 
   reset () {
