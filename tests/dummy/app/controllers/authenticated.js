@@ -32,7 +32,9 @@ export default class AuthenticatedController extends Controller {
       .then (result => {
         if (result) {
           this.snackbar.show ({message: 'We authenticated the user.'});
-          this.set ('snackbar', null);
+        }
+        else {
+          this.snackbar.show ({message: 'The password is incorrect.', dismiss: true});
         }
       })
       .catch (res => this.snackbar ({message: res.responseText}));
