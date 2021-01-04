@@ -2,27 +2,25 @@ import RESTAdapter from '../-lib/user/adapters/rest';
 
 import { isPresent, isEmpty } from '@ember/utils';
 import { getWithDefault } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 
 /**
  * @class AccountRESTAdapter
  *
  * The RESTAdapter for the account model.
  */
-export default RESTAdapter.extend({
-  /// Get the host from the base url for the client.
-  host: readOnly ('session.gatekeeper.baseUrl'),
+export default class AccountRESTAdapter extends RESTAdapter {
+  get host () {
+    return this.session.gatekeeper.baseUrl;
+  }
 
   createRecord (store, type, snapshot) {
-    let _super = this._super;
-    let adapter = this;
     let { adapterOptions } = snapshot;
     let opts = {};
 
     if (isPresent (Object.keys (adapterOptions))) {
       Object.assign (opts, adapterOptions);
 
-      if (opts.signIn) {
+      if (isPresent (opts.signIn)) {
         delete opts.signIn;
       }
     }
@@ -41,14 +39,11 @@ export default RESTAdapter.extend({
       }
     }
 
-    return this.get ('session.gatekeeper').authenticate (opts).then (() => {
-      return _super.call (adapter, store, type, snapshot);
-    });
-  },
+    return super.createRecord (store, type, snapshot);
+  }
 
   urlForCreateRecord (modelName, snapshot) {
-    let url = this._super (...arguments);
-
+    let url = super.urlForCreateRecord (...arguments);
     let signIn = getWithDefault (snapshot, 'adapterOptions.signIn', false);
 
     if (signIn) {
@@ -56,19 +51,19 @@ export default RESTAdapter.extend({
     }
 
     return url;
-  },
+  }
 
   urlForQueryRecord (query, modelName) {
     if (isEmpty (Object.keys (query))) {
       return this.buildURL (modelName, 'me', null, 'findRecord', null);
     }
     else {
-      return this._super (...arguments);
+      return super.urlForQueryRecord (...arguments);
     }
-  },
+  }
 
   ajaxOptions (url) {
-    let hash = this._super (...arguments);
+    let hash = super.ajaxOptions (...arguments);
     let beforeSend = hash.beforeSend || function () { };
 
     hash.beforeSend = function (xhr) {
@@ -83,7 +78,7 @@ export default RESTAdapter.extend({
     };
 
     return hash;
-  },
+  }
 
   handleResponse (status, headers, payload, requestData) {
     if (status === 200 && requestData.method === 'POST') {
@@ -101,9 +96,9 @@ export default RESTAdapter.extend({
       }
     }
 
-    return this._super (status, headers, payload, requestData);
+    return super.handleResponse (status, headers, payload, requestData);
   }
-});
+}
 
 //From http://stackoverflow.com/questions/280634/endswith-in-javascript
 function endsWith (string, suffix) {

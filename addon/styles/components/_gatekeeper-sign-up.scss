@@ -1,5 +1,10 @@
 .gatekeeper-sign-up {
-  &__username, &__password, &__email, &__password-confirm {
+  .mdc-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__username, &__password, &__email, &__confirm-password {
     width: 100%;
     margin-bottom: 16px;
 
@@ -8,7 +13,7 @@
     }
   }
 
-  &__buttons {
+  &__actions {
     margin-top: 16px;
 
     display: flex;
@@ -19,19 +24,5 @@
 
   .mdc-button[type="submit"] {
     width: 100%;
-    flex-grow: 1;
-  }
-
-  &__button {
-    &--sign-up {
-      width: 45%;
-      margin-left: 16px;
-    }
-  }
-
-  .g-recaptcha {
-    &--v2 {
-      margin-bottom: 32px;
-    }
   }
 }

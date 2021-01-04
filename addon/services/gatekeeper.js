@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 
-import { get, computed } from '@ember/object';
+import { get, computed, getWithDefault } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
@@ -8,6 +8,7 @@ import { resolve, Promise, reject } from 'rsvp';
 import { assign } from '@ember/polyfills';
 import { KJUR, KEYUTIL } from 'jsrsasign';
 import { local } from '@onehilltech/ember-cli-storage';
+import { inject as service } from '@ember/service';
 
 import AccessToken from "../-lib/access-token";
 
@@ -18,6 +19,9 @@ export default class GatekeeperService extends Service {
     let ENV = getOwner (this).resolveRegistration ('config:environment');
     this._config = get (ENV, 'gatekeeper');
   }
+
+  @service
+  router;
 
   /// The access token stored in local storage.
   @local('gatekeeper_ct')
@@ -183,6 +187,37 @@ export default class GatekeeperService extends Service {
       const verified = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
       return verified ? resolve (true) : reject (new Error ('The access token could not be verified.'));
     });
+  }
+
+  /**
+   * Perform the redirect to for the user. This will either take the user to the original
+   * page they accessed before being redirected to the sign-in page, or the start route
+   * if no redirect is present.
+   */
+  redirect (redirectTo = this.redirectTo) {
+    if (isNone (redirectTo)) {
+      // There is no redirect url. So, we either transition to the default route, or we
+      // transition to the index.
+      let ENV = getOwner (this).resolveRegistration ('config:environment');
+      redirectTo = getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
+    }
+
+    this.router.replaceWith (redirectTo);
+  }
+
+  get redirectTo () {
+    let currentURL = this.router.currentURL;
+    let [, query] = currentURL.split ('?');
+
+    if (isNone (query)) {
+      return null;
+    }
+
+    let params = query.split ('&');
+    return params.reduce ((accum, param) => {
+      let [name, value] = param.split ('=');
+      return name === 'redirect' ? decodeURIComponent (value) : accum;
+    }, null);
   }
 
   /**

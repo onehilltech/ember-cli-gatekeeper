@@ -1,12 +1,12 @@
 import DS from 'ember-data';
 import { underscore } from '@ember/string';
 
-export default DS.RESTSerializer.extend({
-  primaryKey: '_id',
+export default class AccountSerializer extends DS.RESTSerializer {
+  primaryKey = '_id';
 
   keyForAttribute (key) {
     return underscore (key);
-  },
+  }
 
   serializeAttribute (snapshot, json, key, attributes) {
     // Do not serialize any attributes that are null.
@@ -14,7 +14,7 @@ export default DS.RESTSerializer.extend({
     const changed = attrs[key];
 
     if (changed && snapshot.attr (key)) {
-      this._super (snapshot, json, key, attributes);
+      super.serializeAttribute (snapshot, json, key, attributes);
     }
   }
-});
+}

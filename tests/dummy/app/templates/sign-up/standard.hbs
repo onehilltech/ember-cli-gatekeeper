@@ -1,1 +1,10 @@
-<GatekeeperSignUp @style="outlined" @usernameType="text" @useEmailForUsername={{false}} @mustConfirmPassword={{true}} @usernameIcon="person" @emailIcon="email" @submitButtonStyle="raised" @enableShowPassword={{true}} @signUpOptions={{signUpOptions}} @passwordRequirements={{requirements}} />
+<p><Input @type="checkbox" @checked={{this.usernameIsEmail}} /> Use email address as username</p>
+
+<GatekeeperSignUp @style="outlined"
+                  @usernameType="text"
+                  @useEmailForUsername={{this.usernameIsEmail}}
+                  @confirmPassword={{true}}
+                  @usernameLeadingIcon="person"
+                  @emailLeadingIcon="email"
+                  @submitButtonStyle="raised"
+                  @signUpOptions={{this.signUpOptions}} />

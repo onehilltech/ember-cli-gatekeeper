@@ -1,139 +1,138 @@
-import Component from '@ember/component';
-import layout from '../templates/components/gatekeeper-sign-up';
+import Component from '@glimmer/component';
 
-import { computed, get } from '@ember/object';
-import { and, not, or, empty } from '@ember/object/computed';
+import { action, get } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
+import { tracked } from "@glimmer/tracking";
 
-import { default as StandardSubmit } from "../-lib/standard-submit-strategy";
+function identity (value) {
+  return () => value ;
+}
 
-function noOp () { }
+export default class GatekeeperSignUpComponent extends Component {
+  @service
+  store;
 
-export default Component.extend ({
-  layout,
+  @service
+  gatekeeper;
 
-  classNames: ['gatekeeper-sign-up'],
-  classNameBindings: ['horizontal:gatekeeper--horizontal'],
+  @service
+  snackbar;
 
-  horizontal: false,
+  @tracked
+  valid;
 
-  store: service (),
+  @tracked
+  username;
 
-  signUpOptions: null,
+  @tracked
+  email;
 
-  valid: true,
-  invalid: not ('valid'),
+  @tracked
+  password;
 
-  style: 'outlined',
-  submitButtonStyle: 'raised',
+  @tracked
+  confirmed;
 
-  useEmailForUsername: false,
-  mustConfirmPassword: true,
+  @tracked
+  usernameErrorMessage;
 
-  usernameLabel: 'Username',
-  emailLabel: 'Email address',
-  passwordLabel: 'Password',
-  confirmPasswordLabel: 'Confirm password',
+  @tracked
+  emailErrorMessage;
 
-  checkPasswordRequirements: true,
-  noPasswordRequirements: empty ('passwordRequirements'),
-  hasPasswordRequirements: not ('noPasswordRequirements'),
-  invalidPassword: not ('validPassword'),
-  badPassword: and ('{checkPasswordRequirements,hasPasswordRequirements,invalidPassword}'),
+  @tracked
+  passwordErrorMessage;
 
-  /// Sign in the user when the account is created.
-  autoSignIn: true,
+  @action
+  didInsert () {
+    this.valid = false;
+    this.submitting = false;
+  }
 
-  /// The account is enabled when created.
-  accountEnabled: true,
+  @action
+  validity (value) {
+    this.valid = value;
+  }
 
-  submitting: false,
+  get signUpOptions () {
+    return this.args.signUpOptions || {};
+  }
 
-  /// The submit strategy for the component.
-  submit: null,
+  get style () {
+    return this.args.style || 'outlined';
+  }
 
-  submitButtonText: 'Create My Account',
+  get submitButtonStyle () {
+    return this.args.submitButtonStyle || 'raised';
+  }
 
-  confirmed: computed ('{mustConfirmPassword,password,confirmPassword}', function () {
-    const {
-      mustConfirmPassword,
-      password,
-      confirmPassword
-    } = this;
+  get useEmailForUsername () {
+    const { useEmailForUsername = true } = this.args;
+    return useEmailForUsername;
+  }
 
-    return !mustConfirmPassword || password === confirmPassword;
-  }),
+  get confirmPassword () {
+    const { confirmPassword = true } = this.args;
+    return confirmPassword;
+  }
 
-  unconfirmed: not ('confirmed'),
+  get usernameLabel () {
+    return this.args.usernameLabel || 'Username';
+  }
 
-  confirmErrorMessage: computed ('confirmPassword', function () {
-    const { unconfirmed, confirmPassword } = this;
-    return isPresent (confirmPassword) && unconfirmed ? 'The passwords do not match.' : null;
-  }),
+  get emailLabel () {
+    return this.args.emailLabel || 'Email address';
+  }
 
-  defaultConfirmErrorMessage: 'The passwords do not match.',
+  get passwordLabel () {
+    return this.args.passwordLabel || 'Password';
+  }
 
-  disabled: or ('{submitting,invalid,unconfirmed,badPassword}', 'submit.disabled'),
+  get confirmPasswordLabel () {
+    return this.args.confirmPasswordLabel || 'Confirm password';
+  }
 
-  init () {
-    this._super (...arguments);
+  get submitButtonText () {
+    return this.args.submitButtonText || 'Create account';
+  }
 
-    this.set ('submit', StandardSubmit.create ({component: this}));
-  },
+  get isConfirmed () {
+    return !this.confirmPassword || this.password === this.confirmed;
+  }
 
-  /**
-   * The account was successfully created.
-   *
-   * @param account
-   */
-  didCreateAccount (/*account*/) {
-  },
+  get confirmPasswordErrorMessage () {
+    return this.args.confirmPasswordErrorMessage || 'The passwords do not match.';
+  }
 
-  /**
-   * There was an error while creating the account.
-   *
-   * @param xhr
-   */
-  didError (xhr) {
-    let error = get (xhr, 'errors.0');
+  get confirmErrorMessage () {
+    const { confirmPassword, password, confirmed } = this;
+    return confirmPassword && isPresent (password) && isPresent (confirmed) ? (password !== confirmed ? this.confirmPasswordErrorMessage : null) : null;
+  }
 
-    if (isPresent (error)) {
-      switch (error.code) {
-        case 'username_exists':
-          if (this.useEmailForUsername) {
-            this.set ('emailErrorMessage', error.detail);
-          }
-          else {
-            this.set ('usernameErrorMessage', error.detail);
-          }
-          break;
+  get submitButtonDisabled () {
+    return this.submitting || !this.isConfirmed || !this.valid;
+  }
 
-        case 'email_exists':
-          this.set ('emailErrorMessage', error.detail);
-          break;
+  get accountEnabled () {
+    const { accountEnabled = true } = this.args;
+    return accountEnabled;
+  }
 
-        case 'invalid_password':
-          this.set ('passwordErrorMessage', error.detail);
-          break;
-
-        default:
-          this.set ('messageToUser', error.detail);
-      }
-    }
-
-    this.getWithDefault ('error', noOp) (xhr);
-  },
+  get signIn () {
+    const { signIn = false } = this.args;
+    return signIn;
+  }
 
   /**
    * Perform the submission of the information to create an account.
    */
-  signUp (options = {}) {
+  @action
+  signUp (retryIfFail = true) {
     let {
       username,
       password,
       email,
-      autoSignIn,
+      signIn,
       signUpOptions,
       useEmailForUsername,
       accountEnabled
@@ -143,36 +142,74 @@ export default Component.extend ({
       username = email;
     }
 
-    this.set ('submitting', true);
+    // Reset the state of the component.
+    this.reset ();
 
-    let account = this.store.createRecord ('account', {username, password, email, enabled: accountEnabled});
-    let adapterOptions = Object.assign ({}, signUpOptions, {signIn: autoSignIn}, options);
+    this.submitting = true;
+    let adapterOptions = Object.assign ({}, signUpOptions, { signIn });
 
-    account.save ({adapterOptions}).then (account => {
-      this.set ('submitting', false);
+    return Promise.resolve ()
+      .then (() => this.doPrepareOptions (adapterOptions))
+      .then (adapterOptions => {
+        let account = this.store.createRecord ('account', {username, password, email, enabled: accountEnabled});
+        return account.save ({ adapterOptions });
+      })
+      .then (account => {
+        if (this.signUpComplete (account)) {
+          this.gatekeeper.redirect (this.args.redirectTo);
+        }
+      })
+      .catch (reason => this._handleError (reason, retryIfFail))
+      .then (() => this.submitting = false);
+  }
 
-      return Promise.resolve (this.didCreateAccount (account))
-        .then (() => this.getWithDefault ('complete', noOp) (account));
-    }).catch (xhr => {
-      this.set ('submitting', false);
-      return this.didError (xhr);
-    });
-  },
+  doPrepareOptions (options) {
+    return options;
+  }
 
-  actions: {
-    submit (ev) {
-      // Prevent the default event from occurring.
-      ev.preventDefault ();
+  reset () {
+    this.usernameErrorMessage = null;
+    this.passwordErrorMessage = null;
+    this.emailErrorMessage = null;
+  }
 
-      // Reset the current error message.
-      this.set ('errorMessage');
-      this.submit.signUp ();
+  get signUpComplete () {
+    return this.args.signUpComplete || identity (true);
+  }
 
-      return false;
-    },
+  _handleError (reason, retryIfFail) {
+    if (isPresent (reason.errors)) {
+      const { errors: [ { code, detail }] } = reason;
 
-    toggle () {
-      this.toggleProperty ('showPassword');
+      switch (code) {
+        case 'missing_token':
+        case 'unknown_token':
+          if (retryIfFail) {
+            return this.gatekeeper.authenticate (this.signUpOptions, true).then (() => this.signUp (false));
+          }
+
+          break;
+
+        case 'username_exists':
+          if (this.useEmailForUsername) {
+            this.emailErrorMessage = detail;
+          }
+          else {
+            this.usernameErrorMessage = detail;
+          }
+          break;
+
+        case 'email_exists':
+          this.emailErrorMessage = detail;
+          break;
+
+        case 'invalid_password':
+          this.passwordErrorMessage = detail;
+          break;
+
+        default:
+          this.snackbar.show ({ message: detail, dismiss: true  });
+      }
     }
-  },
-});
+  }
+}

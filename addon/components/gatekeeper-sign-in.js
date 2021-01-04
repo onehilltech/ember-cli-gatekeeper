@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 import { tracked } from "@glimmer/tracking";
 
-import { action, get, getWithDefault } from '@ember/object';
-import { isPresent, isNone } from '@ember/utils';
-import { getOwner } from '@ember/application';
+import { action, get } from '@ember/object';
+import { isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
 
 function identity (value) {
@@ -136,42 +135,6 @@ export default class GatekeeperSignInComponent extends Component {
     }
   }
 
-  /**
-   * Perform the redirect to for the user. This will either take the user to the original
-   * page they accessed before being redirected to the sign-in page, or the start route
-   * if no redirect is present.
-   *
-   * @private
-   */
-  redirect () {
-    // Perform the redirect from the sign in page.
-    let redirectTo = this.args.redirectTo || this.redirectTo;
-
-    if (isNone (redirectTo)) {
-      // There is no redirect url. So, we either transition to the default route, or we
-      // transition to the index.
-      let ENV = getOwner (this).resolveRegistration ('config:environment');
-      redirectTo = getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
-    }
-
-    this.router.replaceWith (redirectTo);
-  }
-
-  get redirectTo () {
-    let currentURL = this.router.currentURL;
-    let [, query] = currentURL.split ('?');
-
-    if (isNone (query)) {
-      return null;
-    }
-
-    let params = query.split ('&');
-    return params.reduce ((accum, param) => {
-      let [name, value] = param.split ('=');
-      return name === 'redirect' ? decodeURIComponent (value) : accum;
-    }, null);
-  }
-
   @action
   signIn () {
     let { username, password, signInOptions } = this;
@@ -188,7 +151,7 @@ export default class GatekeeperSignInComponent extends Component {
       .then (() => {
         // Notify the subclass that the user did sign in to the application.
         if (this.signInComplete ()) {
-          this.redirect ();
+          this.session.gatekeeper.redirect (this.args.redirectTo);
         }
       })
       .catch (reason => {
