@@ -58,24 +58,28 @@ export default class SessionService extends Service {
   @local ({name: 'gatekeeper_lock_screen', deserialize (value) { return value === 'true' }})
   lockScreen;
 
-  _account;
-
   /// The user account model for the current session.
-  @computed ('_account')
   get account () {
-    if (isPresent (this._account) && this._account.id === this.currentUser.id) {
-      return this._account;
-    }
+    let currentUser = this.currentUser;
 
-    if (isNone (this.currentUser)) {
+    if (isNone (currentUser)) {
       return null;
     }
 
-    let data = this.store.normalize ('account', this.currentUser);
-    data.data.id = this.currentUser.id;
+    let account = this.store.peekRecord ('account', currentUser.id);
 
-    this._account = this.store.push (data);
-    return this._account;
+    if (isPresent (account)) {
+      return account;
+    }
+
+    // There is no account model for this user. Let's create one and return it to
+    // the caller.
+
+    let data = this.store.normalize ('account', currentUser);
+    data.data.id = this.currentUser.id;
+    account = this.store.push (data);
+
+    return account;
   }
 
   @computed ('_tokenString')
@@ -177,14 +181,11 @@ export default class SessionService extends Service {
    * request to the server.
    */
   completeSignOut () {
-    this.currentUser = null;
-    this.notifyPropertyChange ('currentUser');
-
     // Reset the properties associated with the access tokens.
     this._resetTokens ();
 
-    this._account = null;
-    this.notifyPropertyChange ('_account');
+    this.currentUser = null;
+    this.notifyPropertyChange ('currentUser');
 
     // Reset the lock screen.
     this.lockScreen = false;
@@ -226,7 +227,7 @@ export default class SessionService extends Service {
     return this.gatekeeper.verifyToken (accessToken)
       .then (() => {
         // Force the current session to sign out.
-        this.forceSignOut ();
+        this.completeSignOut ();
 
         // Set the provided access token as the current access token.
         this._updateTokens (accessToken);
