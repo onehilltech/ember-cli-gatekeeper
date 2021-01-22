@@ -1,6 +1,7 @@
 import { get, getWithDefault, set } from '@ember/object';
 import { isEmpty, isPresent } from '@ember/utils';
 import { getOwner } from '@ember/application';
+import { inject as service } from '@ember/service';
 
 import { Mixin as M } from 'base-object';
 import { isFunction, isPlainObject } from 'lodash-es';
@@ -16,6 +17,8 @@ const bearerErrorCodes = [
 ];
 
 const AuthenticatedMixin = M.create ({
+  snackbar: service (),
+
   beforeModel (transition) {
     this._super (...arguments);
 
@@ -54,7 +57,7 @@ const AuthenticatedMixin = M.create ({
           let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
 
           // Display the error message.
-          //this.send ('app:snackbar', { message: error.detail });
+          this.snackbar.show ({message: error.detail});
 
           // Force the user to sign out.
           this.session.signOut (true).then (() => {
