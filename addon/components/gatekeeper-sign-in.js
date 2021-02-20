@@ -158,7 +158,6 @@ export default class GatekeeperSignInComponent extends Component {
         this.submitting = false;
 
         this.handleError (reason);
-        this.reset ();
       });
   }
 
@@ -167,7 +166,7 @@ export default class GatekeeperSignInComponent extends Component {
   }
 
   willSignIn () {
-
+    this.reset ();
   }
 
   doPrepareOptions (options) {
