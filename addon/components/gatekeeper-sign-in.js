@@ -142,9 +142,14 @@ export default class GatekeeperSignInComponent extends Component {
 
     this.submitting = true;
 
-    // Let the subclass know we are signing in.
     return Promise.resolve ()
-      .then (() => this.willSignIn ())
+      .then (() => {
+        // Reset the component.
+        this.reset ();
+
+        // Notify the subclass we are signing in.
+        return this.willSignIn ();
+      })
       .then (() => this.doPrepareOptions (options))
       .then (options => this.session.signIn (options))
       .then (() => this.didSignIn ())
@@ -166,7 +171,7 @@ export default class GatekeeperSignInComponent extends Component {
   }
 
   willSignIn () {
-    this.reset ();
+
   }
 
   doPrepareOptions (options) {
