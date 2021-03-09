@@ -7,6 +7,7 @@ import { action, computed } from '@ember/object';
 import { not } from '@ember/object/computed';
 import { Promise, reject, all } from 'rsvp';
 import { local } from '@onehilltech/ember-cli-storage';
+import { A } from '@ember/array';
 
 import AccessToken from "../-lib/access-token";
 
@@ -136,6 +137,9 @@ export default class SessionService extends Service {
         .then (account => {
           this._account = account;
           this.currentUser = account.toJSON ({includeId: true});
+
+          // Notify all listeners.
+          this.listeners.forEach (listener => listener.didSignIn (this, this.currentUser));
         })
         .catch (reason => {
           // Reset the access tokens, and the counter.
@@ -189,6 +193,9 @@ export default class SessionService extends Service {
 
     // Reset the lock screen.
     this.lockScreen = false;
+
+    // Notify listeners we will be signing out.
+    this.listeners.forEach (listener => listener.didSignOut (this, this.currentUser));
   }
 
   _resetTokens () {
@@ -342,5 +349,26 @@ export default class SessionService extends Service {
           }
         });
       });
+  }
+
+  /// Listener objects for the session.
+  _listeners;
+
+  get listeners () {
+    return this._listeners || [];
+  }
+
+  addListener (listener) {
+    if (isNone (this._listeners)) {
+      this._listeners = A ();
+    }
+
+    this._listeners.pushObject (listener);
+  }
+
+  removeListener (listener) {
+    if (isPresent (this._listeners)) {
+      this._listeners.removeObject (listener);
+    }
   }
 }
