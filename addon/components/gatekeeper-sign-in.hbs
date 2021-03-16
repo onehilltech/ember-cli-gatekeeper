@@ -5,12 +5,13 @@
                     @style={{@style}}
                     required={{true}}
                     type={{this.usernameType}}
+                    autocapitalize="off"
+                    autocomplete={{this.usernameAutoComplete}}
                     @label={{this.usernameLabel}}
                     @leadingIconClick={{this.usernameLeadingIconClick}}
                     @trailingIcon={{@usernameTrailingIcon}}
                     @trailingIconClick={{this.usernameTrailingIconClick}}
-                    @autocapitalize="none"
-                    @autocomplete={{this.usernameAutoComplete}}
+
                     @persistentHelperText={{@usernamePersistentHelperText}}
                     @helperText={{@usernameHelperText}}
                     @errorMessage={{this.usernameErrorMessage}} />
@@ -20,11 +21,11 @@
     <div class="gatekeeper-sign-in__password">
       <MdcPasswordTextfield @value={{this.password}}
                             @style={{@style}}
-                            required={{true}}
+                            required="true"
+                            autocomplete="off"
+                            autocapitalize="off"
                             @label={{this.passwordLabel}}
                             @leadingIcon={{@passwordLeadingIcon}}
-                            @autocomplete="off"
-                            @autocapitalize="none"
                             @helperText={{@passwordHelperText}}
                             @errorMessage={{this.passwordErrorMessage}} />
     </div>

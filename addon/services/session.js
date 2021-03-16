@@ -157,7 +157,12 @@ export default class SessionService extends Service {
    */
   @action
   signOut (force = false) {
-    return this.gatekeeper.signOut (this.accessToken.toString ())
+    // Let all listeners know we are signing out the current user. After the listeners
+    // are complete, we can sign out the current user. After the sign out is complete,
+    // we need to clean everything up.
+
+    return Promise.all (this.listeners.map (listener => listener.willSignOut ()))
+      .then (() => this.gatekeeper.signOut (this.accessToken.toString ()))
       .then (result => {
         if (result) {
           this.completeSignOut ();
@@ -193,9 +198,6 @@ export default class SessionService extends Service {
 
     // Reset the lock screen.
     this.lockScreen = false;
-
-    // Notify listeners we will be signing out.
-    this.listeners.forEach (listener => listener.didSignOut (this, this.currentUser));
   }
 
   _resetTokens () {

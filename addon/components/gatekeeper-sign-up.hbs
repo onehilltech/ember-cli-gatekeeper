@@ -4,7 +4,8 @@
       <div class="gatekeeper-sign-up__username">
         <MdcTextfield type="text"
                       required="true"
-                      autocapitalize="none"
+                      autocapitalize="off"
+                      autocomplete="off"
                       @style={{this.style}}
                       @value={{this.username}}
                       @label={{this.usernameLabel}}
@@ -17,6 +18,8 @@
     <div class="gatekeeper-sign-up__email">
       <MdcTextfield type="email"
                     required="true"
+                    autocomplete="off"
+                    autocapitalize="off"
                     @style={{this.style}}
                     @value={{this.email}}
                     @label={{this.emailLabel}}

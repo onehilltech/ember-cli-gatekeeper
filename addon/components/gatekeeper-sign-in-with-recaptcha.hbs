@@ -3,14 +3,14 @@
     <div class="gatekeeper-sign-in__username">
       <MdcTextfield @value={{this.username}}
                     @style={{@style}}
-                    required={{true}}
+                    required="true"
                     @label={{this.usernameLabel}}
                     type={{this.usernameType}}
                     @leadingIcon={{@usernameLeadingIcon}}
                     @trailingIcon={{@usernameTrailingIcon}}
                     @trailingIconClick={{this.usernameTrailingIconClick}}
-                    @autocapitalize="none"
-                    @autocomplete={{this.usernameAutoComplete}}
+                    autocapitalize="none"
+                    autocomplete={{this.usernameAutoComplete}}
                     @persistentHelperText={{@usernamePersistentHelperText}}
                     @helperText={{@usernameHelperText}}
                     @errorMessage={{this.usernameErrorMessage}} />
@@ -23,8 +23,8 @@
                             required={{true}}
                             @label={{this.passwordLabel}}
                             @leadingIcon={{@passwordLeadingIcon}}
-                            @autocomplete="off"
-                            @autocapitalize="none"
+                            autocomplete="off"
+                            autocapitalize="off"
                             @helperText={{@passwordHelperText}}
                             @errorMessage={{this.passwordErrorMessage}}/>
     </div>
