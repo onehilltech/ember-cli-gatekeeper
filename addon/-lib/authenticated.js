@@ -24,16 +24,19 @@ function applyDecorator (target, name, descriptor, options = {}) {
    * @private
    */
   target.prototype._checkSignedIn = function (transition) {
-    let isSignedIn = get (this, 'session.isSignedIn');
+    let { to: { queryParams = {}}} = transition;
+    const { access_token } = queryParams;
 
-    if (!isSignedIn) {
-      let ENV = getOwner (this).resolveRegistration ('config:environment');
-      let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
-
-      // Set the redirect to route so we can come back to this route when the
-      // user has signed in.
-      const queryParams = {redirect: transition.targetName};
-      this.replaceWith (signInRoute, {queryParams});
+    if (isPresent (access_token)) {
+      // There is an access token in the query parameters. This takes precedence over the
+      // status of the session.
+      return this.session.openFrom (access_token).catch (() => false);
+    }
+    else if (this.session.isSignedIn) {
+      return Promise.resolve (true);
+    }
+    else {
+      return Promise.resolve (false);
     }
   }
 
@@ -73,21 +76,34 @@ function applyDecorator (target, name, descriptor, options = {}) {
   }
 
   override (target.prototype, 'beforeModel', function (transition) {
-    this._super.call (this, ...arguments);
+    return Promise.resolve (this._super.call (this, ...arguments))
+      .then (() => this._checkSignedIn (transition))
+      .then (result => {
+        if (result) {
+          let authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
+          let controller = this.controllerFor (this.routeName, true);
 
-    // Make sure the user is signed into the application.
-    this._checkSignedIn (transition);
+          if (isPresent (controller)) {
+            set (controller, 'isAuthorized', authorized);
+          }
 
-    let authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
-    let controller = this.controllerFor (this.routeName, true);
+          if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
+            transition.trigger ('unauthorized', transition);
+          }
+        }
+        else {
+          // The user is not signed into the application. Let's route the user to the
+          // sign-in route for the application.
 
-    if (isPresent (controller)) {
-      set (controller, 'isAuthorized', authorized);
-    }
+          let ENV = getOwner (this).resolveRegistration ('config:environment');
+          let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
 
-    if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
-      transition.trigger ('unauthorized', transition);
-    }
+          // Set the redirect to route so we can come back to this route when the
+          // user has signed in.
+          let options = { queryParams: { redirect: transition.targetName } };
+          this.replaceWith (signInRoute, options);
+        }
+      });
   });
 }
 
