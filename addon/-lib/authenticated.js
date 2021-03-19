@@ -34,7 +34,7 @@ function applyDecorator (target, name, descriptor, options = {}) {
     if (isPresent (accessToken)) {
       // There is an access token in the query parameters. This takes precedence over the
       // status of the session.
-      return this.session.openFrom (accessToken).catch (() => false);
+      return this.session.openFrom (accessToken).then (() => true).catch (() => false);
     }
     else if (this.session.isSignedIn) {
       return Promise.resolve (true);
