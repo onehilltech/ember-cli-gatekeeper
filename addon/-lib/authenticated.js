@@ -15,7 +15,10 @@ const bearerErrorCodes = [
 ];
 
 function applyDecorator (target, name, descriptor, options = {}) {
-  const { scope } = options;
+  const {
+    scope,
+    redirectParamName = 'redirect'
+  } = options;
 
   /**
    * Check that the current user is authenticated.
@@ -98,10 +101,12 @@ function applyDecorator (target, name, descriptor, options = {}) {
           let ENV = getOwner (this).resolveRegistration ('config:environment');
           let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
 
-          // Set the redirect to route so we can come back to this route when the
-          // user has signed in.
-          let options = { queryParams: { redirect: transition.targetName } };
-          this.replaceWith (signInRoute, options);
+          if (isPresent (signInRoute)) {
+            // Set the redirect to route so we can come back to this route when the
+            // user has signed in.
+            let options = { queryParams: { [redirectParamName]: transition.targetName } };
+            this.replaceWith (signInRoute, options);
+          }
         }
       });
   });
