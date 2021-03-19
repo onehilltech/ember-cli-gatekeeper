@@ -34,8 +34,9 @@ function applyDecorator (target, options = {}) {
   target.prototype.actions = target.prototype.actions || {};
 
   override (target.prototype, 'beforeModel', function (transition) {
-    return Promise.resolve (this._super.call (this, ...arguments))
-      .then (() => this._checkNotSignedIn (transition))
+    let _super = this._super;
+
+    return this._checkNotSignedIn (transition)
       .then (notSignedIn => {
         if (notSignedIn === false) {
           // The user is signed into the application. Let's route the user to the start
@@ -47,6 +48,12 @@ function applyDecorator (target, options = {}) {
           if (isPresent (targetRoute)) {
             this.replaceWith (targetRoute);
           }
+          else {
+            return _super.call (this, ...arguments);
+          }
+        }
+        else {
+          return _super.call (this, ...arguments);
         }
       });
   });
