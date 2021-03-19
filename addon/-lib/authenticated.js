@@ -80,10 +80,11 @@ function applyDecorator (target, options = {}) {
   }
 
   override (target.prototype, 'beforeModel', function (transition) {
-    return Promise.resolve (this._super.call (this, ...arguments))
-      .then (() => this._checkSignedIn (transition))
-      .then (authenticated => {
-        if (authenticated) {
+    let _super = this._super;
+
+    return this._checkSignedIn (transition)
+      .then (isSignedIn => {
+        if (isSignedIn) {
           let authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
           let controller = this.controllerFor (this.routeName, true);
 
@@ -93,6 +94,9 @@ function applyDecorator (target, options = {}) {
 
           if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
             transition.trigger ('unauthorized', transition);
+          }
+          else {
+            return _super.call (this, ...arguments);
           }
         }
         else {
@@ -107,6 +111,9 @@ function applyDecorator (target, options = {}) {
             // user has signed in.
             let options = { queryParams: { [redirectParamName]: transition.targetName } };
             this.replaceWith (signInRoute, options);
+          }
+          else {
+            return _super.call (this, ...arguments);
           }
         }
       });
