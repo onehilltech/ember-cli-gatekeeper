@@ -14,7 +14,7 @@ const bearerErrorCodes = [
   'account_disabled'
 ];
 
-function applyDecorator (target, name, descriptor, options = {}) {
+function applyDecorator (target, options = {}) {
   const {
     scope,
     redirectParamName = 'redirect',
@@ -113,15 +113,15 @@ function applyDecorator (target, name, descriptor, options = {}) {
   });
 }
 
-export default function authenticated (target, name, descriptor) {
-  if (descriptor) {
-    return applyDecorator (target, name, descriptor);
+export default function authenticated (target) {
+  if (typeof target === 'function') {
+    return applyDecorator (target);
   }
   else {
     let options = target;
 
-    return function (target, name, descriptor) {
-      return applyDecorator (target, name, descriptor, options);
+    return function (target) {
+      return applyDecorator (target, options);
     }
   }
 }
