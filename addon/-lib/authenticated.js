@@ -99,7 +99,7 @@ function applyDecorator (target, name, descriptor, options = {}) {
           // sign-in route for the application.
 
           let ENV = getOwner (this).resolveRegistration ('config:environment');
-          let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+          let signInRoute = get (ENV, 'gatekeeper.signInRoute');
 
           if (isPresent (signInRoute)) {
             // Set the redirect to route so we can come back to this route when the
