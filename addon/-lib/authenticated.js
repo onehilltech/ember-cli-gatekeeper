@@ -17,7 +17,8 @@ const bearerErrorCodes = [
 function applyDecorator (target, name, descriptor, options = {}) {
   const {
     scope,
-    redirectParamName = 'redirect'
+    redirectParamName = 'redirect',
+    accessTokenParamName = 'access_token'
   } = options;
 
   /**
@@ -28,12 +29,12 @@ function applyDecorator (target, name, descriptor, options = {}) {
    */
   target.prototype._checkSignedIn = function (transition) {
     let { to: { queryParams = {}}} = transition;
-    const { access_token } = queryParams;
+    const accessToken = queryParams[accessTokenParamName];
 
-    if (isPresent (access_token)) {
+    if (isPresent (accessToken)) {
       // There is an access token in the query parameters. This takes precedence over the
       // status of the session.
-      return this.session.openFrom (access_token).catch (() => false);
+      return this.session.openFrom (accessToken).catch (() => false);
     }
     else if (this.session.isSignedIn) {
       return Promise.resolve (true);
@@ -81,8 +82,8 @@ function applyDecorator (target, name, descriptor, options = {}) {
   override (target.prototype, 'beforeModel', function (transition) {
     return Promise.resolve (this._super.call (this, ...arguments))
       .then (() => this._checkSignedIn (transition))
-      .then (result => {
-        if (result) {
+      .then (authenticated => {
+        if (authenticated) {
           let authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
           let controller = this.controllerFor (this.routeName, true);
 
