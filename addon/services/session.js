@@ -103,8 +103,9 @@ export default class SessionService extends Service {
   }
 
   /// Test if the there is no user signed in.
-  @not ('isSignedIn')
-  isSignedOut;
+  get isSignedOut () {
+    return !this.isSignedIn;
+  }
 
   get authenticateUrl () {
     return this.gatekeeper.authenticateUrl || this.computeUrl ('/oauth2/token');
