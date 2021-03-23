@@ -58,6 +58,12 @@
                            @execute={{this.executeRecaptcha}}  />
     {{/if}}
 
+    {{#if @confirmation}}
+      <div class="gatekeeper-sign-up__confirmation">
+        <MdcCheckbox required="true">{{@confirmation}}</MdcCheckbox>
+      </div>
+    {{/if}}
+
     <div class="gatekeeper-sign-up__actions">
       <MdcButton type="submit"
                  class="gatekeeper-sign-up--submit"
