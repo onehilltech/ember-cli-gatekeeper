@@ -180,7 +180,7 @@ export default class GatekeeperSignUpComponent extends Component {
   }
 
   doPrepareOptions (options) {
-    return Object.assign ({}, options, { recaptcha: this._recaptchaImpl.response });
+    return options
   }
 
   isSignUpDisabled () {
