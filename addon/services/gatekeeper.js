@@ -1,13 +1,11 @@
 import Service from '@ember/service';
 
-import { get, computed, getWithDefault } from '@ember/object';
-import { not } from '@ember/object/computed';
+import { get, getWithDefault, set } from '@ember/object';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { resolve, Promise, reject } from 'rsvp';
 import { assign } from '@ember/polyfills';
 import { KJUR, KEYUTIL } from 'jsrsasign';
-import { local } from '@onehilltech/ember-cli-storage';
 import { inject as service } from '@ember/service';
 
 import AccessToken from "../-lib/access-token";
@@ -17,18 +15,33 @@ export default class GatekeeperService extends Service {
     super (...arguments);
 
     let ENV = getOwner (this).resolveRegistration ('config:environment');
+
     this._config = get (ENV, 'gatekeeper');
   }
 
   @service
   router;
 
-  /// The access token stored in local storage.
-  @local('gatekeeper_ct')
-  _tokenString;
+  @service
+  storage;
+
+  get storageLocation () {
+    return getWithDefault (this._config, 'storage', 'local');
+  }
+
+  storageKey (key) {
+    return `storage.${this.storageLocation}.${key}`;
+  }
+
+  get _tokenString () {
+    return get (this.storageKey ('gatekeeper_ct'));
+  }
+
+  set _tokenString (value) {
+    return set (this.storageKey ('gatekeeper_ct'), value);
+  }
 
   /// The singleton access token for the gatekeeper.
-  @computed ('_tokenString')
   get accessToken () {
     return AccessToken.fromString (this._tokenString);
   }
@@ -42,8 +55,9 @@ export default class GatekeeperService extends Service {
     return this.accessToken.isValid && !this.accessToken.isExpired;
   }
 
-  @not ('isAuthenticated')
-  isUnauthenticated;
+  get isUnauthenticated () {
+    return !this.isAuthenticated;
+  }
 
   get baseUrl () {
     return this._config.baseUrl;

@@ -3,10 +3,9 @@ import EmberObject from '@ember/object';
 
 import { isNone, isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
-import { action, computed } from '@ember/object';
-import { not } from '@ember/object/computed';
+import { action, computed, get, set } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import { Promise, reject, all } from 'rsvp';
-import { local } from '@onehilltech/ember-cli-storage';
 import { A } from '@ember/array';
 
 import AccessToken from "../-lib/access-token";
@@ -46,22 +45,56 @@ export default class SessionService extends Service {
   @service
   store;
 
-  @local ({name: 'gatekeeper_user', serialize: JSON.stringify, deserialize: JSON.parse})
-  currentUser;
+  storageKey (key) {
+    return this.gatekeeper.storageKey (key);
+  }
+
+  get currentUser () {
+    let key = this.storageKey ('gatekeeper_user');
+    let value = get (this.gatekeeper, key);
+
+    return JSON.parse (value);
+  }
+
+  set currentUser (value) {
+    let key = this.storageKey ('gatekeeper_user');
+    return set (this.gatekeeper, key, value);
+  }
 
   get userId () {
     return this.currentUser.id;
   }
 
-  @local ('gatekeeper_ut')
-  _tokenString;
+  get _tokenString () {
+    let key = this.storageKey ('gatekeeper_ut');
+    return get (this.gatekeeper, key);
+  }
 
-  @local ('gatekeeper_rt')
-  _refreshingTokenString;
+  set _tokenString (value) {
+    let key = this.storageKey ('gatekeeper_ut');
+    return set (this.gatekeeper, key, value);
+  }
+
+  get _refreshingTokenString () {
+    let key = this.storageKey ('gatekeeper_rt');
+    return get (this.gatekeeper, key);
+  }
+
+  set _refreshingTokenString (value) {
+    let key = this.storageKey ('gatekeeper_rt');
+    return set (this.gatekeeper, key, value);
+  }
 
   /// The lock screen state for the session.
-  @local ({name: 'gatekeeper_lock_screen', deserialize (value) { return value === 'true' }})
-  lockScreen;
+  set lockScreen (value) {
+    let key = this.storageKey ('gatekeeper_lock_screen');
+    return set (this.gatekeeper, key, value);
+  }
+
+  get lockScreen () {
+    let key = this.storageKey ('gatekeeper_lock_screen');
+    return get (this.gatekeeper, key) === 'true';
+  }
 
   /// The user account model for the current session.
   get account () {

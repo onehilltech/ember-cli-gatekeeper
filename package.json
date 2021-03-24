@@ -47,7 +47,7 @@
     "@material/snackbar": "^6.0.0",
     "@material/textfield": "^6.0.0",
     "@material/theme": "^6.0.0",
-    "@onehilltech/ember-cli-storage": "^1.0.0",
+    "@onehilltech/ember-cli-storage": "^1.2.2",
     "babel-eslint": "^10.0.3",
     "broccoli-asset-rev": "^3.0.0",
     "ember-api-actions": "^0.2.9",
