@@ -49,6 +49,10 @@ export default class SessionService extends Service {
   @local ({name: 'gatekeeper_user', serialize: JSON.stringify, deserialize: JSON.parse})
   currentUser;
 
+  get userId () {
+    return this.currentUser.id;
+  }
+
   @local ('gatekeeper_ut')
   _tokenString;
 
