@@ -30,6 +30,16 @@
                             @errorMessage={{this.passwordErrorMessage}} />
     </div>
 
+    {{#if @forgotPasswordRoute}}
+      <div class="gatekeeper-sign-in__forgot-password">
+        <MdcButtonLinkTo class="gatekeeper-sign-in__forgot-password-button"
+                         @route={{@forgotPasswordRoute}}
+                         @style={{@forgotPasswordButtonStyle}}>
+          {{this.forgotPasswordLabel}}
+        </MdcButtonLinkTo>
+      </div>
+    {{/if}}
+
     <div class="gatekeeper-sign-in__buttons">
       <MdcButton type="submit"
                  class="gatekeeper-sign-in__button gatekeeper-sign-in__button--sign-in"

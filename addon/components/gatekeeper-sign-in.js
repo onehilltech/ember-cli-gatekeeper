@@ -190,4 +190,8 @@ export default class GatekeeperSignInComponent extends Component {
   validity (valid) {
     this.valid = valid;
   }
+
+  get forgotPasswordLabel () {
+    return this.args.forgotPasswordLabel || 'Forgot password?';
+  }
 }
