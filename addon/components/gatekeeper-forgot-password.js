@@ -11,6 +11,9 @@ export default class GatekeeperForgotPasswordComponent extends Component {
   email;
 
   @tracked
+  emailErrorMessage;
+
+  @tracked
   valid;
 
   @service
@@ -50,11 +53,24 @@ export default class GatekeeperForgotPasswordComponent extends Component {
 
   @action
   submit () {
+    this.emailErrorMessage = null;
+
     this.gatekeeper.forgotPassword (this.email, this.options)
       .then (() => this.submitted ())
       .catch (reason => {
-        const message = isPresent (reason.errors) ? reason.errors[0].detail : reason.message;
-        this.snackbar.show ( { message, dismiss: true });
+        if (isPresent (reason.errors)) {
+          const [error] = reason.errors;
+
+          if (error.code === 'unknown_account') {
+            this.emailErrorMessage = error.detail;
+          }
+          else {
+            this.snackbar.show ( { message: error.detail, dismiss: true });
+          }
+        }
+        else {
+          this.snackbar.show ( { message: reason.message, dismiss: true });
+        }
       });
   }
 }
