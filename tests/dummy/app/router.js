@@ -24,4 +24,6 @@ Router.map(function() {
     this.route('custom');
     this.route('custom-recaptcha');
   });
+  this.route('forgot-password');
+  this.route('reset-password');
 });

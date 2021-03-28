@@ -34,11 +34,11 @@ export default class GatekeeperService extends Service {
   }
 
   get _tokenString () {
-    return get (this.storageKey ('gatekeeper_ct'));
+    return get (this, this.storageKey ('gatekeeper_ct'));
   }
 
   set _tokenString (value) {
-    return set (this.storageKey ('gatekeeper_ct'), value);
+    return set (this, this.storageKey ('gatekeeper_ct'), value);
   }
 
   /// The singleton access token for the gatekeeper.
