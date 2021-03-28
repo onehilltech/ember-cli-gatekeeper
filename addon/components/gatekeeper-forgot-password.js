@@ -15,6 +15,10 @@ export default class GatekeeperForgotPasswordComponent extends Component {
   @service
   gatekeeper;
 
+  get type () {
+    return this.args.type || 'email';
+  }
+
   get emailLabel () {
     return this.args.emailLabel || 'Email address';
   }
