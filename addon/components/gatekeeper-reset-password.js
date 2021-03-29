@@ -47,7 +47,7 @@ export default class GatekeeperResetPasswordComponent extends Component {
   @action
   submit () {
     this.gatekeeper.resetPassword (this.resetToken, this.password)
-      .then (() => this.reset ())
+      .then (result => this.reset (result))
       .catch (reason => {
         const message = isPresent (reason.errors) ? reason.errors[0].detail : reason.message;
         this.snackbar.show ( { message, dismiss: true });
