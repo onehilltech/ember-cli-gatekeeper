@@ -51,9 +51,7 @@ export default class SessionService extends Service {
 
   get currentUser () {
     let key = this.storageKey ('gatekeeper_user');
-    let value = get (this.gatekeeper, key);
-
-    return isPresent (value) ? JSON.parse (value) : null;
+    return get (this.gatekeeper, key);
   }
 
   set currentUser (value) {
