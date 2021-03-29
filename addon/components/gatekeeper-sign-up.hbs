@@ -8,7 +8,8 @@
                       autocomplete="off"
                       @style={{this.style}}
                       @value={{this.username}}
-                      @label={{this.usernameLabel}}
+                      @label={{unless @usernamePlaceholder this.usernameLabel}}
+                      placeholder={{@@usernamePlaceholder}}
                       @leadingIcon={{@usernameLeadingIcon}}
                       @errorMessage={{this.usernameErrorMessage}}
                       @helperText={{@usernameHelperText}} />
@@ -22,17 +23,19 @@
                     autocapitalize="off"
                     @style={{this.style}}
                     @value={{this.email}}
-                    @label={{this.emailLabel}}
+                    @label={{unless @emailLabel this.emailLabel}}
                     @leadingIcon={{@emailLeadingIcon}}
                     @errorMessage={{this.emailErrorMessage}}
+                    placeholder={{@emailLabel}}
                     @helperText={{this.emailHelperText}} />
     </div>
 
     <div class="gatekeeper-sign-up__password">
       <MdcPasswordTextfield @style={{@style}}
                             @value={{this.password}}
-                            @label={{this.passwordLabel}}
+                            @label={{unless @passwordPlaceholder this.passwordLabel}}
                             @helperText={{@passwordHelperText}}
+                            placeholder={{@passwordPlaceholder}}
                             required="true" />
     </div>
 
@@ -40,7 +43,8 @@
       <div class="gatekeeper-sign-up__confirm-password">
         <MdcPasswordTextfield @style={{@style}}
                               @value={{this.confirmed}}
-                              @label={{this.confirmPasswordLabel}}
+                              @label={{unless @confirmPasswordPlaceholder this.confirmPasswordLabel}}
+                              placeholder={{@confirmPasswordPlaceholder}}
                               @errorMessage={{this.confirmErrorMessage}}
                               required="true" />
       </div>
