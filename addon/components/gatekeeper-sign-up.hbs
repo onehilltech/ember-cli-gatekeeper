@@ -23,10 +23,10 @@
                     autocapitalize="off"
                     @style={{this.style}}
                     @value={{this.email}}
-                    @label={{unless @emailLabel this.emailLabel}}
+                    @label={{unless @emailPlaceholder this.emailLabel}}
                     @leadingIcon={{@emailLeadingIcon}}
                     @errorMessage={{this.emailErrorMessage}}
-                    placeholder={{@emailLabel}}
+                    placeholder={{@emailPlaceholder}}
                     @helperText={{this.emailHelperText}} />
     </div>
 
