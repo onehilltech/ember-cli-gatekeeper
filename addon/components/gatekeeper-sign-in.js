@@ -89,6 +89,9 @@ export default class GatekeeperSignInComponent extends Component {
   @service
   session;
 
+  @service
+  snackbar;
+
   @action
   didInsert (element) {
     this.valid = false;
@@ -109,10 +112,7 @@ export default class GatekeeperSignInComponent extends Component {
 
   @tracked
   passwordErrorMessage;
-
-  @tracked
-  errorMessage;
-
+  
   handleError (xhr) {
     let error = get (xhr, 'errors.0');
 
@@ -127,11 +127,11 @@ export default class GatekeeperSignInComponent extends Component {
           break;
 
         default:
-          this.errorMessage = error.detail;
+          this.snackbar.show ({ message: error.detail, dismiss: true});
       }
     }
     else {
-      this.errorMessage = xhr.message || xhr.statusText;
+      this.snackbar.show ({ message: xhr.message || xhr.statusText, dismiss: true});
     }
   }
 
@@ -167,7 +167,7 @@ export default class GatekeeperSignInComponent extends Component {
   }
 
   reset () {
-    this.errorMessage = this.usernameErrorMessage = this.passwordErrorMessage = null;
+    this.usernameErrorMessage = this.passwordErrorMessage = null;
   }
 
   willSignIn () {
