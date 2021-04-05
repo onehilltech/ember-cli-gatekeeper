@@ -148,11 +148,11 @@ export default class GatekeeperSignInComponent extends Component {
         this.reset ();
 
         // Notify the subclass we are signing in.
-        return this.willSignIn ();
+        return this.willSignIn (username);
       })
       .then (() => this.doPrepareOptions (options))
       .then (options => this.session.signIn (options))
-      .then (() => this.didSignIn ())
+      .then (() => this.didSignIn (username))
       .then (() => {
         // Notify the subclass that the user did sign in to the application.
         if (this.signInComplete ()) {
@@ -170,16 +170,16 @@ export default class GatekeeperSignInComponent extends Component {
     this.usernameErrorMessage = this.passwordErrorMessage = null;
   }
 
-  willSignIn () {
-
+  willSignIn (username) {
+    return (this.args.signInStart || identity) (username);
   }
 
   doPrepareOptions (options) {
     return options;
   }
 
-  didSignIn () {
-
+  didSignIn (username) {
+    return (this.args.signInEnd || identity) (username);
   }
 
   get signInComplete () {
