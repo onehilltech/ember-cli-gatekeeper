@@ -9,14 +9,19 @@ import { KJUR, KEYUTIL } from 'jsrsasign';
 import { inject as service } from '@ember/service';
 
 import AccessToken from "../-lib/access-token";
+import { DefaultConfigurator } from "../-lib/configurator";
+import {tracked} from "@glimmer/tracking";
 
+/**
+ * @class GatekeeperService
+ *
+ * The service for the gatekeeper framework.
+ */
 export default class GatekeeperService extends Service {
   constructor () {
     super (...arguments);
 
-    let ENV = getOwner (this).resolveRegistration ('config:environment');
-
-    this._config = get (ENV, 'gatekeeper');
+    this.configurator = this.defaultConfigurator;
   }
 
   @service
@@ -25,8 +30,23 @@ export default class GatekeeperService extends Service {
   @service
   storage;
 
+  @tracked
+  configurator;
+
+  /**
+   * Create a new instance of a DefaultConfigurator for the service.
+   *
+   * @returns {DefaultConfigurator}
+   */
+  get defaultConfigurator () {
+    let ENV = getOwner (this).resolveRegistration ('config:environment');
+    let config = get (ENV, 'gatekeeper');
+
+    return new DefaultConfigurator (config);
+  }
+
   get storageLocation () {
-    return getWithDefault (this._config, 'storage', 'local');
+    return this.configurator.storageLocation;
   }
 
   storageKey (key) {
@@ -60,27 +80,15 @@ export default class GatekeeperService extends Service {
   }
 
   get baseUrl () {
-    return this._config.baseUrl;
-  }
-
-  set baseUrl (value) {
-    this._config.baseUrl = value;
+    return this.configurator.baseUrl;
   }
 
   get tokenOptions () {
-    return this._config.tokenOptions;
-  }
-
-  set tokenOptions (value) {
-    this._config.tokenOptions = value;
+    return this.configurator.tokenOptions;
   }
 
   get authenticateUrl () {
-    return this._config.authenticateUrl;
-  }
-
-  set authenticateUrl (value) {
-    this._config.authenticateUrl = value;
+    return this.configurator.authenticateUrl;
   }
 
   computeUrl (relativeUrl) {
@@ -176,17 +184,17 @@ export default class GatekeeperService extends Service {
   }
 
   get publicKey () {
-    const { publicCert } = this._config;
+    const { publicCert } = this.configurator;
 
     return isPresent (publicCert) ? KEYUTIL.getKey (publicCert) : null;
   }
 
   get secretOrPublicKey () {
-    return this._config.secret || this._config.publicKey;
+    return this.configurator.secretOrPublicKey;
   }
 
   get verifyOptions () {
-    return this._config.verifyOptions;
+    return this.configurator.verifyOptions;
   }
 
   /**
@@ -201,10 +209,7 @@ export default class GatekeeperService extends Service {
     }
 
     return new Promise ((resolve, reject) => {
-      const {
-        secretOrPublicKey,
-        verifyOptions
-      } = this;
+      const { secretOrPublicKey, verifyOptions } = this;
 
       if (isEmpty (secretOrPublicKey)) {
         return resolve (true);
