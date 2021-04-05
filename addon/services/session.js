@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import EmberObject from '@ember/object';
 
-import { isNone, isPresent } from '@ember/utils';
+import { isNone, isPresent, isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { action, computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
@@ -344,6 +344,15 @@ export default class SessionService extends Service {
 
   computeUrl (relativeUrl) {
     return this.gatekeeper.computeUrl (relativeUrl);
+  }
+
+  protectUrl (url, baseUrl) {
+    if (isEmpty (url) || (isPresent (baseUrl) && !url.startsWith (baseUrl))) {
+      return url;
+    }
+
+    let accessToken = this.isSignedIn ? this.accessToken : this.gatekeeper.accessToken;
+    return `${url}?access_token=${accessToken.toString ()}`;
   }
 
   _updateTokens (accessToken, refreshToken) {
