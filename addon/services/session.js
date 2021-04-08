@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import EmberObject from '@ember/object';
 
-import { isNone, isPresent, isEmpty } from '@ember/utils';
+import { isNone, isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { action, computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
@@ -9,6 +9,8 @@ import { Promise, reject, all } from 'rsvp';
 import { A } from '@ember/array';
 
 import AccessToken from "../-lib/access-token";
+
+function noOp () {}
 
 /**
  * A temporary session for the current user.
@@ -51,12 +53,14 @@ export default class SessionService extends Service {
 
   get currentUser () {
     let key = this.storageKey ('gatekeeper_user');
-    return get (this.gatekeeper, key);
+    let value = get (this.gatekeeper, key);
+
+    return JSON.parse (value);
   }
 
   set currentUser (value) {
     let key = this.storageKey ('gatekeeper_user');
-    return set (this.gatekeeper, key, isPresent (value) ? value : null);
+    return set (this.gatekeeper, key, value);
   }
 
   get userId () {
@@ -166,24 +170,32 @@ export default class SessionService extends Service {
 
       // Save the different access tokens, and increment the token change count.
       this._updateTokens (access_token, refresh_token);
-
-      // Query the service for the current user. We are going to cache their id
-      // just in case the application needs to use it.
-      return this.store.queryRecord ('account', {})
-        .then (account => {
-          this._account = account;
-          this.currentUser = account.toJSON ({includeId: true});
-
-          // Notify all listeners.
-          this.listeners.forEach (listener => listener.didSignIn (this, this.currentUser));
-        })
-        .catch (reason => {
-          // Reset the access tokens, and the counter.
-          this._resetTokens ();
-
-          return reject (reason);
-        });
+      return this._completeSignIn ();
     });
+  }
+
+  /**
+   * Complete the sign in process.
+   *
+   * @returns {*}
+   * @private
+   */
+  _completeSignIn () {
+    // Query the service for the current user. We are going to cache their id
+    // just in case the application needs to use it.
+    return this.store.queryRecord ('account', {})
+      .then (account => {
+        this.currentUser = account.toJSON ({includeId: true});
+
+        // Notify all listeners.
+        this.listeners.forEach (listener => listener.didSignIn (this, this.currentUser));
+      })
+      .catch (reason => {
+        // Reset the access tokens, and the counter.
+        this._resetTokens ();
+
+        return reject (reason);
+      });
   }
 
   /**
@@ -201,7 +213,7 @@ export default class SessionService extends Service {
       .then (() => this.gatekeeper.signOut (this.accessToken.toString ()))
       .then (result => {
         if (result) {
-          this.completeSignOut ();
+          this._completeSignOut ();
         }
 
         return result;
@@ -211,7 +223,7 @@ export default class SessionService extends Service {
           let [error] = reason.errors;
 
           if (force || (error.status === '403' || error.status === '401')) {
-            this.completeSignOut ();
+            this._completeSignOut ();
             return true;
           }
         } else {
@@ -225,7 +237,7 @@ export default class SessionService extends Service {
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
    */
-  completeSignOut () {
+  _completeSignOut () {
     // Reset the properties associated with the access tokens.
     this._resetTokens ();
 
@@ -268,19 +280,18 @@ export default class SessionService extends Service {
    *
    * @param accessToken
    */
-  openFrom (accessToken) {
+  openFrom (accessToken, opts = {}) {
+    const { verified = noOp } = opts;
+
     return this.gatekeeper.verifyToken (accessToken)
+      .then (() => verified (AccessToken.fromString (accessToken)))
       .then (() => {
         // Force the current session to sign out.
-        this.completeSignOut ();
+        this._completeSignOut ();
 
         // Set the provided access token as the current access token.
         this._updateTokens (accessToken);
-
-        return this.store.queryRecord ('account', {});
-      })
-      .then (account => {
-        this.currentUser = account.toJSON ({includeId: true});
+        return this._completeSignIn ();
       });
   }
 
@@ -344,15 +355,6 @@ export default class SessionService extends Service {
 
   computeUrl (relativeUrl) {
     return this.gatekeeper.computeUrl (relativeUrl);
-  }
-
-  protectUrl (url, baseUrl) {
-    if (isEmpty (url) || (isPresent (baseUrl) && !url.startsWith (baseUrl))) {
-      return url;
-    }
-
-    let accessToken = this.isSignedIn ? this.accessToken : this.gatekeeper.accessToken;
-    return `${url}?access_token=${accessToken.toString ()}`;
   }
 
   _updateTokens (accessToken, refreshToken) {

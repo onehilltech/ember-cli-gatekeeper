@@ -4,6 +4,8 @@ import { getOwner } from '@ember/application';
 
 import override from "./-override";
 
+function noOp () {}
+
 const bearerErrorCodes = [
   'invalid_token',
   'unknown_token',
@@ -18,7 +20,8 @@ function applyDecorator (target, options = {}) {
   const {
     scope,
     redirectParamName = 'redirect',
-    accessTokenParamName = 'access_token'
+    accessTokenParamName = 'access_token',
+    verified
   } = options;
 
   /**
@@ -34,7 +37,10 @@ function applyDecorator (target, options = {}) {
     if (isPresent (accessToken)) {
       // There is an access token in the query parameters. This takes precedence over the
       // status of the session.
-      return this.session.openFrom (accessToken).then (() => true).catch (() => false);
+      let verifiedCallback = (isPresent (verified) ? target[verified] : noOp).bind (target);
+      let options = { verified: verifiedCallback };
+
+      return this.session.openFrom (accessToken, options).then (() => true).catch (() => false);
     }
     else if (this.session.isSignedIn) {
       return Promise.resolve (true);
