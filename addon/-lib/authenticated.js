@@ -37,8 +37,7 @@ function applyDecorator (target, options = {}) {
     if (isPresent (accessToken)) {
       // There is an access token in the query parameters. This takes precedence over the
       // status of the session.
-      let verifiedCallback = (isPresent (verified) ? target[verified] : noOp).bind (target);
-      let options = { verified: verifiedCallback };
+      let options = { verified: this.verified || noOp };
 
       return this.session.openFrom (accessToken, options).then (() => true).catch (() => false);
     }
