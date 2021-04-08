@@ -4,14 +4,12 @@
   <!-- div><LinkTo @route="unauthorized">Unauthorized Test</LinkTo></div -->
   <div><a href="#" {{on "click" this.signOut}}>Sign Out</a></div>
 
-  {{#if model}}
-    <h5 class="mdc-typography--headline6">This Account</h5>
 
-    <div>Id: {{model.id}}</div>
-    <div>Username: {{model.username}}</div>
-    <div>Email: {{model.email}}</div>
-    <div>Scope: {{model.scope}}</div>
-  {{/if}}
+  <h5 class="mdc-typography--headline6">This Account</h5>
+
+  <div>Id: {{this.session.account.id}}</div>
+  <div>Username: {{this.session.account.username}}</div>
+  <div>Email: {{this.session.account.email}}</div>
 
   <h5 class="mdc-typography--headline6">Scope</h5>
 

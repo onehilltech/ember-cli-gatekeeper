@@ -1,12 +1,12 @@
 import Service from '@ember/service';
 import EmberObject from '@ember/object';
 
-import { isNone, isPresent } from '@ember/utils';
+import { isNone, isPresent, isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { action, computed, get, set } from '@ember/object';
-import { alias } from '@ember/object/computed';
 import { Promise, reject, all } from 'rsvp';
 import { A } from '@ember/array';
+import { omit } from 'lodash-es';
 
 import AccessToken from "../-lib/access-token";
 
@@ -53,14 +53,12 @@ export default class SessionService extends Service {
 
   get currentUser () {
     let key = this.storageKey ('gatekeeper_user');
-    let value = get (this.gatekeeper, key);
-
-    return JSON.parse (value);
+    return get (this.gatekeeper, key);
   }
 
   set currentUser (value) {
     let key = this.storageKey ('gatekeeper_user');
-    return set (this.gatekeeper, key, value);
+    return set (this.gatekeeper, key, omit (value, ['password']));
   }
 
   get userId () {
@@ -355,6 +353,15 @@ export default class SessionService extends Service {
 
   computeUrl (relativeUrl) {
     return this.gatekeeper.computeUrl (relativeUrl);
+  }
+
+  protectUrl (url, baseUrl) {
+    if (isEmpty (url) || (isPresent (baseUrl) && !url.startsWith (baseUrl))) {
+      return url;
+    }
+
+    let accessToken = this.isSignedIn ? this.accessToken : this.gatekeeper.accessToken;
+    return `${url}?access_token=${accessToken.toString ()}`;
   }
 
   _updateTokens (accessToken, refreshToken) {
