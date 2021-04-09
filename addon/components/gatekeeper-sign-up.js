@@ -40,9 +40,6 @@ export default class GatekeeperSignUpComponent extends Component {
   @tracked
   emailErrorMessage;
 
-  @tracked
-  passwordErrorMessage;
-
   @action
   didInsert (element) {
     this.valid = false;
@@ -98,6 +95,10 @@ export default class GatekeeperSignUpComponent extends Component {
     return this.args.confirmPasswordLabel || 'Confirm password';
   }
 
+  get passwordErrorMessage () {
+    return this.args.passwordErrorMessage;
+  }
+
   get submitButtonText () {
     return this.args.submitButtonText || 'Create account';
   }
@@ -116,7 +117,7 @@ export default class GatekeeperSignUpComponent extends Component {
   }
 
   get submitButtonDisabled () {
-    return this.submitting || !this.isConfirmed || !this.valid || this.args.signUpDisabled || this.isSignUpDisabled ();
+    return isPresent (this.passwordErrorMessage) || this.submitting || !this.isConfirmed || !this.valid || this.args.signUpDisabled || this.isSignUpDisabled ();
   }
 
   get accountEnabled () {
@@ -189,7 +190,6 @@ export default class GatekeeperSignUpComponent extends Component {
 
   reset () {
     this.usernameErrorMessage = null;
-    this.passwordErrorMessage = null;
     this.emailErrorMessage = null;
   }
 
@@ -221,10 +221,6 @@ export default class GatekeeperSignUpComponent extends Component {
 
         case 'email_exists':
           this.emailErrorMessage = detail;
-          break;
-
-        case 'invalid_password':
-          this.passwordErrorMessage = detail;
           break;
 
         default:
