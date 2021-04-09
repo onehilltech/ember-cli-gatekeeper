@@ -1,4 +1,4 @@
-<div class="gatekeeper-sign-up" {{did-insert this.didInsert}}>
+<div class="gatekeeper-sign-up" {{did-insert this.didInsert}} ...attributes>
   <MdcForm @submit={{this.signUp}} @validity={{this.validity}}>
     {{#unless this.useEmailForUsername}}
       <div class="gatekeeper-sign-up__username">
@@ -34,6 +34,7 @@
       <MdcPasswordTextfield @style={{@style}}
                             @value={{this.password}}
                             @label={{unless @passwordPlaceholder this.passwordLabel}}
+                            @errorMessage={{@passwordErrorMessage}}
                             @helperText={{@passwordHelperText}}
                             placeholder={{@passwordPlaceholder}}
                             required="true" />
