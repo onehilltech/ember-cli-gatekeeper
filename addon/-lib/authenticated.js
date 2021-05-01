@@ -21,7 +21,6 @@ function applyDecorator (target, options = {}) {
     scope,
     redirectParamName = 'redirect',
     accessTokenParamName = 'access_token',
-    verified
   } = options;
 
   /**
@@ -42,7 +41,18 @@ function applyDecorator (target, options = {}) {
       return this.session.openFrom (accessToken, options).then (() => true).catch (() => false);
     }
     else if (this.session.isSignedIn) {
-      return Promise.resolve (true);
+      // The user is signed into the current session. Let's check if the access token has expired. if
+      // so, then we need to refresh the access token.
+
+      if (this.session.accessToken.isExpired) {
+        return this.session.refresh ().then (() => true).catch (reason => {
+          console.error (reason);
+          return false;
+        });
+      }
+      else {
+        return Promise.resolve (true);
+      }
     }
     else {
       return Promise.resolve (false);

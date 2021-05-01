@@ -302,23 +302,13 @@ export default class SessionService extends Service {
 
       this._requestToken (this.authenticateUrl, tokenOptions)
         .then (response => {
-          if (response.ok) {
-            return response.json ();
-          }
-
-          // Force the current user to sign out of the application.
-          this._resetTokens ();
-          return response.json ().then (reject);
-        })
-        .then (token => {
-          const { access_token, refresh_token } = token;
+          const { access_token, refresh_token } = response;
 
           // Update the access tokens, and clear the refreshing token promise.
           this._updateTokens (access_token, refresh_token);
           this._refreshingToken = null;
         })
-        .then (resolve)
-        .catch (reject);
+        .then (resolve).catch (reject);
     });
 
     return this._refreshingToken;
