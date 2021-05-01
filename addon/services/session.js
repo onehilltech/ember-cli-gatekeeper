@@ -1,5 +1,4 @@
 import Service from '@ember/service';
-import EmberObject from '@ember/object';
 
 import { isNone, isPresent, isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
@@ -9,31 +8,9 @@ import { A } from '@ember/array';
 import { omit } from 'lodash-es';
 
 import AccessToken from "../-lib/access-token";
+import TempSession from '../-lib/temp-session';
 
 function noOp () {}
-
-/**
- * A temporary session for the current user.
- */
-const TempSession = EmberObject.extend ({
-  signOut () {
-    const url = this.computeUrl ('/oauth2/logout');
-    const accessToken = this.accessToken;
-
-    const options = {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    };
-
-    return fetch (url, options);
-  },
-
-  computeUrl (relativeUrl) {
-    return this.gatekeeper.computeUrl (relativeUrl);
-  },
-});
 
 /**
  * @class SessionService

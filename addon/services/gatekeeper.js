@@ -9,8 +9,10 @@ import { KJUR, KEYUTIL } from 'jsrsasign';
 import { inject as service } from '@ember/service';
 
 import AccessToken from "../-lib/access-token";
+import TempSession from '../-lib/temp-session';
+
 import { DefaultConfigurator } from "../-lib/configurator";
-import {tracked} from "@glimmer/tracking";
+import { tracked } from "@glimmer/tracking";
 
 /**
  * @class GatekeeperService
@@ -196,6 +198,26 @@ export default class GatekeeperService extends Service {
   get verifyOptions () {
     return this.configurator.verifyOptions;
   }
+
+  /**
+   * Create a temporary session for the current client.
+   *
+   * @param payload
+   * @param options
+   * @returns {*}
+   */
+  createTempSession (payload, options) {
+    const tokenOptions = Object.assign ({grant_type: 'temp'}, {
+      payload,
+      options,
+      access_token: this.accessToken.toString ()
+    });
+
+    return this._requestToken (this.authenticateUrl, tokenOptions)
+      .then (({access_token}) => Object.assign ({}, { accessToken: access_token, gatekeeper: this}))
+      .then (opts => TempSession.create (opts));
+  }
+
 
   /**
    * Verify a token. If there is no secret or public key, then the token is assumed
