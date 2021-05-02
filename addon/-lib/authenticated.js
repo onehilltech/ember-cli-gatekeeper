@@ -21,6 +21,7 @@ function applyDecorator (target, options = {}) {
     scope,
     redirectParamName = 'redirect',
     accessTokenParamName = 'access_token',
+    skipAccountLookup = false,
   } = options;
 
   /**
@@ -36,7 +37,10 @@ function applyDecorator (target, options = {}) {
     if (isPresent (accessToken)) {
       // There is an access token in the query parameters. This takes precedence over the
       // status of the session.
-      let options = { verified: this.verified || noOp };
+      let options = {
+        verified: this.verified || noOp,
+        skipAccountLookup
+      };
 
       return this.session.openFrom (accessToken, options).then (() => true).catch (() => false);
     }
