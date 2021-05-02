@@ -3,7 +3,7 @@ import Service from '@ember/service';
 import { get, getWithDefault, set } from '@ember/object';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
-import { resolve, Promise, reject } from 'rsvp';
+import { resolve, Promise, reject, all } from 'rsvp';
 import { assign } from '@ember/polyfills';
 import { KJUR, KEYUTIL } from 'jsrsasign';
 import { inject as service } from '@ember/service';
@@ -214,7 +214,7 @@ export default class GatekeeperService extends Service {
     });
 
     return this._requestToken (this.authenticateUrl, tokenOptions)
-      .then (({access_token}) => Object.assign ({}, { accessToken: access_token, gatekeeper: this}))
+      .then (res => Object.assign ({}, { accessToken: res.access_token, gatekeeper: this}))
       .then (opts => TempSession.create (opts));
   }
 
@@ -282,8 +282,17 @@ export default class GatekeeperService extends Service {
    */
   _requestClientToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
-    const tokenOptions = this.tokenOptions;
-    const data = assign ({grant_type: 'client_credentials'}, tokenOptions, opts);
+    const options = Object.assign ({}, opts, { grant_type: 'client_credentials' });
+
+    return this._requestToken (url, options);
+  }
+
+  _handleErrorResponse (response) {
+    return response.json ().then (reject);
+  }
+
+  _requestToken (url, opts) {
+    const data = Object.assign ({}, this.tokenOptions, opts);
 
     const options = {
       method: 'POST',
@@ -294,10 +303,26 @@ export default class GatekeeperService extends Service {
     };
 
     return fetch (url, options)
-      .then ((response) => response.ok ? response.json () : this._handleErrorResponse (response));
+      .then (response => {
+        return response.json ().then (res => {
+          if (response.ok) {
+            let checks = [];
+
+            if (isPresent (res.access_token)) {
+              checks.push (this.verifyToken (res.access_token))
+            }
+
+            if (isPresent (res.refresh_token)) {
+              checks.push (this.verifyToken (res.refresh_token))
+            }
+
+            return all (checks).then (() => res);
+          }
+          else {
+            return Promise.reject (res);
+          }
+        });
+      });
   }
 
-  _handleErrorResponse (response) {
-    return response.json ().then (reject);
-  }
 }
