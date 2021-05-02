@@ -254,9 +254,10 @@ export default class SessionService extends Service {
    * Open an existing session from an access token.
    *
    * @param accessToken
+   * @param opts
    */
   openFrom (accessToken, opts = {}) {
-    const { verified = noOp } = opts;
+    const { verified = noOp, skipAccountLookup = false } = opts;
 
     return this.gatekeeper.verifyToken (accessToken)
       .then (() => verified (AccessToken.fromString (accessToken)))
@@ -266,7 +267,10 @@ export default class SessionService extends Service {
 
         // Set the provided access token as the current access token.
         this._updateTokens (accessToken);
-        return this._completeSignIn ();
+
+        if (!skipAccountLookup) {
+          return this._completeSignIn ();
+        }
       });
   }
 
