@@ -53,7 +53,7 @@ export default class RestAdapter extends DS.RESTAdapter {
 
       // Refresh the access token, and try the request again. If the request fails
       // a second time, then return the original error.
-      return this.session.refresh ()
+      return (this.session.isSignedIn ? this.session.refresh () : this.session.gatekeeper.authenticate (true))
         .then (() => super.ajax (url, type, options))
         .catch (() => reject (err));
     });
