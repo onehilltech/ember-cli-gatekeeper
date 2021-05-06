@@ -54,9 +54,10 @@ export default class GatekeeperForgotPasswordComponent extends Component {
   @action
   submit () {
     this.emailErrorMessage = null;
+    let email = this.email.trim ();
 
-    this.gatekeeper.forgotPassword (this.email, this.options)
-      .then (() => this.submitted (this.email))
+    this.gatekeeper.forgotPassword (email, this.options)
+      .then (() => this.submitted (email))
       .catch (reason => {
         if (isPresent (reason.errors)) {
           const [error] = reason.errors;

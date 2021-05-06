@@ -138,6 +138,8 @@ export default class GatekeeperSignInComponent extends Component {
   @action
   signIn () {
     let { username, password, signInOptions } = this;
+    username = username.trim ();
+
     let options = Object.assign ({}, signInOptions, { username, password });
 
     this.submitting = true;
