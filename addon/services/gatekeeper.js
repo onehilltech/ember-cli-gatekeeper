@@ -213,7 +213,9 @@ export default class GatekeeperService extends Service {
       access_token: this.accessToken.toString ()
     });
 
-    return this._requestToken (this.authenticateUrl, tokenOptions)
+    const url = this.computeUrl ('/oauth2/token');
+
+    return this._requestToken (url, tokenOptions)
       .then (res => Object.assign ({}, { accessToken: res.access_token, gatekeeper: this}))
       .then (opts => TempSession.create (opts));
   }
