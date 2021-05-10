@@ -120,7 +120,14 @@ export default class GatekeeperService extends Service {
    * Unauthenticate the client on the platform.
    */
   unauthenticate () {
-    return this.signOut (this.accessToken.toString());
+    return this.signOut (this.accessToken.toString()).then (() => this.reset ());
+  }
+
+  /**
+   * Reset the client.
+   */
+  reset () {
+    this._tokenString = null;
   }
 
   /**
