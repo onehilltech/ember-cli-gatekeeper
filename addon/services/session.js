@@ -99,7 +99,8 @@ export default class SessionService extends Service {
 
   @computed ('_tokenString')
   get accessToken () {
-    return AccessToken.fromString (this._tokenString);
+    let at = AccessToken.fromString (this._tokenString);
+    return at.isValid ? at : this.gatekeeper.accessToken;
   }
 
   @computed ('_refreshingTokenString')
