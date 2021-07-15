@@ -1,5 +1,5 @@
 import { get, getWithDefault, set } from '@ember/object';
-import { isEmpty, isPresent } from '@ember/utils';
+import { isEmpty, isPresent, isNone } from '@ember/utils';
 import { getOwner } from '@ember/application';
 
 import override from "./-override";
@@ -101,8 +101,32 @@ function applyDecorator (target, options = {}) {
   override (target.prototype, 'beforeModel', function (transition) {
     let _super = this._super;
 
-    return this._checkSignedIn (transition)
-      .then (isSignedIn => {
+    function routeToSignIn (route) {
+      let ENV = getOwner (route).resolveRegistration ('config:environment');
+      let signInRoute = get (ENV, 'gatekeeper.signInRoute');
+
+      if (isNone (signInRoute)) {
+        return false;
+      }
+
+      // Set the redirect to route so we can come back to this route when the
+      // user has signed in.
+      let options = { queryParams: { [redirectParamName]: transition.targetName } };
+      route.replaceWith (signInRoute, options);
+
+      return true;
+    }
+
+    function forceSessionReset (route) {
+      // Reset the session and then go to the sign in route.
+      route.session.reset ();
+      routeToSignIn (route);
+
+      route.snackbar.show ({message: 'We had to sign out because your session is no longer valid.', dismiss: true});
+    }
+
+    try {
+      return this._checkSignedIn (transition).then (isSignedIn => {
         if (isSignedIn) {
           let authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
           let controller = this.controllerFor (this.routeName, true);
@@ -118,24 +142,14 @@ function applyDecorator (target, options = {}) {
             return _super.call (this, ...arguments);
           }
         }
-        else {
-          // The user is not signed into the application. Let's route the user to the
-          // sign-in route for the application.
-
-          let ENV = getOwner (this).resolveRegistration ('config:environment');
-          let signInRoute = get (ENV, 'gatekeeper.signInRoute');
-
-          if (isPresent (signInRoute)) {
-            // Set the redirect to route so we can come back to this route when the
-            // user has signed in.
-            let options = { queryParams: { [redirectParamName]: transition.targetName } };
-            this.replaceWith (signInRoute, options);
-          }
-          else {
-            return _super.call (this, ...arguments);
-          }
+        else if (!routeToSignIn (this)) {
+          return _super.call (this, ...arguments);
         }
       });
+    }
+    catch (err) {
+      return forceSessionReset (this);
+    }
   });
 }
 

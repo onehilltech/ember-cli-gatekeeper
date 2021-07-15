@@ -189,7 +189,7 @@ export default class SessionService extends Service {
       .then (() => this.gatekeeper.signOut (this.accessToken.toString ()))
       .then (result => {
         if (result) {
-          this._completeSignOut ();
+          this.reset ();
         }
 
         return result;
@@ -199,7 +199,7 @@ export default class SessionService extends Service {
           let [error] = reason.errors;
 
           if (force || (error.status === '403' || error.status === '401')) {
-            this._completeSignOut ();
+            this.reset ();
             return true;
           }
         } else {
@@ -213,7 +213,7 @@ export default class SessionService extends Service {
    * Force the current user to sign out. This does not communicate the sign out
    * request to the server.
    */
-  _completeSignOut () {
+  reset () {
     // Reset the properties associated with the access tokens.
     this._resetTokens ();
 
@@ -264,7 +264,7 @@ export default class SessionService extends Service {
       .then (() => verified (AccessToken.fromString (accessToken)))
       .then (() => {
         // Force the current session to sign out.
-        this._completeSignOut ();
+        this.reset ();
 
         // Set the provided access token as the current access token.
         this._updateTokens (accessToken);
