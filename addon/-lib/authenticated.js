@@ -46,11 +46,12 @@ function applyDecorator (target, options = {}) {
     }
     else if (this.session.isSignedIn) {
       // The user is signed into the current session. Let's check if the access token has expired. if
-      // so, then we need to refresh the access token.
+      // so, then we need to refresh the access token. If we fail at refreshing the token, the let's
+      // reset the session before continuing.
 
       if (this.session.accessToken.isExpired) {
-        return this.session.refresh ().then (() => true).catch (reason => {
-          console.error (reason);
+        return this.session.refresh ().then (() => true).catch (() => {
+          this.session.reset ();
           return false;
         });
       }
