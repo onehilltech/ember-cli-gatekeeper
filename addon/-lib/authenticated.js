@@ -2,7 +2,8 @@ import { get, getWithDefault, set } from '@ember/object';
 import { isEmpty, isPresent, isNone } from '@ember/utils';
 import { getOwner } from '@ember/application';
 
-import override from "./-override";
+import override from '@onehilltech/override';
+import decorator from '@onehilltech/decorator';
 
 function noOp () {}
 
@@ -16,7 +17,7 @@ const bearerErrorCodes = [
   'account_disabled'
 ];
 
-function applyDecorator (target, options = {}) {
+function authenticated (target, name, descriptor, options = {}) {
   const {
     scope,
     redirectParamName = 'redirect',
@@ -154,15 +155,4 @@ function applyDecorator (target, options = {}) {
   });
 }
 
-export default function authenticated (target) {
-  if (typeof target === 'function') {
-    return applyDecorator (target);
-  }
-  else {
-    let options = target;
-
-    return function (target) {
-      return applyDecorator (target, options);
-    }
-  }
-}
+export default decorator (authenticated);

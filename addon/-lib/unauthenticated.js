@@ -2,9 +2,18 @@ import { get } from '@ember/object';
 import { getOwner } from '@ember/application';
 import { isPresent } from '@ember/utils';
 
-import override from "./-override";
+import override from '@onehilltech/override';
+import decorator from '@onehilltech/decorator';
 
-function applyDecorator (target, options = {}) {
+/**
+ * Implementation of the unauthenticated decorator.
+ *
+ * @param target
+ * @param name
+ * @param descriptor
+ * @param options
+ */
+function unauthenticated (target, name, descriptor, options = {}) {
   const {
     accessTokenParamName = 'access_token',
     redirectTo
@@ -59,16 +68,4 @@ function applyDecorator (target, options = {}) {
   });
 }
 
-
-export default function unauthenticated (target) {
-  if (typeof target === 'function') {
-    return applyDecorator (target);
-  }
-  else {
-    let options = target;
-
-    return function (target) {
-      return applyDecorator (target, options);
-    }
-  }
-}
+export default decorator (unauthenticated);

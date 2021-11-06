@@ -1,14 +1,9 @@
 import DS from 'ember-data';
 
-import { inject as service } from '@ember/service';
 import { isNone, isPresent } from '@ember/utils';
 import { reject } from 'rsvp';
 
 export default class RestAdapter extends DS.RESTAdapter {
-  /// The session service for Gatekeeper.
-  @service
-  session;
-
   /// We are either going to use the session access token, or the client access token. We
   /// prefer the session access token to the client access token.
   get accessToken () {
