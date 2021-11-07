@@ -15,3 +15,11 @@ body {
 .container {
   padding: 16px;
 }
+
+.mdc-text-field {
+  width: 100%;
+
+  &-helper-line {
+    min-height: 32px;
+  }
+}

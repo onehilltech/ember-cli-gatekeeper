@@ -1,5 +1,6 @@
-import RESTAdapter from 'ember-cli-gatekeeper/-lib/user/adapters/rest';
+import RESTAdapter from '@ember-data/adapter/rest';
+import { bearer } from 'ember-cli-gatekeeper';
 
-export default RESTAdapter.extend ({
-
-});
+@bearer
+export default class ApplicationAdapter extends RESTAdapter {
+}

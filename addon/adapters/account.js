@@ -1,13 +1,15 @@
-import RESTAdapter from '../-lib/user/adapters/rest';
+import RESTAdapter from '@ember-data/adapter/rest';
 
 import { isPresent, isEmpty } from '@ember/utils';
 import { getWithDefault } from '@ember/object';
+import bearer from '../-lib/bearer';
 
 /**
  * @class AccountRESTAdapter
  *
  * The RESTAdapter for the account model.
  */
+@bearer
 export default class AccountRESTAdapter extends RESTAdapter {
   get host () {
     return this.session.gatekeeper.baseUrl;

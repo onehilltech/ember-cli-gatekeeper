@@ -46,7 +46,8 @@ module.exports = function (environment) {
       signInRoute: 'sign-in.standard',
       baseUrl: 'http://localhost:8080/v1',
       tokenOptions: {
-        client_id: '5a206991201dc8357e45d174',
+        client_id: '58ed90e1105aee00001e429f',
+        client_secret: 'gatekeeper-android'
       },
 
       secret: 'ssshhh',

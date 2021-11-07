@@ -310,9 +310,11 @@ export default class SessionService extends Service {
 
           // Update the access tokens, and clear the refreshing token promise.
           this._updateTokens (access_token, refresh_token);
-          this._refreshingToken = null;
         })
-        .then (resolve).catch (reject);
+        .then (resolve).catch (reject)
+        .finally (() => {
+          this._refreshingToken = undefined;
+        });
     });
 
     return this._refreshingToken;

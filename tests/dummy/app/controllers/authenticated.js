@@ -37,7 +37,7 @@ export default class AuthenticatedController extends Controller {
           this.snackbar.show ({message: 'The password is incorrect.', dismiss: true});
         }
       })
-      .catch (res => this.snackbar ({message: res.responseText}));
+      .catch (res => this.snackbar.show ({message: res}));
   }
 
   @action
