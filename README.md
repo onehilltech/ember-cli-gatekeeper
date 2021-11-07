@@ -94,22 +94,23 @@ service is injected into all routes. This service can be used to access the
 > be transitioned to the `sign-in` route (see [Configuration](#defining-the-configuration)). After
 > the user signs in, the user will be transitioned back to the original route.
 
-## Accessing protected data
+## Making authorized requests
 
 [ember-data](https://github.com/emberjs/data) uses data models to access resources on 
 a remote server. When using Gatekeeper, the routes for accessing these resources is
 protected via an authorization token. To get this authorization token into each
-[ember-data](https://github.com/emberjs/data) request, you must extend your application 
-(or model-specific adapter) from the `RESTAdapter` in Gatekeeper.
+[ember-data](https://github.com/emberjs/data) request, you must use the `@bearer`
+decorator.
 
 ```javascript
 // app/adapters/application.js
+import RESTAdapter from "@ember-data/adapter/rest";
+import {bearer} from 'ember-cli-gatekeeper';
 
-import RESTAdapter from 'ember-cli-gatekeeper/-lib/user/adapters/rest';
-
-export default RESTAdapter.extend({
+@bearer
+export default class ApplicationAdapter extends RESTAdapter {
   
-});
+}
 ```
 
 You can then continue [configuring the adapter](https://emberjs.com/api/ember-data/3.3/classes/DS.RESTAdapter) 
