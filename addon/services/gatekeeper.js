@@ -4,7 +4,6 @@ import { get, getWithDefault, set } from '@ember/object';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { resolve, Promise, reject, all } from 'rsvp';
-import { assign } from '@ember/polyfills';
 import { KJUR, KEYUTIL } from 'jsrsasign';
 import { inject as service } from '@ember/service';
 
@@ -42,7 +41,7 @@ export default class GatekeeperService extends Service {
    */
   get defaultConfigurator () {
     let ENV = getOwner (this).resolveRegistration ('config:environment');
-    let config = get (ENV, 'gatekeeper');
+    let config = getWithDefault (ENV, 'gatekeeper', {});
 
     return new DefaultConfigurator (config);
   }
