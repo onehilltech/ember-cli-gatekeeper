@@ -40,6 +40,9 @@ export default class GatekeeperSignUpComponent extends Component {
   @tracked
   emailErrorMessage;
 
+  @tracked
+  submitting;
+
   @action
   didInsert (element) {
     this.valid = false;
@@ -100,7 +103,7 @@ export default class GatekeeperSignUpComponent extends Component {
   }
 
   get submitButtonText () {
-    return this.args.submitButtonText || 'Create account';
+    return this.submitting ? 'Creating account...' : (this.args.submitButtonText || 'Create account');
   }
 
   get isConfirmed () {
@@ -117,7 +120,12 @@ export default class GatekeeperSignUpComponent extends Component {
   }
 
   get submitButtonDisabled () {
-    return isPresent (this.passwordErrorMessage) || this.submitting || !this.isConfirmed || !this.valid || this.args.signUpDisabled || this.isSignUpDisabled ();
+    return isPresent (this.passwordErrorMessage) ||
+      this.submitting ||
+      !this.isConfirmed ||
+      !this.valid ||
+      this.args.signUpDisabled ||
+      this.isSignUpDisabled ();
   }
 
   get accountEnabled () {
