@@ -232,7 +232,12 @@ export default class GatekeeperSignUpComponent extends Component {
           break;
 
         case '_id_exists':
-          this.usernameErrorMessage = 'An account already exists for this email address.'
+          if (this.useEmailForUsername) {
+            this.emailErrorMessage = 'An account already exists for this email address.';
+          }
+          else {
+            this.usernameErrorMessage = 'An account already exists for this email address.';
+          }
           break;
 
         case 'email_exists':
