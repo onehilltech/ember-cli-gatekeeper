@@ -1,4 +1,4 @@
-<div class="gatekeeper-sign-up" {{did-insert this.didInsert}}>
+<div class="gatekeeper-sign-up" {{did-insert this.didInsert}} ...attributes>
   <MdcForm @submit={{this.signUp}} @validity={{this.validity}}>
     {{#unless this.useEmailForUsername}}
       <div class="gatekeeper-sign-up__username">
