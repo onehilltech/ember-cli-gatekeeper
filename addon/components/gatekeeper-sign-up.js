@@ -142,7 +142,7 @@ export default class GatekeeperSignUpComponent extends Component {
    * Perform the submission of the information to create an account.
    */
   @action
-  signUp (retryIfFail = true) {
+  async signUp (retryIfFail = true) {
     let {
       username,
       password,
@@ -157,26 +157,30 @@ export default class GatekeeperSignUpComponent extends Component {
       username = email;
     }
 
-    // Reset the state of the component.
-    this.reset ();
+    try {
+      // Reset the state of the component.
+      this.reset ();
 
-    this.submitting = true;
-    let adapterOptions = Object.assign ({}, signUpOptions, { signIn });
+      // Let the client know we are submitting.
+      this.submitting = true;
+      let adapterOptions = Object.assign ({}, signUpOptions, { signIn });
 
-    return Promise.resolve ()
-      .then (() => this.willSignUp ())
-      .then (() => this.doPrepareOptions (adapterOptions))
-      .then (adapterOptions => {
-        let account = this.store.createRecord ('account', {username, password, email, enabled: accountEnabled});
-        return account.save ({ adapterOptions });
-      })
-      .then (account => {
-        if (this.signUpComplete (account)) {
-          this.gatekeeper.redirect (this.args.redirectTo);
-        }
-      })
-      .catch (reason => this._handleError (reason, retryIfFail))
-      .then (() => this.submitting = false);
+      await this.willSignUp ();
+      adapterOptions = await this.doPrepareOptions (adapterOptions);
+
+      let account = this.store.createRecord ('account', {username, password, email, enabled: accountEnabled});
+      await account.save ({ adapterOptions });
+
+      if (this.signUpComplete (account)) {
+        this.gatekeeper.redirect (this.args.redirectTo);
+      }
+    }
+    catch (reason) {
+      this._handleError (reason, retryIfFail)
+    }
+    finally {
+      this.submitting = false;
+    }
   }
 
   @action
@@ -225,6 +229,10 @@ export default class GatekeeperSignUpComponent extends Component {
           else {
             this.usernameErrorMessage = detail;
           }
+          break;
+
+        case '_id_exists':
+          this.usernameErrorMessage = 'An account already exists for this email address.'
           break;
 
         case 'email_exists':
