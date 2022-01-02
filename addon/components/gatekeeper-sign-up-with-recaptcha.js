@@ -47,4 +47,14 @@ export default class GatekeeperSignUpWithRecaptchaComponent extends SignUpCompon
   get invisible () {
     return this.recaptcha === 'invisible';
   }
+
+  /**
+   * @override
+   */
+  handleError (reason, retryIfFail) {
+    super.handleError (reason, retryIfFail);
+
+    // Reset the recaptcha for the next time.
+    this.resetRecaptcha = true;
+  }
 }

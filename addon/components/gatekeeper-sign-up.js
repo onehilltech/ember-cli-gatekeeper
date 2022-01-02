@@ -176,7 +176,7 @@ export default class GatekeeperSignUpComponent extends Component {
       }
     }
     catch (reason) {
-      this._handleError (reason, retryIfFail)
+      this.handleError (reason, retryIfFail)
     }
     finally {
       this.submitting = false;
@@ -209,7 +209,14 @@ export default class GatekeeperSignUpComponent extends Component {
     return this.args.signUpComplete || identity (true);
   }
 
-  _handleError (reason, retryIfFail) {
+  /**
+   * Handle the sign up error.
+   *
+   * @param reason
+   * @param retryIfFail
+   * @returns {*}
+   */
+  handleError (reason, retryIfFail) {
     if (isPresent (reason.errors)) {
       const { errors: [ { code, detail }] } = reason;
 
