@@ -22,9 +22,10 @@
                     autocapitalize="off"
                     @style={{this.style}}
                     @value={{this.email}}
-                    @label={{this.emailLabel}}
+                    @label={{unless @emailPlaceholder this.emailLabel}}
                     @leadingIcon={{@emailLeadingIcon}}
                     @errorMessage={{this.emailErrorMessage}}
+                    placeholder={{@emailPlaceholder}}
                     @helperText={{this.emailHelperText}} />
     </div>
 
@@ -32,7 +33,9 @@
       <MdcPasswordTextfield @style={{@style}}
                             @value={{this.password}}
                             @label={{this.passwordLabel}}
+                            @errorMessage={{this.passwordErrorMessage}}
                             @helperText={{@passwordHelperText}}
+                            placeholder={{@passwordPlaceholder}}
                             required="true" />
     </div>
 
@@ -40,7 +43,8 @@
       <div class="gatekeeper-sign-up__confirm-password">
         <MdcPasswordTextfield @style={{@style}}
                               @value={{this.confirmed}}
-                              @label={{this.confirmPasswordLabel}}
+                              @label={{unless @confirmPasswordPlaceholder this.confirmPasswordLabel}}
+                              placeholder={{@confirmPasswordPlaceholder}}
                               @errorMessage={{this.confirmErrorMessage}}
                               required="true" />
       </div>
