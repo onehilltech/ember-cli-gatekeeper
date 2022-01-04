@@ -1,7 +1,5 @@
-<div class="gatekeeper-client-authenticated-container" ...attributes>
-  {{yield this}}
+<div class="gatekeeper-client-authenticated-container" {{did-insert this.didInsert}} ...attributes >
+  {{yield this.status}}
 </div>
 
-{{#if @includeGoogleRecaptcha}}
-  <GRecaptchaInvisible @execute={{this.execute}} @verified={{this.verified}} @verifying={{this.verifying}} />
-{{/if}}
+<GRecaptchaInvisible @execute={{@execute}} @reset={{@reset}} @verified={{this.verified}} @verifying={{this.verifying}} />

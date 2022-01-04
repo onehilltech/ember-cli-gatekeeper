@@ -6,7 +6,34 @@ import { tracked } from "@glimmer/tracking";
 function noOp () {}
 
 /**
+ * @class GatekeeperClientStatus
+ *
+ * The gatekeeper status class is used to yield the status of the component back to the
+ * parent component. This allows the parent component to show different elements based
+ * on the client authentication status.
+ */
+class GatekeeperClientStatus {
+    constructor (component) {
+      this.component = component;
+    }
+
+    get isAuthenticating () {
+      return this.component.isAuthenticating;
+    }
+
+    get isAuthenticated () {
+      return this.component.isAuthenticated;
+    }
+
+    get isUnauthenticated () {
+      return this.component.isUnauthenticated;
+    }
+}
+/**
  * @class GatekeeperClientAuthenticatedContainerComponent
+ *
+ * A container class that allows parents to show elements based on the client
+ * authentication status.
  */
 export default class GatekeeperClientAuthenticatedContainerComponent extends Component {
   @service
@@ -27,7 +54,12 @@ export default class GatekeeperClientAuthenticatedContainerComponent extends Com
   }
 
   @tracked
-  execute;
+  status;
+
+  @action
+  didInsert () {
+    this.status = new GatekeeperClientStatus (this);
+  }
 
   @action
   verifying (value) {
