@@ -113,7 +113,9 @@ function authenticated (target, name, descriptor, options = {}) {
 
       // Set the redirect to route so we can come back to this route when the
       // user has signed in.
-      let options = { queryParams: { [redirectParamName]: transition.targetName } };
+      const { intent : { url }} = transition;
+
+      let options = { queryParams: { [redirectParamName]: encodeURI (url) } };
       route.replaceWith (signInRoute, options);
 
       return true;

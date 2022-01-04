@@ -266,6 +266,11 @@ export default class GatekeeperService extends Service {
     this.router.replaceWith (redirectTo);
   }
 
+  /**
+   * Get the defualt redirect to propoerty.
+   *
+   * @returns {null|*}
+   */
   get redirectTo () {
     let currentURL = this.router.currentURL;
     let [, query] = currentURL.split ('?');
@@ -274,11 +279,8 @@ export default class GatekeeperService extends Service {
       return null;
     }
 
-    let params = query.split ('&');
-    return params.reduce ((accum, param) => {
-      let [name, value] = param.split ('=');
-      return name === 'redirect' ? decodeURIComponent (value) : accum;
-    }, null);
+    const redirectParam = query.split ('&').find (param => param.split ('=')[0] === 'redirect');
+    return isPresent (redirectParam) ? decodeURIComponent (redirectParam.split ('=')[1]) : undefined;
   }
 
   /**
