@@ -1,23 +1,36 @@
-import DS from 'ember-data';
+import Model, { attr } from '@ember-data/model';
 import { memberAction } from 'ember-api-actions';
+import { fragment } from 'ember-data-model-fragments/attributes';
 
-export default DS.Model.extend({
+export default class AccountModel extends Model {
   /// Email address for the account.
-  email: DS.attr ('string'),
+  @attr
+  email;
 
   /// Username of the account.
-  username: DS.attr ('string'),
+  @attr
+  username;
 
   /// Password for the account. The password is only used with the account is being
   /// created.
-  password: DS.attr ('string'),
+  @attr
+  password;
 
   /// The enabled state of the account.
-  enabled: DS.attr ('boolean'),
+  @attr('boolean')
+  enabled;
 
   /// The scope for the account. It will be an array of strings.
-  scope: DS.attr (),
+  @attr
+  scope;
 
   /// Change the password for the account.
-  changePassword: memberAction ({ path: 'password', type: 'post', urlType: 'findRecord'}),
-});
+  changePassword = memberAction ({ path: 'password', type: 'post', urlType: 'findRecord'});
+
+  /// The account has been verified.
+  @attr('boolean')
+  verified;
+
+  @fragment('account-verification')
+  verification
+}

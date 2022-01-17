@@ -10,6 +10,7 @@ module.exports = Blueprint.extend ({
     {name: 'ember-cli-mdc-button', target: '^2.0.0'},
     {name: 'ember-cli-mdc-snackbar', target: '^2.0.0'},
     {name: 'ember-cli-google-recaptcha', target: '^2.3.1'},
+    {name: 'ember-data-model-fragments', target: '^5.0.0-beta.1' },
     {name: 'ember-api-actions', target: '^0.2.8'},
     {name: 'ember-data', target: '~3.16.0'},
     {name: 'ember-copy'},
