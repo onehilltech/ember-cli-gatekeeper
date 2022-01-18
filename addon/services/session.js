@@ -73,6 +73,13 @@ export default class SessionService extends Service {
     return get (this.gatekeeper, key) === 'true';
   }
 
+  /**
+   * Get the account object for the current user from the server.
+   */
+  me () {
+    return this.store.findRecord ('account', this.currentUser.id);
+  }
+
   /// The user account model for the current session.
   get account () {
     let currentUser = this.currentUser;
