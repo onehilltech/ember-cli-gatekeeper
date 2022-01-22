@@ -13,7 +13,6 @@ module.exports = Blueprint.extend ({
     {name: 'ember-data-model-fragments', target: '^5.0.0-beta.1' },
     {name: 'ember-api-actions', target: '^0.2.8'},
     {name: 'ember-data', target: '~3.16.0'},
-    {name: 'ember-blueprint-data'},
-    {name: 'ember-copy'},
+    {name: 'ember-blueprint-data'}
   ]
 });
