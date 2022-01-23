@@ -149,7 +149,7 @@ function authenticated (target, name, descriptor, options = {}) {
         }
 
         if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
-          transition.trigger ('unauthorized', transition);
+          return transition.trigger ('unauthorized', transition);
         }
         else {
           return this._super.call (this, ...arguments);

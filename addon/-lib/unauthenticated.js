@@ -25,17 +25,23 @@ function unauthenticated (target, name, descriptor, options = {}) {
    * @param transition
    * @private
    */
-  target.prototype._checkNotSignedIn = function (transition) {
-    let { to: { queryParams = {}}} = transition;
+  target.prototype._checkNotSignedIn = async function (transition) {
+    const { to: { queryParams = {}}} = transition;
     const accessToken = queryParams[accessTokenParamName];
 
     if (isPresent (accessToken)) {
       // There is an access token in the query parameters. This takes precedence over the
       // status of the session.
-      return this.session.openFrom (accessToken).then (() => false).catch (() => true);
+      try {
+        await this.session.openFrom (accessToken);
+        return true;
+      }
+      catch (err) {
+        return false;
+      }
     }
     else {
-      return Promise.resolve (!this.session.isSignedIn);
+      return !this.session.isSignedIn;
     }
   }
 
@@ -43,28 +49,25 @@ function unauthenticated (target, name, descriptor, options = {}) {
   target.prototype.actions = target.prototype.actions || {};
 
   override.async (target.prototype, 'beforeModel', async function (transition) {
-    let _super = this._super;
+    const notSignedIn = await this._checkNotSignedIn (transition);
 
-    return this._checkNotSignedIn (transition)
-      .then (notSignedIn => {
-        if (notSignedIn === false) {
-          // The user is signed into the application. Let's route the user to the start
-          // route for the application.
+    if (!notSignedIn) {
+      // The user is signed into the application. Let's route the user to the start
+      // route for the application.
 
-          let ENV = getOwner (this).resolveRegistration ('config:environment');
-          let targetRoute = redirectTo || get (ENV, 'gatekeeper.startRoute');
+      const ENV = getOwner (this).resolveRegistration ('config:environment');
+      const targetRoute = redirectTo || get (ENV, 'gatekeeper.startRoute');
 
-          if (isPresent (targetRoute)) {
-            this.replaceWith (targetRoute);
-          }
-          else {
-            return _super.call (this, ...arguments);
-          }
-        }
-        else {
-          return _super.call (this, ...arguments);
-        }
-      });
+      if (isPresent (targetRoute)) {
+        return this.replaceWith (targetRoute);
+      }
+      else {
+        return this._super.call (this, ...arguments);
+      }
+    }
+    else {
+      return this._super.call (this, ...arguments);
+    }
   });
 }
 
