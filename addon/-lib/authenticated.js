@@ -31,19 +31,25 @@ function authenticated (target, name, descriptor, options = {}) {
    * @param transition
    * @private
    */
-  target.prototype._checkSignedIn = function (transition) {
-    let { to: { queryParams = {}}} = transition;
+  target.prototype._checkSignedIn = async function (transition) {
+    const { to: { queryParams = {}}} = transition;
     const accessToken = queryParams[accessTokenParamName];
 
     if (isPresent (accessToken)) {
       // There is an access token in the query parameters. This takes precedence over the
       // status of the session.
-      let options = {
+      const options = {
         verified: this.verified || noOp,
         skipAccountLookup
       };
 
-      return this.session.openFrom (accessToken, options).then (() => true).catch (() => false);
+      try {
+        await this.session.openFrom (accessToken, options);
+        return true;
+      }
+      catch (err) {
+        return false;
+      }
     }
     else if (this.session.isSignedIn) {
       // The user is signed into the current session. Let's check if the access token has expired. if
@@ -51,17 +57,21 @@ function authenticated (target, name, descriptor, options = {}) {
       // reset the session before continuing.
 
       if (this.session.accessToken.isExpired) {
-        return this.session.refresh ().then (() => true).catch (() => {
+        try {
+          await this.session.refresh ();
+          return true;
+        }
+        catch (err) {
           this.session.reset ();
           return false;
-        });
+        }
       }
       else {
-        return Promise.resolve (true);
+        return true;
       }
     }
     else {
-      return Promise.resolve (false);
+      return false;
     }
   }
 
@@ -100,9 +110,7 @@ function authenticated (target, name, descriptor, options = {}) {
     return true;
   }
 
-  override (target.prototype, 'beforeModel', function (transition) {
-    let _super = this._super;
-
+  override (target.prototype, 'beforeModel', async function (transition) {
     function routeToSignIn (route) {
       let ENV = getOwner (route).resolveRegistration ('config:environment');
       let signInRoute = get (ENV, 'gatekeeper.signInRoute');
@@ -130,26 +138,26 @@ function authenticated (target, name, descriptor, options = {}) {
     }
 
     try {
-      return this._checkSignedIn (transition).then (isSignedIn => {
-        if (isSignedIn) {
-          let authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
-          let controller = this.controllerFor (this.routeName, true);
+      const isSignedIn = await this._checkSignedIn (transition);
 
-          if (isPresent (controller)) {
-            set (controller, 'isAuthorized', authorized);
-          }
+      if (isSignedIn) {
+        const authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
+        const controller = this.controllerFor (this.routeName, true);
 
-          if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
-            transition.trigger ('unauthorized', transition);
-          }
-          else {
-            return _super.call (this, ...arguments);
-          }
+        if (isPresent (controller)) {
+          controller.isAuthorized = authorized;
         }
-        else if (!routeToSignIn (this)) {
-          return _super.call (this, ...arguments);
+
+        if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
+          transition.trigger ('unauthorized', transition);
         }
-      });
+        else {
+          return this._super.call (this, ...arguments);
+        }
+      }
+      else if (!routeToSignIn (this)) {
+        return this._super.call (this, ...arguments);
+      }
     }
     catch (err) {
       return forceSessionReset (this);

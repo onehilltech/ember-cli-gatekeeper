@@ -42,7 +42,7 @@ function unauthenticated (target, name, descriptor, options = {}) {
   // Make sure there is an actions object.
   target.prototype.actions = target.prototype.actions || {};
 
-  override (target.prototype, 'beforeModel', function (transition) {
+  override.async (target.prototype, 'beforeModel', async function (transition) {
     let _super = this._super;
 
     return this._checkNotSignedIn (transition)
