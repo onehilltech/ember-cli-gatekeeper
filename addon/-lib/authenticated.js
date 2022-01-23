@@ -110,7 +110,7 @@ function authenticated (target, name, descriptor, options = {}) {
     return true;
   }
 
-  override (target.prototype, 'beforeModel', async function (transition) {
+  override.async (target.prototype, 'beforeModel', async function (transition) {
     function routeToSignIn (route) {
       let ENV = getOwner (route).resolveRegistration ('config:environment');
       let signInRoute = get (ENV, 'gatekeeper.signInRoute');
