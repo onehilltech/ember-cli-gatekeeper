@@ -13,5 +13,6 @@ module.exports = Blueprint.extend ({
     {name: 'ember-cli-mdc-textfield', target: '^2.0.0'},
     {name: 'ember-cli-mdc-button', target: '^2.0.0'},
     {name: 'ember-cli-mdc-snackbar', target: '^2.0.0'},
+    {name: 'ember-cli-mdc-checkbox', target: '^2.0.0'}
   ]
 });
