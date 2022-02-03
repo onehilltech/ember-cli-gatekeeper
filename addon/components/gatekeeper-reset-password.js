@@ -35,6 +35,10 @@ export default class GatekeeperResetPasswordComponent extends Component {
     return this.args.submitButtonLabel || 'Reset password';
   }
 
+  get submittingButtonLabel () {
+    return this.args.submittingButtonLabel || 'Resetting password...';
+  }
+
   get submitButtonDisabled () {
     return !this.valid || this.args.submitButtonDisabled || this.submitting;
   }
