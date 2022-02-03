@@ -22,6 +22,14 @@ export default class GatekeeperForgotPasswordComponent extends Component {
   @service
   snackbar;
 
+  @tracked
+  submitting;
+
+  @action
+  didInsert () {
+    this.submitting = false;
+  }
+
   get type () {
     return this.args.type || 'email';
   }
@@ -34,13 +42,17 @@ export default class GatekeeperForgotPasswordComponent extends Component {
     return this.args.submitButtonLabel || 'Submit';
   }
 
+  get submittingButtonLabel () {
+    return this.args.submittingButtonLabel || 'Submitting...';
+  }
+
   @action
   validity (value) {
     this.valid = value;
   }
 
   get submitButtonDisabled () {
-    return !this.valid;
+    return !this.valid || this.submitting || this.args.submitButtonDisabled;
   }
 
   get options () {
@@ -53,12 +65,16 @@ export default class GatekeeperForgotPasswordComponent extends Component {
 
   @action
   submit () {
+    const email = this.email.trim ();
+
     this.emailErrorMessage = null;
-    let email = this.email.trim ();
+    this.submitting = true;
 
     this.gatekeeper.forgotPassword (email, this.options)
       .then (() => this.submitted (email))
       .catch (reason => {
+        this.submitting = false;
+
         if (isPresent (reason.errors)) {
           const [error] = reason.errors;
 
