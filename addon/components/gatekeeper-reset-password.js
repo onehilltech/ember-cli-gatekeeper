@@ -19,6 +19,14 @@ export default class GatekeeperResetPasswordComponent extends Component {
   @service
   snackbar;
 
+  @tracked
+  submitting;
+
+  @action
+  didInsert () {
+    this.submitting = false;
+  }
+
   get passwordLabel () {
     return this.args.passwordLabel || 'New password';
   }
@@ -28,7 +36,7 @@ export default class GatekeeperResetPasswordComponent extends Component {
   }
 
   get submitButtonDisabled () {
-    return !this.valid;
+    return !this.valid || this.args.submitButtonDisabled || this.submitting;
   }
 
   get resetToken () {
@@ -46,11 +54,14 @@ export default class GatekeeperResetPasswordComponent extends Component {
 
   @action
   submit () {
+    this.submitting = true;
+
     this.gatekeeper.resetPassword (this.resetToken, this.password)
       .then (result => this.reset (result))
       .catch (reason => {
         const message = isPresent (reason.errors) ? reason.errors[0].detail : reason.message;
         this.snackbar.show ( { message, dismiss: true });
+        this.submitting = false;
       });
   }
 }
