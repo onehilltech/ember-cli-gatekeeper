@@ -67,11 +67,22 @@ export default class GatekeeperClientAuthenticatedContainerComponent extends Com
   }
 
   @action
-  verified (recaptcha) {
-    return this.gatekeeper.authenticate ( { recaptcha }, true)
-      .then (() => this.authenticated ())
-      .catch (reason => this.failed (reason))
-      .finally (() => this.authenticating = false);
+  async verified (recaptcha) {
+    try {
+      const options = Object.assign ({}, this.authenticateOptions, { recaptcha });
+      await this.gatekeeper.authenticate (options, true);
+      await this.authenticated ();
+    }
+    catch (reason) {
+      await this.failed (reason);
+    }
+    finally {
+      this.authenticating = false;
+    }
+  }
+
+  get authenticateOptions () {
+    return this.args.authenticateOptions || {};
   }
 
   get authenticated () {
