@@ -64,6 +64,8 @@ export default class GatekeeperClientAuthenticatedContainerComponent extends Com
   @action
   verifying (value) {
     this.authenticating = value;
+
+    (this.args.verifying || noOp)(value);
   }
 
   @action
