@@ -18,7 +18,7 @@ class GatekeeperClientStatus {
     }
 
     get isAuthenticating () {
-      return this.component.isAuthenticating;
+      return this.component.authenticating;
     }
 
     get isAuthenticated () {
