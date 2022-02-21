@@ -3,7 +3,7 @@ import Service from '@ember/service';
 import { get, getWithDefault, set } from '@ember/object';
 import { isPresent, isNone, isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
-import { resolve, Promise, reject, all } from 'rsvp';
+import { Promise, reject } from 'rsvp';
 import { KJUR, KEYUTIL } from 'jsrsasign';
 import { inject as service } from '@ember/service';
 
@@ -12,6 +12,8 @@ import TempSession from '../-lib/temp-session';
 
 import { DefaultConfigurator } from "../-lib/configurator";
 import { tracked } from "@glimmer/tracking";
+
+import { assert } from '@ember/debug';
 
 /**
  * @class GatekeeperService
@@ -232,22 +234,23 @@ export default class GatekeeperService extends Service {
    * to be valid.
    *
    * @param token
+   * @param secretOrPublicKey
+   * @param verifyOptions
    */
-  verifyToken (token) {
-    if (isNone (token)) {
-      return resolve (true);
+  verifyToken (token, secretOrPublicKey, verifyOptions) {
+    assert ('You must provide a token to verify.', isPresent (token));
+
+    secretOrPublicKey = secretOrPublicKey || this.secretOrPublicKey;
+    verifyOptions = verifyOptions || this.verifyOptions;
+
+    // We can only verify a token if we have a secret or public key. Otherwise, we
+    // cannot verify the access token.
+
+    if (isEmpty (secretOrPublicKey)) {
+      return true;
     }
 
-    return new Promise ((resolve, reject) => {
-      const { secretOrPublicKey, verifyOptions } = this;
-
-      if (isEmpty (secretOrPublicKey)) {
-        return resolve (true);
-      }
-
-      const verified = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
-      return verified ? resolve (true) : reject (new Error ('The access token could not be verified.'));
-    });
+    return KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
   }
 
   /**
@@ -267,7 +270,7 @@ export default class GatekeeperService extends Service {
   }
 
   /**
-   * Get the defualt redirect to propoerty.
+   * Get the default redirect to property.
    *
    * @returns {null|*}
    */
@@ -301,7 +304,7 @@ export default class GatekeeperService extends Service {
     return response.json ().then (reject);
   }
 
-  _requestToken (url, opts) {
+  async _requestToken (url, opts) {
     const data = Object.assign ({}, this.tokenOptions, opts);
 
     const options = {
@@ -312,27 +315,22 @@ export default class GatekeeperService extends Service {
       body: JSON.stringify (data)
     };
 
-    return fetch (url, options)
-      .then (response => {
-        return response.json ().then (res => {
-          if (response.ok) {
-            let checks = [];
+    const response = await fetch (url, options);
+    const res = await response.json ();
 
-            if (isPresent (res.access_token)) {
-              checks.push (this.verifyToken (res.access_token))
-            }
+    if (res.ok) {
+      if (isPresent (res.access_token) && !this.verifyToken (res.access_token)) {
+        throw new Error ('The access token could not be verified.');
+      }
 
-            if (isPresent (res.refresh_token)) {
-              checks.push (this.verifyToken (res.refresh_token))
-            }
+      if (isPresent (res.refresh_token) && !this.verifyToken (res.refresh_token)) {
+        throw new Error ('The refresh token could not be verified.');
+      }
 
-            return all (checks).then (() => res);
-          }
-          else {
-            return Promise.reject (res);
-          }
-        });
-      });
+      return res;
+    }
+    else {
+      throw res;
+    }
   }
-
 }
