@@ -318,7 +318,7 @@ export default class GatekeeperService extends Service {
     const response = await fetch (url, options);
     const res = await response.json ();
 
-    if (res.ok) {
+    if (response.ok) {
       if (isPresent (res.access_token) && !this.verifyToken (res.access_token)) {
         throw new Error ('The access token could not be verified.');
       }
