@@ -23,6 +23,8 @@ function authenticated (target, name, descriptor, options = {}) {
     redirectParamName = 'redirect',
     accessTokenParamName = 'access_token',
     skipAccountLookup = false,
+    secretOrPublicKey,
+    verifyOptions
   } = options;
 
   /**
@@ -40,7 +42,9 @@ function authenticated (target, name, descriptor, options = {}) {
       // status of the session.
       const options = {
         verified: this.verified || noOp,
-        skipAccountLookup
+        skipAccountLookup,
+        secretOrPublicKey,
+        verifyOptions
       };
 
       try {
@@ -48,6 +52,7 @@ function authenticated (target, name, descriptor, options = {}) {
         return true;
       }
       catch (err) {
+        console.err (err);
         return false;
       }
     }

@@ -263,22 +263,31 @@ export default class SessionService extends Service {
    * @param accessToken
    * @param opts
    */
-  openFrom (accessToken, opts = {}) {
-    const { verified = noOp, skipAccountLookup = false } = opts;
+  async openFrom (accessToken, opts = {}) {
+    const {
+      verified = noOp,
+      skipAccountLookup = false,
+      secretOrPublicKey,
+      verifyOptions
+    } = opts;
 
-    return this.gatekeeper.verifyToken (accessToken)
-      .then (() => verified (AccessToken.fromString (accessToken)))
-      .then (() => {
-        // Force the current session to sign out.
-        this.reset ();
+    const result = await this.gatekeeper.verifyToken (accessToken, secretOrPublicKey, verifyOptions);
 
-        // Set the provided access token as the current access token.
-        this._updateTokens (accessToken);
+    if (!result) {
+      throw new Error ('We could not verify the access token');
+    }
 
-        if (!skipAccountLookup) {
-          return this._completeSignIn ();
-        }
-      });
+    await verified (AccessToken.fromString (accessToken));
+
+    // Force the current session to sign out.
+    this.reset ();
+
+    // Set the provided access token as the current access token.
+    this._updateTokens (accessToken);
+
+    if (!skipAccountLookup) {
+      await this._completeSignIn ();
+    }
   }
 
   /**
