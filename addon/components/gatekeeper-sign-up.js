@@ -176,7 +176,7 @@ export default class GatekeeperSignUpComponent extends Component {
       }
     }
     catch (reason) {
-      this.handleError (reason, retryIfFail)
+      await this.handleError (reason, retryIfFail);
     }
     finally {
       this.submitting = false;
@@ -216,7 +216,7 @@ export default class GatekeeperSignUpComponent extends Component {
    * @param retryIfFail
    * @returns {*}
    */
-  handleError (reason, retryIfFail) {
+  async handleError (reason, retryIfFail) {
     if (isPresent (reason.errors)) {
       const { errors: [ { code, detail }] } = reason;
 
@@ -224,7 +224,8 @@ export default class GatekeeperSignUpComponent extends Component {
         case 'missing_token':
         case 'unknown_token':
           if (retryIfFail) {
-            return this.gatekeeper.authenticate (this.signUpOptions, true).then (() => this.signUp (false));
+            await this.gatekeeper.authenticate (this.signUpOptions, true);
+            await this.signUp (false);
           }
 
           break;

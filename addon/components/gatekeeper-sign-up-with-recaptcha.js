@@ -14,9 +14,9 @@ export default class GatekeeperSignUpWithRecaptchaComponent extends SignUpCompon
 
   _recaptchaImpl;
 
-  willSignUp () {
-    return Promise.resolve (this._recaptchaImpl.verify (this))
-      .then (response => this.gatekeeper.authenticate ({ recaptcha: response }))
+  async willSignUp () {
+    const response = await this._recaptchaImpl.verify (this);
+    await this.gatekeeper.authenticate ({ recaptcha: response });
   }
 
   doPrepareComponent () {
