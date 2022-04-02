@@ -64,30 +64,33 @@ export default class GatekeeperForgotPasswordComponent extends Component {
   }
 
   @action
-  submit () {
+  async submit () {
     const email = this.email.trim ();
 
     this.emailErrorMessage = null;
     this.submitting = true;
 
-    this.gatekeeper.forgotPassword (email, this.options)
-      .then (() => this.submitted (email))
-      .catch (reason => {
-        this.submitting = false;
+    try {
+      await this.gatekeeper.forgotPassword (email, this.options);
+      this.submitted (email);
+    }
+    catch (reason) {
+      if (isPresent (reason.errors)) {
+        const [error] = reason.errors;
 
-        if (isPresent (reason.errors)) {
-          const [error] = reason.errors;
-
-          if (error.code === 'unknown_account') {
-            this.emailErrorMessage = error.detail;
-          }
-          else {
-            this.snackbar.show ( { message: error.detail, dismiss: true });
-          }
+        if (error.code === 'unknown_account') {
+          this.emailErrorMessage = error.detail;
         }
         else {
-          this.snackbar.show ( { message: reason.message, dismiss: true });
+          this.snackbar.show ( { message: error.detail, dismiss: true });
         }
-      });
+      }
+      else {
+        this.snackbar.show ( { message: reason.message, dismiss: true });
+      }
+    }
+    finally {
+      this.submitting = false;
+    }
   }
 }
