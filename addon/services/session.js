@@ -3,7 +3,7 @@ import Service from '@ember/service';
 import { isNone, isPresent, isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import { action, computed, get, set } from '@ember/object';
-import { Promise, reject, all } from 'rsvp';
+import { Promise } from 'rsvp';
 import { A } from '@ember/array';
 import { omit } from 'lodash-es';
 
@@ -29,12 +29,12 @@ export default class SessionService extends Service {
   }
 
   get currentUser () {
-    let key = this.storageKey ('gatekeeper_user');
+    const key = this.storageKey ('gatekeeper_user');
     return get (this.gatekeeper, key);
   }
 
   set currentUser (value) {
-    let key = this.storageKey ('gatekeeper_user');
+    const key = this.storageKey ('gatekeeper_user');
     return set (this.gatekeeper, key, omit (value, ['password']));
   }
 
@@ -43,17 +43,17 @@ export default class SessionService extends Service {
   }
 
   get _tokenString () {
-    let key = this.storageKey ('gatekeeper_ut');
+    const key = this.storageKey ('gatekeeper_ut');
     return get (this.gatekeeper, key);
   }
 
   set _tokenString (value) {
-    let key = this.storageKey ('gatekeeper_ut');
+    const key = this.storageKey ('gatekeeper_ut');
     return set (this.gatekeeper, key, value);
   }
 
   get _refreshingTokenString () {
-    let key = this.storageKey ('gatekeeper_rt');
+    const key = this.storageKey ('gatekeeper_rt');
     return get (this.gatekeeper, key);
   }
 
@@ -64,12 +64,12 @@ export default class SessionService extends Service {
 
   /// The lock screen state for the session.
   set lockScreen (value) {
-    let key = this.storageKey ('gatekeeper_lock_screen');
+    const key = this.storageKey ('gatekeeper_lock_screen');
     return set (this.gatekeeper, key, value);
   }
 
   get lockScreen () {
-    let key = this.storageKey ('gatekeeper_lock_screen');
+    const key = this.storageKey ('gatekeeper_lock_screen');
     return get (this.gatekeeper, key) === 'true';
   }
 
@@ -80,15 +80,17 @@ export default class SessionService extends Service {
     return this.store.findRecord ('account', this.currentUser.id);
   }
 
-  /// The user account model for the current session.
+  /**
+   * Get the account model for the current user.
+   */
   get account () {
-    let currentUser = this.currentUser;
+    const currentUser = this.currentUser;
 
-    if (isNone (currentUser)) {
+    if (isNone (currentUser) || isEmpty (currentUser.id)) {
       return null;
     }
 
-    let account = this.store.peekRecord ('account', currentUser.id);
+    const account = this.store.peekRecord ('account', currentUser.id);
 
     if (isPresent (account)) {
       return account;
@@ -97,11 +99,9 @@ export default class SessionService extends Service {
     // There is no account model for this user. Let's create one and return it to
     // the caller.
 
-    let data = this.store.normalize ('account', currentUser);
+    const data = this.store.normalize ('account', currentUser);
     data.data.id = this.currentUser.id;
-    account = this.store.push (data);
-
-    return account;
+    return this.store.push (data);
   }
 
   @computed ('_tokenString')
@@ -144,16 +144,14 @@ export default class SessionService extends Service {
    *
    * @returns {*}
    */
-  signIn (opts) {
-    const tokenOptions = Object.assign ({grant_type: 'password'}, opts);
+  async signIn (opts) {
+    const tokenOptions = Object.assign ({ grant_type: 'password' }, opts);
+    const { access_token, refresh_token } = await this.gatekeeper._requestToken (this.authenticateUrl, tokenOptions);
 
-    return this._requestToken (this.authenticateUrl, tokenOptions).then (token => {
-      const { access_token, refresh_token } = token;
 
-      // Save the different access tokens, and increment the token change count.
-      this._updateTokens (access_token, refresh_token);
-      return this._completeSignIn ();
-    });
+    // Save the different access tokens, and increment the token change count.
+    this._updateTokens (access_token, refresh_token);
+    await this._completeSignIn ();
   }
 
   /**
@@ -162,22 +160,22 @@ export default class SessionService extends Service {
    * @returns {*}
    * @private
    */
-  _completeSignIn () {
-    // Query the service for the current user. We are going to cache their id
-    // just in case the application needs to use it.
-    return this.store.queryRecord ('account', {})
-      .then (account => {
-        this.currentUser = account.toJSON ({includeId: true});
+  async _completeSignIn () {
+    try {
+      // Query the service for the current user. We are going to cache their id
+      // just in case the application needs to use it.
+      const account = await this.store.queryRecord ('account', {})
+      this.currentUser = account.toJSON ();
 
-        // Notify all listeners.
-        this.listeners.forEach (listener => listener.didSignIn (this, this.currentUser));
-      })
-      .catch (reason => {
-        // Reset the access tokens, and the counter.
-        this._resetTokens ();
+      // Notify all listeners.
+      this.listeners.forEach (listener => listener.didSignIn (this, this.currentUser));
+    }
+    catch (err) {
+      // Reset the access tokens, and the counter.
+      this._resetTokens ();
 
-        return reject (reason);
-      });
+      throw err;
+    }
   }
 
   /**
@@ -186,33 +184,35 @@ export default class SessionService extends Service {
    * @returns {RSVP.Promise|*}
    */
   @action
-  signOut (force = false) {
+  async signOut (force = false) {
     // Let all listeners know we are signing out the current user. After the listeners
     // are complete, we can sign out the current user. After the sign out is complete,
     // we need to clean everything up.
 
-    return Promise.all (this.listeners.map (listener => listener.willSignOut ()))
-      .then (() => this.gatekeeper.signOut (this.accessToken.toString ()))
-      .then (result => {
-        if (result) {
+    await Promise.all (this.listeners.map (listener => listener.willSignOut ()));
+
+    try {
+      const result = await this.gatekeeper.signOut (this.accessToken.toString ());
+
+      if (result) {
+        this.reset ();
+      }
+
+      return result;
+    }
+    catch (reason) {
+      if (isPresent (reason.errors)) {
+        let [error] = reason.errors;
+
+        if (force || (error.status === '403' || error.status === '401')) {
           this.reset ();
+          return true;
         }
-
-        return result;
-      })
-      .catch (reason => {
-        if (isPresent (reason.errors)) {
-          let [error] = reason.errors;
-
-          if (force || (error.status === '403' || error.status === '401')) {
-            this.reset ();
-            return true;
-          }
-        } else {
-          // Force the rejection to continue upstream.
-          return Promise.reject (reason);
-        }
-      });
+      }
+      else {
+        return Promise.reject (reason);
+      }
+    }
   }
 
   /**
@@ -241,20 +241,15 @@ export default class SessionService extends Service {
    * @param options
    * @returns {*}
    */
-  createTempSession (payload, options) {
-    const tokenOptions = Object.assign ({grant_type: 'temp'}, {
+  async createTempSession (payload, options) {
+    const tokenOptions = Object.assign ({},{
       payload,
       options,
       access_token: this.accessToken.toString ()
-    });
+    }, { grant_type: 'temp' });
 
-    return this._requestToken (this.authenticateUrl, tokenOptions)
-      .then (({access_token}) => {
-        const gatekeeper = this.gatekeeper;
-        const opts = Object.assign ({}, {accessToken: access_token, gatekeeper});
-
-        return TempSession.create (opts);
-      });
+    const { access_token } = await this.gatekeeper._requestToken (this.authenticateUrl, tokenOptions);
+    return TempSession.create ({ accessToken: access_token, gatekeeper: this.gatekeeper });
   }
 
   /**
@@ -320,7 +315,7 @@ export default class SessionService extends Service {
         refresh_token: this.refreshToken.toString ()
       };
 
-      this._requestToken (this.authenticateUrl, tokenOptions)
+      this.gatekeeper._requestToken (this.authenticateUrl, tokenOptions)
         .then (response => {
           const { access_token, refresh_token } = response;
 
@@ -359,41 +354,6 @@ export default class SessionService extends Service {
 
     this.notifyPropertyChange ('_tokenString');
     this.notifyPropertyChange ('_refreshingTokenString');
-  }
-
-  /**
-   * Private method for requesting an access token from the server.
-   *
-   * @param url
-   * @param opts
-   * @private
-   */
-  _requestToken (url, opts) {
-    const tokenOptions = this.gatekeeper.tokenOptions;
-    const data = Object.assign ({}, tokenOptions, opts);
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify (data)
-    };
-
-    return fetch (url, options)
-      .then (response => {
-        return response.json ().then (res => {
-          if (response.ok) {
-            return all ([
-              this.gatekeeper.verifyToken (res.access_token),
-              this.gatekeeper.verifyToken (res.refresh_token)
-            ]).then (() => res);
-          }
-          else {
-            return Promise.reject (res);
-          }
-        });
-      });
   }
 
   /// Listener objects for the session.

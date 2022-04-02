@@ -136,36 +136,39 @@ export default class GatekeeperSignInComponent extends Component {
   }
 
   @action
-  signIn () {
+  async signIn () {
     let { username, password, signInOptions } = this;
     username = username.trim ();
 
     let options = Object.assign ({}, signInOptions, { username, password });
-
     this.submitting = true;
 
-    return Promise.resolve ()
-      .then (() => {
-        // Reset the component.
-        this.reset ();
+    try {
+      // Reset the component, and then notify the subclass that we will be starting
+      // the sign in process.
 
-        // Notify the subclass we are signing in.
-        return this.willSignIn (username);
-      })
-      .then (() => this.doPrepareOptions (options))
-      .then (options => this.session.signIn (options))
-      .then (() => this.didSignIn (username))
-      .then (() => {
-        // Notify the subclass that the user did sign in to the application.
-        if (this.signInComplete ()) {
-          this.session.gatekeeper.redirect (this.args.redirectTo);
-        }
-      })
-      .catch (reason => {
-        this.submitting = false;
+      this.reset ();
+      await this.willSignIn (username);
 
-        this.handleError (reason);
-      });
+      // Prepare the sign in options, and the sign in the user. After the sign in
+      // complete, notify the subclasses that we have finished the sign in process.
+
+      options = await this.doPrepareOptions (options);
+
+      await this.session.signIn (options);
+      await this.didSignIn (username);
+
+      // Notify clients that the user did sign in to the application.
+      if (this.signInComplete ()) {
+        this.session.gatekeeper.redirect (this.args.redirectTo);
+      }
+    }
+    catch (reason) {
+      this.handleError (reason);
+    }
+    finally {
+      this.submitting = false;
+    }
   }
 
   reset () {

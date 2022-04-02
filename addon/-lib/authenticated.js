@@ -52,7 +52,6 @@ function authenticated (target, name, descriptor, options = {}) {
         return true;
       }
       catch (err) {
-        console.err (err);
         return false;
       }
     }
@@ -147,11 +146,6 @@ function authenticated (target, name, descriptor, options = {}) {
 
       if (isSignedIn) {
         const authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
-        const controller = this.controllerFor (this.routeName, true);
-
-        if (isPresent (controller)) {
-          controller.isAuthorized = authorized;
-        }
 
         if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
           return transition.trigger ('unauthorized', transition);

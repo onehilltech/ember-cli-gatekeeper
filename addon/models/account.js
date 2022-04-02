@@ -43,5 +43,15 @@ export default class AccountModel extends Model {
   verified;
 
   @fragment('account-verification')
-  verification
+  verification;
+
+  toJSON () {
+    return {
+      id: this.id,
+      email: this.email,
+      username: this.username,
+      scope: this.scope,
+      enabled: this.enabled
+    };
+  }
 }

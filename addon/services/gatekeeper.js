@@ -319,12 +319,18 @@ export default class GatekeeperService extends Service {
     const res = await response.json ();
 
     if (response.ok) {
-      if (isPresent (res.access_token) && !this.verifyToken (res.access_token)) {
-        throw new Error ('The access token could not be verified.');
+      const {access_token, refresh_token } = res;
+
+      if (isPresent (access_token)) {
+        if (!this.verifyToken (access_token)) {
+          throw new Error ('The access token could not be verified.');
+        }
       }
 
-      if (isPresent (res.refresh_token) && !this.verifyToken (res.refresh_token)) {
-        throw new Error ('The refresh token could not be verified.');
+      if (isPresent (refresh_token)) {
+        if (!this.verifyToken (refresh_token)) {
+          throw new Error ('The refresh token could not be verified.');
+        }
       }
 
       return res;

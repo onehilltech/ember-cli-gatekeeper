@@ -14,46 +14,52 @@ export default class AuthenticatedController extends Controller {
   supportsCreateAccount;
 
   @tracked
-  tempSession = null;
+  tempSession;
 
   @action
-  signOut () {
-    this.session.signOut ().then (result => {
-      if (result)
-        this.transitionToRoute ('sign-in');
-    });
+  async signOut () {
+    const result = await this.session.signOut (true);
+
+    if (result) {
+      this.transitionToRoute ('sign-in');
+    }
   }
 
   @action
-  authenticate () {
-    const {password, session } = this;
+  async authenticate () {
+    const { password, session } = this;
 
-    session.authenticate (password)
-      .then (result => {
-        if (result) {
-          this.snackbar.show ({message: 'We authenticated the user.'});
-        }
-        else {
-          this.snackbar.show ({message: 'The password is incorrect.', dismiss: true});
-        }
-      })
-      .catch (res => this.snackbar.show ({message: res}));
+    try {
+      const result = await session.authenticate (password);
+
+      if (result) {
+        this.snackbar.show ({message: 'We authenticated the user.'});
+      }
+      else {
+        this.snackbar.show ({message: 'The password is incorrect.', dismiss: true});
+      }
+    }
+    catch (err) {
+      this.snackbar.showError (err);
+    }
   }
 
   @action
-  createTempSession () {
-    this.session.createTempSession ({name: 'John Doe'}, { expiration: '10 minutes', audience: 'temp'})
-      .then (this.set.bind (this, 'tempSession'))
-      .catch (res => this.snackbar.show ({message: res.responseText}));
+  async createTempSession () {
+    try {
+      this.tempSession = await this.session.createTempSession ({name: 'John Doe'}, { expiration: '10 minutes', audience: 'temp'});
+    }
+    catch (err) {
+      this.snackbar.showError (err);
+    }
   }
 
   @action
-  endTempSession () {
-    this.tempSession.signOut ()
-      .then (result => {
-        if (result) {
-          this.set ('tempSession', null);
-        }
-      });
+  async endTempSession () {
+    const result = await this.tempSession.signOut ();
+
+    if (result) {
+      this.tempSession = null;
+    }
   }
 }
