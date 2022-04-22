@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 
 import { get, getWithDefault, set } from '@ember/object';
-import { isPresent, isNone, isEmpty } from '@ember/utils';
+import { isPresent, isNone } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { Promise, reject } from 'rsvp';
 import { KJUR, KEYUTIL } from 'jsrsasign';
