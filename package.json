@@ -99,7 +99,7 @@
     "loader.js": "^4.7.0",
     "material-design-icons": "^3.0.1",
     "qunit-dom": "^1.0.0",
-    "sass": "^1.49.11"
+    "sass": "^1.30.0"
   },
   "engines": {
     "node": "10.* || >= 12"
