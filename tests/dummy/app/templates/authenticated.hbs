@@ -50,6 +50,10 @@
     <MdcButton @style="raised">Check</MdcButton>
   </MdcForm>
 
+  <h5 class="mdc-typography--headline6">Verify Token</h5>
+
+  <MdcButton @style="raised" {{on "click" this.verifyToken}}>Verfiy Token</MdcButton>
+
   <h5 class="mdc-typography--headline6">Temp Session</h5>
 
   {{#if this.tempSession}}

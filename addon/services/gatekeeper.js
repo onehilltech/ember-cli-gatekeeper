@@ -238,8 +238,9 @@ export default class GatekeeperService extends Service {
    * @param token
    * @param secretOrPublicKey
    * @param verifyOptions
+   * @param verifyRemoteAsFallback
    */
-  async verifyToken (token, secretOrPublicKey, verifyOptions, verifyRemoteIfFail = false) {
+  async verifyToken (token, secretOrPublicKey, verifyOptions, verifyRemoteAsFallback = false) {
     assert ('You must provide a token to verify.', isPresent (token));
 
     secretOrPublicKey = secretOrPublicKey || this.secretOrPublicKey;
@@ -256,8 +257,9 @@ export default class GatekeeperService extends Service {
     if (verified)
       return verified;
 
-    if (verifyRemoteIfFail) {
-      verified = await this.verifyTokenRemotely (token, verifyOptions);
+    if (verifyRemoteAsFallback) {
+      const result = await this.verifyTokenRemotely (token, verifyOptions);
+      verified = result.verified;
     }
 
     return verified;
@@ -286,11 +288,10 @@ export default class GatekeeperService extends Service {
     const res = await response.json ();
 
     if (response.ok) {
-      return res.body;
+      return res;
     }
-    else {
-      throw res;
-    }
+
+    throw res;
   }
 
   /**

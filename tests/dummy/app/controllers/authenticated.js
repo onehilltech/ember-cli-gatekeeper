@@ -62,4 +62,17 @@ export default class AuthenticatedController extends Controller {
       this.tempSession = null;
     }
   }
+
+  @action
+  async verifyToken () {
+    const accessToken = this.session.accessToken;
+    const verified = await this.session.gatekeeper.verifyToken (accessToken.toString (), null, null, true);
+
+    if (verified) {
+      this.snackbar.show ({message: 'We verified your access token.'});
+    }
+    else {
+      this.snackbar.show ({message: 'We could not verify your access token.'});
+    }
+  }
 }
