@@ -239,7 +239,7 @@ export default class GatekeeperService extends Service {
    * @param secretOrPublicKey
    * @param verifyOptions
    */
-  verifyToken (token, secretOrPublicKey, verifyOptions) {
+  async verifyToken (token, secretOrPublicKey, verifyOptions, verifyRemoteIfFail = false) {
     assert ('You must provide a token to verify.', isPresent (token));
 
     secretOrPublicKey = secretOrPublicKey || this.secretOrPublicKey;
@@ -247,12 +247,50 @@ export default class GatekeeperService extends Service {
 
     // We can only verify a token if we have a secret or public key. Otherwise, we
     // cannot verify the access token.
+    let verified = false;
 
-    if (isEmpty (secretOrPublicKey)) {
-      return true;
+    if (isPresent (secretOrPublicKey)) {
+      verified = KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
     }
 
-    return KJUR.jws.JWS.verifyJWT (token, secretOrPublicKey, verifyOptions);
+    if (verified)
+      return verified;
+
+    if (verifyRemoteIfFail) {
+      verified = await this.verifyTokenRemotely (token, verifyOptions);
+    }
+
+    return verified;
+  }
+
+  /**
+   * Verify an access token remotely with the server.
+   *
+   * @param token
+   * @param options
+   * @return {any}
+   */
+  async verifyTokenRemotely (token, options) {
+    const data = { token, options };
+    const url = this.computeUrl ('/oauth2/verify');
+
+    const request = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify (data)
+    };
+
+    const response = await fetch (url, request);
+    const res = await response.json ();
+
+    if (response.ok) {
+      return res.body;
+    }
+    else {
+      throw res;
+    }
   }
 
   /**
@@ -295,7 +333,7 @@ export default class GatekeeperService extends Service {
    * @returns {RSVP.Promise}
    * @private
    */
-  _requestClientToken (opts, verify) {
+  _requestClientToken (opts) {
     const url = this.computeUrl ('/oauth2/token');
     const options = Object.assign ({}, opts, { grant_type: 'client_credentials' });
 
@@ -306,6 +344,12 @@ export default class GatekeeperService extends Service {
     return response.json ().then (reject);
   }
 
+  /**
+   * Request an access token from the server.
+   *
+   * @param url
+   * @param opts
+   */
   async _requestToken (url, opts) {
     const data = Object.assign ({}, this.tokenOptions, opts);
 
@@ -321,20 +365,6 @@ export default class GatekeeperService extends Service {
     const res = await response.json ();
 
     if (response.ok) {
-      const {access_token, refresh_token } = res;
-
-      if (isPresent (access_token)) {
-        if (!this.verifyToken (access_token)) {
-          throw new Error ('The access token could not be verified.');
-        }
-      }
-
-      if (isPresent (refresh_token)) {
-        if (!this.verifyToken (refresh_token)) {
-          throw new Error ('The refresh token could not be verified.');
-        }
-      }
-
       return res;
     }
     else {
