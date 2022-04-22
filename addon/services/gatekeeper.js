@@ -104,24 +104,26 @@ export default class GatekeeperService extends Service {
    * @param opts
    * @param force
    */
-  authenticate (opts, force = false) {
+  async authenticate (opts, force = false) {
     if (this.isAuthenticated && !force) {
-      return Promise.resolve ();
+      return;
     }
 
-    return this._requestClientToken (opts).then (token => {
-      this._tokenString = token.access_token;
+    const token = await this._requestClientToken (opts);
+    this._tokenString = token.access_token;
 
-      // Notify all observers that our token has changed.
-      this.notifyPropertyChange ('_tokenString');
-    });
+    // Notify all observers that our token has changed.
+    this.notifyPropertyChange ('_tokenString');
   }
 
   /**
    * Unauthenticate the client on the platform.
    */
-  unauthenticate () {
-    return this.signOut (this.accessToken.toString()).then (() => this.reset ());
+  async unauthenticate () {
+    const accessToken = this.accessToken.toString ();
+
+    await this.signOut (accessToken);
+    this.reset ();
   }
 
   /**
@@ -293,7 +295,7 @@ export default class GatekeeperService extends Service {
    * @returns {RSVP.Promise}
    * @private
    */
-  _requestClientToken (opts) {
+  _requestClientToken (opts, verify) {
     const url = this.computeUrl ('/oauth2/token');
     const options = Object.assign ({}, opts, { grant_type: 'client_credentials' });
 
