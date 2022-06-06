@@ -24,7 +24,8 @@ function authenticated (target, name, descriptor, options = {}) {
     accessTokenParamName = 'access_token',
     skipAccountLookup = false,
     secretOrPublicKey,
-    verifyOptions
+    verifyOptions,
+    signInRoute
   } = options;
 
   /**
@@ -97,7 +98,7 @@ function authenticated (target, name, descriptor, options = {}) {
         // Redirect to sign in page, allowing the user to redirect back to the
         // original page. But, do not support the back button.
         let ENV = getOwner (this).resolveRegistration ('config:environment');
-        let signInRoute = getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+        let signInRoute = signInRoute || getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
 
         // Display the error message.
         this.snackbar.show ({message: error.detail});
@@ -117,7 +118,7 @@ function authenticated (target, name, descriptor, options = {}) {
   override.async (target.prototype, 'beforeModel', async function (transition) {
     function routeToSignIn (route) {
       let ENV = getOwner (route).resolveRegistration ('config:environment');
-      let signInRoute = get (ENV, 'gatekeeper.signInRoute');
+      let signInRoute = signInRoute || get (ENV, 'gatekeeper.signInRoute');
 
       if (isNone (signInRoute)) {
         return false;
