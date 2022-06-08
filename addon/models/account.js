@@ -45,7 +45,7 @@ export default class AccountModel extends Model {
   @fragment('account-verification')
   verification;
 
-  toJSON () {
+  serialize () {
     return {
       id: this.id,
       email: this.email,

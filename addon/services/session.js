@@ -62,17 +62,6 @@ export default class SessionService extends Service {
     return set (this.gatekeeper, key, value);
   }
 
-  /// The lock screen state for the session.
-  set lockScreen (value) {
-    const key = this.storageKey ('gatekeeper_lock_screen');
-    return set (this.gatekeeper, key, value);
-  }
-
-  get lockScreen () {
-    const key = this.storageKey ('gatekeeper_lock_screen');
-    return get (this.gatekeeper, key) === 'true';
-  }
-
   /**
    * Get the account object for the current user from the server.
    */
@@ -82,7 +71,7 @@ export default class SessionService extends Service {
     if (isPresent (account)) {
       // Let's use this time to replace the old account with the most resent one
       // we have downloaded from the server.
-      this.currentUser = account.toJSON ();
+      this.currentUser = account.serialize ();
     }
 
     return account;
@@ -173,7 +162,7 @@ export default class SessionService extends Service {
       // Query the service for the current user. We are going to cache their id
       // just in case the application needs to use it.
       const account = await this.store.queryRecord ('account', {})
-      this.currentUser = account.toJSON ();
+      this.currentUser = account.serialize ();
 
       // Notify all listeners.
       this.listeners.forEach (listener => listener.didSignIn (this, this.currentUser));
