@@ -76,8 +76,16 @@ export default class SessionService extends Service {
   /**
    * Get the account object for the current user from the server.
    */
-  me () {
-    return this.store.findRecord ('account', this.currentUser.id);
+  async me () {
+    const account = await this.store.findRecord ('account', this.currentUser.id);
+
+    if (isPresent (account)) {
+      // Let's use this time to replace the old account with the most resent one
+      // we have downloaded from the server.
+      this.currentUser = account.toJSON ();
+    }
+
+    return account;
   }
 
   /**
