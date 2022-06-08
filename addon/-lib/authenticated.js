@@ -1,4 +1,4 @@
-import { get, getWithDefault, set } from '@ember/object';
+import { get, getWithDefault } from '@ember/object';
 import { isEmpty, isPresent, isNone } from '@ember/utils';
 import { getOwner } from '@ember/application';
 
