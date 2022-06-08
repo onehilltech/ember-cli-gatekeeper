@@ -159,7 +159,7 @@ export default class GatekeeperSignInComponent extends Component {
       await this.didSignIn (username);
 
       // Notify clients that the user did sign in to the application.
-      if (this.signInComplete ()) {
+      if (this.signInComplete (this.session.currentUser)) {
         this.session.gatekeeper.redirect (this.args.redirectTo);
       }
     }
