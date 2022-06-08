@@ -51,7 +51,8 @@ export default class AccountModel extends Model {
       email: this.email,
       username: this.username,
       scope: this.scope,
-      enabled: this.enabled
+      enabled: this.enabled,
+      verified: this.verified
     };
   }
 }
