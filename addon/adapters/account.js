@@ -94,7 +94,7 @@ export default class AccountRESTAdapter extends RESTAdapter {
         // The account was created and logged in at the same time. We need to
         // extract the token, and register it with the gatekeeper service.
         this.session._updateTokens (accessToken.access_token, accessToken.refresh_token);
-        this.session.currentUser = {id: payload.account._id, username: payload.account.username, email: payload.account.email};
+        this.session.currentUser = { id: payload.account._id, username: payload.account.username, email: payload.account.email};
       }
     }
 
