@@ -58,9 +58,11 @@ export default class GatekeeperResetPasswordComponent extends Component {
 
   @action
   async submit () {
-    this.submitting = true;
-
     try {
+      // Mark the reset form as submitting.
+      this.submitting = true;
+      (this.args.resetting || noOp)(true);
+
       const result = await this.gatekeeper.resetPassword (this.resetToken, this.password);
       this.reset (result);
     }
@@ -68,7 +70,9 @@ export default class GatekeeperResetPasswordComponent extends Component {
       this.snackbar.showError (reason);
     }
     finally {
+      // Reset the submitting state of the form.
       this.submitting = false;
+      (this.args.resetting || noOp)(false);
     }
   }
 }

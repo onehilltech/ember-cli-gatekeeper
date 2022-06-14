@@ -33,7 +33,7 @@
     "ember-cli-blueprint-helpers": "^0.4.7",
     "ember-cli-htmlbars": "^4.2.2",
     "jsrsasign": "^8.0.20",
-    "lodash-es": "^4.17.21"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.3.0",
