@@ -24,7 +24,10 @@ function authenticated (target, name, descriptor, options = {}) {
     accessTokenParamName = 'access_token',
     skipAccountLookup = false,
     secretOrPublicKey,
-    verifyOptions,
+    verifyOptions
+  } = options;
+
+  let {
     signInRoute
   } = options;
 
@@ -84,8 +87,9 @@ function authenticated (target, name, descriptor, options = {}) {
   target.prototype.actions = target.prototype.actions || {};
 
   // Define the error handling routine/action.
-  target.prototype.actions.error = function (reason) {
-    let errors = get (reason, 'errors');
+  target.prototype.actions.error = async function (reason) {
+
+    const errors = get (reason, 'errors');
 
     if (isEmpty (errors)) {
       return true;
@@ -97,16 +101,15 @@ function authenticated (target, name, descriptor, options = {}) {
       if (error.status === '403' && bearerErrorCodes.indexOf (error.code) !== -1) {
         // Redirect to sign in page, allowing the user to redirect back to the
         // original page. But, do not support the back button.
-        let ENV = getOwner (this).resolveRegistration ('config:environment');
-        let signInRoute = signInRoute || getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+        const ENV = getOwner (this).resolveRegistration ('config:environment');
+        signInRoute = signInRoute || getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
 
         // Display the error message.
         this.snackbar.show ({message: error.detail});
 
         // Force the user to sign out.
-        this.session.signOut (true).then (() => {
-          this.replaceWith (signInRoute);
-        });
+        await this.session.signOut (true);
+        this.replaceWith (signInRoute);
 
         return;
       }
