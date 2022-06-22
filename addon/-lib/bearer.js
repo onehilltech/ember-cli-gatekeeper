@@ -70,8 +70,6 @@ function bearer (target, name, descriptor, options = {}) {
 
   Object.defineProperty (target.prototype, 'headers', {
     get () {
-      console.log ('getting the headers');
-
       const  headers = { 'Cache-Control': 'private, max-age=0, no-cache, no-store' };
 
       const accessToken = scope === USER_SCOPE && this.session.isSignedIn ?
