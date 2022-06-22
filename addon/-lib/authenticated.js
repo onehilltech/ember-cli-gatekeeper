@@ -140,13 +140,6 @@ function authenticated (target, name, descriptor, options = {}) {
     return true;
   }
 
-  /**
-   * beforeModel
-   *
-   * We override the beforeModel() method to check if the user is authenticated before
-   * moving to the model() method. If the user is not authenticated, we redirect the
-   * user to the signInRoute, if applicable.
-   */
   override.async (target.prototype, 'beforeModel', async function (transition) {
     function routeToSignIn (route) {
       const ENV = getOwner (route).resolveRegistration ('config:environment');
