@@ -24,7 +24,8 @@ function authenticated (target, name, descriptor, options = {}) {
     accessTokenParamName = 'access_token',
     skipAccountLookup = false,
     secretOrPublicKey,
-    verifyOptions
+    verifyOptions,
+    signInAction = 'redirect'
   } = options;
 
   let {
@@ -84,11 +85,10 @@ function authenticated (target, name, descriptor, options = {}) {
   }
 
   // Make sure there is an actions object.
-  target.prototype.actions = target.prototype.actions || {};
+  target.actions = target.actions || {};
 
   // Define the error handling routine/action.
-  target.prototype.actions.error = async function (reason) {
-
+  target.actions.error = async function (reason) {
     const errors = get (reason, 'errors');
 
     if (isEmpty (errors)) {
@@ -96,32 +96,61 @@ function authenticated (target, name, descriptor, options = {}) {
     }
 
     for (let i = 0, len = errors.length; i < len; ++ i) {
-      let error = errors[i];
+      const { code, detail } = errors[i];
 
-      if (error.status === '403' && bearerErrorCodes.indexOf (error.code) !== -1) {
-        // Redirect to sign in page, allowing the user to redirect back to the
-        // original page. But, do not support the back button.
-        const ENV = getOwner (this).resolveRegistration ('config:environment');
-        signInRoute = signInRoute || getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
+      if (bearerErrorCodes.includes (code)) {
+        if (this.session.isSignedIn) {
+          // Redirect to sign in page, allowing the user to redirect back to the
+          // original page. But, do not support the back button. We aren't going
+          // to attempt to sign out the user from the current session.
 
-        // Display the error message.
-        this.snackbar.show ({message: error.detail});
+          const ENV = getOwner (this).resolveRegistration ('config:environment');
+          signInRoute = signInRoute || getWithDefault (ENV, 'gatekeeper.signInRoute', 'sign-in');
 
-        // Force the user to sign out.
-        await this.session.signOut (true);
-        this.replaceWith (signInRoute);
+          if (signInAction === 'redirect') {
+            // Show the error message, and then redirect to the sign in route.
 
-        return;
+            this.snackbar.show ({ message: detail });
+            this.replaceWith (signInRoute);
+          }
+          else if (signInAction === 'prompt') {
+            // Show the error message, and prompt the user to sign in.
+
+            this.snackbar.show ({ message: detail, action: { label: 'Sign in', click: () => this.replaceWith (signInRoute)}});
+          }
+          else {
+            // Let's just show the error message to the user, but we are not going
+            // to take any action at this point in time.
+
+            this.snackbar.show ({ message: detail });
+          }
+        }
+        else {
+          // We are just going to reset the gatekeeper client at this point in time
+          // It will force the client to reauthenticate itself.
+
+          this.session.gatekeeper.reset ();
+        }
+
+        // Let's break out of this for-loop.
+        break;
       }
     }
 
     return true;
   }
 
+  /**
+   * beforeModel
+   *
+   * We override the beforeModel() method to check if the user is authenticated before
+   * moving to the model() method. If the user is not authenticated, we redirect the
+   * user to the signInRoute, if applicable.
+   */
   override.async (target.prototype, 'beforeModel', async function (transition) {
     function routeToSignIn (route) {
-      let ENV = getOwner (route).resolveRegistration ('config:environment');
-      let signInRoute = signInRoute || get (ENV, 'gatekeeper.signInRoute');
+      const ENV = getOwner (route).resolveRegistration ('config:environment');
+      signInRoute = signInRoute || get (ENV, 'gatekeeper.signInRoute');
 
       if (isNone (signInRoute)) {
         return false;
@@ -130,8 +159,8 @@ function authenticated (target, name, descriptor, options = {}) {
       // Set the redirect to route so we can come back to this route when the
       // user has signed in.
       const { intent : { url }} = transition;
+      const options = { queryParams: { [redirectParamName]: encodeURI (url) } };
 
-      let options = { queryParams: { [redirectParamName]: encodeURI (url) } };
       route.replaceWith (signInRoute, options);
 
       return true;
@@ -151,7 +180,7 @@ function authenticated (target, name, descriptor, options = {}) {
       if (isSignedIn) {
         const authorized = isEmpty (scope) || this.session.accessToken.supports (scope);
 
-        if (!authorized && isPresent (target.prototype.actions.unauthorized)) {
+        if (!authorized && isPresent (target.actions.unauthorized)) {
           return transition.trigger ('unauthorized', transition);
         }
         else {

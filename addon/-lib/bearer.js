@@ -1,9 +1,40 @@
 import Mixin from '@ember/object/mixin';
 import { isNone } from '@ember/utils';
-import { reject } from 'rsvp';
 import decorator from '@onehilltech/decorator';
 
 const USER_SCOPE = 'user';
+
+function ajax (url, type, options) {
+  // We are going to intercept the original request before it goes out and
+  // replace the error handler with our error handler.
+
+  const ajax = this._super.bind (this);
+
+  return ajax (...arguments).catch (err => {
+    if (isNone (err.errors)) {
+      throw err;
+    }
+
+    const { errors: [{ code }] } = err;
+
+    if (code === 'invalid_token' || code === 'unknown_token' || code === 'token_expired' ) {
+      // Refresh the access token, and try the request again. If the request fails
+      // a second time, then return the original error.
+
+      // Should we try to authenticate the client with the same options
+      // contained in the token?!
+
+      const refreshPromise = this.session.isSignedIn ?
+        this.session.refresh () :
+        this.session.gatekeeper.authenticate ({}, true);
+
+      return refreshPromise.then (() => ajax (url, type, options));
+    }
+    else {
+      throw err;
+    }
+  });
+}
 
 /**
  * The ajax function used in the mixin and the override approach.
@@ -13,42 +44,6 @@ const USER_SCOPE = 'user';
  * @param options
  * @returns {*}
  */
-function ajax (url, type, options) {
-  // We are going to intercept the original request before it goes out and
-  // replace the error handler with our error handler.
-  const _ajax = this._super.bind (this);
-
-  return this._super (...arguments).catch (err => {
-    if (isNone (err.errors)) {
-      return reject (err);
-    }
-
-    const {errors: [{code, status}]} = err;
-
-    if (status !== '403' || code !== 'token_expired') {
-      return reject (err);
-    }
-
-    // Refresh the access token, and try the request again. If the request fails
-    // a second time, then return the original error.
-    let refreshToken = this.session.isSignedIn ?
-      this.session.refresh () :
-      this.session.gatekeeper.authenticate (true);
-
-    return refreshToken
-      .then (() => _ajax (url, type, options))
-      .catch (() => reject (err));
-  });
-}
-
-/**
- * @mixin BearerMixin
- *
- * The mixin for adding bearer authorization support to an REST adapter. We
- * use a mixin for the integration because the RESTAdapter still uses the
- * EmberObject under the hood.
- */
-
 // eslint-disable-next-line ember/no-new-mixins
 const BearerMixin = Mixin.create ({
   ajax
@@ -75,11 +70,11 @@ function bearer (target, name, descriptor, options = {}) {
 
   Object.defineProperty (target.prototype, 'headers', {
     get () {
-      let headers = {
-        'Cache-Control': 'private, max-age=0, no-cache, no-store'
-      };
+      console.log ('getting the headers');
 
-      let accessToken = scope === USER_SCOPE && this.session.isSignedIn ?
+      const  headers = { 'Cache-Control': 'private, max-age=0, no-cache, no-store' };
+
+      const accessToken = scope === USER_SCOPE && this.session.isSignedIn ?
         this.session.accessToken.toString () :
         this.session.gatekeeper.accessToken.toString ();
 
