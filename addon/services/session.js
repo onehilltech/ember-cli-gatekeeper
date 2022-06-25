@@ -260,10 +260,11 @@ export default class SessionService extends Service {
       verified = noOp,
       skipAccountLookup = false,
       secretOrPublicKey,
-      verifyOptions
+      verifyOptions,
+      verifyRemoteAsFallback = false,
     } = opts;
 
-    const result = await this.gatekeeper.verifyToken (accessToken, secretOrPublicKey, verifyOptions);
+    const result = await this.gatekeeper.verifyToken (accessToken, secretOrPublicKey, verifyOptions, verifyRemoteAsFallback);
 
     if (!result) {
       throw new Error ('We could not verify the access token');
