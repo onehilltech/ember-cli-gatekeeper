@@ -214,7 +214,7 @@ import { action } from '@ember/object';
 export default class SignUpController extends Controller {
   @action
   async createAccount () {
-    const account = this.get ('store').createRecord ('account', {username: this.username, password: this.password, email: this.email});
+    const account = this.store.createRecord ('account', {username: this.username, password: this.password, email: this.email});
     const adapterOptions = {signIn: true};
       
     await account.save ({adapterOptions});
