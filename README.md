@@ -78,7 +78,7 @@ import { authenticated } from 'ember-cli-gatekeeper';
 export default class CommentsRoute extends Route {
   async model () {
     // Get the user for the current session.
-    return this.get ('store').query ('comments', { user: this.session.currentUser.id });
+    return this.store.query ('comments', { user: this.session.currentUser.id });
   }
 };
 ```
