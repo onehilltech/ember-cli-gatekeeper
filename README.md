@@ -78,8 +78,7 @@ import { authenticated } from 'ember-cli-gatekeeper';
 export default class CommentsRoute extends Route {
   async model () {
     // Get the user for the current session.
-    let currentUser = this.get ('currentUser');
-    return this.get ('store').query ('comments', {user: user.id});
+    return this.get ('store').query ('comments', { user: this.currentUser.id });
   }
 };
 ```
@@ -180,8 +179,9 @@ import { action } from '@ember/object';
 
 export default class IndexController extends Controller {
   @action
-  signOut () {
-    this.session.signOut ().then (() => this.replaceRoute ('sign-in'));
+  async signOut () {
+    await this.session.signOut ();
+    this.replaceRoute ('sign-in');
   }
 }
 ```
