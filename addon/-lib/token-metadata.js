@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { alias, bool } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 import { A } from '@ember/array';
-import { some } from 'lodash-es';
+import { some } from 'lodash';
 
 export default EmberObject.extend ({
   audience: alias ('aud'),

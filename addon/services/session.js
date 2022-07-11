@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 import { action, computed, get, set } from '@ember/object';
 import { Promise } from 'rsvp';
 import { A } from '@ember/array';
-import { omit } from 'lodash-es';
+import { omit } from 'lodash';
 
 import AccessToken from "../-lib/access-token";
 import TempSession from '../-lib/temp-session';

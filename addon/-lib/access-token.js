@@ -1,7 +1,7 @@
 import { alias } from '@ember/object/computed';
 import { isPresent, isEmpty } from '@ember/utils';
 import { A } from '@ember/array';
-import { some } from 'lodash-es';
+import { some } from 'lodash';
 import { KJUR } from 'jsrsasign';
 
 export default class AccessToken {
