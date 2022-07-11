@@ -77,9 +77,8 @@ import { authenticated } from 'ember-cli-gatekeeper';
 @authenticated
 export default class CommentsRoute extends Route {
   async model () {
-    // Get the user for the current session.
-    let currentUser = this.get ('currentUser');
-    return this.get ('store').query ('comments', {user: user.id});
+    // Get all comments for the current user.
+    return this.store.query ('comment', { user: this.session.currentUser.id });
   }
 };
 ```
@@ -119,14 +118,14 @@ as normal.
 ## Signing in a user
 
 To sign in a user, you need a route with a form that collects the user's username
-and password. The Gatekeeper add-on provides a form that can be used to sign-in 
+and password. The Gatekeeper add-on provides a component/form that can be used to sign-in 
 a user.
 
 ```handlebars
-{{gatekeeper-sign-in}}
+<GatekeeperSignIn />
 ```
 
-This form needs to be added to your sign-in route. When the user has signed in 
+This component needs to be added to your sign-in route. When the user has signed in 
 successfully, the component will automatically route the user to either the
 start route defined in the configuration, or the route originally accessed when
 the user was not authenticated. 
@@ -160,7 +159,7 @@ in the default login form. Next, you replace the standard sign in component with
 reCAPTCHA sign in component.
 
 ```handlebars
-{{gatekeeper-sign-in-with-recaptcha recaptcha="v2"}}
+<GatekeeperSignInWithRecaptcha recaptcha="v2" />
 ```
 
 > Set `recaptcha="invisible"` to use invisible reCAPTCHA.
@@ -180,8 +179,9 @@ import { action } from '@ember/object';
 
 export default class IndexController extends Controller {
   @action
-  signOut () {
-    this.session.signOut ().then (() => this.replaceRoute ('sign-in'));
+  async signOut () {
+    await this.session.signOut ();
+    this.replaceRoute ('sign-in');
   }
 }
 ```
@@ -193,7 +193,7 @@ it in a similar manner as signing in a user. First, add the sign up form to the 
 signing up a user, and configure the form to your needs.
 
 ```handlebars
-{{gatekeeper-sign-up}}
+<GatekeeperSignUp />
 ```
 
 > The Gatekeeper add-on also has sign up components that supports reCAPTCHA.
@@ -213,16 +213,13 @@ import { action } from '@ember/object';
 
 export default class SignUpController extends Controller {
   @action
-  createAccount () {
-    let {email, username, password} = this.getProperties (['email', 'username', 'password']);
-    let account = this.get ('store').createRecord ('account', {username, password, email});
-    let adapterOptions = {signIn: true};
+  async createAccount () {
+    const account = this.store.createRecord ('account', {username: this.username, password: this.password, email: this.email});
+    const adapterOptions = {signIn: true};
       
-    account.save ({adapterOptions}).then (account => {
-      // You can transition to a protected application route
-    }).catch (reason => {
-      // Display error message to user
-    });
+    await account.save ({adapterOptions});
+
+    // You can transition to a protected application route
   }
 }
 ```
