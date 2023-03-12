@@ -112,7 +112,7 @@ export default class GatekeeperSignInComponent extends Component {
 
   @tracked
   passwordErrorMessage;
-  
+
   handleError (xhr) {
     let error = get (xhr, 'errors.0');
 
@@ -198,5 +198,19 @@ export default class GatekeeperSignInComponent extends Component {
 
   get forgotPasswordLabel () {
     return this.args.forgotPasswordLabel || 'Forgot password?';
+  }
+
+  @action
+  passwordInput () {
+    if (isPresent (this.passwordErrorMessage)) {
+      this.passwordErrorMessage = null;
+    }
+  }
+
+  @action
+  usernameInput () {
+    if (isPresent (this.usernameErrorMessage)) {
+      this.usernameErrorMessage = null;
+    }
   }
 }

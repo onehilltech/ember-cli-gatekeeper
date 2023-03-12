@@ -12,10 +12,11 @@
                     @leadingIconClick={{this.usernameLeadingIconClick}}
                     @trailingIcon={{@usernameTrailingIcon}}
                     @trailingIconClick={{this.usernameTrailingIconClick}}
-
                     @persistentHelperText={{@usernamePersistentHelperText}}
                     @helperText={{@usernameHelperText}}
-                    @errorMessage={{this.usernameErrorMessage}} />
+                    @errorMessage={{this.usernameErrorMessage}}
+        {{on "input" this.usernameInput}}
+      />
     </div>
 
 
@@ -29,7 +30,9 @@
                             @label={{unless @passwordPlaceholder this.passwordLabel}}
                             @leadingIcon={{@passwordLeadingIcon}}
                             @helperText={{@passwordHelperText}}
-                            @errorMessage={{this.passwordErrorMessage}} />
+                            @errorMessage={{this.passwordErrorMessage}}
+        {{on "input" this.passwordInput}}
+      />
     </div>
 
     {{#if @forgotPasswordRoute}}

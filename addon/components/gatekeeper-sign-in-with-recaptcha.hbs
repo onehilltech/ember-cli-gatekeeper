@@ -13,20 +13,25 @@
                     autocomplete={{this.usernameAutoComplete}}
                     @persistentHelperText={{@usernamePersistentHelperText}}
                     @helperText={{@usernameHelperText}}
-                    @errorMessage={{this.usernameErrorMessage}} />
+                    @errorMessage={{this.usernameErrorMessage}}
+        {{on "input" this.usernameInput}}
+      />
     </div>
 
 
     <div class="gatekeeper-sign-in__password">
-      <MdcPasswordTextfield @value={{this.password}}
-                            @style={{@style}}
-                            required={{true}}
-                            @label={{this.passwordLabel}}
-                            @leadingIcon={{@passwordLeadingIcon}}
-                            autocomplete="off"
-                            autocapitalize="off"
-                            @helperText={{@passwordHelperText}}
-                            @errorMessage={{this.passwordErrorMessage}}/>
+      <MdcPasswordTextfield
+          @value={{this.password}}
+          @style={{@style}}
+          required={{true}}
+          @label={{this.passwordLabel}}
+          @leadingIcon={{@passwordLeadingIcon}}
+          autocomplete="off"
+          autocapitalize="off"
+          @helperText={{@passwordHelperText}}
+          @errorMessage={{this.passwordErrorMessage}}
+        {{on "input" this.passwordInput}}
+      />
     </div>
 
     {{#if this.v2}}
