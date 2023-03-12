@@ -15,6 +15,8 @@ import { tracked } from "@glimmer/tracking";
 
 import { assert } from '@ember/debug';
 
+function noOp () {}
+
 /**
  * @class GatekeeperService
  *
@@ -111,6 +113,46 @@ export default class GatekeeperService extends Service {
 
     const token = await this._requestClientToken (opts);
     this._tokenString = token.access_token;
+
+    // Notify all observers that our token has changed.
+    this.notifyPropertyChange ('_tokenString');
+  }
+
+  /**
+   * Authenticate the client using the provided token.
+   *
+   * @param token
+   * @param opts
+   * @return {RSVP.Promise<void>}
+   */
+  async authenticateFrom (token, opts = {}) {
+    const {
+      verified = noOp,
+      secretOrPublicKey,
+      verifyOptions,
+      verifyRemoteAsFallback = false,
+      force = false,
+    } = opts;
+
+    if (this.isAuthenticated && !force) {
+      return;
+    }
+
+    const result = await this.verifyToken (token, secretOrPublicKey, verifyOptions, verifyRemoteAsFallback);
+
+    if (!result) {
+      throw new Error ('We could not verify the access token');
+    }
+
+    // Let's unauthenticate the current client so we can replace the previous client
+    // token when the new client token.
+    await this.unauthenticate ();
+
+    const accessToken = AccessToken.fromString (token);
+    await verified (accessToken);
+
+    // Replace the old token with this new token.
+    this._tokenString = token;
 
     // Notify all observers that our token has changed.
     this.notifyPropertyChange ('_tokenString');
