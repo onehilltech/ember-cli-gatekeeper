@@ -8,11 +8,11 @@ module.exports = Blueprint.extend ({
     {name: 'ember-api-actions', target: '^0.2.8'},
     {name: 'ember-blueprint-data'},
     {name: 'ember-cli-google-recaptcha', target: '^2.3.1'},
-    {name: 'ember-data-model-fragments', target: '^5.0.0-beta.1' },
-    {name: 'ember-cli-mdc-form', target: '^2.0.0'},
-    {name: 'ember-cli-mdc-textfield', target: '^2.0.0'},
-    {name: 'ember-cli-mdc-button', target: '^2.0.0'},
-    {name: 'ember-cli-mdc-snackbar', target: '^2.0.0'},
-    {name: 'ember-cli-mdc-checkbox', target: '^2.0.0'}
+    {name: 'ember-data-model-fragments', target: '^6.0.0' },
+    {name: 'ember-cli-mdc-form', target: '^3.0.0'},
+    {name: 'ember-cli-mdc-textfield', target: '^3.0.0'},
+    {name: 'ember-cli-mdc-button', target: '^3.0.0'},
+    {name: 'ember-cli-mdc-snackbar', target: '^3.0.0'},
+    {name: 'ember-cli-mdc-checkbox', target: '^3.0.0'}
   ]
 });
