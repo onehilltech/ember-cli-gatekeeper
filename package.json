@@ -76,7 +76,7 @@
     "ember-cli-mdc-sass": "^3.0.8",
     "ember-cli-mdc-shape": "^3.0.8",
     "ember-cli-mdc-snackbar": "^3.0.8",
-    "ember-cli-mdc-textfield": "^3.0.8",
+    "ember-cli-mdc-textfield": "^3.0.9",
     "ember-cli-mdc-theme": "^3.0.8",
     "ember-cli-mdc-typography": "^3.0.8",
     "ember-cli-sri": "^2.1.1",
