@@ -1,5 +1,3 @@
-import { getWithDefault } from '@ember/object';
-
 export default class Configurator {
 
 }
@@ -24,7 +22,9 @@ export class DefaultConfigurator extends Configurator {
   }
 
   get storageLocation () {
-    return getWithDefault (this.config, 'storage', 'local');
+    const { storage = 'local' } = this.config;
+
+    return storage;
   }
 
   get secretOrPublicKey () {

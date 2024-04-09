@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 
-import { get, getWithDefault, set } from '@ember/object';
+import { get, set } from '@ember/object';
 import { isPresent, isNone } from '@ember/utils';
 import { getOwner } from '@ember/application';
 import { Promise, reject } from 'rsvp';
@@ -44,8 +44,8 @@ export default class GatekeeperService extends Service {
    * @returns {DefaultConfigurator}
    */
   get defaultConfigurator () {
-    let ENV = getOwner (this).resolveRegistration ('config:environment');
-    let config = getWithDefault (ENV, 'gatekeeper', {});
+    const ENV = getOwner (this).resolveRegistration ('config:environment');
+    const config = ENV.gatekeeper || {};
 
     return new DefaultConfigurator (config);
   }
@@ -346,7 +346,7 @@ export default class GatekeeperService extends Service {
       // There is no redirect url. So, we either transition to the default route, or we
       // transition to the index.
       let ENV = getOwner (this).resolveRegistration ('config:environment');
-      redirectTo = getWithDefault (ENV, 'gatekeeper.startRoute', 'index');
+      redirectTo = get (ENV, 'gatekeeper.startRoute') || 'index';
     }
 
     this.router.replaceWith (redirectTo);
