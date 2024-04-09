@@ -6,6 +6,13 @@ EmberJS add-on for [blueprint-gatekeeper](https://github.com/onehilltech/bluepri
 [![npm version](https://img.shields.io/npm/v/ember-cli-gatekeeper.svg?maxAge=2592000)](https://www.npmjs.com/package/ember-cli-gatekeeper)
 [![Dependencies](https://david-dm.org/onehilltech/ember-cli-gatekeeper.svg)](https://david-dm.org/onehilltech/ember-cli-gatekeeper)
 
+
+## Compatibility
+
+* Ember.js v4.4 or above
+* Ember CLI v4.4 or above
+* Node.js v14 or above
+
 Installation
 --------------
 
@@ -92,6 +99,7 @@ service is injected into all routes. This service can be used to access the
 > When this route is accessed and the user is not signed in, the user will
 > be transitioned to the `sign-in` route (see [Configuration](#defining-the-configuration)). After
 > the user signs in, the user will be transitioned back to the original route.
+
 
 ## Making authorized requests
 

@@ -2,26 +2,22 @@
 'use strict';
 
 module.exports = function (environment) {
-  let ENV = {
+  const ENV = {
     modulePrefix: 'dummy',
     environment,
     rootURL: '/',
-    locationType: 'auto',
+    locationType: 'history',
     EmberENV: {
+      EXTEND_PROTOTYPES: false,
       FEATURES: {
 
       },
-      EXTEND_PROTOTYPES: {
-        // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-
     gatekeeper: {
       tokenOptions: {
         client_id: 'dummy',
