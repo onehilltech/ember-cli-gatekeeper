@@ -1,7 +1,8 @@
 import RESTAdapter from '@ember-data/adapter/rest';
 
 import { isPresent, isEmpty } from '@ember/utils';
-import { getWithDefault } from '@ember/object';
+import { service } from '@ember/service';
+
 import bearer from '../-lib/bearer';
 
 /**
@@ -11,6 +12,9 @@ import bearer from '../-lib/bearer';
  */
 @bearer
 export default class AccountRESTAdapter extends RESTAdapter {
+  @service
+  session;
+
   get host () {
     return this.session.gatekeeper.baseUrl;
   }
@@ -46,7 +50,7 @@ export default class AccountRESTAdapter extends RESTAdapter {
 
   urlForCreateRecord (modelName, snapshot) {
     let url = super.urlForCreateRecord (...arguments);
-    let signIn = getWithDefault (snapshot, 'adapterOptions.signIn', false);
+    const { signIn = false } = snapshot.adapterOptions || {};
 
     if (signIn) {
       url += '?login=true';
